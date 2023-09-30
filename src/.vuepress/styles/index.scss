@@ -1,0 +1,87 @@
+.vp-hero-info-wrapper {
+  margin-top: 2rem!important;
+}
+
+.api-page {
+  .vp-feature-header {
+    margin-top: 1rem;
+  }
+  .vp-feature-header, 
+  .vp-feature-description {
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+  .vp-feature-item {
+    border: 1px solid var(--border-color);
+  }
+  .font-icon {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  @media (min-width: 1440px) {
+    .vp-feature-item {
+      flex-basis: calc(25% - 3.2rem);
+    }
+  }
+  .vp-feature-details {
+    line-height: 1.5rem;
+  }
+}
+
+.mermaid-wrapper {
+  border-radius: 8px;
+  border: 1px dashed var(--border-color);
+}
+
+.vp-sidebar {
+  border-right: 1px solid var(--border-color);
+}
+
+.app-navbar {
+  --vp-screen-max-width: 1376px;
+
+  z-index: 175;
+  position: fixed;
+  inset: 0 0 auto;
+  overflow: visible;
+  background: var(--navbar-bg-color);
+  line-height: var(--navbar-line-height);
+  backdrop-filter: saturate(150%) blur(12px);
+  padding: 0 var(--navbar-horizontal-padding);
+  border-bottom: 1px solid var(--border-color);
+  transition: transform ease-in-out 0.3s, background var(--color-transition), box-shadow var(--color-transition);
+
+
+  @media print {
+    display: none;
+  }
+
+  .app-container {
+    margin: 0 auto;
+    overflow: visible;
+    max-width: var(--vp-screen-max-width);
+  }
+
+  .vp-navbar {
+    inset: 0;
+    padding: 0;
+    transition: none;
+    box-shadow: none;
+    overflow: visible;
+    position: relative;
+    backdrop-filter: none;
+
+    .vp-site-name {
+      font-size: 1.5rem;
+      font-weight: bolder;
+    }
+
+    .nav-item {
+      margin: 0 0.75rem;
+    }
+  }
+}
+
+code {
+  color: #ca473f;
+}
