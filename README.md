@@ -1,2 +1,2 @@
 # docs
-The StoneJS documentation
+The StoneJS Official documentation

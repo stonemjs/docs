@@ -1,1 +1,46 @@
 // place your custom styles here
+.vp-sidebar {
+  border-right: 1px solid #eaecef;
+}
+
+.app-navbar {
+  --vp-screen-max-width: 1376px;
+
+  z-index: 175;
+  position: fixed;
+  inset: 0 0 auto;
+  overflow: visible;
+  background: var(--navbar-bg-color);
+  border-bottom: 1px solid #eaecef;
+  line-height: var(--navbar-line-height);
+  // box-shadow: 0 2px 8px var(--card-shadow);
+  padding: 0 var(--navbar-horizontal-padding);
+  transition: transform ease-in-out 0.3s, background var(--color-transition), box-shadow var(--color-transition);
+
+  backdrop-filter: saturate(150%) blur(12px);
+
+  @media print {
+    display: none;
+  }
+
+  .app-container {
+    margin: 0 auto;
+    overflow: visible;
+    max-width: var(--vp-screen-max-width);
+  }
+
+  .vp-navbar {
+    inset: 0;
+    padding: 0;
+    overflow: visible;
+    position: relative;
+    transition: none;
+    box-shadow: none;
+    backdrop-filter: none;
+
+    .vp-site-name {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+  }
+}
