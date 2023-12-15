@@ -1,8 +1,6 @@
 ---
-title: Installation
-order: 1
-tag:
-  - Guide
+title: Middleware
+order: 6
 ---
 
 Content before `more` comment is regarded as page excerpt.

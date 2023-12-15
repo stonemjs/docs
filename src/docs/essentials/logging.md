@@ -1,8 +1,8 @@
 ---
-title: Installation
-order: 1
+title: Logging
+order: 3
 tag:
-  - Guide
+  - Essentials
 ---
 
 Content before `more` comment is regarded as page excerpt.

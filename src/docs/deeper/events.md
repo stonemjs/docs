@@ -1,8 +1,6 @@
 ---
-title: Installation
+title: Events
 order: 1
-tag:
-  - Guide
 ---
 
 Content before `more` comment is regarded as page excerpt.

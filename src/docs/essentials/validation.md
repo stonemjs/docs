@@ -1,8 +1,8 @@
 ---
-title: Installation
+title: Validation
 order: 1
 tag:
-  - Guide
+  - Essentials
 ---
 
 Content before `more` comment is regarded as page excerpt.

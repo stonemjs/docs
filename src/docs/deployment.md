@@ -1,26 +1,8 @@
 ---
-title: Disabling layout and features
-icon: gears
-order: 3
-category:
-  - Guide
+title: Deployment
+order: 4
 tag:
-  - disable
-
-navbar: false
-sidebar: false
-
-breadcrumb: false
-pageInfo: false
-contributors: false
-editLink: false
-lastUpdated: false
-prev: false
-next: false
-comment: false
-footer: false
-
-backtotop: false
+  - Guide
 ---
 
 You can disable some function and layout on the page by setting the Frontmatter of the page.

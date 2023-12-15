@@ -1,8 +1,5 @@
 ---
-title: Installation
-order: 1
-tag:
-  - Guide
+title: SQL
 ---
 
 Content before `more` comment is regarded as page excerpt.

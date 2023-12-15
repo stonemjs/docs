@@ -1,9 +1,8 @@
 ---
-icon: lock
-category:
-  - Guide
+title: Cloud native
+order: 5
 tag:
-  - encryption
+  - Guide
 ---
 
 # Encryption Article

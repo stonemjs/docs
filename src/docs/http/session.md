@@ -1,8 +1,6 @@
 ---
-title: Installation
-order: 1
-tag:
-  - Guide
+title: Session
+order: 9
 ---
 
 Content before `more` comment is regarded as page excerpt.

@@ -1,8 +1,6 @@
 ---
-title: Installation
-order: 1
-tag:
-  - Guide
+title: Cookies
+order: 8
 ---
 
 Content before `more` comment is regarded as page excerpt.

@@ -1,8 +1,6 @@
 ---
-title: Installation
-order: 1
-tag:
-  - Guide
+title: HTTP client
+order: 5
 ---
 
 Content before `more` comment is regarded as page excerpt.

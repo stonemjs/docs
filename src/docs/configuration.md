@@ -1,9 +1,8 @@
 ---
-icon: lock
-category:
-  - Guide
+title: Configuration
+order: 3
 tag:
-  - encryption
+  - Guide
 ---
 
 # Encryption Article

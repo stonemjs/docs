@@ -1,8 +1,8 @@
 ---
-title: Installation
-order: 1
+title: Service Providers
+order: 4
 tag:
-  - Guide
+  - Architecture
 ---
 
 Content before `more` comment is regarded as page excerpt.

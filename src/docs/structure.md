@@ -1,11 +1,8 @@
 ---
-title: Markdown Enhance
-icon: fab fa-markdown
+title: Project Structure
 order: 2
-category:
-  - Guide
 tag:
-  - Markdown
+  - Guide
 ---
 
 VuePress basically generate pages from Markdown files. So you can use it to generate documentation or blog sites easily.

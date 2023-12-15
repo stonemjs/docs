@@ -1,8 +1,5 @@
 ---
-title: Installation
-order: 1
-tag:
-  - Guide
+title: Rate Limiting
 ---
 
 Content before `more` comment is regarded as page excerpt.

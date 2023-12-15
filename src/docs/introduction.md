@@ -1,13 +1,20 @@
 ---
-title: Installation
-order: 1
+title: Introduction
+index: false
 tag:
   - Guide
 ---
 
-Content before `more` comment is regarded as page excerpt.
+## Catalog
 
-<!-- more -->
+- [Markdown Enhance](markdown.md)
+
+- [Page Config](page.md)
+
+- [Function Disable](disable.md)
+
+- [Encryption Demo](encrypt.md)
+
 
 ## Page Information
 
@@ -49,3 +56,4 @@ This page should contain:
 - Back to top button
 
 You can customize them in theme options and page frontmatter.
+
