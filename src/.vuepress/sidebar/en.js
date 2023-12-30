@@ -23,6 +23,7 @@ export const enSidebar = sidebar({
       link: 'architecture/',
       children: [
         'adapters',
+        'context',
         'kernel',
         'container',
         'providers',

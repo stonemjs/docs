@@ -4,9 +4,10 @@ title: Adapters
 
 ## Introduction
 
-L'apdateur est la pièce maitresse qui permet à une application Stone.js d'être indépendante de la plate-forme. On entend par indépendant de la plate-forme, la capacité d'une même et seule application à s'executer sur differentes plateformes(node.js, navigateur, Cloud FAAS, Worker).
+L'apdateur est la composante magique qui permet à Stone.js d'être indépendant des plate-formes. On entend par indépendant des plate-formes, la capacité d'une même et seule application à s'executer sur differentes plate-formes(node.js, navigateur, Cloud FAAS, Worker, etc.) sans aucune implementation specifique à chaque plate-forme. 
+Assez parlé, plongeons dans le vif du sujet à travers de simples examples.
 
-Etablissons la difference via un simple exemple d'application HTTP **Hello world** sans Stone.js.
+**Exemple d'une application HTTP *Hello world* sans Stone.js:**
 
 ``` js
 // Un exemple avec node.js
@@ -30,7 +31,10 @@ export const handler = (event, context) => {
 }
 ```
 
-La même application avec Stone.js ou la plateforme est determinée au moment de l'execution.
+Comme vous le voyez, il va vous falloir deux implementations differentes afin d'executer la meme application sur deux plate-formes differentes. 
+Maintenant voyons voir ce que ca donne avec Stone.js où la plateforme est determinée au moment de l'execution
+
+**Exemple d'une application HTTP *Hello world* avec Stone.js:**
 
 ``` js
 import { JsonResponse } from '@stone-js/http'
@@ -44,7 +48,10 @@ export const app = process.env.AWS_LAMBDA_RUNTIME_API
   : NodeHTTPAdapter.createAndRun(appModule)
 ```
 
-<hr class="my-hr" />
+Comme vous pouvez le voir `appModule` represente votre application qui est une fonction et peut aussi être une classe ou une grosse application,
+Ensuite on se base sur une variable AWS Lambda `AWS_LAMBDA_RUNTIME_API` afin de detecter la plate-forme, enfin on utilise les adapteurs appropriés,
+en l'occurence `AWSLambdaHTTPAdapter` pour les fonctions AWS Lambda et `NodeHTTPAdapter` pour un serveur node.js.
+Tout ça pour dire qu'avec de simple adapter le deploiement d'une application Stone.js sur differentes plate-formes reste infini.
 
 ## Installation
 
@@ -76,8 +83,6 @@ pnpm add @stone-js/adapters
 
 :::
 
-<hr class="my-hr" />
-
 ## Comment ca marche?
 
 Il est toujours interessant de comprendre le fonctionnement d'un outils afin de bien l'utiliser.
@@ -88,18 +93,19 @@ Chaque adapteur est composé d'une classe qui est l'adapteur lui meme, d'un mapp
 
 ### Adapteur
 
-La classe representant l'adapteur créée le contexte d'execution, fait le mapping des entrées,
-execute l'application, fait le mapping des sorties et retourne la réponse.
+La classe representant l'adapteur créee le contexte d'execution, fait la conversion des entrées quand c'est nécessaire,
+execute l'application, fait la conversion des sorties quand c'est nécessaire et retourne la réponse.
+La seule chose qu'il faut retenir ici, c'est que la veritable fonction d'un adapteur c'est de créer le contexte d'execution et d'executer l'application dans ce contexte.
 
-Exemple d'un simple adapter http de node.js qui lance le serveur node.js recoit une requete, execute l'application et retourne une reponse.
+Exemple d'un simple adapter HTTP de node.js qui lance le serveur node.js recoit une requete, execute l'application et retourne la reponse.
 
 ```js
 export class NodeHTTPAdapter extends Adapter {
   run () {
-    http.createServer((req, res) => {
+    http.createServer((req, res) => { // Le contexte d'execution
       const mapper   = NodeHTTPMapper.create(this.context.container)
       const request  = await mapper.request({ req })
-      const response = await this.context.run(request)
+      const response = await this.context.run(request) // Execute l'application
       const nodeRes  = await mapper.response({ req, res, request, response })
       
       await nodeRes.send()
@@ -116,10 +122,10 @@ et les sorties Stone.js en sorties des differentes plate-formes.
 
 Le mapper utilise un [Pipeline](https://www.npmjs.com/package/@stone-js/pipeline) 
 qui implemente le patron [Chaîne de responsabilité](https://refactoring.guru/design-patterns/chain-of-responsibility)
-afin de faire la conversion des entrées et sorties
+afin de faire la conversion des entrées et sorties.
 
-Exemple d'un simple mapper http qui utilise des pipes afin de faire les conversions de données.
-bien sur l vrai mapper est un peu plus complexe.
+Exemple d'un simple mapper http qui utilise des pipes afin de faire les conversions des données.
+Evidemment, le vrai mapper est un peu plus complexe.
 
 ```js
 // Exemple d'un squelette mapper HTTP
@@ -145,24 +151,27 @@ export class HTTPMapper {
       .then((v) => v.res)
   }
 }
-
 ```
+
+::: info
+Les mappers sont très génériques, donc reutilisable, il est donc conseiller d'utiliser nos mappers lorsque vous créez un nouvel adapteur, 
+et d'en créer un nouveau quand c'est vraiment necessaire.
+:::
 
 ### Les Pipes
 
-Les pipes servent à decomposer le travail de conversion des entrées et sorties 
-et fonctionnent comme les middlewares dans certains cadre de travail.
+Les pipes servent à décomposer le travail des mappers à savoir la conversion des entrées et sorties, 
+ils fonctionnent comme les middlewares dans certains cadre de travail.
 
-Exemple d'une simple pipe qui permet de recuperer l'addresse IP de l'utilisateur depuis node.js, 
-bien sur la vraie pipe est beaucoup plus complexe.
+Une Pipe prend en parametre le contexte des entrées ou sorties à travers l'objet `passable`, elle fait son traitement sur les données 
+et fait appel à la prochaine pipe en invoquant et retournant la methode `next` avec le passable comme parametre.
+
+Exemple d'une simple pipe qui permet de recuperer l'addresse IP de l'utilisateur depuis node.js. 
+Evidemment la vraie pipe est beaucoup plus complexe.
 
 ```js
 
 export class IpPipe {
-  constructor (container) {
-    // Le conteneur de service
-  }
-
   handler (passable, next) {
     const proxiedIp = passable.req.headers['x-forwarded-for']?.split(',').shift()
     passable.request.ip = proxiedIp || passable.req.socket?.remoteAddress
@@ -172,9 +181,15 @@ export class IpPipe {
 }
 ```
 
-<hr class="my-hr" />
+### Résumé
 
-## Liste des adapteurs disponible
+La seule chose qu'il faut retenir c'est que:
+- les adapteurs créent le contexte d'execution et execute l'application dans ce contexte
+- les mappers font la conversion des entrées et sorties en utilisant des pipes
+- les pipes permettent de decomposer le travail de conversion des mappers
+
+
+## Liste des adapteurs disponibles
 
 Voici la liste des adapteurs disponibles pour le moment, ainsi que leurs fonctions:
 
@@ -183,17 +198,18 @@ Voici la liste des adapteurs disponibles pour le moment, ainsi que leurs fonctio
 - [AWSLambdaHTTPAdapter](#awslambdahttpadapter)
 - [AWSLambdaEventAdapter](#awslambdaeventadapter)
 - [NodeConsoleAdapter](#nodeconsoleadapter)
-- [NodeWebSocketAdapter](#nodewebsocketadapter)
+- [NodeWebSocketServerAdapter](#nodewebsocketserveradapter)
+- [AWSWebSocketServerAdapter](#awswebsocketserveradapter)
 
 ### Adapter
 
-L'adapteur generique servant de base aux autres adapteurs, 
-tous les adapteurs heritent ce dernier et si vous comptez creer un adapteur personalisé il doit heriter ce dernier.
+C'est l'adapteur générique et par défaut, tous les autres adapteurs heritent de ce dernier 
+et si vous comptez créer un adapteur personalisé il doit heriter de ce dernier.
 
-Cet adapteur peut être utilisé afin d'executer une application Stone.js necessitant aucune entrée et sortie 
-et d'un contexte spécifique.
+La particularité de cet adapteur c'est qu'il est très simple et n'est couplé a aucune plate-forme contrairement aux autres,
+tout ca pour dire qu'il ne fait aucune conversion d'entree et sorties et ne possede pas un contexte spécifique.
 
-Il peut etre utilise afin de créer une simple application pouvant s'executer sur le navigateur.
+Il peut être utilisé afin d'executer une application Stone.js sur le navigateur web, dans un web worker ou service worker.
 
 ``` js
 import { Adapter } from '@stone-js/adapters'
@@ -206,19 +222,154 @@ export const app = Adapter.createAndRun(appModule)
 
 ### NodeHTTPAdapter
 
+Cet adapteur permet d'executer une application HTTP sur un serveur node.js.
+
+``` js
+import { JsonResponse } from '@stone-js/http'
+import { NodeHTTPAdapter } from '@stone-js/adapters'
+
+// Votre application
+class AppModule {
+  constructor (container) {}
+
+  run ({ request }) {
+    if (request.pathname === '/hello-world') {
+      return JsonResponse.create('Hello world(Node.js)!')
+    }
+
+    return JsonResponse.create('Not Found!', 404)
+  }
+}
+
+export const app = NodeHTTPAdapter.createAndRun(AppModule)
+```
+
 ### AWSLambdaHTTPAdapter
+
+Cet adapteur permet d'executer une application HTTP dans une fonction AWS Lambda.
+
+``` js
+import { JsonResponse } from '@stone-js/http'
+import { AWSLambdaHTTPAdapter } from '@stone-js/adapters'
+
+// Votre application
+class AppModule {
+  constructor (container) {}
+
+  run ({ request }) {
+    if (request.pathname === '/hello-world') {
+      return JsonResponse.create('Hello world(AWS Lambda)!')
+    }
+
+    return JsonResponse.create('Not Found!', 404)
+  }
+}
+
+export const app = AWSLambdaHTTPAdapter.createAndRun(AppModule)
+```
 
 ### AWSLambdaEventAdapter
 
+Cet adapteur permet d'executer une application quelconque dans une fonction AWS Lambda.
+
+``` js
+import { AWSLambdaEventAdapter } from '@stone-js/adapters'
+
+// Votre application d'authentification
+class AppModule {
+  constructor (container) {}
+
+  run ({ event, context }) {
+    const payload = JSON.parse(event.body)
+
+    if (payload.email === 'dummy-email' && payload.password === 'dummy-password') {
+      return {
+        body: JSON.stringify({ access_token: 'dummy-token' })
+      }
+    }
+
+    return { statusCode: 401 }
+  }
+}
+
+export const app = AWSLambdaEventAdapter.createAndRun(AppModule)
+```
+
 ### NodeConsoleAdapter
 
-### NodeWebSocketAdapter
+Cet adapteur permet d'executer une application quelconque en mode console avec node.js
 
-<hr class="my-hr" />
+``` js
+import { NodeConsoleAdapter } from '@stone-js/adapters'
+
+// Votre application
+class AppModule {
+  constructor (container) {}
+
+  run ({ command, arguments, options }) {
+    if (['hello', 'world'].includes(command)) {
+      console.log('Hello world ', arguments.join(', '))
+    }
+
+    throw new RuntimeException('Invalid command')
+  }
+}
+
+export const app = NodeConsoleAdapter.createAndRun(AppModule)
+```
+
+### NodeWebSocketServerAdapter
+
+Cet adapteur permet d'executer une application quelconque dans un contexte de serveur websocket node.js.
+
+``` js
+import { NodeWebSocketServerAdapter } from '@stone-js/adapters'
+
+// Votre application
+class AppModule {
+  constructor (container) {}
+
+  run ({ request }) {
+    if (request.event === 'connection') {
+      return JSON.stringify({ token: 'dummy-token' })
+    } else if (request.event === 'message') {
+      if (request.pathname === 'hello-world') {
+        return 'Hello world'
+      }
+    }
+  }
+}
+
+export const app = NodeWebSocketServerAdapter.createAndRun(AppModule)
+```
+
+### AWSWebSocketServerAdapter
+
+Cet adapteur permet d'executer une application quelconque dans un contexte d'API AWS websocket.
+
+``` js
+import { AWSWebSocketServerAdapter } from '@stone-js/adapters'
+
+// Votre application
+class AppModule {
+  constructor (container) {}
+
+  run ({ request }) {
+    if (request.event === 'connection') {
+      return JSON.stringify({ token: 'dummy-token' })
+    } else if (request.event === 'message') {
+      if (request.pathname === 'hello-world') {
+        return 'Hello world'
+      }
+    }
+  }
+}
+
+export const app = AWSWebSocketServerAdapter.createAndRun(AppModule)
+```
+
 
 ## Configuration
-
-<hr class="my-hr" />
 
 ## Adapteur personnalisé
 
@@ -245,3 +396,6 @@ Exemple d'adapteur comme source d'inspiration: [Adapteurs](https://github.com/st
 :::
 
 ### Pipes
+
+
+## Bundle, threeshaking et minify

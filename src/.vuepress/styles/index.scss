@@ -1,10 +1,18 @@
 // place your custom styles here
 h2 {
   border-bottom: 0 none;
+  &::before {
+    content: "";
+    display: block;
+    margin-top: 2rem;
+    padding-top: 1.8rem;
+    border-top: 1px solid var(--border-color);
+  }
 }
-
-hr.my-hr {
-  margin-top: 3.5rem;
+.theme-hope-content:not(.custom) h2:first-child {
+  &::before {
+    display: none;
+  }
 }
 
 .vp-sidebar {
@@ -62,3 +70,4 @@ hr.my-hr {
     margin-bottom: 2rem;
   }
 }
+
