@@ -1,4 +1,12 @@
 // place your custom styles here
+h2 {
+  border-bottom: 0 none;
+}
+
+hr.my-hr {
+  margin-top: 3.5rem;
+}
+
 .vp-sidebar {
   border-right: 1px solid #eaecef;
 }
@@ -42,5 +50,15 @@
       font-size: 1.5rem;
       font-weight: bold;
     }
+
+    .nav-item {
+      margin: 0 0.75rem;
+    }
+  }
+}
+
+.vp-page-title {
+  &, h1 {
+    margin-bottom: 2rem;
   }
 }

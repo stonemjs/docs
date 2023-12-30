@@ -1,6 +1,5 @@
 ---
 home: true
-icon: home
 title: Home
 heroImage: /logo.svg
 bgImage: https://theme-hope-assets.vuejs.press/bg/6-light.svg

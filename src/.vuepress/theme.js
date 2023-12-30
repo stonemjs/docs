@@ -8,6 +8,7 @@ export default hopeTheme({
   hostname: "https://stonejs.com",
   iconAssets: "fontawesome-with-brands",
   repo: "https://github.com/stonemjs/docs",
+  pageInfo: false,
   
   author: {
     name: "Mr. Stone",
@@ -42,6 +43,12 @@ export default hopeTheme({
   },
 
   plugins: {
+    // https://theme-hope.vuejs.press/guide/interface/code-theme.html#with-prism-js-highlighter
+    prismjs: {
+      light: 'one-dark',
+      dark: 'one-dark',
+    },
+
     // All features are enabled for demo, only preserve features you need here
     mdEnhance: {
       align: true,
