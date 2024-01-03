@@ -1,59 +1,30 @@
 ---
-title: Architecture
-index: false
-tag:
-  - Architecture
+title: Core Concepts
 ---
 
-## Catalog
+## Introduction
 
-- [Markdown Enhance](markdown.md)
+Il est toujours interessant de comprendre le fonctionnement d'un outils afin de bien l'utiliser.
+Le but de cette section est de presenter les concepts de base de Stone.js, son architecture et son mode de fonctionnement 
+afin d'etre confortable et confiant à l'utiliser.
 
-- [Page Config](page.md)
+Stone.js est un micro-framework permettant de developper des applications javascript en toute aisance, 
+tout en profitant du jus syntaxique des dernieres versions du langage.
 
-- [Function Disable](disable.md)
+On entend par micro-framework, un framework ou les fonctionnalités de base pour construire un projet sont fournies 
+et que toutes autres fonctionnalités peuvent être ajoutées au fur et à mesure et ceci à n'importe quel moment durant le processus de developpement. 
+Ce qui vous donne, la flexibilité, le choix d'integrer uniquement les modules qui seront utilisés afin de reduire grandement le poid du bundle de production, 
+et la liberté sur la facon d'ecrire et d'organiser votre code.
 
-- [Encryption Demo](encrypt.md)
+## Architecture
 
+Stone.js suit une architecture en couche ou l'adapteur est la couche la plus basse, ensuite vient le contexte, après le noyau et enfin votre application. 
 
-## Page Information
+**Note:** Le noyau avec lequel votre application sera executée depend grandement de l'adapteur utilisé.
 
-You can set page information in Markdown's Frontmatter.
+## Principales composantes
 
-- The author is Ms.Hope.
-- The writing date is January 1, 2020
-- Category is "Guide"
-- Tags are "Page Config" and "Guide"
-
-## Page Content
-
-You are free to write your Markdown here.
-
-::: tip Assets
-
-- You can place images besides your Markdown files, but you should use **relative links** (i.e.: starting with `./`) for them.
-
-- For images in `.vuepress/public` directory, please use absolute links (i.e.: starting with `/`) for them.
-
-:::
-
-The theme contains a custom badge:
-
-> A dark blue badge text badge at the end of line. <Badge text="Badge text" color="#242378" />
-
-## Page Structure
-
-This page should contain:
-
-- [BreadCrumb](https://theme-hope.vuejs.press/guide/layout/breadcrumb.html)
-- [Title and information](https://theme-hope.vuejs.press/guide/feature/page-info.html)
-- [TOC (Table of Contents)](https://theme-hope.vuejs.press/guide/layout/page.html#header-list)
-- [Meta information including update time and contributors](https://theme-hope.vuejs.press/guide/feature/meta.html)
-- [Comments](https://theme-hope.vuejs.press/guide/feature/comment.html)
-- [Navbar](https://theme-hope.vuejs.press/guide/layout/navbar.html)
-- [Sidebar](https://theme-hope.vuejs.press/guide/layout/sidebar.html)
-- [Footer](https://theme-hope.vuejs.press/guide/layout/footer.html)
-- Back to top button
-
-You can customize them in theme options and page frontmatter.
+Etant un micro cadre de travail on peut fiare differents types de developpement avec Stone.js:
+- Microservices
+- API
 

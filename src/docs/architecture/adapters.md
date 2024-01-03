@@ -5,7 +5,7 @@ title: Adapters
 ## Introduction
 
 L'apdateur est la composante magique qui permet à Stone.js d'être indépendant des plate-formes. On entend par indépendant des plate-formes, la capacité d'une même et seule application à s'executer sur differentes plate-formes(node.js, navigateur, Cloud FAAS, Worker, etc.) sans aucune implementation specifique aux plate-formes. 
-Sans plus tardé, plongeons dans le vif du sujet à travers de simples examples.
+Et si on voyait ça de plus près à travers de simples examples.
 
 Exemple d'une application HTTP **Hello world** sans Stone.js:
 
@@ -50,7 +50,7 @@ export const app = Env.get('APP_DEFAULT_ADAPTER', 'node') === 'aws_lambda'
 ```
 
 Comme vous pouvez le voir `appModule` represente votre application qui est une fonction et peut aussi être une classe ou une grosse application avec des routes, des modeles, etc..
-Ensuite on se base sur une variable AWS Lambda `AWS_LAMBDA_RUNTIME_API` afin de detecter la plate-forme, enfin on utilise les adapteurs appropriés,
+Ensuite on se base sur la variable environnementale `APP_DEFAULT_ADAPTER` afin de detecter la plate-forme, enfin on utilise les adapteurs appropriés,
 en l'occurence `AWSLambdaHTTPAdapter` pour les fonctions AWS Lambda et `NodeHTTPAdapter` pour un serveur node.js.
 Tout ça pour dire qu'avec de simple adapter le deploiement d'une application Stone.js sur differentes plate-formes reste infini.
 
@@ -90,12 +90,13 @@ Il est toujours interessant de comprendre le fonctionnement d'un outils afin de 
 Le but de cette section est de donner une explication sommaire de comment fonctionnent les adapteurs.
 
 Un adapteur Stone.js permet de créer le contexte d'execution et d'uniformiser les entrées et sorties.
-Chaque adapteur est composé d'une classe qui est l'adapteur lui meme, d'un mapper et de pipes.
+Chaque adapteur est une sous-classe d'`Adapter` dans laquelle la logique est implementée dans la methode `run`.
+Il peut aussi dependre d'un mapper et des pipes quand c'est nécessaire.
 
 ### Adapteur
 
 La classe representant l'adapteur créee le contexte d'execution, fait la conversion des entrées quand c'est nécessaire,
-execute l'application, fait la conversion des sorties quand c'est nécessaire et retourne la réponse.
+execute l'application, fait la conversion des sorties quand c'est nécessaire et retourne la réponse.\
 La seule chose qu'il faut retenir ici, c'est que la veritable fonction d'un adapteur c'est de créer le contexte d'execution et d'executer l'application dans ce contexte.
 
 Exemple d'un simple adapter HTTP de node.js qui lance le serveur node.js recoit une requete, execute l'application et retourne la reponse.
@@ -554,12 +555,20 @@ export default {
 Pour ajouter des attributs personnalisés à l'objet `request` de Stone.js depuis une pipe, il faut passer par l'attribut `metadata`.
 
 ```js
+// Class
 export class MyCompanyNamePipe {
   handle (passable, next) {
     passable.request.metadata.companyName = 'Stone.js'
 
     return next(passable)
   }
+}
+
+// Function
+export const MyCompanyNamePipe = (passable, next) => {
+  passable.request.metadata.companyName = 'Stone.js'
+
+  return next(passable)
 }
 ```
 

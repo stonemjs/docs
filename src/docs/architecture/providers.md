@@ -1,9 +1,9 @@
 ---
 title: Service Providers
-order: 4
-tag:
-  - Architecture
 ---
+
+Injection de dependance par decomposition, c'est à dire qu'on peut utiliser la syntaxe de decomposition de javascript 
+afin d'acceder à n'importe quel service au sein du conteneur de service.
 
 Content before `more` comment is regarded as page excerpt.
 

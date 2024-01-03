@@ -1,51 +1,25 @@
 ---
 title: Installation
-order: 1
-tag:
-  - Guide
 ---
 
-Content before `more` comment is regarded as page excerpt.
+## Prerequis
 
-<!-- more -->
+Stone.js est un framework Node.js, ce qui necessite des competences en JavaScript et l'installation de Node.js sur votre poste de travail.
+Pour etre plus precis, vous devriez avoir au moins la dernière version de `Node.js v18`.
 
-## Page Information
+Si Node.js est deja installé sur votre poste, vous pouvez verifier sa version avec la commande suivante:
 
-You can set page information in Markdown's Frontmatter.
+```sh
+node -v
+```
 
-- The author is Ms.Hope.
-- The writing date is January 1, 2020
-- Category is "Guide"
-- Tags are "Page Config" and "Guide"
+Si Node.js n'est pas encore installé sur votre poste, veuillez le telecharger depuis le site officiel: [nodejs.org](https://nodejs.org/en/download)
 
-## Page Content
+Si pour une raison ou une autre vous avez besoin de plusieurs versions Node.js sur votre poste et que vous etes a l'aise avec la console,
+alors il est mieux d'aller avec [Node Version Manager](https://github.com/nvm-sh/nvm).
 
-You are free to write your Markdown here.
+## Creating a new project
 
-::: tip Assets
+Avant d'installer Stone.js
 
-- You can place images besides your Markdown files, but you should use **relative links** (i.e.: starting with `./`) for them.
-
-- For images in `.vuepress/public` directory, please use absolute links (i.e.: starting with `/`) for them.
-
-:::
-
-The theme contains a custom badge:
-
-> A dark blue badge text badge at the end of line. <Badge text="Badge text" color="#242378" />
-
-## Page Structure
-
-This page should contain:
-
-- [BreadCrumb](https://theme-hope.vuejs.press/guide/layout/breadcrumb.html)
-- [Title and information](https://theme-hope.vuejs.press/guide/feature/page-info.html)
-- [TOC (Table of Contents)](https://theme-hope.vuejs.press/guide/layout/page.html#header-list)
-- [Meta information including update time and contributors](https://theme-hope.vuejs.press/guide/feature/meta.html)
-- [Comments](https://theme-hope.vuejs.press/guide/feature/comment.html)
-- [Navbar](https://theme-hope.vuejs.press/guide/layout/navbar.html)
-- [Sidebar](https://theme-hope.vuejs.press/guide/layout/sidebar.html)
-- [Footer](https://theme-hope.vuejs.press/guide/layout/footer.html)
-- Back to top button
-
-You can customize them in theme options and page frontmatter.
+## Starting the development server

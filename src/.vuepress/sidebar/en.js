@@ -16,15 +16,15 @@ export const enSidebar = sidebar({
       ],
     },
     {
-      text: "Architecture",
+      text: "Core Concepts",
       icon: "sitemap",
       collapsible: true,
       prefix: "architecture/",
       link: 'architecture/',
       children: [
-        'adapters',
         'context',
         'kernel',
+        'adapters',
         'container',
         'providers',
       ],
