@@ -6,16 +6,15 @@ index: false
 Bienvenue sur la documentation officielle de Stone.js où les jalons d'une grande aventure viennent à peine d'être posés. 
 
 Stone.js est un microframework web vous permettant de decouvrir ou redecouvrir la beauté, la simplicité et la puissance de vanilla JavaScript, 
-en mettant à votre disposition des outils simple et efficaces afin de créer des applications web en toute aisance. 
-Et où les possibilités de realisation restent infinies ou dependent de votre imagination.
+en mettant à votre disposition des outils simple et efficaces afin de créer des applications web pouvant se deployer partout où l'on peut executer du JavaScript.
 
-Stone.js est très modulaire, très leger, très portatif et peut s'executer partout où l'on peut executer du JavaScript, il permet de créer:
+Stone.js est très modulaire, très leger, très portatif et independant des plate-formes(Navigateur, Node.js, Severless, Worker, etc.), il permet de créer:
 - des microservices
 - des applications Cloud natif sans serveur
 - des API HTTP
 - des applications WebSocket
 - des applications CLI
-- des applications web classiques(monolithique) rendues coté le serveur
+- des applications web classiques(monolithique) rendues coté serveur
 - des applications pouvant s'executer sur le navigateur
 - des applications pouvant s'executer dans un web worker ou service worker.
 

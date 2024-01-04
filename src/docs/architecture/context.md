@@ -4,10 +4,10 @@ title: Context
 
 ## Introduction
 
-Le contexte étant une instance de `StoneFactory`, est l'objet principal representant une application Stone.js, 
-le nom contexte a ete choisi en guise d'application afin d'eviter toute confusion avec votre application communement appelé `appModule`.
+Le contexte applicatif étant une instance de `StoneFactory`, est l'objet principal representant une application Stone.js, 
+le nom **context** a ete choisi en guise d'application afin d'eviter toute confusion avec votre application communement appelé `appModule`.
 
-Le contexte est le coeur de toute application Stone.js, il gère le cycle de vie et choisi le noyau approprié afin d'executer votre application.
+Le contexte est l'orchestrateur de toute application Stone.js, il gère le cycle de vie et choisi le noyau approprié afin d'executer votre application.
 Il expose une simple API mettant ainsi à votre disposition:
 - Un conteneur de service facilitant l'injection de dépendance
 - Un depot de configuration permettant d'externaliser et de charger vos configurations depuis differente source(.env, voute, etc.)
