@@ -1,10 +1,10 @@
 <template>
-  <section class="vp-feature has-text-justified app-mt-8">
+  <section class="fixed-grid has-1-cols has-2-cols-desktop vp-feature app-section app-mt-8">
     <div class="grid">
       <div class="cell is-flex is-flex-direction-column is-justify-content-center">
-        <div class="pr-6 has-text-left">
-          <h2 class="vp-feature-header has-text-left is-size-1 has-text-weight-bold">Write Once</h2>
-          <h3 class="vp-feature-header has-text-left is-size-2 mb-3 my-primary-color has-text-weight-semibold">From Nano To Macro Applications</h3>
+        <div class="desktop-pr-">
+          <h2 class="vp-feature-header is-size-1 has-text-weight-bold">Write Once</h2>
+          <h3 class="vp-feature-header is-size-2 mb-3 my-primary-color has-text-weight-semibold">From Nano To Macro Applications</h3>
           <p class="mb-5">
             Stone.js enables you to write your code once and scale effortlessly from nano services to complex macro applications. Its adaptive architecture and modular design ensure your project can grow seamlessly, providing a robust foundation for any size application.
           </p>
@@ -18,32 +18,34 @@
           </a>
         </div>
       </div>
-      <CodeTabs :tabs="['Nano App', 'Macro App']">
-        <template v-slot:default="slotProps">
-          <div v-bind="slotProps.attrs" :class="slotProps.value === 'Nano App' ? 'active' : ''">
-            <CodeBlock language="javascript" :code="code" ext="js" />
-          </div>
-          <div v-bind="slotProps.attrs" :class="slotProps.value === 'Macro App' ? 'active' : ''">
-            <CodeBlock language="javascript" :code="macroCode" ext="js" />
-          </div>
-        </template>
-      </CodeTabs>
+      <div class="cell has-text-left">
+        <CodeTabs :tabs="['Nano App', 'Macro App']">
+          <template v-slot:default="slotProps">
+            <div v-bind="slotProps.attrs" :class="slotProps.value === 'Nano App' ? 'active' : ''">
+              <CodeBlock language="javascript" :code="code" ext="js" />
+            </div>
+            <div v-bind="slotProps.attrs" :class="slotProps.value === 'Macro App' ? 'active' : ''">
+              <CodeBlock language="javascript" :code="macroCode" ext="js" />
+            </div>
+          </template>
+        </CodeTabs>
+      </div>
     </div>
   </section>
-  <section class="vp-feature has-text-justified app-mt-8">
-    <div class="grid">
+  <section class="fixed-grid has-1-cols has-2-cols-desktop vp-feature app-section  app-mt-8">
+    <div class="grid app-flex-direction-row-reverse">
       <div class="cell is-flex is-flex-direction-column is-justify-content-center">
         <div class="vp-features custom">
-          <a v-for="(item, i) of platforms" :key="`item-${i}`" :href="item.href" class="vp-feature-item">
+          <a v-for="(item, i) of platforms" :key="`item-${i}`" :href="item.href" class="vp-feature-item has-text-centered">
             <img :src="`/assets/image/providers/${item.icon}`" :alt="item.alt" />
           </a>
         </div>
       </div>
       <div class="cell is-flex is-flex-direction-column is-justify-content-center">
-        <div class="pl-6 has-text-left">
-          <h2 class="vp-feature-header is-size-1 has-text-left has-text-weight-bold">Deploy Everywhere</h2>
-          <h3 class="vp-feature-header is-size-2 mb-3 has-text-left my-primary-color has-text-weight-semibold">Seamless Deployment Across Platforms</h3>
-          <p class="mb-5 has-text-left">
+        <div class="desktop-pl-6">
+          <h2 class="vp-feature-header is-size-1 has-text-weight-bold">Deploy Everywhere</h2>
+          <h3 class="vp-feature-header is-size-2 mb-3 my-primary-color has-text-weight-semibold">Seamless Deployment Across Platforms</h3>
+          <p class="mb-5">
             Stone.js empowers you to deploy your application effortlessly across any platform. Whether it's on-premises, cloud, or edge environments, its flexible architecture ensures smooth and consistent deployments, adapting to diverse infrastructure needs.
           </p>
           <a
@@ -139,18 +141,36 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@use "bulma/sass/utilities/mixins";
 @import 'bulma';
 
 p {
   font-size: 1.125rem;
   line-height: 2rem;
 }
-
 .vp-link:hover {
   text-decoration: none;
 }
-.app-mt-8 {
-  margin-top: 8rem!important;
+.vp-feature-title {
+  font-weight: 700;
+  font-size: 1.3rem;
+  margin: .25rem 0 .5rem;
+}
+.vp-feature-image {
+  height: 10rem;
+  margin: 0 auto;
+}
+.my-primary-color {
+  color: var(--theme-color)!important;
+}
+.app-features {
+  .vp-feature-item {
+    border: 1px solid var(--border-color);
+    flex-basis: 100%;
+  }
+  .vp-feature-details {
+    line-height: 1.5rem;
+  }
 }
 .vp-features.custom {
   border: 0 none;
@@ -159,6 +179,7 @@ p {
     margin: 1rem;
     height: 6.25rem;
     border-radius: .75rem;
+    flex-basis: calc(50% - 3.2rem);
     &:hover {
       box-shadow: 0 0 0 0 transparent;
     }
@@ -170,33 +191,53 @@ p {
     }
   }
 }
-.vp-feature-title {
-  font-weight: 700;
-  font-size: 1.3rem;
-  margin: .25rem 0 .5rem;
+.app-mt-8 {
+  margin-top: 8rem!important;
 }
-.app-features {
-  .vp-feature-item {
-    border: 1px solid var(--border-color);
+.app-flex-direction-row-reverse {
+  flex-direction: row-reverse;
+}
+
+@include mixins.tablet {
+  .app-features {
+    .vp-feature-item {
+      flex-basis: calc(50% - 3.2rem);
+    }
   }
-  @media (min-width: 1440px) {
+  .vp-feature-description {
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
+  .vp-features.custom {
     .vp-feature-item {
       flex-basis: calc(25% - 3.2rem);
     }
   }
-  .vp-feature-details {
-    line-height: 1.5rem;
+}
+
+@include mixins.desktop {
+  .desktop-pr-6 {
+    padding-right: 3rem !important;
   }
-}
-.vp-feature-image {
-  height: 10rem;
-  margin: 0 auto;
-}
-.vp-feature-description {
-  padding-left: 10rem;
-  padding-right: 10rem;
-}
-.my-primary-color {
-  color: var(--theme-color)!important;
+  .desktop-pl-6 {
+    padding-left: 3rem !important;
+  }
+  .app-section {
+    &,h2,h3 {
+      text-align: left;
+    }
+  }
+  .vp-feature-description {
+    padding-left: 10rem;
+    padding-right: 10rem;
+  }
+  .app-features {
+    .vp-feature-item {
+      flex-basis: calc(25% - 3.2rem);
+    }
+  }
+  .app-flex-direction-row-reverse {
+    flex-direction: row;
+  }
 }
 </style>
