@@ -3,21 +3,24 @@ title: Configuration
 ---
 
 Stone.js embraces an **Adaptive Configuration** approach, offering a flexible and robust configuration system through two distinct APIs: 
-[Implicit](#implicit) and [Explicit](#explicit). These APIs enable developers to tailor their applications to their specific requirements, achieving a balance between simplicity and flexibility.
+[Declarative](#declarative) and [Imperative](#imperative). These APIs enable developers to tailor their applications to their specific requirements, achieving a balance between simplicity and flexibility.
 
-## Implicit
-Implicit configurations are defined using decorators. To configure a component or enable a feature, simply use a decorator and pass parameters. Stone.js, being modular, offers decorators for each library, with configurations documented within the library.
+## Declarative
 
-Two types of decorators are used:
+Declarative configurations are defined using decorators. To enable a feature or configure a component, simply use a decorator and pass parameters. Stone.js, being modular, offers decorators for each library, with configurations documented within the library.
+
+Three types of decorators are used:
+
 - **Class Decorators**: Applied to classes.
-- **Method/Property Decorators**: Applied to methods or properties.
+- **Property Decorators**: Applied to properties.
+- **Method Decorators**: Applied to methods.
 
 ### Key Decorator: `@StoneApp()`
-This essential decorator must be present on a single class (Application) and serves as the main entry point for your application. It designates the class containing the `handle` method, which intercepts events. It also allows configuration overrides.
+This essential decorator must be present on a single class (`Application`) and serves as the main entry point for your application. It designates the class containing the `handle` method, which intercepts events. It also allows configuration overrides.
 
 **Parameters:**
 - `name`: Application name.
-- `env`: Environment name (dev, staging, prod, etc.).
+- `env`: Environment name (dev, prod, etc.).
 - `debug`: Run app in debug mode.
 - `timezone`: Define timezone.
 - `locale`: Define locale.
@@ -32,15 +35,11 @@ A simple example of use:
 
 ```js
 // app/Application.mjs
-import { DEFAULT_ADAPTER } from '@stone-js/core'
 import { StoneApp } from '@stone-js/core/decorators'
 
 @StoneApp({
   name: 'MyApp',
-  locale: 'en',
-  adapter: {
-    current: DEFAULT_ADAPTER
-  }
+  locale: 'en'
 })
 export class Application {
   handle (event) {}
@@ -52,14 +51,11 @@ export class Application {
 ```ts
 // app/Application.ts
 import { StoneApp } from '@stone-js/core/decorators'
-import { IncomingEvent, OutgoingResponse, DEFAULT_ADAPTER } from '@stone-js/core'
+import { IncomingEvent, OutgoingResponse } from '@stone-js/core'
 
 @StoneApp({
   name: 'MyApp',
-  locale: 'en',
-  adapter: {
-    current: DEFAULT_ADAPTER
-  }
+  locale: 'en'
 })
 export class Application {
   handle (event: IncomingEvent): OutgoingResponse {}
@@ -67,25 +63,34 @@ export class Application {
 ```
 :::
 
-## Explicit
-Explicit configurations provide fine-grained control and are managed in files within the `config` directory. By default, this directory does not exist, as Stone.js uses implicit configurations.
+## Imperative
+
+Imperative configurations provide fine-grained control and are managed in files within the `app/config` directory. By default, this directory does not exist, as Stone.js uses declarative configurations.
 
 ### Exporting Configurations
+
 Configurations are exported per library via the command:
+
 ```sh
 npm run export <library-name>
 ```
+
 For example, to export core application configurations:
+
 ```sh
 npm run export @stone-js/core
 ```
-This creates configuration files in the `config` directory, ready for customization.
+
+This creates configuration files in the `app/config` directory, ready for customization.
 
 ## Configuration Priority
-Implicit configurations can be overridden by explicit configurations. For example:
+
+Declarative configurations can be overridden by imperative configurations. For example:
+
 ```js
 @StoneApp({ name: 'MyApp' })
 ```
+
 Can be overridden by:
 
 ::: code-tabs#js
@@ -93,10 +98,15 @@ Can be overridden by:
 @tab:active JavaScript
 
 ```js
-// config/app.mjs
-export const appOptions = {
-  app: {
-    name: 'MyFavoriteApp'
+// app/config/AppConfig.mjs
+import { Configuration, options } from '@stone-js/core/config';
+
+@Configuration(options)
+export class AppConfig {
+  get config () {
+    return {
+      name: 'MyFavoriteApp'
+    }
   }
 }
 ```
@@ -104,16 +114,22 @@ export const appOptions = {
 @tab TypeScript
 
 ```ts
-// config/app.ts
-export const appOptions = {
-  app: {
-    name: 'MyFavoriteApp'
+// app/config/AppConfig.ts
+import { Configuration, options, AppOptions } from '@stone-js/core/config';
+
+@Configuration(options)
+export class AppConfig {
+  get config (): Partial<AppOptions> {
+    return {
+      name: 'MyFavoriteApp'
+    }
   }
 }
 ```
 :::
 
 ## Namespaces
+
 Namespaces organize configurations, ensuring efficient management. The `app` namespace is reserved for application configurations, while each library uses its own namespace (e.g., `@stone-js/router` uses `router`).
 
 ::: code-tabs#js
@@ -156,6 +172,7 @@ export const routerOptions = {
 :::
 
 ## Environment Configuration
+
 Stone.js supports environment variables using the `@stone-js/env` library and `.env` files. There are two types of `.env` files:
 - **Private**: Variables not included in the final build (for backend apps).
 - **Public**: Variables included in the final build (for frontend apps).
@@ -184,6 +201,7 @@ Refer to `stone.config.mjs` for more details.
 ### Env
 
 To access your environment variables, use the `@stone-js/env` library, which reads system variables and those defined in `.env` and `.env.public`. First, install the library:
+
 ```sh
 npm i @stone-js/env
 ```
@@ -224,19 +242,22 @@ export class Application {
 ```
 :::
 
-Conventionally, `Env` is best used in explicit configurations:
-
+Conventionally, `Env` is best used in imperative configurations:
 
 ::: code-tabs#js
 @tab:active JavaScript
 
 ```js
-// config/app.mjs
+// app/config/AppConfig.mjs
 import { Env } from '@stone-js/env'
+import { Configuration, options } from '@stone-js/core/config'
 
-export const appOptions = {
-  app: {
-    name: Env.get('APP_NAME', 'MyApp')
+@Configuration(options)
+export class AppConfig {
+  get config () {
+    return {
+      name: Env.get('APP_NAME', 'MyApp')
+    }
   }
 }
 ```
@@ -244,12 +265,16 @@ export const appOptions = {
 @tab TypeScript
 
 ```ts
-// config/app.ts
+// app/config/AppConfig.ts
 import { Env } from '@stone-js/env'
+import { Configuration, options, AppOptions } from '@stone-js/core/config';
 
-export const appOptions = {
-  app: {
-    name: Env.get('APP_NAME', 'MyApp')
+@Configuration(options)
+export class AppConfig {
+  get config (): Partial<AppOptions> {
+    return {
+      name: Env.get('APP_NAME', 'MyApp')
+    }
   }
 }
 ```
@@ -320,9 +345,9 @@ Refer to its [documentation](../cookbook/config/usage.md) for more information.
 ### Debug Mode
 The `debug` option in configurations determines the amount of information displayed. It should be set to `true` in development and `false` in production to avoid exposing sensitive information.
 
-## Choosing Between Implicit and Explicit
+## Choosing Between Declarative and Imperative
 
-- **Implicit**: Best for quick setups, small projects, and when you prefer to keep configuration within the codebase using decorators.
-- **Explicit**: Best for larger projects, requiring fine-grained control and separation of configuration logic from the application code.
+- **Declarative**: Best for quick setups, small projects, and when you prefer to keep configuration within the codebase using decorators.
+- **Imperative**: Best for larger projects, requiring fine-grained control and separation of configuration logic from the application code.
 
-Both APIs can be used together in a single project, with the Explicit API overriding the Implicit API where necessary. This dual approach ensures that Stone.js remains both flexible and powerful, catering to a wide range of project requirements.
+Both APIs can be used together in a single project, with the Imperative API overriding the Declarative API where necessary. This dual approach ensures that Stone.js remains both flexible and powerful, catering to a wide range of project requirements.

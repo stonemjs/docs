@@ -34,7 +34,7 @@ We're committed to:
 
 ## The Stone.js Advantage
 
-### Write Once, Run Everywhere
+### Create Once, Deploy Everywhere
 
 Imagine writing your application code once and having it run seamlessly across different environments. With Stone.js, that's a reality. Whether it's local environments, servers, serverless platforms, or cloud Function-as-a-Service (FaaS), Stone.js has you covered. No need to worry about platform dependencies – your code just works.
 

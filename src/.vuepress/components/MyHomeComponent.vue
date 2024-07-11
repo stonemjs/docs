@@ -2,8 +2,8 @@
   <section class="fixed-grid has-1-cols has-2-cols-desktop vp-feature app-section app-mt-8">
     <div class="grid">
       <div class="cell is-flex is-flex-direction-column is-justify-content-center">
-        <div class="desktop-pr-">
-          <h2 class="vp-feature-header is-size-1 has-text-weight-bold">Write Once</h2>
+        <div class="desktop-pr-6">
+          <h2 class="vp-feature-header is-size-1 has-text-weight-bold">Create Once</h2>
           <h3 class="vp-feature-header is-size-2 mb-3 my-primary-color has-text-weight-semibold">From Nano To Macro Applications</h3>
           <p class="mb-5">
             Stone.js enables you to write your code once and scale effortlessly from nano services to complex macro applications. Its adaptive architecture and modular design ensure your project can grow seamlessly, providing a robust foundation for any size application.
@@ -41,7 +41,7 @@
           </a>
         </div>
       </div>
-      <div class="cell is-flex is-flex-direction-column is-justify-content-center">
+      <div class="cell app-row-start-1 is-flex is-flex-direction-column is-justify-content-center">
         <div class="desktop-pl-6">
           <h2 class="vp-feature-header is-size-1 has-text-weight-bold">Deploy Everywhere</h2>
           <h3 class="vp-feature-header is-size-2 mb-3 my-primary-color has-text-weight-semibold">Seamless Deployment Across Platforms</h3>
@@ -215,6 +215,10 @@ p {
   }
 }
 
+.app-row-start-1 {
+  --bulma-grid-cell-row-start: 1;
+}
+
 @include mixins.desktop {
   .desktop-pr-6 {
     padding-right: 3rem !important;
@@ -238,6 +242,9 @@ p {
   }
   .app-flex-direction-row-reverse {
     flex-direction: row;
+  }
+  .app-row-start-1 {
+    --bulma-grid-cell-row-start: 0;
   }
 }
 </style>

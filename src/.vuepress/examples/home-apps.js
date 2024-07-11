@@ -16,7 +16,7 @@ export class Application {
     const user = await this
       .container
       .userService
-      .getByEmail(event.get('user.email'))
+      .getByEmail(event.get('email'))
   
     return HttpResponse.json({
       message: \`Hello \${user.fullname}!\`
@@ -27,7 +27,7 @@ export class Application {
 export const macroApp = 
 `import { HttpResponse } from '@stone/http-core'
 import {
-  Get, Post, Controller
+  Get, Post, Group, Controller
 } from '@stone-js/router/decorators'
 
 @Controller()
