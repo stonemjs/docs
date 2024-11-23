@@ -12,45 +12,45 @@ highlights:
       - title: Core
         icon: layer-group
         details: Essential functionalities and base classes for Stone.js framework operations
-        link: https://stonejs.com/api/core
+        link: ./core
 
       - title: Service Container
         icon: cube
         details: Manages dependencies and services, enabling efficient service registration and retrieval
-        link: https://stonejs.com/api/service-container
+        link: ./service-container
 
       - title: Env
         icon: leaf
         details: Handles environment variables and configuration settings for various deployment environments
-        link: https://stonejs.com/api/env
+        link: ./env
 
       - title: Config
         icon: sliders
         details: Provides configuration management with easy-to-use APIs for setting and retrieving configurations
-        link: https://stonejs.com/api/config
+        link: ./config
 
       - title: Pipeline
         icon: timeline
         details: Implements middleware pipelines to process data seamlessly
-        link: https://stonejs.com/api/pipeline
+        link: ./pipeline
 
       - title: HTTP Core
         icon: network-wired
         details: Core HTTP functionalities, including request handling and response generation
-        link: https://stonejs.com/api/http-core
+        link: ./http-core
 
       - title: Node Adapter
         icon: plug
         details: Facilitates seamless integration and compatibility with Node.js environments
-        link: https://stonejs.com/api/node-adapter
+        link: ./node-adapter
 
       - title: CLI
         icon: terminal
         details: Command Line Interface tools for managing and interacting with Stone.js applications
-        link: https://stonejs.com/api/cli
+        link: ./cli
 
       - title: Router
         icon: sitemap
         details: Advanced routing capabilities for defining and handling application routes efficiently
-        link: https://stonejs.com/api/router
+        link: ./router
 ---

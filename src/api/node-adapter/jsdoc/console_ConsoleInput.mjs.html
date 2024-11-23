@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>console/ConsoleInput.mjs - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    
+    <h2><a href="index.html">Home</a></h2><h2><a href="https://github.com/stonemjs/adapters" target="_blank" class="menu-item" id="repository" >Github repo</a></h2><h3>Classes</h3><ul><li><a href="AWSLambdaAdapter.html">AWSLambdaAdapter</a><ul class='methods'><li data-type='method' style='display: none;'><a href="AWSLambdaAdapter.html#_getEvent">_getEvent</a></li><li data-type='method' style='display: none;'><a href="AWSLambdaAdapter.html#_getHandlerMethod">_getHandlerMethod</a></li><li data-type='method' style='display: none;'><a href="AWSLambdaAdapter.html#_onInit">_onInit</a></li><li data-type='method' style='display: none;'><a href="AWSLambdaAdapter.html#_onTerminate">_onTerminate</a></li><li data-type='method' style='display: none;'><a href="AWSLambdaAdapter.html#addContext">addContext</a></li><li data-type='method' style='display: none;'><a href="AWSLambdaAdapter.html#beforeHandle">beforeHandle</a></li><li data-type='method' style='display: none;'><a href="AWSLambdaAdapter.html#hook">hook</a></li><li data-type='method' style='display: none;'><a href="AWSLambdaAdapter.html#registerService">registerService</a></li><li data-type='method' style='display: none;'><a href="AWSLambdaAdapter.html#registerServices">registerServices</a></li><li data-type='method' style='display: none;'><a href="AWSLambdaAdapter.html#run">run</a></li><li data-type='method' style='display: none;'><a href="AWSLambdaAdapter.html#setHandler">setHandler</a></li><li data-type='method' style='display: none;'><a href="AWSLambdaAdapter.html#setInputMapper">setInputMapper</a></li><li data-type='method' style='display: none;'><a href="AWSLambdaAdapter.html#setOutputMapper">setOutputMapper</a></li></ul></li><li><a href="AWSLambdaHTTPAdapter.html">AWSLambdaHTTPAdapter</a><ul class='methods'><li data-type='method' style='display: none;'><a href="AWSLambdaHTTPAdapter.html#_getEvent">_getEvent</a></li><li data-type='method' style='display: none;'><a href="AWSLambdaHTTPAdapter.html#_getHandlerMethod">_getHandlerMethod</a></li><li data-type='method' style='display: none;'><a href="AWSLambdaHTTPAdapter.html#_onInit">_onInit</a></li><li data-type='method' style='display: none;'><a href="AWSLambdaHTTPAdapter.html#_onTerminate">_onTerminate</a></li><li data-type='method' style='display: none;'><a href="AWSLambdaHTTPAdapter.html#addContext">addContext</a></li><li data-type='method' style='display: none;'><a href="AWSLambdaHTTPAdapter.html#beforeHandle">beforeHandle</a></li><li data-type='method' style='display: none;'><a href="AWSLambdaHTTPAdapter.html#hook">hook</a></li><li data-type='method' style='display: none;'><a href="AWSLambdaHTTPAdapter.html#registerService">registerService</a></li><li data-type='method' style='display: none;'><a href="AWSLambdaHTTPAdapter.html#registerServices">registerServices</a></li><li data-type='method' style='display: none;'><a href="AWSLambdaHTTPAdapter.html#run">run</a></li><li data-type='method' style='display: none;'><a href="AWSLambdaHTTPAdapter.html#setHandler">setHandler</a></li><li data-type='method' style='display: none;'><a href="AWSLambdaHTTPAdapter.html#setInputMapper">setInputMapper</a></li><li data-type='method' style='display: none;'><a href="AWSLambdaHTTPAdapter.html#setOutputMapper">setOutputMapper</a></li></ul></li><li><a href="Adapter.html">Adapter</a><ul class='methods'><li data-type='method' style='display: none;'><a href="Adapter.html#_getEvent">_getEvent</a></li><li data-type='method' style='display: none;'><a href="Adapter.html#_getHandlerMethod">_getHandlerMethod</a></li><li data-type='method' style='display: none;'><a href="Adapter.html#_onInit">_onInit</a></li><li data-type='method' style='display: none;'><a href="Adapter.html#_onTerminate">_onTerminate</a></li><li data-type='method' style='display: none;'><a href="Adapter.html#addContext">addContext</a></li><li data-type='method' style='display: none;'><a href="Adapter.html#beforeHandle">beforeHandle</a></li><li data-type='method' style='display: none;'><a href="Adapter.html#hook">hook</a></li><li data-type='method' style='display: none;'><a href="Adapter.html#registerService">registerService</a></li><li data-type='method' style='display: none;'><a href="Adapter.html#registerServices">registerServices</a></li><li data-type='method' style='display: none;'><a href="Adapter.html#run">run</a></li><li data-type='method' style='display: none;'><a href="Adapter.html#setHandler">setHandler</a></li><li data-type='method' style='display: none;'><a href="Adapter.html#setInputMapper">setInputMapper</a></li><li data-type='method' style='display: none;'><a href="Adapter.html#setOutputMapper">setOutputMapper</a></li><li data-type='method' style='display: none;'><a href="Adapter.html#.create">create</a></li><li data-type='method' style='display: none;'><a href="Adapter.html#.createAndRun">createAndRun</a></li></ul></li><li><a href="BodyMiddleware.html">BodyMiddleware</a><ul class='methods'><li data-type='method' style='display: none;'><a href="BodyMiddleware.html#handle">handle</a></li><li data-type='method' style='display: none;'><a href="BodyMiddleware.html#handle">handle</a></li></ul></li><li></li><li><a href="BrowserAdapter.html">BrowserAdapter</a><ul class='methods'><li data-type='method' style='display: none;'><a href="BrowserAdapter.html#_getEvent">_getEvent</a></li><li data-type='method' style='display: none;'><a href="BrowserAdapter.html#_getHandlerMethod">_getHandlerMethod</a></li><li data-type='method' style='display: none;'><a href="BrowserAdapter.html#_onInit">_onInit</a></li><li data-type='method' style='display: none;'><a href="BrowserAdapter.html#_onTerminate">_onTerminate</a></li><li data-type='method' style='display: none;'><a href="BrowserAdapter.html#addContext">addContext</a></li><li data-type='method' style='display: none;'><a href="BrowserAdapter.html#beforeHandle">beforeHandle</a></li><li data-type='method' style='display: none;'><a href="BrowserAdapter.html#hook">hook</a></li><li data-type='method' style='display: none;'><a href="BrowserAdapter.html#registerService">registerService</a></li><li data-type='method' style='display: none;'><a href="BrowserAdapter.html#registerServices">registerServices</a></li><li data-type='method' style='display: none;'><a href="BrowserAdapter.html#run">run</a></li><li data-type='method' style='display: none;'><a href="BrowserAdapter.html#setHandler">setHandler</a></li><li data-type='method' style='display: none;'><a href="BrowserAdapter.html#setInputMapper">setInputMapper</a></li><li data-type='method' style='display: none;'><a href="BrowserAdapter.html#setOutputMapper">setOutputMapper</a></li></ul></li><li><a href="CommonMiddleware.html">CommonMiddleware</a><ul class='methods'><li data-type='method' style='display: none;'><a href="CommonMiddleware.html#handle">handle</a></li><li data-type='method' style='display: none;'><a href="CommonMiddleware.html#handle">handle</a></li></ul></li><li></li><li><a href="ConsoleInput.html">ConsoleInput</a><ul class='methods'><li data-type='method' style='display: none;'><a href="ConsoleInput.html#ask">ask</a></li><li data-type='method' style='display: none;'><a href="ConsoleInput.html#askNumber">askNumber</a></li><li data-type='method' style='display: none;'><a href="ConsoleInput.html#choice">choice</a></li><li data-type='method' style='display: none;'><a href="ConsoleInput.html#confirm">confirm</a></li><li data-type='method' style='display: none;'><a href="ConsoleInput.html#editor">editor</a></li><li data-type='method' style='display: none;'><a href="ConsoleInput.html#prompt">prompt</a></li><li data-type='method' style='display: none;'><a href="ConsoleInput.html#questionnaire">questionnaire</a></li><li data-type='method' style='display: none;'><a href="ConsoleInput.html#secret">secret</a></li></ul></li><li><a href="ConsoleOutput.html">ConsoleOutput</a><ul class='methods'><li data-type='method' style='display: none;'><a href="ConsoleOutput.html#breakLine">breakLine</a></li><li data-type='method' style='display: none;'><a href="ConsoleOutput.html#error">error</a></li><li data-type='method' style='display: none;'><a href="ConsoleOutput.html#info">info</a></li><li data-type='method' style='display: none;'><a href="ConsoleOutput.html#progresBar">progresBar</a></li><li data-type='method' style='display: none;'><a href="ConsoleOutput.html#show">show</a></li><li data-type='method' style='display: none;'><a href="ConsoleOutput.html#spin">spin</a></li><li data-type='method' style='display: none;'><a href="ConsoleOutput.html#spinner">spinner</a></li><li data-type='method' style='display: none;'><a href="ConsoleOutput.html#succeed">succeed</a></li><li data-type='method' style='display: none;'><a href="ConsoleOutput.html#table">table</a></li><li data-type='method' style='display: none;'><a href="ConsoleOutput.html#warn">warn</a></li></ul></li><li><a href="EventMapper.html">EventMapper</a><ul class='methods'><li data-type='method' style='display: none;'><a href="EventMapper.html#_prepareDestination">_prepareDestination</a></li><li data-type='method' style='display: none;'><a href="EventMapper.html#_preparePassable">_preparePassable</a></li><li data-type='method' style='display: none;'><a href="EventMapper.html#addMiddleware">addMiddleware</a></li><li data-type='method' style='display: none;'><a href="EventMapper.html#map">map</a></li><li data-type='method' style='display: none;'><a href="EventMapper.html#setMiddleware">setMiddleware</a></li></ul></li><li><a href="FilesMiddleware.html">FilesMiddleware</a><ul class='methods'><li data-type='method' style='display: none;'><a href="FilesMiddleware.html#handle">handle</a></li><li data-type='method' style='display: none;'><a href="FilesMiddleware.html#handle">handle</a></li></ul></li><li></li><li><a href="HeaderStatusMiddleware.html">HeaderStatusMiddleware</a><ul class='methods'><li data-type='method' style='display: none;'><a href="HeaderStatusMiddleware.html#handle">handle</a></li></ul></li><li><a href="HostMiddleware.html">HostMiddleware</a><ul class='methods'><li data-type='method' style='display: none;'><a href="HostMiddleware.html#handle">handle</a></li><li data-type='method' style='display: none;'><a href="HostMiddleware.html#handle">handle</a></li></ul></li><li></li><li><a href="HttpEventMapper.html">HttpEventMapper</a><ul class='methods'><li data-type='method' style='display: none;'><a href="HttpEventMapper.html#_prepareDestination">_prepareDestination</a></li><li data-type='method' style='display: none;'><a href="HttpEventMapper.html#_preparePassable">_preparePassable</a></li><li data-type='method' style='display: none;'><a href="HttpEventMapper.html#addMiddleware">addMiddleware</a></li><li data-type='method' style='display: none;'><a href="HttpEventMapper.html#map">map</a></li><li data-type='method' style='display: none;'><a href="HttpEventMapper.html#setMiddleware">setMiddleware</a></li></ul></li><li><a href="IpMiddleware.html">IpMiddleware</a><ul class='methods'><li data-type='method' style='display: none;'><a href="IpMiddleware.html#handle">handle</a></li><li data-type='method' style='display: none;'><a href="IpMiddleware.html#handle">handle</a></li></ul></li><li></li><li><a href="Mapper.html">Mapper</a><ul class='methods'><li data-type='method' style='display: none;'><a href="Mapper.html#_prepareDestination">_prepareDestination</a></li><li data-type='method' style='display: none;'><a href="Mapper.html#_preparePassable">_preparePassable</a></li><li data-type='method' style='display: none;'><a href="Mapper.html#addMiddleware">addMiddleware</a></li><li data-type='method' style='display: none;'><a href="Mapper.html#map">map</a></li><li data-type='method' style='display: none;'><a href="Mapper.html#setMiddleware">setMiddleware</a></li><li data-type='method' style='display: none;'><a href="Mapper.html#.create">create</a></li></ul></li><li><a href="NodeConsoleAdapter.html">NodeConsoleAdapter</a><ul class='methods'><li data-type='method' style='display: none;'><a href="NodeConsoleAdapter.html#_getEvent">_getEvent</a></li><li data-type='method' style='display: none;'><a href="NodeConsoleAdapter.html#_getHandlerMethod">_getHandlerMethod</a></li><li data-type='method' style='display: none;'><a href="NodeConsoleAdapter.html#_onInit">_onInit</a></li><li data-type='method' style='display: none;'><a href="NodeConsoleAdapter.html#_onTerminate">_onTerminate</a></li><li data-type='method' style='display: none;'><a href="NodeConsoleAdapter.html#addContext">addContext</a></li><li data-type='method' style='display: none;'><a href="NodeConsoleAdapter.html#beforeHandle">beforeHandle</a></li><li data-type='method' style='display: none;'><a href="NodeConsoleAdapter.html#hook">hook</a></li><li data-type='method' style='display: none;'><a href="NodeConsoleAdapter.html#registerService">registerService</a></li><li data-type='method' style='display: none;'><a href="NodeConsoleAdapter.html#registerServices">registerServices</a></li><li data-type='method' style='display: none;'><a href="NodeConsoleAdapter.html#run">run</a></li><li data-type='method' style='display: none;'><a href="NodeConsoleAdapter.html#setHandler">setHandler</a></li><li data-type='method' style='display: none;'><a href="NodeConsoleAdapter.html#setInputMapper">setInputMapper</a></li><li data-type='method' style='display: none;'><a href="NodeConsoleAdapter.html#setOutputMapper">setOutputMapper</a></li></ul></li><li><a href="NodeHTTPAdapter.html">NodeHTTPAdapter</a><ul class='methods'><li data-type='method' style='display: none;'><a href="NodeHTTPAdapter.html#_getEvent">_getEvent</a></li><li data-type='method' style='display: none;'><a href="NodeHTTPAdapter.html#_getHandlerMethod">_getHandlerMethod</a></li><li data-type='method' style='display: none;'><a href="NodeHTTPAdapter.html#_onInit">_onInit</a></li><li data-type='method' style='display: none;'><a href="NodeHTTPAdapter.html#_onTerminate">_onTerminate</a></li><li data-type='method' style='display: none;'><a href="NodeHTTPAdapter.html#addContext">addContext</a></li><li data-type='method' style='display: none;'><a href="NodeHTTPAdapter.html#beforeHandle">beforeHandle</a></li><li data-type='method' style='display: none;'><a href="NodeHTTPAdapter.html#hook">hook</a></li><li data-type='method' style='display: none;'><a href="NodeHTTPAdapter.html#registerService">registerService</a></li><li data-type='method' style='display: none;'><a href="NodeHTTPAdapter.html#registerServices">registerServices</a></li><li data-type='method' style='display: none;'><a href="NodeHTTPAdapter.html#run">run</a></li><li data-type='method' style='display: none;'><a href="NodeHTTPAdapter.html#setHandler">setHandler</a></li><li data-type='method' style='display: none;'><a href="NodeHTTPAdapter.html#setInputMapper">setInputMapper</a></li><li data-type='method' style='display: none;'><a href="NodeHTTPAdapter.html#setOutputMapper">setOutputMapper</a></li></ul></li><li><a href="OutputMapper.html">OutputMapper</a><ul class='methods'><li data-type='method' style='display: none;'><a href="OutputMapper.html#_prepareDestination">_prepareDestination</a></li><li data-type='method' style='display: none;'><a href="OutputMapper.html#_preparePassable">_preparePassable</a></li><li data-type='method' style='display: none;'><a href="OutputMapper.html#addMiddleware">addMiddleware</a></li><li data-type='method' style='display: none;'><a href="OutputMapper.html#map">map</a></li><li data-type='method' style='display: none;'><a href="OutputMapper.html#setMiddleware">setMiddleware</a></li></ul></li><li><a href="SendFileMiddleware.html">SendFileMiddleware</a><ul class='methods'><li data-type='method' style='display: none;'><a href="SendFileMiddleware.html#handle">handle</a></li><li data-type='method' style='display: none;'><a href="SendFileMiddleware.html#handle">handle</a></li></ul></li><li></li><li><a href="SendMiddleware.html">SendMiddleware</a><ul class='methods'><li data-type='method' style='display: none;'><a href="SendMiddleware.html#handle">handle</a></li><li data-type='method' style='display: none;'><a href="SendMiddleware.html#handle">handle</a></li><li data-type='method' style='display: none;'><a href="SendMiddleware.html#handle">handle</a></li></ul></li><li></li><li></li></ul><h3>Global</h3><ul><li><a href="global.html#Passable">Passable</a></li><li><a href="global.html#adapterOptions">adapterOptions</a></li><li><a href="global.html#handle-Willbeinvokedbythepipeline.">handle - Will be invoked by the pipeline.</a></li><li><a href="global.html#hookListener">hookListener</a></li><li><a href="global.html#send-Returnplatform-specificresponse.">send - Return platform-specific response.</a></li></ul>
+    
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">console/ConsoleInput.mjs</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Class representing a ConsoleInput Facade.
+ *
+ * @author Mr. Stone &lt;evensstone@gmail.com>
+ */
+export class ConsoleInput {
+  #prompt
+
+  /**
+   * Create a ConsoleInput.
+   *
+   * @param {Object} prompt - prompt module, like `inquirer`
+   */
+  constructor (prompt) {
+    this.#prompt = prompt
+  }
+
+  /**
+   * Questionnaire.
+   *
+   * @param  {Object[]} questions
+   * @returns {Object} return prompt
+   */
+  questionnaire (questions) {
+    return this.#prompt(questions)
+  }
+
+  /**
+   * Prompt.
+   *
+   * @param  {Object} question
+   * @returns {*}
+   */
+  async prompt (question) {
+    question.name = 'value'
+    const answer = await this.questionnaire([question])
+    return answer.value
+  }
+
+  /**
+   * Ask.
+   *
+   * @param  {string} message
+   * @param  {string} [fallback=null]
+   * @returns {string}
+   */
+  ask (message, fallback = null) {
+    return this.prompt({ message, default: fallback })
+  }
+
+  /**
+   * AskNumber.
+   *
+   * @param  {string} message
+   * @param  {number} [fallback=null]
+   * @returns {number}
+   */
+  askNumber (message, fallback = null) {
+    return this.prompt({ type: 'number', message, default: fallback })
+  }
+
+  /**
+   * Secret.
+   *
+   * @param  {string} message
+   * @returns {string}
+   */
+  secret (message) {
+    return this.prompt({ type: 'password', message })
+  }
+
+  /**
+   * Confirm.
+   *
+   * @param  {string} message
+   * @param  {boolean} [fallback=false]
+   * @returns {boolean}
+   */
+  confirm (message, fallback = false) {
+    return this.prompt({ type: 'confirm', message, default: fallback })
+  }
+
+  /**
+   * Choice.
+   *
+   * @param  {string} message
+   * @param  {Array} choices
+   * @param  {number} [fallbackIndex=0]
+   * @param  {boolean} [multiple=false]
+   * @returns {*}
+   */
+  choice (message, choices, fallbackIndex = 0, multiple = false) {
+    return this.prompt({ type: multiple ? 'checkbox' : 'rawlist', choices, message, default: fallbackIndex })
+  }
+
+  /**
+   * Editor.
+   *
+   * @param  {string} message
+   * @param  {string} [fallback=null]
+   * @returns {string}
+   */
+  editor (message, fallback = null) {
+    return this.prompt({ type: 'editor', message, default: fallback })
+  }
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Mon Apr 15 2024 19:45:40 GMT-0400 (Eastern Daylight Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
+
+
+<script src="scripts/collapse.js" defer></script>
+
+
+</body>
+</html>

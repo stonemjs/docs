@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>Router.mjs - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    
+    <h2><a href="index.html">Home</a></h2><h2><a href="https://github.com/stonemjs/router" target="_blank" class="menu-item" id="repository" >Github repo</a></h2><h3>Classes</h3><ul><li><a href="AbstractLoader.html">AbstractLoader</a><ul class='methods'><li data-type='method' style='display: none;'><a href="AbstractLoader.html#_flattenMap">_flattenMap</a></li><li data-type='method' style='display: none;'><a href="AbstractLoader.html#load">load</a></li></ul></li><li><a href="CallableDispatcher.html">CallableDispatcher</a><ul class='methods'><li data-type='method' style='display: none;'><a href="CallableDispatcher.html#dispatch">dispatch</a></li></ul></li><li><a href="ComponentDispatcher.html">ComponentDispatcher</a><ul class='methods'><li data-type='method' style='display: none;'><a href="ComponentDispatcher.html#dispatch">dispatch</a></li></ul></li><li><a href="ControllerDispatcher.html">ControllerDispatcher</a><ul class='methods'><li data-type='method' style='display: none;'><a href="ControllerDispatcher.html#dispatch">dispatch</a></li></ul></li><li><a href="DecoratorLoader.html">DecoratorLoader</a><ul class='methods'><li data-type='method' style='display: none;'><a href="DecoratorLoader.html#_flattenMap">_flattenMap</a></li><li data-type='method' style='display: none;'><a href="DecoratorLoader.html#load">load</a></li></ul></li><li><a href="Event.html">Event</a></li><li><a href="ExplicitLoader.html">ExplicitLoader</a><ul class='methods'><li data-type='method' style='display: none;'><a href="ExplicitLoader.html#_flattenMap">_flattenMap</a></li><li data-type='method' style='display: none;'><a href="ExplicitLoader.html#load">load</a></li></ul></li><li><a href="FlattenMapper.html">FlattenMapper</a><ul class='methods'><li data-type='method' style='display: none;'><a href="FlattenMapper.html#flattenMap">flattenMap</a></li><li data-type='method' style='display: none;'><a href="FlattenMapper.html#setMaxDepth">setMaxDepth</a></li></ul></li><li><a href="HostMatcher.html">HostMatcher</a><ul class='methods'><li data-type='method' style='display: none;'><a href="HostMatcher.html#matches">matches</a></li></ul></li><li><a href="MethodMatcher.html">MethodMatcher</a><ul class='methods'><li data-type='method' style='display: none;'><a href="MethodMatcher.html#matches">matches</a></li></ul></li><li><a href="ProtocolMatcher.html">ProtocolMatcher</a><ul class='methods'><li data-type='method' style='display: none;'><a href="ProtocolMatcher.html#matches">matches</a></li></ul></li><li><a href="Route.html">Route</a><ul class='methods'><li data-type='method' style='display: none;'><a href="Route.html#_buildDomainPattern">_buildDomainPattern</a></li><li data-type='method' style='display: none;'><a href="Route.html#_buildSegmentPattern">_buildSegmentPattern</a></li><li data-type='method' style='display: none;'><a href="Route.html#_getDomainConstraints">_getDomainConstraints</a></li><li data-type='method' style='display: none;'><a href="Route.html#_getSegmentsConstraints">_getSegmentsConstraints</a></li><li data-type='method' style='display: none;'><a href="Route.html#_isBrowser">_isBrowser</a></li><li data-type='method' style='display: none;'><a href="Route.html#_uriConstraints">_uriConstraints</a></li><li data-type='method' style='display: none;'><a href="Route.html#addBinding">addBinding</a></li><li data-type='method' style='display: none;'><a href="Route.html#addBindings">addBindings</a></li><li data-type='method' style='display: none;'><a href="Route.html#addDefault">addDefault</a></li><li data-type='method' style='display: none;'><a href="Route.html#addDefaults">addDefaults</a></li><li data-type='method' style='display: none;'><a href="Route.html#addDispatcher">addDispatcher</a></li><li data-type='method' style='display: none;'><a href="Route.html#addRule">addRule</a></li><li data-type='method' style='display: none;'><a href="Route.html#addRules">addRules</a></li><li data-type='method' style='display: none;'><a href="Route.html#bind">bind</a></li><li data-type='method' style='display: none;'><a href="Route.html#deleteParameter">deleteParameter</a></li><li data-type='method' style='display: none;'><a href="Route.html#domainRegex">domainRegex</a></li><li data-type='method' style='display: none;'><a href="Route.html#generate">generate</a></li><li data-type='method' style='display: none;'><a href="Route.html#get">get</a></li><li data-type='method' style='display: none;'><a href="Route.html#getActionType">getActionType</a></li><li data-type='method' style='display: none;'><a href="Route.html#getBinding">getBinding</a></li><li data-type='method' style='display: none;'><a href="Route.html#getCallable">getCallable</a></li><li data-type='method' style='display: none;'><a href="Route.html#getComponent">getComponent</a></li><li data-type='method' style='display: none;'><a href="Route.html#getController">getController</a></li><li data-type='method' style='display: none;'><a href="Route.html#getControllerActionFullname">getControllerActionFullname</a></li><li data-type='method' style='display: none;'><a href="Route.html#getControllerMethod">getControllerMethod</a></li><li data-type='method' style='display: none;'><a href="Route.html#getDefault">getDefault</a></li><li data-type='method' style='display: none;'><a href="Route.html#getDispatcher">getDispatcher</a></li><li data-type='method' style='display: none;'><a href="Route.html#getDispatchers">getDispatchers</a></li><li data-type='method' style='display: none;'><a href="Route.html#getMatchers">getMatchers</a></li><li data-type='method' style='display: none;'><a href="Route.html#getRouter">getRouter</a></li><li data-type='method' style='display: none;'><a href="Route.html#getRule">getRule</a></li><li data-type='method' style='display: none;'><a href="Route.html#hasDispatcher">hasDispatcher</a></li><li data-type='method' style='display: none;'><a href="Route.html#hasDomain">hasDomain</a></li><li data-type='method' style='display: none;'><a href="Route.html#hasMatchers">hasMatchers</a></li><li data-type='method' style='display: none;'><a href="Route.html#hasParameter">hasParameter</a></li><li data-type='method' style='display: none;'><a href="Route.html#hasParameters">hasParameters</a></li><li data-type='method' style='display: none;'><a href="Route.html#isCallableAction">isCallableAction</a></li><li data-type='method' style='display: none;'><a href="Route.html#isControllerAction">isControllerAction</a></li><li data-type='method' style='display: none;'><a href="Route.html#isHttpOnly">isHttpOnly</a></li><li data-type='method' style='display: none;'><a href="Route.html#isHttpsOnly">isHttpsOnly</a></li><li data-type='method' style='display: none;'><a href="Route.html#isParameterNameOptional">isParameterNameOptional</a></li><li data-type='method' style='display: none;'><a href="Route.html#isSecure">isSecure</a></li><li data-type='method' style='display: none;'><a href="Route.html#matches">matches</a></li><li data-type='method' style='display: none;'><a href="Route.html#optionalParameterNames">optionalParameterNames</a></li><li data-type='method' style='display: none;'><a href="Route.html#parameter">parameter</a></li><li data-type='method' style='display: none;'><a href="Route.html#parameterNames">parameterNames</a></li><li data-type='method' style='display: none;'><a href="Route.html#parameters">parameters</a></li><li data-type='method' style='display: none;'><a href="Route.html#parametersWithoutNulls">parametersWithoutNulls</a></li><li data-type='method' style='display: none;'><a href="Route.html#pathRegex">pathRegex</a></li><li data-type='method' style='display: none;'><a href="Route.html#run">run</a></li><li data-type='method' style='display: none;'><a href="Route.html#setContainer">setContainer</a></li><li data-type='method' style='display: none;'><a href="Route.html#setDispatchers">setDispatchers</a></li><li data-type='method' style='display: none;'><a href="Route.html#setMatchers">setMatchers</a></li><li data-type='method' style='display: none;'><a href="Route.html#setParameter">setParameter</a></li><li data-type='method' style='display: none;'><a href="Route.html#setRouter">setRouter</a></li><li data-type='method' style='display: none;'><a href="Route.html#setStrict">setStrict</a></li><li data-type='method' style='display: none;'><a href="Route.html#toJSON">toJSON</a></li><li data-type='method' style='display: none;'><a href="Route.html#toString">toString</a></li><li data-type='method' style='display: none;'><a href="Route.html#uriRegex">uriRegex</a></li><li data-type='method' style='display: none;'><a href="Route.html#.create">create</a></li></ul></li><li><a href="RouteCollection.html">RouteCollection</a><ul class='methods'><li data-type='method' style='display: none;'><a href="RouteCollection.html#add">add</a></li><li data-type='method' style='display: none;'><a href="RouteCollection.html#dump">dump</a></li><li data-type='method' style='display: none;'><a href="RouteCollection.html#getByAction">getByAction</a></li><li data-type='method' style='display: none;'><a href="RouteCollection.html#getByMethod">getByMethod</a></li><li data-type='method' style='display: none;'><a href="RouteCollection.html#getByName">getByName</a></li><li data-type='method' style='display: none;'><a href="RouteCollection.html#getRoutes">getRoutes</a></li><li data-type='method' style='display: none;'><a href="RouteCollection.html#getRoutesByMethod">getRoutesByMethod</a></li><li data-type='method' style='display: none;'><a href="RouteCollection.html#getRoutesByName">getRoutesByName</a></li><li data-type='method' style='display: none;'><a href="RouteCollection.html#hasNamedRoute">hasNamedRoute</a></li><li data-type='method' style='display: none;'><a href="RouteCollection.html#match">match</a></li><li data-type='method' style='display: none;'><a href="RouteCollection.html#toJSON">toJSON</a></li><li data-type='method' style='display: none;'><a href="RouteCollection.html#toString">toString</a></li></ul></li><li><a href="RouteDefinition.html">RouteDefinition</a><ul class='methods'><li data-type='method' style='display: none;'><a href="RouteDefinition.html#add">add</a></li><li data-type='method' style='display: none;'><a href="RouteDefinition.html#get">get</a></li><li data-type='method' style='display: none;'><a href="RouteDefinition.html#getMethods">getMethods</a></li><li data-type='method' style='display: none;'><a href="RouteDefinition.html#has">has</a></li><li data-type='method' style='display: none;'><a href="RouteDefinition.html#set">set</a></li><li data-type='method' style='display: none;'><a href="RouteDefinition.html#setMethods">setMethods</a></li></ul></li><li><a href="Router.html">Router</a><ul class='methods'><li data-type='method' style='display: none;'><a href="Router.html#addBinding">addBinding</a></li><li data-type='method' style='display: none;'><a href="Router.html#addDefault">addDefault</a></li><li data-type='method' style='display: none;'><a href="Router.html#addDispatcher">addDispatcher</a></li><li data-type='method' style='display: none;'><a href="Router.html#addFromRouteDefinition">addFromRouteDefinition</a></li><li data-type='method' style='display: none;'><a href="Router.html#addFromRouteDefinitions">addFromRouteDefinitions</a></li><li data-type='method' style='display: none;'><a href="Router.html#addMiddleware">addMiddleware</a></li><li data-type='method' style='display: none;'><a href="Router.html#addRule">addRule</a></li><li data-type='method' style='display: none;'><a href="Router.html#any">any</a></li><li data-type='method' style='display: none;'><a href="Router.html#createFromRouteDefinition">createFromRouteDefinition</a></li><li data-type='method' style='display: none;'><a href="Router.html#current">current</a></li><li data-type='method' style='display: none;'><a href="Router.html#currentRouteAction">currentRouteAction</a></li><li data-type='method' style='display: none;'><a href="Router.html#currentRouteName">currentRouteName</a></li><li data-type='method' style='display: none;'><a href="Router.html#delete">delete</a></li><li data-type='method' style='display: none;'><a href="Router.html#dispatch">dispatch</a></li><li data-type='method' style='display: none;'><a href="Router.html#dispatchToRoute">dispatchToRoute</a></li><li data-type='method' style='display: none;'><a href="Router.html#dumpRoutes">dumpRoutes</a></li><li data-type='method' style='display: none;'><a href="Router.html#fallback">fallback</a></li><li data-type='method' style='display: none;'><a href="Router.html#findRoute">findRoute</a></li><li data-type='method' style='display: none;'><a href="Router.html#gatherRouteMiddleware">gatherRouteMiddleware</a></li><li data-type='method' style='display: none;'><a href="Router.html#generate">generate</a></li><li data-type='method' style='display: none;'><a href="Router.html#get">get</a></li><li data-type='method' style='display: none;'><a href="Router.html#getCurrentRequest">getCurrentRequest</a></li><li data-type='method' style='display: none;'><a href="Router.html#getDispatchers">getDispatchers</a></li><li data-type='method' style='display: none;'><a href="Router.html#getMatchers">getMatchers</a></li><li data-type='method' style='display: none;'><a href="Router.html#getMiddleware">getMiddleware</a></li><li data-type='method' style='display: none;'><a href="Router.html#getRoutes">getRoutes</a></li><li data-type='method' style='display: none;'><a href="Router.html#has">has</a></li><li data-type='method' style='display: none;'><a href="Router.html#hasDispatchers">hasDispatchers</a></li><li data-type='method' style='display: none;'><a href="Router.html#hasMatchers">hasMatchers</a></li><li data-type='method' style='display: none;'><a href="Router.html#input">input</a></li><li data-type='method' style='display: none;'><a href="Router.html#isCurrentRouteNamed">isCurrentRouteNamed</a></li><li data-type='method' style='display: none;'><a href="Router.html#match">match</a></li><li data-type='method' style='display: none;'><a href="Router.html#on">on</a></li><li data-type='method' style='display: none;'><a href="Router.html#options">options</a></li><li data-type='method' style='display: none;'><a href="Router.html#patch">patch</a></li><li data-type='method' style='display: none;'><a href="Router.html#post">post</a></li><li data-type='method' style='display: none;'><a href="Router.html#put">put</a></li><li data-type='method' style='display: none;'><a href="Router.html#register">register</a></li><li data-type='method' style='display: none;'><a href="Router.html#registerRoutesFromDecoratorSource">registerRoutesFromDecoratorSource</a></li><li data-type='method' style='display: none;'><a href="Router.html#registerRoutesFromExplicitSource">registerRoutesFromExplicitSource</a></li><li data-type='method' style='display: none;'><a href="Router.html#registerRoutesFromLoader">registerRoutesFromLoader</a></li><li data-type='method' style='display: none;'><a href="Router.html#respondWithRouteName">respondWithRouteName</a></li><li data-type='method' style='display: none;'><a href="Router.html#setBindings">setBindings</a></li><li data-type='method' style='display: none;'><a href="Router.html#setCallableDispatcher">setCallableDispatcher</a></li><li data-type='method' style='display: none;'><a href="Router.html#setComponentDispatcher">setComponentDispatcher</a></li><li data-type='method' style='display: none;'><a href="Router.html#setContainer">setContainer</a></li><li data-type='method' style='display: none;'><a href="Router.html#setControllerDispatcher">setControllerDispatcher</a></li><li data-type='method' style='display: none;'><a href="Router.html#setDefaults">setDefaults</a></li><li data-type='method' style='display: none;'><a href="Router.html#setDispatchers">setDispatchers</a></li><li data-type='method' style='display: none;'><a href="Router.html#setEventEmitter">setEventEmitter</a></li><li data-type='method' style='display: none;'><a href="Router.html#setMatchers">setMatchers</a></li><li data-type='method' style='display: none;'><a href="Router.html#setMaxDepth">setMaxDepth</a></li><li data-type='method' style='display: none;'><a href="Router.html#setMiddleware">setMiddleware</a></li><li data-type='method' style='display: none;'><a href="Router.html#setRoutes">setRoutes</a></li><li data-type='method' style='display: none;'><a href="Router.html#setRules">setRules</a></li><li data-type='method' style='display: none;'><a href="Router.html#setStrict">setStrict</a></li><li data-type='method' style='display: none;'><a href="Router.html#skipMiddleware">skipMiddleware</a></li></ul></li><li><a href="RoutingServiceProvider.html">RoutingServiceProvider</a><ul class='methods'><li data-type='method' style='display: none;'><a href="RoutingServiceProvider.html#register">register</a></li></ul></li><li><a href="UriMatcher.html">UriMatcher</a><ul class='methods'><li data-type='method' style='display: none;'><a href="UriMatcher.html#matches">matches</a></li></ul></li></ul><h3>Externals</h3><ul><li><a href="external-AbstractEvent.html">external:AbstractEvent</a></li><li><a href="external-Container.html">external:Container</a></li><li><a href="external-EventEmitter.html">external:EventEmitter</a></li><li><a href="external-Request.html">external:Request</a></li></ul><h3>Events</h3><ul><li><a href="Event.html#event:ROUTE_MATCHED">Event#ROUTE_MATCHED</a></li><li><a href="Event.html#event:ROUTING">Event#ROUTING</a></li></ul><h3>Namespaces</h3><ul><li><a href="Decorators.html">Decorators</a><ul class='members'><li data-type='member' style='display: none;'><a href="Decorators.html#.exports.Any">exports.Any</a></li><li data-type='member' style='display: none;'><a href="Decorators.html#.exports.Controller">exports.Controller</a></li><li data-type='member' style='display: none;'><a href="Decorators.html#.exports.Delete">exports.Delete</a></li><li data-type='member' style='display: none;'><a href="Decorators.html#.exports.Fallback">exports.Fallback</a></li><li data-type='member' style='display: none;'><a href="Decorators.html#.exports.Get">exports.Get</a></li><li data-type='member' style='display: none;'><a href="Decorators.html#.exports.Group">exports.Group</a></li><li data-type='member' style='display: none;'><a href="Decorators.html#.exports.Match">exports.Match</a></li><li data-type='member' style='display: none;'><a href="Decorators.html#.exports.Options">exports.Options</a></li><li data-type='member' style='display: none;'><a href="Decorators.html#.exports.Patch">exports.Patch</a></li><li data-type='member' style='display: none;'><a href="Decorators.html#.exports.Post">exports.Post</a></li><li data-type='member' style='display: none;'><a href="Decorators.html#.exports.Put">exports.Put</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#SegmentConstraint">SegmentConstraint</a></li><li><a href="global.html#definition">definition</a></li><li><a href="global.html#routerOptions">routerOptions</a></li></ul>
+    
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">Router.mjs</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { Route } from './Route.mjs'
+import { Event } from './Event.mjs'
+import { Pipeline } from '@stone-js/pipeline'
+import { UriMatcher } from './matchers/UriMatcher.mjs'
+import { RouteCollection } from './RouteCollection.mjs'
+import { RouteDefinition } from './RouteDefinition.mjs'
+import { HostMatcher } from './matchers/HostMatcher.mjs'
+import { FlattenMapper } from './mapper/FlattenMapper.mjs'
+import { MethodMatcher } from './matchers/MethodMatcher.mjs'
+import { ExplicitLoader } from './loaders/ExplicitLoader.mjs'
+import { DecoratorLoader } from './loaders/DecoratorLoader.mjs'
+import { ProtocolMatcher } from './matchers/ProtocolMatcher.mjs'
+import { CallableDispatcher } from './dispatchers/CallableDispatcher.mjs'
+import { ComponentDispatcher } from './dispatchers/ComponentDispatcher.mjs'
+import { ControllerDispatcher } from './dispatchers/ControllerDispatcher.mjs'
+import { LogicException, HttpException, isClass, isPlainObject } from '@stone-js/common'
+import { DELETE, GET, HTTP_METHODS, OPTIONS, PATCH, POST, PUT } from './enums/http-methods.mjs'
+
+/**
+ * Request.
+ *
+ * @external Request
+ * @see {@link https://github.com/stonemjs/http/blob/main/src/Request.mjs|Request}
+ */
+
+/**
+ * Container.
+ *
+ * @external Container
+ * @see {@link https://github.com/stonemjs/service-container/blob/main/src/Container.mjs|Container}
+ */
+
+/**
+ * EventEmitter.
+ *
+ * @external EventEmitter
+ * @see {@link https://github.com/stonemjs/Core/blob/main/src/EventEmitter.mjs|EventEmitter}
+ */
+
+/**
+ * Class representing a Router.
+ *
+ * @author Mr. Stone &lt;evensstone@gmail.com>
+ */
+export class Router {
+  static METHODS = HTTP_METHODS
+
+  #rules
+  #strict
+  #routes
+  #current
+  #bindings
+  #maxDepth
+  #matchers
+  #defaults
+  #container
+  #middleware
+  #dispatchers
+  #eventEmitter
+  #skipMiddleware
+  #currentRequest
+
+  #defaultMatchers
+
+  /**
+   * Create a router.
+   *
+   * @param {routerOptions} [options={}] - Router configuration options
+   * @param {external:Container=} [container=null] - Stone.js service container module
+   * @param {external:EventEmitter=} [eventEmitter=null] - Stone.js event emitter module
+   */
+  constructor (options = {}, container = null, eventEmitter = null) {
+    this.#container = container
+    this.#eventEmitter = eventEmitter
+    this.#routes = new RouteCollection()
+
+    if (!this.#container) {
+      console.log('No service container instance provided.')
+    }
+
+    if (!this.#eventEmitter) {
+      console.log('No Event manager instance provided. No events will be disptached.')
+    }
+
+    this
+      .#setOptions(options)
+      .#container?.instance('routes', this.#routes)
+  }
+
+  /**
+   * Define implicit GET route.
+   *
+   * @param  {definition} definition
+   * @return {this}
+   */
+  get (definition) {
+    return this.match({ ...definition, methods: [GET] })
+  }
+
+  /**
+   * Define implicit POST route.
+   *
+   * @param  {definition} definition
+   * @return {this}
+   */
+  post (definition) {
+    return this.match({ ...definition, methods: [POST] })
+  }
+
+  /**
+   * Define implicit PUT route.
+   *
+   * @param  {definition} definition
+   * @return {this}
+   */
+  put (definition) {
+    return this.match({ ...definition, methods: [PUT] })
+  }
+
+  /**
+   * Define implicit PATCH route.
+   *
+   * @param  {definition} definition
+   * @return {this}
+   */
+  patch (definition) {
+    return this.match({ ...definition, methods: [PATCH] })
+  }
+
+  /**
+   * Define implicit DELETE route.
+   *
+   * @param  {definition} definition
+   * @return {this}
+   */
+  delete (definition) {
+    return this.match({ ...definition, methods: [DELETE] })
+  }
+
+  /**
+   * Define implicit OPTIONS route.
+   *
+   * @param  {definition} definition
+   * @return {this}
+   */
+  options (definition) {
+    return this.match({ ...definition, methods: [OPTIONS] })
+  }
+
+  /**
+   * Define implicit any route.
+   *
+   * @param  {definition} definition
+   * @return {this}
+   */
+  any (definition) {
+    return this.match({ ...definition, methods: HTTP_METHODS })
+  }
+
+  /**
+   * Define a fallback route.
+   * Fallback allow to define an action when no routes matches.
+   *
+   * @param  {Function|Object} action
+   * @return {this}
+   */
+  fallback (action) {
+    return this.match({ action, fallback: true, methods: [GET], path: '/:__fallback__(.*)*' })
+  }
+
+  /**
+   * Define implicit match any verbs route.
+   *
+   * @param  {definition} definition
+   * @return {this}
+   */
+  match (definition) {
+    return this.addFromRouteDefinition(new RouteDefinition(definition))
+  }
+
+  /**
+   * Add single route to RouteCollection from RouteDefinition.
+   *
+   * @param  {RouteDefinition} routeDefinition
+   * @return {this}
+   */
+  addFromRouteDefinition (routeDefinition) {
+    this.#routes.add(this.createFromRouteDefinition(routeDefinition))
+    return this
+  }
+
+  /**
+   * Add routes to RouteCollection from an array of RouteDefinition.
+   *
+   * @param  {RouteDefinition[]} routeDefinitions
+   * @return {this}
+   */
+  addFromRouteDefinitions (routeDefinitions) {
+    routeDefinitions.forEach(v => this.addFromRouteDefinition(v))
+    return this
+  }
+
+  /**
+   * Create route from RouteDefinition.
+   *
+   * @param  {RouteDefinition} routeDefinition
+   * @return {this}
+   */
+  createFromRouteDefinition (routeDefinition) {
+    return this.#hydrateRoute(Route.create(routeDefinition))
+  }
+
+  /**
+   * Register routes from explicit or decorator source.
+   *
+   * @param  {(definition[]|Function[])} definitions
+   * @return {this}
+   */
+  register (definitions) {
+    if (Array.isArray(definitions) &amp;&amp; definitions.length) {
+      if (isPlainObject(definitions[0])) {
+        return this.registerRoutesFromExplicitSource(definitions)
+      } else if (isClass(definitions[0])) {
+        return this.registerRoutesFromDecoratorSource(definitions)
+      }
+    }
+
+    throw new LogicException('Route definitions must be an array of literal object or class.')
+  }
+
+  /**
+   * Register routes from loader.
+   *
+   * @param  {AbstractLoader} routeLoader
+   * @return {this}
+   * @throws {LogicException}
+   */
+  registerRoutesFromLoader (routeLoader) {
+    if (!routeLoader.load) {
+      throw new LogicException('Invalid loader, routeLoader must have `load` method')
+    }
+
+    return this.addFromRouteDefinitions(routeLoader.load())
+  }
+
+  /**
+   * Register routes from explicit source.
+   *
+   * @param  {definition[]} definitions
+   * @return {this}
+   */
+  registerRoutesFromExplicitSource (definitions) {
+    return this.registerRoutesFromLoader(new ExplicitLoader(new FlattenMapper(this.#maxDepth), definitions))
+  }
+
+  /**
+   * Register routes from decorator source.
+   *
+   * @param  {Function[]} classes
+   * @return {this}
+   */
+  registerRoutesFromDecoratorSource (classes) {
+    return this.registerRoutesFromLoader(new DecoratorLoader(new FlattenMapper(this.#maxDepth), classes))
+  }
+
+  /**
+   * dispatchToRoute's alias
+   *
+   * @fires  Event#ROUTE_MATCHED
+   * @param  {external:Request} request
+   * @return {*}
+   */
+  dispatch (request) {
+    return this.dispatchToRoute(request)
+  }
+
+  /**
+   * Dispatch request to route.
+   * Match request to route and if exists run the route's action.
+   *
+   * @fires  Event#ROUTE_MATCHED
+   * @param  {external:Request} request
+   * @return {*}
+   */
+  dispatchToRoute (request) {
+    return this.#runRoute(request, this.findRoute(request))
+  }
+
+  /**
+   * Get route by name and run the route's action.
+   *
+   * @fires  Event#ROUTE_MATCHED
+   * @param  {external:Request} request
+   * @param  {string} name
+   * @return {*}
+   * @throws {HttpException}
+   */
+  respondWithRouteName (request, name) {
+    const route = this.#routes.getByName(name)
+
+    if (!route) {
+      throw new HttpException(404, 'Not Found', [], `No routes found for this name ${name}`)
+    }
+
+    return this.#runRoute(request, route)
+  }
+
+  /**
+   * Generate a route string by name.
+   *
+   * @param  {string} name
+   * @param  {Object} [params={}]
+   * @param  {boolean} [withDomain=true]
+   * @param  {string} [protocol=null]
+   * @return {string}
+   * @throws {LogicException}
+   */
+  generate (name, params = {}, withDomain = true, protocol = null) {
+    const route = this.#routes.getByName(name)
+
+    if (!route) {
+      throw new LogicException(`No routes found for this name ${name}`)
+    }
+
+    return route.generate(params, withDomain, protocol)
+  }
+
+  /**
+   * Find matched route by request.
+   *
+   * @fires Event#ROUTING
+   * @param  {external:Request} request
+   * @return {Route}
+   */
+  findRoute (request) {
+    this.#eventEmitter?.emit(Event.ROUTING, new Event(Event.ROUTING, this, { request }))
+
+    this.#current = this.#routes.match(request)
+    this.#container?.instance(Route, this.#current)?.alias(Route, 'route')
+
+    return this.#current
+  }
+
+  /**
+   * Unique merge Router and route middleware, remove excludeMiddleware.
+   *
+   * @param  {Route} route
+   * @return {Function[]}
+   */
+  gatherRouteMiddleware (route) {
+    return this.#middleware
+      .concat(route.middleware)
+      .filter(v => v &amp;&amp; !route.excludeMiddleware?.includes(v))
+      .reduce((prev, curr) => prev.includes(curr) ? prev : prev.concat(curr), [])
+  }
+
+  /**
+   * Register a callback to be invoked when route events fire.
+   *
+   * @listens Event#ROUTING
+   * @listens Event#ROUTE_MATCHED
+   *
+   * @param  {(Event.ROUTING|Event.ROUTE_MATCHED)} eventName
+   * @param  {Function} callback
+   * @return {this}
+   */
+  on (eventName, callback) {
+    this.#eventEmitter?.on(eventName, callback)
+    return this
+  }
+
+  /**
+   * Set max depth value for explicit parent children route definitions.
+   *
+   * @param  {number} value
+   * @return {this}
+   */
+  setMaxDepth (value) {
+    this.#maxDepth = value
+    return this
+  }
+
+  /**
+   * Set Uri regex pattern to be strict when matching.
+   *
+   * @param  {boolean} value
+   * @return {this}
+   */
+  setStrict (value) {
+    this.#strict = value
+    return this
+  }
+
+  /**
+   * Get middleware.
+   *
+   * @return {Function[]}
+   */
+  getMiddleware () {
+    return this.#middleware
+  }
+
+  /**
+   * Set middleware.
+   *
+   * @param  {Function[]} middleware
+   * @return {this}
+   */
+  setMiddleware (middleware) {
+    this.#middleware = middleware
+    return this
+  }
+
+  /**
+   * Add middleware.
+   *
+   * @param  {Function} middleware
+   * @return {this}
+   */
+  addMiddleware (middleware) {
+    this.#middleware = this.#middleware.concat(middleware)
+    return this
+  }
+
+  /**
+   * Add binding.
+   *
+   * @param  {string} name
+   * @param  {Function} value
+   * @return {this}
+   */
+  addBinding (name, value) {
+    this.#bindings[name] = value
+    return this
+  }
+
+  /**
+   * Set binding.
+   *
+   * @param  {Object} bindings
+   * @return {this}
+   */
+  setBindings (bindings) {
+    this.#bindings = bindings
+    return this
+  }
+
+  /**
+   * Add rule.
+   *
+   * @param  {string} name
+   * @param  {RegExp} pattern
+   * @return {this}
+   */
+  addRule (name, pattern) {
+    this.#rules[name] = pattern
+    return this
+  }
+
+  /**
+   * Set rules.
+   *
+   * @param  {Object} rules
+   * @return {this}
+   */
+  setRules (rules) {
+    this.#rules = rules
+    return this
+  }
+
+  /**
+   * Add default.
+   *
+   * @param  {string} name
+   * @param  {string} value
+   * @return {this}
+   */
+  addDefault (name, value) {
+    this.#defaults[name] = value
+    return this
+  }
+
+  /**
+   * Set defaults.
+   *
+   * @param  {Object} defaults
+   * @return {this}
+   */
+  setDefaults (defaults) {
+    this.#defaults = defaults
+    return this
+  }
+
+  /**
+   * Skip all middleware.
+   *
+   * @param  {boolean} [value=true]
+   * @return {this}
+   */
+  skipMiddleware (value = true) {
+    this.#skipMiddleware = value
+    return this
+  }
+
+  /**
+   * Has named route.
+   *
+   * @param  {string} name
+   * @return {boolean}
+   */
+  has (name) {
+    return []
+      .concat(name)
+      .reduce((prev, curr) => !this.#routes.hasNamedRoute(curr) ? false : prev, true)
+  }
+
+  /**
+   * Get route matched request parameters.
+   *
+   * @param  {string} name
+   * @param  {*} [fallback=null] return default value when not found.
+   * @return {string}
+   */
+  input (name, fallback = null) {
+    return this.current().parameter(name, fallback)
+  }
+
+  /**
+   * Get current request.
+   *
+   * @return {Request}
+   */
+  getCurrentRequest () {
+    return this.#currentRequest
+  }
+
+  /**
+   * Get current matched route.
+   *
+   * @return {Route}
+   */
+  current () {
+    return this.#current
+  }
+
+  /**
+   * Get current matched route name.
+   *
+   * @return {string}
+   */
+  currentRouteName () {
+    return this.current()?.name
+  }
+
+  /**
+   * Is current matched route has name.
+   *
+   * @return {boolean}
+   */
+  isCurrentRouteNamed (name) {
+    return this.currentRouteName() === name
+  }
+
+  /**
+   * Get current matched route action.
+   *
+   * @return {*}
+   */
+  currentRouteAction () {
+    return this.current()?.action
+  }
+
+  /**
+   * Get routes.
+   *
+   * @return {RouteCollection}
+   */
+  getRoutes () {
+    return this.#routes
+  }
+
+  /**
+   * Set routes.
+   *
+   * @param  {RouteCollection} routeCollection
+   * @return {this}
+   */
+  setRoutes (routeCollection) {
+    if (!(routeCollection instanceof RouteCollection)) {
+      throw new LogicException('Parameter must be an instance of RouteCollection')
+    }
+
+    for (const route of routeCollection) {
+      this.#hydrateRoute(route)
+    }
+
+    this.#routes = routeCollection
+
+    return this
+  }
+
+  /**
+   * Set container.
+   *
+   * @param  {external:Container} container
+   * @return {this}
+   */
+  setContainer (container) {
+    this.#container = container
+    return this
+  }
+
+  /**
+   * Set Event Emitter.
+   *
+   * @param  {external:EventEmitter} EventEmitter
+   * @return {this}
+   */
+  setEventEmitter (eventEmitter) {
+    this.#eventEmitter = eventEmitter
+    return this
+  }
+
+  /**
+   * Get user defined or built in route matchers.
+   *
+   * @param  {boolean} [orDefault=true] when true return built in matchers if no matchers is defined.
+   * @return {array}
+   */
+  getMatchers (orDefault = true) {
+    return this.hasMatchers() ? this.#matchers : (orDefault ? this.#getDefaultMatchers() : [])
+  }
+
+  /**
+   * Has route matchers.
+   *
+   * @return {boolean}
+   */
+  hasMatchers () {
+    return this.#matchers?.length > 0
+  }
+
+  /**
+   * Set matchers.
+   *
+   * @param  {array} matchers
+   * @param  {boolean} [mergeWithDefault=true] merge with built in matchers.
+   * @return {this}
+   */
+  setMatchers (matchers, mergeWithDefault = true) {
+    this.#matchers = [].concat(mergeWithDefault ? this.#getDefaultMatchers() : [], matchers)
+    return this
+  }
+
+  /**
+   * Get user defined or built in route dispatchers.
+   *
+   * @param  {boolean} [orDefault=true] when true return built in dispatchers if no dispatchers is defined.
+   * @return {Object}
+   */
+  getDispatchers (orDefault = true) {
+    return this.hasDispatchers() ? this.#dispatchers : (orDefault ? this.#getDefaultDispatchers() : {})
+  }
+
+  /**
+   * Has route dispatchers.
+   *
+   * @return {boolean}
+   */
+  hasDispatchers () {
+    return Object.values(this.#dispatchers).length > 0
+  }
+
+  /**
+   * Set dispatchers.
+   *
+   * @param  {Object} dispatchers
+   * @return {this}
+   */
+  setDispatchers (dispatchers) {
+    Object
+      .entries(dispatchers)
+      .forEach(([type, dispatcher]) => this.addDispatcher(type, dispatcher))
+
+    return this
+  }
+
+  /**
+   * Add dispatcher.
+   *
+   * @param  {string} type
+   * @param  {Function} dispatcher
+   * @return {this}
+   */
+  addDispatcher (type, dispatcher) {
+    if (!['component', 'callable', 'controller'].includes(type)) {
+      throw new LogicException(`Invalid dispatcher type ${type}. Valid types are ('component', 'callable', 'controller')`)
+    }
+
+    this.#dispatchers[type] = dispatcher
+
+    return this
+  }
+
+  /**
+   * Set component dispatcher.
+   *
+   * @param  {Function} dispatcher
+   * @return {this}
+   */
+  setComponentDispatcher (dispatcher) {
+    this.addDispatcher('component', dispatcher)
+    return this
+  }
+
+  /**
+   * Set callable dispatcher.
+   *
+   * @param  {Function} dispatcher
+   * @return {this}
+   */
+  setCallableDispatcher (dispatcher) {
+    this.addDispatcher('callable', dispatcher)
+    return this
+  }
+
+  /**
+   * Set controller dispatcher.
+   *
+   * @param  {Function} dispatcher
+   * @return {this}
+   */
+  setControllerDispatcher (dispatcher) {
+    this.addDispatcher('controller', dispatcher)
+    return this
+  }
+
+  /**
+   * Dump routes.
+   * Return all routes literal object array
+   *
+   * @return {array}
+   */
+  dumpRoutes () {
+    return this.#routes.dump()
+  }
+
+  #getDefaultMatchers () {
+    this.#defaultMatchers ??= [
+      new HostMatcher(),
+      new MethodMatcher(),
+      new ProtocolMatcher(),
+      new UriMatcher()
+    ]
+
+    return this.#defaultMatchers
+  }
+
+  #getDefaultDispatchers () {
+    return {
+      callable: CallableDispatcher,
+      component: ComponentDispatcher,
+      controller: ControllerDispatcher
+    }
+  }
+
+  #runRoute (request, route) {
+    request?.setRouteResolver(() => route)
+
+    this.#currentRequest = request
+
+    this.#eventEmitter?.emit(Event.ROUTE_MATCHED, new Event(Event.ROUTE_MATCHED, this, { route, request }))
+
+    return this.#runRouteWithMiddleware(request, route)
+  }
+
+  #runRouteWithMiddleware (request, route) {
+    const middleware = this.#skipMiddleware ? [] : this.gatherRouteMiddleware(route)
+
+    return Pipeline
+      .create(this.#container)
+      .send(request)
+      .through(middleware)
+      .then(req => this.#bindAndRun(route, req))
+  }
+
+  async #bindAndRun (route, request) {
+    route = await route.bind(request)
+    return route.run(request)
+  }
+
+  #hydrateRoute (route) {
+    return route
+      .setRouter(this)
+      .addRules(this.#rules)
+      .setStrict(this.#strict)
+      .addBindings(this.#bindings)
+      .addDefaults(this.#defaults)
+      .setContainer(this.#container)
+      .setMatchers(this.getMatchers())
+      .setDispatchers(this.getDispatchers())
+  }
+
+  #setOptions (options) {
+    this.#rules = options?.rules ?? {}
+    this.#strict = options?.strict ?? false
+    this.#maxDepth = options?.max_depth ?? 5
+    this.#matchers = options?.matchers ?? []
+    this.#defaults = options?.defaults ?? {}
+    this.#bindings = options?.bindings ?? {}
+    this.#middleware = options?.middleware ?? []
+    this.#dispatchers = options?.dispatchers ?? {}
+    this.#skipMiddleware = options?.skip_middleware ?? false
+
+    if (options?.definitions?.length) {
+      this.register(options.definitions)
+    }
+
+    return this
+  }
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Sun Mar 31 2024 08:06:50 GMT-0400 (Eastern Daylight Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
+
+
+<script src="scripts/collapse.js" defer></script>
+
+
+</body>
+</html>
