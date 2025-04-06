@@ -1,56 +1,39 @@
 export const nanoApp = 
-`import { HttpResponse } from '@stone-js/http-core'
-import { StoneApp } from '@stone-js/core/decorators'
-import {
-  NodeHttpAdapter
-} from '@stone-js/node-adapter/decorators'
-
+`@NodeHttp()
 @StoneApp()
-@NodeHttpAdapter({ default: true })
-export class Application {
-  constructor (container) {
-    this.container = container
+export class Application implements IEventHandler<IncomingEvent> {
+  private readonly logger: ILogger
+
+  constructor ({ logger }: { logger: ILogger }) {
+    this.logger = logger
   }
 
-  async handle (event) {
-    const user = await this
-      .container
-      .userService
-      .getByEmail(event.get('email'))
-  
-    return HttpResponse.json({
-      message: \`Hello \${user.fullname}!\`
-    })
+  handle(event: IncomingEvent): { message: string } {
+    const message = \`Hello \${event.get<string>('name', 'World')}!\`
+
+    this.logger.info(message)
+
+    return { message }
   }
 }
 `
 export const macroApp = 
-`import { HttpResponse } from '@stone/http-core'
-import {
-  Get, Post, Group, Controller
-} from '@stone-js/router/decorators'
-
-@Controller()
-@Group({ path: '/users' })
-export class UserController {
-  constructor ({ userService }) {
-    this.userService = userService
-  }
-
+`@Router()
+@NodeHttp()
+@StoneApp()
+@EventHandler()
+export class Application {
   @Get({ path: '/' })
-  async getUsers(event) {
-    const users = await this
-      .userService
-      .fetchByStatus(event.get('status'))
-
-    return HttpResponse.json(users)
+  welcome(event: IncomingEvent): { message: string } {
+    const message = \`Hello \${event.get<string>('name', 'World')}!\`
+    return { message }
   }
 
-  @Post({ path: '/' })
-  async saveUser(event) {
-    await this.userService.save(event.get('user'))
-
-    return HttpResponse.noContent()
+  @Get({ path: '/bye' })
+  bye(event: IncomingEvent): { message: string } {
+    const name = event.get<string>('name', 'World')
+    const message = \`Good Bye \${name}!\`
+    return { message }
   }
 }
 `

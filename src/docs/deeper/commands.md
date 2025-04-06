@@ -1,5 +1,5 @@
 ---
-title: CLI
+title: Commands
 ---
 
 The Stone CLI is the command line interface for Stone.js that assists developers throughout the development process. 

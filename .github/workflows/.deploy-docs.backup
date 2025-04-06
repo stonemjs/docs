@@ -46,3 +46,22 @@ jobs:
           # This is the branch where the docs are deployed to
           branch: gh-pages
           folder: src/.vuepress/dist
+    # - name: Sync to S3
+      #   uses: jakejarvis/s3-sync-action@v0.5.1
+      #   with:
+      #     args: --acl public-read --delete
+      #   env:
+      #     AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+      #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     AWS_REGION: ${{ secrets.AWS_REGION }}
+      #     SOURCE_DIR: dist
+
+      # - name: Deploy to Lambda
+      #   uses: appleboy/lambda-action@v0.1.8
+      #   with:
+      #     aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     region: ${{ secrets.AWS_REGION }}
+      #     function_name: ${{ secrets.AWS_LAMBDA_FUNCTION_NAME }}
+      #     zip_file: lambda.zip

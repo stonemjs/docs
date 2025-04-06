@@ -1,5 +1,5 @@
 ---
-title: Essentials
+title: Logging
 ---
 
 Welcome to the Essentials section of Stone.js documentation. Here, we focus on the foundational features of the framework that are crucial for any developer to grasp. These features include:

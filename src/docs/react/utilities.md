@@ -1,5 +1,5 @@
 ---
-title: Adapters
+title: Utilities
 ---
 
 Content before `more` comment is regarded as page excerpt.

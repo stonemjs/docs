@@ -1,5 +1,5 @@
 ---
-title: Cookies
+title: Components
 ---
 
 Content before `more` comment is regarded as page excerpt.

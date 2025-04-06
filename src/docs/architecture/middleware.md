@@ -1,5 +1,5 @@
 ---
-title: Events
+title: Middleware
 ---
 
 Events play a crucial role in a Stone.js ecosystem, acting as the transversal information element across almost all layers. Layers communicate with each other by sending and receiving events, significantly reducing the coupling between layers and components, allowing them to evolve independently.

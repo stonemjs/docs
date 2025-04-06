@@ -35,6 +35,14 @@
 
 .vp-sidebar {
   border-right: 1px solid var(--border-color);
+  .vp-sidebar-heading .vp-sidebar-title {
+    font-size: 0.875rem;
+    font-weight: bolder;
+  }
+  .vp-sidebar-link {
+    font-weight: 500;
+    opacity: 0.8;
+  }
 }
 
 .app-navbar {

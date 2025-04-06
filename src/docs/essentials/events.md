@@ -1,5 +1,5 @@
 ---
-title: Internal Events
+title: Events
 ---
 
 Internal events represent the category of events that occur within Stone.js, including events propagated by various application modules and user-defined events.

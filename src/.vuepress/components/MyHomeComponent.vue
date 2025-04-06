@@ -19,13 +19,13 @@
         </div>
       </div>
       <div class="cell has-text-left">
-        <CodeTabs :tabs="['Nano App', 'Macro App']">
+        <CodeTabs :tabs="['Nano', 'Micro']">
           <template v-slot:default="slotProps">
-            <div v-bind="slotProps.attrs" :class="slotProps.value === 'Nano App' ? 'active' : ''">
-              <CodeBlock language="javascript" :code="code" ext="js" />
+            <div v-bind="slotProps.attrs" :class="slotProps.value === 'Nano' ? 'active' : ''">
+              <CodeBlock language="javascript" :code="code" ext="ts" />
             </div>
-            <div v-bind="slotProps.attrs" :class="slotProps.value === 'Macro App' ? 'active' : ''">
-              <CodeBlock language="javascript" :code="macroCode" ext="js" />
+            <div v-bind="slotProps.attrs" :class="slotProps.value === 'Micro' ? 'active' : ''">
+              <CodeBlock language="javascript" :code="macroCode" ext="ts" />
             </div>
           </template>
         </CodeTabs>
@@ -93,18 +93,30 @@ export default {
     },
     features () {
       return [
-        { icon: 'fa-sack-dollar', title: 'Cost Effective', desc: 'Efficiently utilizes resources to minimize costs.' },
+        { icon: 'fa-cogs', title: 'Universal Framework', desc: 'Works seamlessly across different platforms and environments.' },
         { icon: 'fa-globe', title: 'Omnipresent App', desc: 'Build applications that run everywhere seamlessly.' },
-        { icon: 'fa-cloud', title: 'Cloud Native Friendly', desc: 'Designed for cloud environments and deployments.' },
-        { icon: 'fa-code', title: 'TypeScript Support', desc: 'Built-in TypeScript support for type safety.' },
-        { icon: 'fa-suitcase', title: 'Portable and Compact', desc: 'No need for <code>node_modules</code> and <code>package.json</code>, fully portable.' },
-        { icon: 'fa-cogs', title: 'Adaptive Configuration', desc: 'Configures automatically based on your needs.' },
         { icon: 'fa-layer-group', title: 'Continuum Architecture', desc: 'Scalable architecture for apps of any size.' },
+        { icon: 'fa-cogs', title: 'Declarative and Imperative', desc: 'Supports both declarative and imperative programming styles.' },
+        { icon: 'fa-cogs', title: 'Universal API', desc: 'Unified developpement API for both client and server.' },
+        { icon: 'fa-cogs', title: 'Universal Routing', desc: 'Unified routing system for both client and server.' },
+        { icon: 'fa-cogs', title: 'Adaptive Configuration', desc: 'Configuration that adapts to your needs.' },
+        { icon: 'fa-code', title: 'TypeScript Support', desc: 'Built-in TypeScript support for type safety.' },
+        { icon: 'fa-cloud', title: 'Cloud Native Friendly', desc: 'Designed for cloud environments and deployments.' },
+        { icon: 'fa-sack-dollar', title: 'Edge Computing', desc: 'Efficiently utilizes resources to reduce latency.' },
+        { icon: 'fa-cogs', title: 'Serverless Ready', desc: 'Optimized for serverless architectures and deployments.' },
+        { icon: 'fa-cogs', title: 'Micro Frontend Ready', desc: 'Easily integrates with micro frontend architectures.' },
+        { icon: 'fa-cogs', title: 'Microservices Ready', desc: 'Designed for microservices architecture.' },
+        { icon: 'fa-suitcase', title: 'Portable and Compact', desc: 'No need for <code>node_modules</code> and <code>package.json</code>, fully portable.' },
+        { icon: 'fa-cogs', title: 'Automatic Code Splitting', desc: 'Splits code automatically for better performance.' },
+        { icon: 'fa-code-branch', title: 'Automatic Tree Shaking', desc: 'Removes unused code automatically.' },
+        { icon: 'fa-cogs', title: 'Lazy loading', desc: 'Lazy load your modules out of the box.' },
+        { icon: 'fa-bolt', title: 'Fast and Lightweight', desc: 'Minimal overhead for maximum performance.' },
+        { icon: 'fa-cogs', title: 'HMR', desc: 'Hot module replacement or reloading.' },
+        { icon: 'fa-plug', title: 'Plugin System', desc: 'Easily extendable with a plugin system.' },
         { icon: 'fa-random', title: 'Proxied and Destructuring DI', desc: 'Simplified dependency injection with proxy and destructuring.' },
         { icon: 'fa-puzzle-piece', title: 'Modular and Flexible', desc: 'Customize and extend functionalities easily.' },
         { icon: 'fa-terminal', title: 'Automation via CLI', desc: 'Automate tasks and streamline development.' },
         { icon: 'fa-sliders-h', title: 'Zero Configuration', desc: 'Get started quickly without complex setup.' },
-        { icon: 'fa-code-branch', title: 'Light Final Bundle Tree Shaking', desc: 'Optimized bundle sizes with tree shaking.' },
         { icon: 'fa-cube', title: 'Pure ESM', desc: 'Utilizes ECMAScript Modules for modern development.' },
         { icon: 'fa-sync-alt', title: 'Evergreen', desc: 'Always up-to-date with the latest standards.' },
         { icon: 'fa-shield-alt', title: 'Security Focused', desc: 'Robust security measures to protect your applications.' },

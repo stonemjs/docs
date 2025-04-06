@@ -1,5 +1,5 @@
 ---
-title: URL Generation
+title: Adapter Error Page
 ---
 
 Content before `more` comment is regarded as page excerpt.

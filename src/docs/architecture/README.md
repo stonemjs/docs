@@ -1,5 +1,5 @@
 ---
-title: Core Concepts
+title: Introduction
 ---
 
 Understanding how a tool works is crucial to using it effectively. This section aims to present the core concepts of Stone.js, its architecture, and its operating mode, so you can be comfortable and confident in using it.
@@ -22,7 +22,7 @@ The build process of a Stone.js project is done using the following commands:
 
 ### Rollup Config
 
-Stone.js uses [Rollup](https://rollupjs.org) in conjunction with [Babel](https://babeljs.io) to transpile and bundle your project. The Rollup configuration file is used internally by default.
+Stone.js uses [Rollup](https://rollupjs.org) in conjunction with [Babel](https://babeljs.io) to transpile and bundle your server project. The Rollup configuration file is used internally by default.
 
 #### Customization
 
@@ -33,10 +33,28 @@ Be cautious with the configurations, as they ensure the proper functioning of St
 :::
 
 ```sh
-npm run export rollup
+npx stone export rollup
 ```
 
 The exported file will be present at the root of the project as `rollup.config.mjs`, where you can configure both Rollup and Babel.
+
+### Vite Config
+
+Stone.js uses [Vite](https://vite.dev) in conjunction with [Babel](https://babeljs.io) to transpile and bundle your client project. The Vite configuration file is used internally by default.
+
+#### Customization
+
+To customize Vite, you can export the configuration file used internally by Stone.js:
+
+::: important Caution
+Be cautious with the configurations, as they ensure the proper functioning of Stone.js, unless you know exactly what you are doing.
+:::
+
+```sh
+npx stone export vite
+```
+
+The exported file will be present at the root of the project as `vite.config.js`, where you can configure both Vite and Babel.
 
 ### Stone Config
 

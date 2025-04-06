@@ -1,5 +1,5 @@
 ---
-title: Controller
+title: Parameters
 ---
 
 Content before `more` comment is regarded as page excerpt.

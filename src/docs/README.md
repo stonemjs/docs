@@ -1,84 +1,187 @@
 ---
-title: Getting Started
+title: Introduction
 shortTitle: Documentation
 ---
 
-Welcome to **Stone.js**, the agnostic micro framework designed to make your life easier, whether you're building nano apps or macro applications. Our mission is simple: create once, deploy everywhere.
+**Stone.js** is a bold, next-generation **JavaScript** and **TypeScript** framework — fully modern, proudly **cloud-native friendly**, and designed to help you build scalable systems that run smoothly across environments like local machines, containers, edge networks, serverless platforms, and the browser.
 
-## Vision
+It’s built on the [**Continuum Architecture**](./architecture/continuum.md), a unified design that lets you use a **single API** and **one mindset** to build backend services, frontend apps, serverless functions, and even command-line tools — all with the same codebase, same logic, and same developer experience.
 
-At Stone.js, our vision is to empower businesses to save money and reduce production costs while seamlessly migrating to cloud-native environments. Our framework ensures that your applications remain independent of any specific cloud platform, allowing them to run anywhere – be it locally, on servers, containers, serverless platforms, or in the cloud.
+No more jumping between frameworks, paradigms, or runtimes. Whether you're building an API, a web UI, a CLI, 
+or deploying to serverless platforms, ****Stone.js** adapts to your context — not the other way around.**
 
-Here's what we're aiming for:
+Oh, and forget `node_modules`. **Stone.js** is modern, modular, and minimal — powered by **ESNext**, **TypeScript**, and the freedom to choose between [**declarative**](./architecture/paradigms.md#declarative-api) (decorators) or [**imperative**](./architecture/paradigms.md#imperative-api) (functional) APIs.
 
-- **Cost Efficiency:** Helping businesses cut down on production costs.
-- **Cloud-Native Transition:** Smooth migration to cloud-native environments.
-- **Platform Independence:** Ensuring your applications can operate on any platform.
-- **Scalability:** Facilitating the creation of applications from nano to macro scale.
-- **Configuration-Free Deployment:** Running applications everywhere without needing to tweak configurations or functionalities.
-- **Collaboration and Development:** Facilitating collaboration and development.
-- **Reduced Development Time:** Reducing the time needed for development.
+> **One framework. One brain. Infinite possibilities.**
 
-## Mission
+## The Problems
 
-Our mission is to build a modular, flexible framework that makes scalable development a breeze. We want to simplify the process of creating both small and large applications, ensuring that you can start your projects with zero configuration and adjust settings dynamically as needed.
+Modern frameworks promise productivity — but often deliver pain.
 
-We're committed to:
+You juggle tools for backend, frontend, CLI, cloud functions, and SSR — each with its own philosophy, structure, deployment complexity, and learning curve. You rewrite the same logic five times just to fit the tool, instead of focusing on what matters: your **business domain**.
 
-- **Modular and Flexible Design:** Crafting a framework that's both modular and flexible.
-- **Scalable Development:** Easing the path to scalable development.
-- **Nano to Macro App Creation:** Supporting the development of applications of all sizes.
-- **Zero Configuration Start:** Allowing projects to begin with zero configuration.
-- **Dynamic Configuration:** Enabling dynamic configuration adjustments.
-- **Standards and Best Practices:** Utilizing market standards and best practices, along with the renowned libraries available on npmjs, developed by passionate developers.
+Frameworks force you to choose your **context** too early: the routing style, the transport, the data-fetching strategy, the deployment target, the view library. And when any of these change? You patch. You bend. You break.
 
-## The Stone.js Advantage
+There’s no standard for handling events across environments, so you end up duplicating logic for HTTP, CLI, FAAS, and the browser. Every platform means rewriting boilerplate that should have been abstracted away.
 
-### Create Once, Deploy Everywhere
+Most frameworks offer **tools** — not **architecture**.
 
-Imagine writing your application code once and having it run seamlessly across different environments. With Stone.js, that's a reality. Whether it's local environments, servers, serverless platforms, or cloud Function-as-a-Service (FaaS), Stone.js has you covered. No need to worry about platform dependencies – your code just works.
+And under all of that, there’s a deeper issue:
 
-### Cloud-Native and Cost-Effective
+> **Context is treated as a constant — not a variable.**
 
-Stone.js is engineered to take full advantage of cloud-native features, ensuring that your applications are not only powerful but also cost-effective. By leveraging cloud-native functionalities, businesses can significantly reduce costs while maximizing performance and efficiency.
+That’s not developer freedom — that’s architectural debt.
 
-### Continuum Architecture
+## Our Philosophy
 
-Our framework is built on the robust Continuum Architecture, which provides a layered approach to omnipresent application development:
+Stone.js is built on a simple truth:
 
-```mermaid
-flowchart LR
-    A("Continuum Architecture") --- B("Feature Layer") & C("Initialization Layer") & D("Integration Layer") & E("Setup Layer")
-    style A stroke-width:4px,stroke-dasharray: 0,fill:#FFFFFF
-    style B stroke-width:4px,stroke-dasharray: 0,fill:#FF6D00,color:#FFFFFF
-    style C stroke-width:4px,stroke-dasharray: 0,color:#FFFFFF,fill:#00C853
-    style D stroke-width:4px,stroke-dasharray: 0,color:#FFFFFF,fill:#2962FF
-    style E stroke-width:4px,stroke-dasharray: 0,color:#FFFFFF,fill:#AA00FF
-    linkStyle 0 stroke:#FF6D00,fill:none
-    linkStyle 1 stroke:#00C853,fill:none
-    linkStyle 2 stroke:#2962FF,fill:none
-    linkStyle 3 stroke:#AA00FF
+> We do not create applications.  
+> We create systems that allow them to emerge.  
+> Because an application is not an object — it’s an action:  
+> the act of applying your domain to a real context, to meet a need.
+
+Most frameworks ask you to choose your context up front —  
+Are you building for Node? The browser? Serverless? CLI? React? Vue?
+
+You end up adapting the same logic again and again, just to fit into different runtimes or APIs.
+
+Stone.js takes a different path.
+
+It’s built on the [Continuum Architecture](./architecture/continuum.md),  
+where the **domain** (your business logic) and the **context** (your environment)  
+are not layered in hierarchy — but linked in a **continuum**.
+
+The domain is not ignorant of the context — it is **uncertain** of it.  
+And the context is not a constant — it is a **variable**: it moves through space and evolves over time.
+
+Stone.js embraces that uncertainty.  
+It orchestrates the connection between domain and context **dynamically at runtime**,  
+resolving intention into action — wherever your code runs.
+
+Your domain doesn’t belong to a framework —  
+it belongs to the problem it was meant to solve.
+
+And your context?  
+It doesn’t ask to be chosen —  
+it arrives when the moment comes.
+
+You don’t adapt your logic to the world —  
+you let the world adapt to your logic.
+
+Because in the continuum,  
+**the domain stays ready,  
+the context stays open,  
+and the application happens — when the two align.**
+
+## Why Stone.js?
+
+Because the modern stack shouldn’t stack complexity.
+
+Most frameworks were built for the past.
+
+- They split frontend and backend like opposing camps, each with their own tools, patterns, and gotchas.
+- They enforce one paradigm — declarative or imperative — and good luck switching mid-project.
+- They work **somewhere** — but not **everywhere**.
+- Need to handle CLI, HTTP, Lambda, or browser events? Get ready to reinvent the wheel.
+- Your business logic ends up tangled in platform-specific glue and fragile process.env hacks.
+
+It’s not flexibility — it’s fragmentation.
+
+**Stone.js** solves the **context problem** with a clean, modular, cloud-friendly architecture. Here’s what makes it different:
+
+- **Run anywhere** — from local dev to the edge, serverless, or browser.
+- [**Continuum Architecture**](./architecture/continuum.md) — the domain logic and the context are linked in a **continuum**.
+- **Context-awareness** — let Stone.js choose the platform when it actually matters.
+- **Cloud-native friendly** — deploy to FAAS, containers, or edge without a rewrite.
+- **Zero `node_modules` bloat** — just build, ship, and go.
+- **ESNext & ESM-native** — no legacy baggage, no transpiler traps.
+- **Universal API** — one flow for frontend, backend, CLI, SSR — same logic, everywhere.
+- **Two paradigms** — decorators or functions? Your call. Mix them freely.
+- **Nano to macro** — start small, scale huge, without switching tools.
+- **TS/JS first** — fully typed, fully flexible, fully future-proof.
+
+In short: **Less boilerplate. More power. Real freedom.**
+
+## API Styles
+
+**Stone.js** lets you build the way that fits you best:
+
+> Declarative when you want it, imperative when you need it.
+
+### **Declarative**
+
+Use modern decorators with ES6 classes to configure your app with clarity and structure.
+
+```ts
+import { NodeHttp } from '@stone-js/node-http-adapter'
+import { IncomingEvent, IEventHandler, StoneApp } from '@stone-js/core'
+
+@NodeHttp()
+@StoneApp()
+export class Application implements IEventHandler<IncomingEvent> {
+  handle(event: IncomingEvent): { message: string } {
+    return { message: 'Hello world!' }
+  }
+}
 ```
 
-- **Setup Layer:** Responsible for loading and constructing initial configurations automatically.
-- **Integration Layer:** Bridges the platform and the framework, handling input conversion and communication.
-- **Initialization Layer:** Sets up the application environment, bootstraps components, and processes events.
-- **Feature Layer:** Contains user-defined functionalities and business logic.
+### **Imperative**
 
-### Evergreen Framework
+Go functional and dynamic when you need full control.
 
-We're committed to sustainability. Stone.js is designed to be an evergreen framework, helping businesses reduce their carbon footprint. By optimizing resources and leveraging efficient cloud-native technologies, we aim to make a positive impact on the environment.
+```ts
+import {
+  IncomingEvent,
+  defineAppBlueprint,
+  defineFactoryEventHandler
+} from '@stone-js/core'
+import { nodeHttpAdapterBlueprint } from '@stone-js/node-http-adapter'
+
+const Application = () => (event: IncomingEvent) => ({ message: 'Hello world!' })
+
+export const AppBlueprint = defineAppBlueprint(
+  nodeHttpAdapterBlueprint,
+  ['stone.kernel.eventHandler', defineFactoryEventHandler(Application)]
+)
+```
+
+Short on time? You only need one paradigm to build your app.
+Pick the one that fits your style, forget the rest — or mix and match later.
+Stone.js doesn’t judge, doesn’t lock you in, and definitely doesn’t ghost you when you switch sides. 😄
 
 ## Open Source and Community
 
-Stone.js is a new and ambitious open-source project, inviting all enthusiasts to join this great adventure and contribute in any way they can. Our goal is to leverage cloud-native capabilities to create cost-effective applications. The Continuum Architecture and Omniplex Application concepts were born to make this dream possible, also facilitating local development and deployment everywhere.
+**Stone.js** is proudly open source — built with ❤️ by developers, for developers.
 
-Published under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0), Stone.js stands on the shoulders of giants, using market standards, best practices, and the wonderful libraries available on npmjs.
+Our mission is to create a strong, vibrant community that values simplicity, context-awareness, and elegant architecture. Contributions, discussions, and feedback are all welcome — let’s build the future together.
+
+Published under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0), Stone.js stands on the shoulders of giants, using market standards, best practices, and the wonderful libraries available on [npmjs](https://www.npmjs.com).
 
 ## Target Audience
 
-Stone.js is for developers and businesses looking to create versatile, high-performing applications with ease. Whether you're a startup building your first nano app or an enterprise developing a complex macro application, Stone.js provides the tools and flexibility you need to succeed.
+**Stone.js** is made for:
 
-Ready to dive in? Let's get started with Stone.js and revolutionize the way you build applications. With a touch of humor and a lot of power, we're here to make your development journey smooth, efficient, and fun.
+- **Solo devs** who want to ship fast without choosing the wrong stack.
+- **Startups** that need to scale without rewriting from scratch.
+- **Enterprises** looking to standardize frontend/backend logic and reduce tech fragmentation.
+- **Platform engineers** who care about clean architecture, testability, and deployment portability.
+- **Framework hoppers** tired of reinventing the wheel with every new context.
 
-Let's get started: [Installation](./installation.md)
+## **Stone.js** Is Not a Framework. It’s a Foundation.
+
+Frameworks solve specific problems (e.g., routing, rendering, API handling). **Stone.js** gives you a model to solve **your** problems — in your context, at your pace.
+
+With its **event abstraction**, **adapter layer**, and **context-awareness** structure, **Stone.js** allows you to define how and where you want to apply logic — making it adaptable and scalable over time.
+
+It’s not just a tool you use today — it’s an architectural foundation you can grow on tomorrow.
+
+> Stop choosing tools. Start designing systems.  
+> Stop adapting your logic. Start owning your context.
+
+::: info
+TypeScript is used throughout the documentation for clarity and type safety.  
+If you prefer JavaScript, just remove the types and keep the logic.
+:::
+
+Welcome to **Stone.js**, a place where dreams come true: [Installation](./getting-started/installation.md).
