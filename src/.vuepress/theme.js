@@ -29,6 +29,10 @@ export default hopeTheme({
     },
   },
 
+  markdown: {
+    tabs: true,
+  },
+
   encrypt: {
     config: {
       "/demo/encrypt.html": ["1234"],

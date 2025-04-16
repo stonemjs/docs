@@ -133,14 +133,14 @@ Go functional and dynamic when you need full control.
 ```ts
 import {
   IncomingEvent,
-  defineAppBlueprint,
+  defineBlueprintConfig,
   defineFactoryEventHandler
 } from '@stone-js/core'
 import { nodeHttpAdapterBlueprint } from '@stone-js/node-http-adapter'
 
 const Application = () => (event: IncomingEvent) => ({ message: 'Hello world!' })
 
-export const AppBlueprint = defineAppBlueprint(
+export const AppBlueprint = defineBlueprintConfig(
   nodeHttpAdapterBlueprint,
   ['stone.kernel.eventHandler', defineFactoryEventHandler(Application)]
 )

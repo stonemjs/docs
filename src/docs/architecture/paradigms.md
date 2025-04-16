@@ -42,12 +42,12 @@ You *explicitly define* how to wire up the app, step by step.
 Clarity and control. You compose your app like functions in math: input → transform → output.
 
 **Core idea**  
-Use **functions** like `defineAppBlueprint`, `defineFactoryEventHandler`, etc., and assemble them into blueprints.
+Use **functions** like `defineBlueprintConfig`, `defineFactoryEventHandler`, etc., and assemble them into blueprints.
 
 ```ts
 export const App = () => (event: IncomingEvent) => ({ message: "Hello world!" })
 
-export const AppBlueprint = defineAppBlueprint(
+export const AppBlueprint = defineBlueprintConfig(
   ['stone.kernel.eventHandler', defineFactoryEventHandler(App)]
 )
 ```

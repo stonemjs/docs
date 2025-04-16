@@ -324,7 +324,7 @@ config
       └── RoutingBlueprint.ts
 ```
 
-Within these files, you use the `defineAppBlueprint(...userBlueprints: StoneBlueprint[])` utility to assemble the configuration options, following the `blueprint` philosophy of Stone.js.
+Within these files, you use the `defineBlueprintConfig(...userBlueprints: StoneBlueprint[])` utility to assemble the configuration options, following the `blueprint` philosophy of Stone.js.
 
 **Example:**
 
@@ -332,9 +332,9 @@ Within these files, you use the `defineAppBlueprint(...userBlueprints: StoneBlue
 // ./config/app/StoneBlueprint.ts
 import { Env } from '@stone-js/env';
 import { MyService } from '../../app/services/MyService';
-import { defineAppBlueprint, StoneBlueprint } from '@stone-js/core';
+import { defineBlueprintConfig, StoneBlueprint } from '@stone-js/core';
 
-export const blueprint: StoneBlueprint = defineAppBlueprint({
+export const blueprint: StoneBlueprint = defineBlueprintConfig({
   app: {
     name: Env.get('APP_NAME', 'Stone.js'),
     services: [MyService]
@@ -342,7 +342,7 @@ export const blueprint: StoneBlueprint = defineAppBlueprint({
 });
 ```
 
-In this example, `defineAppBlueprint` is used to assemble all configurations into a `blueprint` object. Unlike the declarative approach where components are discovered and configured automatically, you manually declare everything that needs to be registered in the framework.
+In this example, `defineBlueprintConfig` is used to assemble all configurations into a `blueprint` object. Unlike the declarative approach where components are discovered and configured automatically, you manually declare everything that needs to be registered in the framework.
 
 By taking this route, the [Setup Layer]() is no longer needed, as the entire configuration process is centralized within `./config/app/StoneBlueprint.ts`. This provides a transparent and centralized view of which components are included in the application, making it particularly useful for scenarios where manual control is preferable.
 

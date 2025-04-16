@@ -129,7 +129,7 @@ Even if the hook method lives in a class, it is **executed independently** of th
 Hooks can also be registered directly in your blueprint definition:
 
 ```ts
-defineAppBlueprint([
+defineBlueprintConfig([
   ['stone.lifecycleHooks.onStart', () => console.log('Started')],
   ['stone.lifecycleHooks.onTerminate', ctx => console.log('Request done')],
 ]);

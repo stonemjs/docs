@@ -359,13 +359,13 @@ Prefer functional programming or need fine-grained control? Stone.js has your ba
 ```ts
 // app/Application.ts
 import {
-  defineAppBlueprint, defineFactoryEventHandler, IncomingEvent
+  defineBlueprintConfig, defineFactoryEventHandler, IncomingEvent
 } from "@stone-js/core"
 import { nodeHttpAdapterBlueprint } from "@stone-js/node-http-adapter"
 
 const Application = () => (event: IncomingEvent) => ({ message: "Hello world!" })
 
-export const AppBlueprint = defineAppBlueprint(nodeHttpAdapterBlueprint, {
+export const AppBlueprint = defineBlueprintConfig(nodeHttpAdapterBlueprint, {
   stone: {
     kernel: {
       eventHandler: defineFactoryEventHandler(Application)
@@ -386,7 +386,7 @@ import {
   defineFactoryComponent,
 } from "@stone-js/use-react"
 import { ReactNode } from "react"
-import { defineAppBlueprint } from "@stone-js/core"
+import { defineBlueprintConfig } from "@stone-js/core"
 import { browserAdapterBlueprint } from "@stone-js/browser-adapter"
 
 export const Application = () => ({
@@ -396,7 +396,7 @@ export const Application = () => ({
   }
 })
 
-export const AppBlueprint = defineAppBlueprint<UseReactBlueprint>(
+export const AppBlueprint = defineBlueprintConfig<UseReactBlueprint>(
   useReactBlueprint,
   browserAdapterBlueprint,
   ['stone.useReact.componentEventHandler', defineFactoryComponent(Application)]

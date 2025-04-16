@@ -63,7 +63,7 @@ Stone.js doesn’t force a rigid structure. Instead, it gives you **freedom with
 👉 You must define **a single app entry point** — name it however you want (`Application.ts`, `MainApp.ts`, `MyUnicornApp.ts`) — as long as it does one of the following:
 
 - **Declarative API**: Export a class decorated with `@StoneApp()`.
-- **Imperative API**: Export any value created using `defineAppBlueprint()`.
+- **Imperative API**: Export any value created using `defineBlueprintConfig()`.
 
 Even the folder name `app/` is just a suggestion — feel free to rename it to match your project’s domain or your team’s naming conventions. *You own the structure. You own the context.*
 
@@ -92,9 +92,9 @@ export class Application {
 
 ```ts
 // app/Application.ts
-import { stoneBlueprint, defineAppBlueprint } from "@stone-js/core"
+import { stoneBlueprint, defineBlueprintConfig } from "@stone-js/core"
 
-export const AppBlueprint = defineAppBlueprint(stoneBlueprint, {
+export const AppBlueprint = defineBlueprintConfig(stoneBlueprint, {
   // Define your app manually using functional composition
 })
 ```

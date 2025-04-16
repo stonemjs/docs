@@ -35,7 +35,7 @@ Continuum Architecture defines three contextual dimensions, all implemented in S
    Managed by `IBlueprintBuilder`. It builds a full context [blueprint](./blueprint.md) at runtime by introspecting your modules, dependencies, through [middleware](./middleware.md).
 
 2. **Integration**  
-   Handled by `IAdapter`. Specific to each environment (Browser, Server, FAAS, CLI, etc.), adapters capture **causes** (requests, commands, events) and transform them into **intentions** (`IncomingEvent`).  
+   Handled by `IAdapter`. Specific to each environment (Browser, Server, FaaS, CLI, etc.), adapters capture **causes** (requests, commands, events) and transform them into **intentions** (`IncomingEvent`).  
    These are passed to the system and ultimately produce **response** (`OutgoingResponse`), which the adapter sends back as **effects**. [Middleware](./middleware.md) can also participate in this transformation pipeline.
 
 3. **Initialization**  

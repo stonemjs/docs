@@ -33,6 +33,10 @@
   border: 1px dashed var(--border-color);
 }
 
+.mermaid-actions {
+  display: none;
+}
+
 .vp-sidebar {
   border-right: 1px solid var(--border-color);
   .vp-sidebar-heading .vp-sidebar-title {

@@ -1,5 +1,5 @@
 ---
-title: Introduction
+title: Core Concepts
 ---
 
 Understanding how a tool works is crucial to using it effectively. This section aims to present the core concepts of Stone.js, its architecture, and its operating mode, so you can be comfortable and confident in using it.
