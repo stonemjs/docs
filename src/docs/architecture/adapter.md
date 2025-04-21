@@ -624,6 +624,43 @@ This approach offers complete flexibility — especially useful when adapter sel
 
 Integration hooks in Stone.js allow you to observe and react to the platform-specific phases of your system — including adapter startup, event transformation, middleware execution, and shutdown.
 
+```mermaid
+%%{init: {"theme": "base", "themeVariables": {
+  "fontSize": "14px",
+  "lineColor": "#d35400"
+}}}%%
+flowchart TD
+    A[System start] --> B[onStart]
+    A --> B1[System stop]
+    B1 --> B2[onStop]
+    A --> C[External request]
+    C --> D[onBuildingIncomingEvent]
+    D --> E[Processing Middleware Loop]
+
+    E --> F[onProcessingAdapterMiddleware]
+    F --> G[Execute Middleware]
+    G --> H[onAdapterMiddlewareProcessed]
+
+    H --> E[Processing Middleware Loop]
+
+    E --> I[onBuildingRawResponse]
+    E --> J[onHandlingAdapterError]
+
+%% Styling for all nodes
+    style A stroke-width:4px,fill:#FFFFFF
+    style B stroke-width:4px,fill:#FFFFFF
+    style B1 stroke-width:4px,fill:#FFFFFF
+    style B2 stroke-width:4px,fill:#FFFFFF
+    style C stroke-width:4px,fill:#FFFFFF
+    style D stroke-width:4px,fill:#FFFFFF
+    style E stroke-width:4px,fill:#FFFFFF
+    style F stroke-width:4px,fill:#FFFFFF
+    style G stroke-width:4px,fill:#FFFFFF
+    style H stroke-width:4px,fill:#FFFFFF
+    style I stroke-width:4px,fill:#FFFFFF
+    style J stroke-width:4px,fill:#FFFFFF
+```
+
 These hooks belong to the **Integration Dimension** of the Continuum Architecture. They do not affect your application logic directly, but instead provide a clean mechanism to tap into low-level system behavior. They're useful for logging, metrics, debugging, diagnostics, and graceful shutdowns — all without polluting your core system logic.
 
 There are two types of integration hooks:

@@ -61,7 +61,7 @@ This structure makes middleware expressive, composable, and highly controllable 
 Stone.js middleware can be written in three interchangeable forms: **class**, **function**, or **factory**.  
 Each variant provides the same capabilities and can be used in any dimension — choose the shape that best fits your design or context.
 
-::: tabs#ts
+::: tabs#class-factory-function
 @tab:active Class-based
 #### Class-based Middleware
 

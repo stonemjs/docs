@@ -2,327 +2,579 @@
 title: Service Container
 ---
 
-The Service Container is a powerful library that manages dependencies and facilitates dependency injection within your Stone.js application. This allows you to create highly decoupled and maintainable codebases.
+The **Service Container** is Stone.js’s powerful internal dependency injection engine — your system's backstage manager.
 
-Dependency Injection (DI) is a design pattern used to implement Inversion of Control (IoC), where objects receive their dependencies instead of creating them internally.
+It lives in the **Initialization Dimension**, where your system is bootstrapped and prepared to respond to intentions. Within the Continuum Architecture, the service container acts as the **ephemeral internal context**, managing the concrete dependencies that your system needs *right now* to apply its domain logic in the current execution context.
 
-Configuring your dependencies is straightforward with Stone.js. It provides simple and effective tools to register your dependencies.
+Think of it as the backstage of a play: it doesn’t care about the story (domain), the audience (users), or even the theater (runtime). It just makes sure everyone has their props when they enter the stage.
 
-Thanks to **Proxy resolution**, which allows you to resolve dependencies as if they were properties of the service container instance itself, and **Destructuring resolution**, which lets you resolve multiple dependencies at once by destructuring the container. With Stone.js, resolving dependencies becomes a seamless process.
+### Why It Exists
+
+Most applications need to assemble various parts: configs, loggers, services, clients, and helpers. You could wire them together manually... or you could let the Service Container do the job for you.
+
+It provides:
+
+- A clean and automatic way to **register**, **resolve**, and **inject** dependencies
+- Support for **singleton** and **factory** lifecycles
+- A unified interface for **declarative**, **imperative**, and **explicit** service binding
+- Advanced resolution via **destructuring** and **proxy access**
+
+And it does all of this without tying your domain logic to any specific platform or environment.
+
+### Where It Fits in the Continuum
+
+In Stone.js, everything revolves around managing **context**. The container represents the **internal execution context**, tailored and scoped to each system instance. It’s:
+
+- Created during system initialization when an incoming event is received
+- Passed into your services and factories
+- Destroyed when the system is done processing the event
+
+It is **ephemeral**, which means it lives only for the lifetime of the current event, but it's **universal** — the same mechanism powers your CLI, Lambda, SSR server, or frontend app.
+
+### Core Responsibilities
+
+- **Register services**: via decorators, blueprint configuration, or manual bindings
+- **Resolve dependencies**: using `make`, `resolve`, or proxy access
+- **Manage lifecycle**: singleton or transient per binding
+- **Alias bindings**: make your services portable across build tools and environments
 
 ## Accessing the Container
 
-In a Stone.js application, the `container` is accessible by default from the main handler, [service provider](./providers.md)
-and from any other classes configured to be resolved by the `container`. Regardless of the class, 
-you can access the `container` through its constructor.
+In Stone.js, the **Service Container** is passed to your services so they can resolve their own dependencies. How you access it depends on how your service is defined — **class-based**, **factory-based**, or **function-based** (spoiler: that one’s not allowed).
 
-::: code-tabs#js
-@tab:active JavaScript
+Let’s break it down.
 
-```js
-import { StoneApp } from '@stone-js/core/decorators'
+::: tabs#class-factory-function
+@tab:active Class-based
+### Class-Based Services
 
-@StoneApp({ name: 'MyApp' })
+If your service is a class, the container is injected into the constructor. You can receive it either as a single parameter or via destructuring for multiple dependencies.
+
+```ts
+import { StoneApp, IContainer } from '@stone-js/core'
+
+@StoneApp()
 export class Application {
-  constructor (container) {
-    this.container = container
-  }
-
-  get config () {
-    return this.container.config
-  }
-
-  handle (event) {
-    console.log(this.config.get('app.name')) // Print: MyApp
-  }
+  constructor(private readonly container: IContainer) {}
 }
 ```
 
-@tab TypeScript
+You can also destructure the container to directly access dependencies:
 
 ```ts
-import { Config } from '@stone-js/config'
-import { StoneApp } from '@stone-js/core/decorators'
+import { Service } from '@stone-js/core'
 
-interface CustomBinding {
-  config: Config
-}
-
-@StoneApp({ name: 'MyApp' })
-export class Application {
-  private readonly container: CustomBinding
-
-  constructor (container: CustomBinding) {
-    this.container = container
-  }
-
-  get config () {
-    return this.container.config
-  }
-
-  handle (event) {
-    console.log(this.config.get('app.name')) // Print: MyApp
-  }
-}
-```
-:::
-
-In this example, we receive the service container via the constructor, then create a `config` getter to access the `Config` object, which contains the application's configurations. Finally, we use it in the `handle` method to print the application's name.
-
-## Binding
-
-In a Stone.js application, dependency configuration is not done automatically. It is up to you to specify them so that they can be registered in the service container. Stone.js provides efficient tools to facilitate this task.
-
-### Implicit Binding
-
-You can bind your classes directly to the service container using the implicit API, specifically the decorators provided by Stone.js. These decorators allow you to bind any class to the service container:
-
-- `@Injectable`: Used to bind any class to the service container.
-- `@Service`: An alias for `@Injectable`, more suitable for your services.
-
-They take two optional parameters:
-
-- `singleton`: Binds your class as a singleton when set to `true`. By default, it is `true`.
-- `alias`: Allows you to define one or more aliases for your class, useful for proxy and destructured resolution, a topic we will cover later.
-
-Here is an example:
-
-```js
-import { Service } from '@stone-js/core/decorators'
-
-@Service({ singleton: true, alias: 'userService' })
-export class UserService {}
-```
-
-This service can now be resolved anywhere the service container is accessible.
-
-### Explicit Binding
-
-For more control over the binding of your components, 
-you can use the container from the main handler or the [service provider](./providers.md) to bind your instances, 
-singletons, and factories.
-
-#### Instance
-
-To bind a single instance or value to the container:
-
-::: code-tabs#js
-@tab:active JavaScript
-
-```js
-// Bind value
-this.container.instance('config', { apiUrl: 'https://api.example.com' })
-
-// Bind instance
-this.container.instance('ApiUrl', new URL('https://api.example.com'))
-```
-
-@tab TypeScript
-
-```ts
-// Bind value
-this.container.instance('config', { apiUrl: 'https://api.example.com' })
-
-// Bind instance
-this.container.instance('ApiUrl', new URL('https://api.example.com'))
-```
-:::
-
-#### Singleton
-
-To bind a resolver function that returns a singleton instance:
-
-::: code-tabs#js
-@tab:active JavaScript
-
-```js
-this.container.singleton('logger', () => new Logger())
-```
-
-@tab TypeScript
-
-```ts
-this.container.singleton('logger', () => new Logger())
-```
-:::
-
-#### Factory
-
-To bind a resolver function that returns a new instance each time:
-
-::: code-tabs#js
-@tab:active JavaScript
-
-```js
-this.container.binding('userService', (container) => new UserService(container))
-```
-
-@tab TypeScript
-
-```ts
-this.container.binding('userService', (container: Container) => new UserService(container))
-```
-:::
-
-## Resolving
-
-You can resolve dependencies from the container using the `make` method:
-
-::: code-tabs#js
-@tab:active JavaScript
-
-```js
-const config = this.container.make('config')
-const logger = this.container.make('logger')
-const userService = this.container.make('userService')
-```
-
-@tab TypeScript
-
-```ts
-const config = this.container.make('config')
-const logger = this.container.make('logger')
-const userService = this.container.make('userService')
-```
-:::
-
-### Proxied Resolving
-
-Proxied resolving allows you to resolve dependencies through the container using the proxy pattern. 
-This means you can access dependencies directly as if they were properties of the container instance, 
-making the syntax cleaner and more intuitive.
-
-::: code-tabs#js
-@tab:active JavaScript
-
-```js
-import { Service } from '@stone-js/core/decorators'
-
-@Service()
-export class AdminService {
-  constructor (container) {
-    this.logger = container.logger
-    this.config = container.config
-    this.userService = container.userService
-  }
-}
-```
-
-@tab TypeScript
-
-```ts
-import { Service } from '@stone-js/core/decorators'
-
-interface CustomBinding {
+interface AdminServiceOptions {
   config: Config;
-  logger: Logger;
   userService: UserService;
 }
 
 @Service()
 export class AdminService {
-  constructor (container: CustomBinding) {
-    this.logger = container.logger
-    this.config = container.config
-    this.userService = container.userService
-  }
-}
-```
-:::
-
-### Destructuring Resolving
-
-Destructuring resolving allows you to resolve multiple dependencies at once by destructuring the container. 
-This method provides a concise and convenient way to access several dependencies simultaneously.
-
-::: code-tabs#js
-@tab:active JavaScript
-
-```js
-import { Service } from '@stone-js/core/decorators'
-
-@Service()
-export class AdminService {
-  constructor ({ config, logger, userService }) {
-    this.config = config
-    this.logger = logger
-    this.userService = userService
+  constructor({ config, userService }: AdminServiceOptions) {
+    // Use config and userService directly
   }
 }
 ```
 
-@tab TypeScript
+This works because the container is a **Proxy** — it resolves dependencies as properties.
+
+@tab Factory-based
+### Factory-Based Services
+
+Factory functions receive the container as their first argument. You can use it directly or destructure it just like in classes.
 
 ```ts
-import { Service } from '@stone-js/core/decorators'
+import { defineBlueprintConfig, IContainer, IncomingEvent } from '@stone-js/core'
 
-interface CustomBinding {
+const Application = (container: IContainer) => {
+  return (event: IncomingEvent) => ({ message: 'Hello world!' })
+}
+```
+
+With destructuring:
+
+```ts
+interface ApplicationOptions {
   config: Config;
-  logger: Logger;
   userService: UserService;
 }
 
-@Service()
-export class AdminService {
-  constructor ({ config, logger, userService }: CustomBinding) {
-    this.config = config
-    this.logger = logger
-    this.userService = userService
+const Application = ({ config, userService }: ApplicationOptions) => {
+  return (event: IncomingEvent) => ({ message: config.greeting })
+}
+```
+
+Factory-based access is ideal when you need dynamic setup or want to pass the container to multiple handlers.
+
+@tab Function-based
+### Function-Based Services: Not Allowed
+
+Function-based handlers — that is, direct `(event) => {}` functions — don’t receive the container. Why?
+
+Because there's no place to inject it. They’re not a class, not a factory, and not wrapped in anything.
+
+If you want access to the container in a function-style handler, just wrap it in a factory:
+
+```ts
+const handler = ({ config }: IContainer) => {
+  return (event) => {
+    return { message: config.greeting }
   }
 }
 ```
 :::
+
+::: tip
+As you can see we don't use `IContainer` directly in the constructor. Instead, we use a custom interface that describes the dependencies we need.  
+This is a good practice because it makes your code more readable and maintainable.
+:::
+
+## Registering Services
+
+In Stone.js, services can be registered in three main ways, depending on your style and needs:
+
+- **Declarative API** — Clean and class-friendly
+- **Imperative API** — Blueprint-based and flexible
+- **Explicit API** — Full manual control (for advanced use)
+
+All these methods inject your service into the **Service Container**, making it available for resolution anywhere in the system.
+
+::: tabs#declarative-imperative
+@tab:active Declarative
+### Declarative API
+
+This is the easiest and most elegant way to register a service — just decorate your class.
+
+#### `@Stone()` — The Foundation
+
+Use the `@Stone()` decorator to register any class into the container. It’s the most generic form — like placing a foundational stone in your app.
+
+```ts
+import { Stone } from '@stone-js/core'
+
+@Stone()
+export class LoggerService {
+  constructor(private readonly container: IContainer) {}
+}
+```
+
+#### `@Service()` — The Specialized Shortcut
+
+Prefer this when registering actual services. It behaves the same as `@Stone()`, but it's semantically clearer.
+
+```ts
+import { Service } from '@stone-js/core'
+
+@Service()
+export class UserService {
+  constructor(private readonly container: IContainer) {}
+}
+```
+
+By default, both decorators register your service as a **singleton**. If you want a new instance each time (i.e. a **factory**), set `singleton: false`:
+
+```ts
+@Service({ singleton: false })
+export class TempService {}
+```
+
+You can also add an alias:
+
+```ts
+@Stone({ alias: 'logger' })
+export class LoggerService {}
+```
+
+You’ll learn more about aliases in the [Aliases](#aliases) section.
+
+@tab Imperative
+### Imperative API
+
+For more control — or for programmatic setups — use the `defineBlueprintConfig()` function. You register services in the `stone.services` namespace.
+
+```ts
+import { defineBlueprintConfig } from '@stone-js/core'
+
+export const mainBlueprint = defineBlueprintConfig((blueprint) => {
+  blueprint.add('stone.services', [
+    { module: LoggerService, isClass: true },
+    { module: TempService, isClass: true, singleton: false, alias: 'temp' }
+  ])
+})
+```
+
+You can also register factory-based services:
+
+```ts
+const TempService = (container: IContainer) => {
+  return {
+    doSomething: () => {/* ... */}
+  }
+}
+
+blueprint.add('stone.services', [
+  { module: TempService, isFactory: true }
+])
+```
+:::
+
+### Explicit API (Advanced Use)
+
+If you want **full control**, you can interact directly with the container. This is only allowed inside a **Service Provider**, not in runtime code.
+
+Here are your options:
+
+#### Bind a constant or instance:
+
+```ts
+container.instance('apiUrl', 'https://api.example.com')
+```
+
+#### Bind a singleton resolver:
+
+```ts
+container.singleton('logger', (container) => new LoggerService(container))
+```
+
+#### Bind a factory (new instance each time):
+
+```ts
+container.binding('temp', (container) => new TempService(container))
+```
+
+#### Conditional bindings (only if not already bound):
+
+```ts
+container.instanceIf('apiUrl', 'https://api.example.com')
+container.singletonIf('logger', (c) => new LoggerService(c))
+container.bindingIf('temp', (c) => new TempService(c))
+```
+
+As demonstrated in these examples, the container is passed directly to the class constructor. Since the container is proxied, this enables the destructuring dependency injection (DI) pattern to function seamlessly.
+
+::: tip
+Remember: declarative and blueprint-based bindings are preferred for most apps. Explicit binding is for custom infrastructure, service providers, or deep-level modules.
+:::
+
+## Resolving Services
+
+Once your services are registered, it’s time to use them. The Stone.js Service Container offers several ways to **resolve** dependencies, from classic methods to some truly elegant tricks using destructuring and proxies.
+
+### `make()` — Classic Resolution
+
+Use `make()` to resolve a registered binding by its name or class.
+
+```ts
+const config = container.make('config')
+const logger = container.make(LoggerService)
+```
+
+If the binding doesn’t exist, `make()` throws an error. Use it when you expect the service to already be bound.
+
+### `resolve()` — Auto-Binding Included
+
+Use `resolve()` when you're not sure if a service is registered. It tries to resolve the binding, and if it doesn't exist, it **automatically binds and returns** it.
+
+```ts
+const logger = container.resolve(LoggerService)
+```
+
+This is particularly useful for classes that haven’t been registered manually — they’ll be auto-bound as singletons by default.
+
+You can also control that behavior:
+
+```ts
+const temp = container.resolve(TempService, false) // Bind as factory instead
+```
+
+### Destructuring Resolution
+
+Because the container is a Proxy, you can **destructure** multiple dependencies at once — clean and elegant, especially in constructor or factory parameters.
+
+::: tabs#class-factory-function
+@tab:active Class-based
+```ts
+@Service()
+export class AdminService {
+  constructor({ config, logger }: { config: Config; logger: Logger }) {
+    logger.info(`AdminService started with config: ${config.appName}`)
+  }
+}
+```
+
+@tab Factory-based
+It works the same for factory-based services:
+
+```ts
+const handler = ({ config, logger }: { config: Config; logger: Logger }) => {
+  return (event) => logger.info(`Handling ${event.type}`)
+}
+```
+:::
+
+::: tip
+This is our favorite method — readable, intuitive, and type-safe in TypeScript.
+:::
+
+### Proxy-Based Resolution
+
+Want to access services like properties? Go for it — the container is a Proxy!
+
+```ts
+const logger = container.logger
+const userService = container.userService
+```
+
+This works thanks to `Proxy.get`, which intercepts property access and calls `make()` under the hood.
+
+::: important
+But don’t get carried away — only one-level property resolution is supported. No `container.services.user`, just `container.userService`.
+:::
+
+### Factory Access
+
+Need a factory instead of a direct instance? Use:
+
+```ts
+const factory = container.factory('myService')
+const instance = factory()
+```
+
+This is useful for passing service creators around without resolving them yet.
 
 ## Aliases
 
-Aliases allow you to reference bindings by alternative names.
+In Stone.js, you can assign **aliases** to your services — alternate names used when resolving a service. This is more than just syntactic sugar. It’s a **best practice** that safeguards your app against name mangling (like minification during bundling), Facilitates destructuring DI, and improves long-term flexibility.
+
+### Why Use Aliases?
+
+Class names can change. Builds can obfuscate. But **aliases** stay consistent.
+
+- Facilitate destructuring DI
+- Ensure your code still works after bundling or uglifying
+- Make service names friendlier or more descriptive
+- Abstract away implementation details
 
 ### Setting Aliases
 
-To set an alias for a binding:
+You can set aliases **declaratively**, **imperatively**, or **explicitly**.
 
-::: code-tabs#js
-@tab:active JavaScript
-
-```js
-// Alias can be a string
-this.container.alias(Logger, 'logging')
-
-// Or an array of string
-this.container.alias(Logger, ['logger', 'logging', 'log'])
-```
-
-@tab TypeScript
+::: tabs#declarative-imperative
+@tab:active Declarative
+#### Declarative (via decorator)
 
 ```ts
-// Alias can be a string
-this.container.alias(Logger, 'logging')
+import { Service } from '@stone-js/core'
 
-// Or an array of string
-this.container.alias(Logger, ['logger', 'logging', 'log'])
+@Service({ alias: 'userService' })
+export class UserService {}
+```
+
+Or with the more generic `@Stone()`:
+
+```ts
+@Stone({ alias: ['logger', 'logService'] })
+export class LoggerService {}
+```
+
+@tab Imperative
+#### Imperative (via blueprint config)
+
+```ts
+blueprint.add('stone.services', [
+  { module: UserService, isClass: true, alias: 'userService' },
+  { module: LoggerService, isClass: true, alias: ['logger', 'logService'] }
+])
 ```
 :::
 
-### Retrieving Aliases
-
-To retrieve a binding by its alias:
-
-::: code-tabs#js
-@tab:active JavaScript
-
-```js
-const logger = this.container.make('logging')
-```
-
-@tab TypeScript
+#### Explicit (via container method — inside a Service Provider only)
 
 ```ts
-const logger = this.container.make('logging')
+container.alias(UserService, ['userService', 'usr'])
 ```
+
+You can assign multiple aliases at once by passing an array.
+
+### Resolving by Alias
+
+Once aliased, you can use the alias anywhere you'd use the class:
+
+```ts
+const logger = container.make('logger')
+const userService = container.resolve('userService')
+```
+
+This also works with destructuring:
+
+```ts
+interface HandlerOptions {
+  logger: Logger
+  userService: UserService
+}
+
+const handler = ({ logger, userService }: HandlerOptions) => (event) => {
+  logger.info('Handling request')
+}
+```
+
+Aliases are just keys mapped to real bindings. They’re lightweight, powerful, and totally worth using.
+
+### Always Alias
+
+For every registered service, give it an alias. Whether it’s class-based, factory-based, or even just a plain object — an alias guarantees consistency.
+
+Especially important when:
+
+- Doing destructuring DI
+- Using `resolve()` with auto-binding
+- Writing frontend code that goes through a build step
+- You want to decouple class names from usage
+
+## Checking Bindings
+
+Sometimes you need to know if a service is already registered in the container before resolving or binding it. Maybe you're writing fallback logic, conditional registration, or just debugging your setup.
+
+Stone.js gives you two methods for this, and they’re functionally identical:
+
+```ts
+container.has('myService')
+container.bound('myService')
+```
+
+### Which One to Use?
+
+- `has` — Feels like you're querying a map or dictionary.  
+- `bound` — Feels like you're asking “has this been bound already?”
+
+Choose whichever fits your mental model. Under the hood, they do the same thing.
+
+```ts
+if (container.has('config')) {
+  const cfg = container.make('config')
+}
+```
+
+```ts
+if (!container.bound('logger')) {
+  container.singleton('logger', () => new LoggerService())
+}
+```
+
+### Use Cases
+
+- Registering conditionally with `instanceIf`, `singletonIf`, or `bindingIf`
+- Avoiding duplicate bindings when initializing
+- Writing fallbacks for dev/test environments
+- Debugging container state
+
+::: tip
+Need to inspect everything? Use `container.getBindings()` and `container.getAliases()` to peek inside the internals.
 :::
 
-## Conclusion
+## Best Practices
 
-For more detailed information on the service container and its full range of capabilities, 
-please refer to the dedicated [service container documentation](../../packages/service-container/). 
-A simple summary is presented here for simplicity.
+The Service Container in Stone.js is simple by design — but with great power comes great… opportunity for mistakes. Here are the best ways to use it effectively (and avoid common traps).
+
+#### 1. **Prefer Declarative Binding When Possible**
+
+Use `@Service()` or `@Stone()` decorators for most use cases.
+
+- It's clean, readable, and auto-registers the class
+- Works well with destructuring
+- Encourages a modular, testable architecture
+
+```ts
+@Service({ alias: 'userService' })
+export class UserService {}
+```
+
+#### 2. **Use the Imperative API for Conditional or Dynamic Setup**
+
+Blueprint config (`defineBlueprintConfig`) is great when you need to:
+
+- Register services dynamically based on environment or feature flags
+- Set `isFactory`, `singleton`, or `alias` explicitly
+- Avoid decorators (e.g. in a shared module or external lib)
+
+#### 3. **Use Explicit API in Infrastructure Code Only**
+
+Explicit binding (`container.singleton`, `container.binding`, etc.) is for advanced use:
+
+- Inside **Service Providers**
+- During system bootstrapping or testing
+- For edge cases like external libraries, raw values, or mocking
+
+Avoid using it **inside event handlers or business logic** — it breaks the dependency model and can lead to hidden side effects.
+
+#### 4. **Alias Everything**
+
+Always give your services an alias, even if you're registering them by class.
+
+- Keeps your app safe from class name changes or build minification
+- Makes services easier to resolve consistently across dimensions
+
+```ts
+@Service({ alias: 'logger' })
+export class LoggerService {}
+```
+
+#### 5. **Use `resolve()` Over `make()` for Auto-Binding**
+
+If you’re not 100% sure the service is already registered, use `resolve()`:
+
+```ts
+const logger = container.resolve('logger')
+```
+
+`resolve()` will auto-bind and return the service if it’s not already present. `make()` will throw if it’s missing.
+
+#### 6. **Destructure Whenever You Can**
+
+Destructuring the container is the cleanest way to get multiple services at once.
+
+```ts
+interface HandlerOptions {
+  logger: Logger
+  userService: UserService
+}
+
+const handler = ({ logger, userService }: HandlerOptions) => (event) => {
+  logger.info('Handling request')
+}
+```
+
+Works in factories, class constructors, and even service providers with basic binding modules.
+
+#### 7. **Don’t Bind During Runtime**
+
+Avoid calling `container.instance()` or similar methods during request/event handling. All bindings should happen:
+
+- At boot time
+- In a blueprint
+- Inside a service provider
+
+Runtime bindings are hard to track and often lead to inconsistent behavior.
+
+## Summary
+
+The **Service Container** is the beating heart of Stone.js’ initialization flow. It powers your application behind the scenes by managing service lifecycles, resolving dependencies, and keeping your system loosely coupled and easy to evolve.
+
+Let’s recap what you’ve learned:
+
+- The container lives in the **Initialization Dimension** as the **ephemeral internal context**.
+- It supports **class-based** and **factory-based** services — but **not** raw function-based handlers.
+- You can register services through:
+  - **Declarative decorators** (`@Stone`, `@Service`)
+  - **Blueprint configuration** (`defineBlueprintConfig`)
+  - **Explicit bindings** (`singleton`, `binding`, `instance`) — for power users
+- Services can be resolved using:
+  - `make()` — strict resolution
+  - `resolve()` — with fallback auto-binding
+  - **Destructuring** — elegant and type-safe
+  - **Proxy access** — clean syntax, but only one level deep
+- Aliases are your friends. They protect your code from name changes and build processes.
+- The container offers both **flexibility** and **discipline**. Follow the best practices and it will stay clean, efficient, and predictable.
+
+Stone.js doesn’t just inject dependencies — it injects clarity into your architecture.

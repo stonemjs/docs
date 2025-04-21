@@ -18,7 +18,7 @@ export const enSidebar = sidebar({
       prefix: 'architecture/',
       children: [
         { text: 'Introduction', link: 'README.md' },
-        'continuum',
+        { text: 'Continuum', link: 'continuum.md' },
         { text: 'Paradigms', link: 'paradigms.md' },
         'build',
         'lifecycle',
