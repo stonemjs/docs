@@ -133,17 +133,19 @@ Go functional and dynamic when you need full control.
 ```ts
 import {
   IncomingEvent,
-  defineBlueprintConfig,
-  defineFactoryEventHandler
+  stoneBlueprint,
+  defineBlueprintConfig
 } from '@stone-js/core'
 import { nodeHttpAdapterBlueprint } from '@stone-js/node-http-adapter'
 
-const Application = () => (event: IncomingEvent) => ({ message: 'Hello world!' })
+const Application = (event: IncomingEvent) => ({ message: 'Hello world!' })
 
-export const AppBlueprint = defineBlueprintConfig(
-  nodeHttpAdapterBlueprint,
-  ['stone.kernel.eventHandler', defineFactoryEventHandler(Application)]
-)
+export const mainBlueprint = defineBlueprintConfig((blueprint) => {
+  blueprint
+    .set(stoneBlueprint)
+    .set(nodeHttpAdapterBlueprint)
+    .set('stone.kernel.eventHandler', Application)
+})
 ```
 
 Short on time? You only need one paradigm to build your app.

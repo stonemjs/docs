@@ -20,6 +20,7 @@ export const enSidebar = sidebar({
         { text: 'Introduction', link: 'README.md' },
         'continuum',
         { text: 'Paradigms', link: 'paradigms.md' },
+        'build',
         'lifecycle',
         'middleware',
         'blueprint',

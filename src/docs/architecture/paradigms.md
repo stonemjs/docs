@@ -20,6 +20,9 @@ Let the framework do the heavy lifting through annotations and metadata by intro
 Use **decorators** to tag your classes, methods, and properties.
 
 ```ts
+import { Get } from '@stone-js/router'
+import { EventHandler, IncomingEvent } from '@stone-js/core'
+
 @EventHandler()
 export class WelcomeEventHandler {
   @Get({ path: '/' })
@@ -45,11 +48,13 @@ Clarity and control. You compose your app like functions in math: input → tran
 Use **functions** like `defineBlueprintConfig`, `defineFactoryEventHandler`, etc., and assemble them into blueprints.
 
 ```ts
+import { defineBlueprintConfig, defineFactoryEventHandler } from '@stone-js/core'
+
 export const App = () => (event: IncomingEvent) => ({ message: "Hello world!" })
 
-export const AppBlueprint = defineBlueprintConfig(
-  ['stone.kernel.eventHandler', defineFactoryEventHandler(App)]
-)
+export const mainBlueprint = defineBlueprintConfig((blueprint) => {
+  blueprint.set('stone.kernel.eventHandler', defineFactoryEventHandler(App))
+})
 ```
 
 Feels like assembling an engine from scratch — but it's clean, testable, and no magic.
@@ -82,7 +87,7 @@ So… which one should you pick?
 - You want full **transparency and control**
 - You prefer functional composition over metadata
 - You need maximum **testability, flexibility, or configurability**
-- You're building systems where explicit logic is key (like CLIs, complex flows, or serverless handlers)
+- You're building systems where explicit logic is key (like CLIs, or complex flows)
 
 
 ## Final Thoughts

@@ -26,21 +26,42 @@ you let the environment express itself to your domain — through Stone.js.
 
 Stone.js is the context that applies itself to the domain — not the other way around.
 
+```mermaid
+%%{init: {"theme": "base", "themeVariables": {
+  "fontSize": "14px",
+  "lineColor": "#d35400"
+}}}%%
+flowchart TD
+    A[Setup Dimension] --> B[Blueprint]
+    B --> C[Integration Dimension]
+    C --> C1[Intention]
+    C1 --> D[Initialization Dimension]
+    D --> D1[Execution Context]
+    D1 --> E[Functional Dimension]
+%% Styling for all nodes
+    style A stroke-width:4px,fill:#FFFFFF
+    style B stroke-width:4px,fill:#FFFFFF
+    style C stroke-width:4px,fill:#FFFFFF
+    style C1 stroke-width:4px,fill:#FFFFFF
+    style D stroke-width:4px,fill:#FFFFFF
+    style D1 stroke-width:4px,fill:#FFFFFF
+    style E stroke-width:4px,fill:#FFFFFF
+```
 
 ## Dimensions of Context in Stone.js
 
 Continuum Architecture defines three contextual dimensions, all implemented in Stone.js:
 
 1. **Setup**  
-   Managed by `IBlueprintBuilder`. It builds a full context [blueprint](./blueprint.md) at runtime by introspecting your modules, dependencies, through [middleware](./middleware.md).
+   Managed by `IBlueprintBuilder`. It builds a full context [blueprint](./blueprint) at runtime by introspecting your modules, dependencies, through [middleware](./blueprint#dynamic-configuration).
 
 2. **Integration**  
-   Handled by `IAdapter`. Specific to each environment (Browser, Server, FaaS, CLI, etc.), adapters capture **causes** (requests, commands, events) and transform them into **intentions** (`IncomingEvent`).  
-   These are passed to the system and ultimately produce **response** (`OutgoingResponse`), which the adapter sends back as **effects**. [Middleware](./middleware.md) can also participate in this transformation pipeline.
+   Handled by `IAdapter`. Specific to each environment (Browser, Server, FaaS, CLI, etc.), adapters capture **causes** (requests, commands, events) and transform them into **intentions** ([`IncomingEvent`](../essentials//incoming-event)).  
+   These are passed to the system and ultimately produce **response** ([`OutgoingResponse`](../essentials/outgoing-response)), which the adapter sends back as **effects**. [Middleware](./adapter) can also participate in this transformation pipeline.
 
 3. **Initialization**  
-   This is where the **Kernel** applies the **Execution Context (Container)** to the **domain** according to the intention (`IncomingEvent`).
-   [Middleware](./middleware.md) can intercept intentions **before they reach the domain**, modify them, validate them, or enrich them.
+   This is where the **Kernel** applies the **Execution Context ([`Container`](./container))** to the **domain** according to the intention (`IncomingEvent`).
+   [Middleware](./middleware) can intercept intentions **before they reach the domain**, modify them, validate them, or enrich them.
 
 
 ## Functional Dimension: Your Domain, Your Way
@@ -48,7 +69,7 @@ Continuum Architecture defines three contextual dimensions, all implemented in S
 The **fourth dimension**, the **functional one**, belongs to you — the developer.
 
 You define your business logic however you like, using the architecture, patterns, or libraries you trust. 
-Stone.js doesn’t impose any structure, language(JavaScript/TypeScript), or paradigm. It simply ensures your domain logic is triggered at the right time, with the right context, and receives the right data.
+Stone.js doesn’t impose any structure, language(`JavaScript`/`TypeScript`), or paradigm. It simply ensures your domain logic is triggered at **the right time, with the right context, and receives the right data**.
 
 Because **the problem is not the domain — the problem is the context.** And Stone.js solves it for you.
 
@@ -72,4 +93,5 @@ Use whatever UI you like. Deploy wherever you want. Write your domain logic once
 ## Want to Go Deeper?
 
 Continuum Architecture is not just a technical trick — it’s a mindset.  
-If you want to explore the philosophy behind it and see how it redefines what we call “an application,” read the full [Continuum Architecture Manifesto](https://stonejs.com).
+If you want to explore the philosophy behind it and see how it redefines what we call “an application,” 
+read the full [Continuum Architecture Manifesto](https://evens-stone.github.io/continuum-manifesto/manifesto).

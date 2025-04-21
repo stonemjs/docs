@@ -541,7 +541,7 @@ flowchart TD
     D1 --> D2[Execute Middleware]
     D2 --> D3[onBlueprintMiddlewareProcessed]
 
-    D3 --> C[loop back if more middleware]
+    D3 --> C[Processing Middleware Loop]
 
     C --> E[onBlueprintPrepared]
     E --> F[Setup Complete]
@@ -613,7 +613,9 @@ You can register setup hooks using either the **declarative API** or the **imper
 Use the `@Hook('<hookName>')` method decorator to register a hook. Hook methods can live in any class — but for clarity and separation of concerns, it's best to place them in a dedicated observer class or service provider.
 
 ```ts
-import { Hook, BlueprintContext, BlueprintMiddlewareHookContext } from '@stone-js/core'
+import {
+  Hook, BlueprintContext, BlueprintMiddlewareHookContext
+} from '@stone-js/core'
 
 export class BlueprintObserver {
   @Hook('onBlueprintPrepared')
@@ -637,7 +639,9 @@ Hook methods are executed via reflection. They are **not** tied to class lifecyc
 Register hooks manually using `defineBlueprintConfig()` and the `blueprint.add()` method.
 
 ```ts
-import { defineBlueprintConfig, BlueprintContext, BlueprintMiddlewareHookContext } from '@stone-js/core'
+import {
+  defineBlueprintConfig, BlueprintContext, BlueprintMiddlewareHookContext
+} from '@stone-js/core'
 
 const logReady = ({ blueprint }: BlueprintContext) => {
   console.log('Blueprint ready:', blueprint.get('stone.name'))
@@ -648,8 +652,9 @@ const logMiddleware = ({ pipe }: BlueprintMiddlewareHookContext) => {
 }
 
 export const appSetupBlueprint = defineBlueprintConfig((blueprint) => {
-  blueprint.add('stone.lifecycleHooks.onBlueprintPrepared', [logReady])
-  blueprint.add('stone.lifecycleHooks.onProcessingBlueprintMiddleware', [logMiddleware])
+  blueprint
+    .add('stone.lifecycleHooks.onBlueprintPrepared', [logReady])
+    .add('stone.lifecycleHooks.onProcessingBlueprintMiddleware', [logMiddleware])
 })
 ```
 :::

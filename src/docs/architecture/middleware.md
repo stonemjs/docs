@@ -4,7 +4,7 @@ title: Middleware
 
 In Stone.js, middleware is how you **act on the internal context**.
 
-Unlike hooks, which observe and react, middleware **participates directly** in the flow. It can **intercept, transform, short-circuit**, or fully redirect the system’s behavior as it unfolds across dimensions.
+Unlike [Hooks](./lifecycle), which observe and react, middleware **participates directly** in the flow. It can **intercept, transform, short-circuit**, or fully redirect the system’s behavior as it unfolds across dimensions.
 
 Middleware is always **dimension-specific**, but its structure remains consistent. It gives you the power to shape both the **creation** and the **execution** of context — making it one of the most expressive tools in the framework.
 
@@ -231,7 +231,7 @@ You can use:
 - **Factory-based** middleware
 
 …in any dimension:
-- Setup
+- [Setup](./blueprint#dynamic-configuration)
 - Integration
 - Initialization
 
@@ -275,7 +275,7 @@ To register middleware imperatively, add them directly to the blueprint under th
 import { defineBlueprintConfig } from '@stone-js/core'
 
 export const mainBlueprint = defineBlueprintConfig((blueprint) => {
-  blueprint.set('stone.kernel.middleware', [{ module: MyMiddleware }])
+  blueprint.add('stone.kernel.middleware', [{ module: MyMiddleware }])
 })
 ```
 
@@ -376,10 +376,6 @@ Returning `undefined` will break the chain and can result in runtime errors.
 Call `next()` only when you're ready to pass control forward.  
 Modify the context before it, and the result after it — but avoid calling it conditionally or in multiple branches unless absolutely necessary.
 
-#### Prefer `addIf()` with Builders
-
-In integration middleware (if you're implementing it elsewhere), always prefer `builder.addIf()` over `builder.add()` to avoid unintentional overrides in complex middleware chains.
-
 #### Use Aliases for Reusability
 
 Register middleware with an `alias` to reuse it across routes declaratively.
@@ -391,12 +387,12 @@ Register middleware with an `alias` to reuse it across routes declaratively.
 Then reference it in routes:
 
 ```ts
-@Route({ middleware: ['auth'] })
+@Post({ middleware: ['auth'] })
 ```
 
 #### Use `global` When Appropriate
 
-Global middleware applies to **all intentions**. Use this for:
+Global middleware applies to **all intentions**(`IncomingEvent`). Use this for:
 - Logging
 - Security headers
 - Feature toggles
@@ -405,17 +401,21 @@ Avoid `global: true` for logic that only applies to a subset of routes or domain
 
 #### Choose the Right Shape
 
-- Use **class-based middleware** when you rely on the Declarative API or need DI
+- Use **class-based middleware** when you rely on the Declarative API
 - Use **function-based middleware** for quick, clear logic
-- Use **factory-based middleware** for dynamic or parameterized logic
+- Use **factory-based middleware** for dynamic, parameterized logic or need DI
 
 All shapes are valid — choose based on context, not preference.
 
 #### Avoid Cross-Dimensional Confusion
 
 Keep dimension-specific logic in its place:
-- Don't mutate runtime context in the setup phase
-- Don’t try to introspect adapter-specific fields in initialization
+- Use **Setup middleware** for configuration
+- Use **Integration middleware** for transforming raw input
+- Use **Initialization middleware** for per-intention logic
+- Use [**Hooks**](./lifecycle) for passive observation
+- Use **Middleware** for active transformation
+- Use **Blueprint** for system-wide configuration
 - Follow the lifecycle — middleware is powerful because it's scoped
 
 ## Summary
@@ -433,6 +433,6 @@ In this document, we focused on **initialization middleware** — the most commo
 - Use `alias` and `global` for composability and reuse
 
 When you need to **transform** the system — use middleware.  
-When you only need to **observe** — use hooks.  
+When you only need to **observe** — use [Hooks](./lifecycle).  
 The dimension defines the context. The shape is your choice.  
 That’s the continuum.
