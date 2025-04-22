@@ -2,467 +2,382 @@
 title: Event Handler
 ---
 
-Incoming events represent the category of external events to Stone.js, meaning events originating from the platform. These events may have specific characteristics depending on the platform or context. Currently, `IncomingHttpEvent` is the only specific type, representing all incoming HTTP events in the context of an HTTP application.
+The **Event handler** is the core execution unit of every Stone.js application.  
+It represents the precise moment when the domain finally meets the context — when your logic responds to a real-world intention.
 
-## Accessing Events
+In Stone.js, **all external interactions**—HTTP requests, CLI commands, WebSocket messages, MQTT events—are normalized as a single type: the [`IncomingEvent`](./incoming-event).  
+And there's exactly **one** way to handle an incoming event: the **event handler**.
 
-All `IncomingEvent` instances are accessible from handlers, such as your main handler or route handlers (e.g., controllers).
+Each event handler receives the [`IncomingEvent`](./incoming-event) as its only parameter and may return a result, or not.  
+This minimal contract allows Stone.js to remain completely adaptable, from tiny edge-deployed functions to complex applications with routers and dynamic flows.
 
-::: important
-When working within the context of the Router, an [`EventContext`](./routing.md#eventcontext) is passed to all route handlers instead of an `IncomingEvent`. This topic will be covered in more detail in the following section.
-:::
+### The Continuum Perspective
 
-The incoming event is accessible within the `handle` method of the main handler, which takes the incoming event as a parameter and returns a response, as we will see in the next section:
+In the **Continuum Architecture**, context and domain form a dynamic relationship.  
+Your domain should never assume full control over its context—nor should it ignore it completely. This tension is captured in the **uncertainty principle**:
 
-::: code-tabs#js
+> *“The domain cannot both fully know its execution context and remain independent from it.”*
 
-@tab:active JavaScript
+The event handler embodies this principle.  
+It accepts an [`IncomingEvent`](./incoming-event), reacts with domain logic, and produces an outcome—without ever binding itself to the raw source of that event.  
+It doesn’t care whether the event came from HTTP, WebSocket, or a CLI—it just handles *intentions*, not mechanics.
 
-```js
-@StoneApp()
-export class Application {
-  /**
-   * Event Handler
-   * 
-   * @param {IncomingEvent} event
-  */
-  handle (event) {
-    // Return response
-  }
-}
-```
+### Where It Lives
 
-@tab TypeScript
+The event handler belongs to the **initialization dimension** of Stone.js.  
+It runs after your app is bootstrapped and ready to process a request.  
+Every application **must** define at least one event handler—or it cannot react to incoming events at all.
+
+By default, a Stone.js app has one event handler. If you need multiple entry points, use the [Router](../router) to delegate the right events to the right handlers.
+
+## Variants and Execution
+
+Stone.js supports **three variants** for defining event handlers:
+
+- **Class-based** (recommended for declarative APIs and introspection)
+- **Function-based** (ideal for quick scripts or nano apps)
+- **Factory-based** (perfect when you need dependency injection via the container)
+
+No matter the variant, the contract remains the same:  
+You receive an `IncomingEvent` and optionally return a response.
+
+::: tabs#class-factory-function
+@tab:active Class-based
+### Class-based Event Handler
+
+If you prefer structure and decorators, this is the default variant.
+
+Just implement the `handle` method from the `IEventHandler` interface:
 
 ```ts
-import { IncomingEvent } from '@stone-js/core'
-import { StoneApp } from '@stone-js/core/decorators'
+import { IncomingEvent, IEventHandler } from "@stone-js/core"
 
-@StoneApp()
-export class Application {
-  /**
-   * Event Handler
-   * 
-   * @param {IncomingEvent} event
-  */
-  handle (event: IncomingEvent) {
-    // Return response
+export class Application implements IEventHandler<IncomingEvent> {
+  handle(incomingEvent: IncomingEvent): void {
+    // Handle the event here
   }
 }
 ```
+
+This shape integrates seamlessly with the declarative API.
+
+@tab Function-based
+### Function-based Event Handler
+
+For fast prototyping or single-purpose apps, you can write a simple function:
+
+```ts
+import { IncomingEvent } from "@stone-js/core"
+
+const Application = (incomingEvent: IncomingEvent): void => {
+  // Handle the event here
+}
+```
+
+Great for edge functions, CLI tools, or single-route logic.
+
+@tab Function-based
+### Factory-based Event Handler
+
+Need access to the service container or runtime dependencies?  
+Use a factory-based handler: a function that returns your actual handler function.
+
+```ts
+import { IContainer, IncomingEvent } from "@stone-js/core"
+
+const Application = (container: IContainer) => {
+  return (event: IncomingEvent): { message: string } => {
+    const message = `Hello ${event.get<string>('name', 'World')}!!`
+    return { message }
+  }
+}
+```
+
+This gives you full access to registered services at runtime, while keeping the handler itself focused.
 :::
 
-## IncomingEvent
+Each variant is valid and interchangeable.  
+The choice depends on your app size, your preferred programming style, and how much framework-level automation you want.
 
-`IncomingEvent` represents all generic incoming events that do not require specific handling beyond accessing the incoming data. For example, a CLI command is represented by an `IncomingEvent`, with all user-provided inputs constituting the incoming data. In the context of an AWS Lambda function, which takes an `event` and a `context` as parameters, the `event` object constitutes the incoming data.
+## Execution Context & Event Lifecycle
 
-### Accessing Data
+Event handlers in Stone.js are executed within the **initialization dimension**, and they are called **once per incoming event**.  
+Each time an external request (or message) reaches your system, the event handler is invoked with a normalized [`IncomingEvent`](./incoming-event) instance.
 
-Suppose your incoming data is structured as follows:
+This is where intention meets behavior — your application, in the most literal sense, *happens* here.
 
-```js
-{
-  user: {
-    fullname: 'John Doe',
-    phone: {
-      home: 'XXXXXX'
-    }
+### One Event, One Handler
+
+Stone.js guarantees a **single point of entry** for handling each incoming event.  
+Whether the event originates from HTTP, WebSocket, CLI, MQTT, or another integration, the event handler remains the only valid execution entry.
+
+This consistency ensures that:
+
+- Your domain logic remains isolated from transport concerns
+- Your application remains portable and platform-agnostic
+- You always deal with the same [`IncomingEvent`](./incoming-event) interface
+
+### What You Receive
+
+The handler always receives an [`IncomingEvent`](./incoming-event) — which abstracts the raw request and wraps useful context like:
+
+- Parameters
+- Headers
+- Payload/body
+- Metadata
+- And more...
+
+This means you write one handler that works across environments, even across platforms.
+
+### What You Can Return
+
+Your handler can return:
+
+- `void` — if you’re doing something side-effectful or async
+- A **value or object** — which will be passed back as the final response
+- A **Promise** — if you’re doing async work (e.g., calling a database)
+- An [`OutgoingResponse`](./outgoing-response) — if you want to have full control over the response body, status code, headers, etc.
+
+Stone.js will take care of response normalization based on the integration adapter (e.g., format the object as JSON in HTTP).
+
+### What Happens Around the Handler
+
+Before and after your event handler is called, the system may:
+
+- Execute middleware (e.g., authentication, logging, transformations)
+- Trigger lifecycle hooks (`onHandlingEvent`, `onEventHandled`, etc.)
+- Manage error propagation (`onExecutingErrorHandler`)
+- Build and finalize the response (`onPreparingResponse`, `onResponsePrepared`)
+
+This means you can focus purely on **what the domain should do**, while Stone.js handles the infrastructure logic transparently.
+
+## Registering the Event Handler
+
+Stone.js offers **two ways** to register your event handler:
+
+- Declarative API — using decorators and class-based modules
+- Imperative API — using `defineBlueprintConfig` for manual control
+
+No matter the shape (class, function, factory), the registration process makes your handler available to the kernel for runtime execution.
+
+::: tabs#declarative-imperative
+@tab:active Declarative
+### Declarative Registration
+
+This is the **simplest and most common** way to register an event handler.
+
+If your application is class-based and uses the `@StoneApp()` decorator, all you need to do is implement the `handle()` method:
+
+```ts
+import { StoneApp, IncomingEvent, IEventHandler } from "@stone-js/core"
+
+@StoneApp()
+export class Application implements IEventHandler<IncomingEvent> {
+  handle(incomingEvent: IncomingEvent): void {
+    // Do your logic here
   }
 }
 ```
 
-To access this data, use the powerful `get` method, which takes the key of the data to access:
+As soon as you decorate the class with `@StoneApp()`, the system recognizes it as your main application entrypoint and automatically wires up the event handler.
 
-```js
-const user = event.get('user')
+Note: You can only have **one main event handler** by default.  
+For multiple handlers, see the [Router documentation](../router) to route events conditionally.
+
+@tab Imperative
+### Imperative Registration
+
+Prefer full control or want to register a function/factory manually?  
+Use the `defineBlueprintConfig` function and set the `stone.kernel.eventHandler` key.
+
+#### Function-based Handler
+
+```ts
+export const AppBlueprint = defineBlueprintConfig((blueprint) => {
+  blueprint.set('stone.kernel.eventHandler', { module: Application })
+})
 ```
 
-You can also use **deep string dot notation**:
+#### Factory-based Handler
 
-```js
-const userPhoneHome = event.get('user.phone.home')
+If you're using a factory shape, add `isFactory: true`:
+
+```ts
+export const AppBlueprint = defineBlueprintConfig((blueprint) => {
+  blueprint.set('stone.kernel.eventHandler', {
+    module: Application,
+    isFactory: true,
+  })
+})
 ```
 
-It also takes a second parameter, which is a default value if the requested key does not exist:
+This gives you low-level flexibility, useful for advanced bootstrapping or dynamic registration scenarios.
+:::
 
-```js
-const isAdmin = event.get('user.isAdmin', false)
+In both modes, once registered, the framework ensures that the handler is executed for every `IncomingEvent` reaching your application.
+
+## Router and Multi-Route Support
+
+By default, a Stone.js application has **one event handler**. 
+That’s perfect for nano-services, single-purpose FaaS functions, or CLI tools.
+But what if your app needs to handle **multiple types of requests**, mapped to different logic? That’s where the [**Router**](../router/) comes in.
+
+### One Handler by Default
+
+Out of the box, the kernel expects a **single** event handler. 
+It will receive every `IncomingEvent` and decide what to do.
+This makes your app ultra-lightweight and cloud-ready — but limited to one entrypoint.
+
+### Scaling with the Router
+
+If your app needs to support:
+
+- Multiple endpoints (e.g., `/users`, `/posts`)
+- Different event types (e.g., HTTP vs. WebSocket)
+- Modular handler definitions per domain
+
+…then install the [**Router**](../router/) and use it to dispatch events to the appropriate handler.
+
+The Router lives in the **initialization dimension**, just like event handlers. 
+It intercepts incoming events and **routes them** to the correct handler, based on metadata like path, method, or headers.
+
+Check out the [Router documentation](../router) to learn more about how to set it up and use it.
+
+Stone.js lets you scale from **mono-handler** to **multi-handler** seamlessly, with no change to how event handlers are written.
+
+## Dimension-Specific Behavior
+
+In Stone.js, every component belongs to a **dimension** of the Continuum Architecture.  
+The **event handler** is firmly rooted in the **initialization dimension** — the moment your system is fully built and ready to process intentions.
+
+### Initialization-Only
+
+Unlike setup-time configuration or integration-specific behavior, the event handler is:
+
+- Created **after** the system is bootstrapped
+- Executed **once per incoming event**
+- Independent of the integration layer or platform
+
+It is the final stage of the request lifecycle — the domain’s direct response to the external world.
+
+### Platform-Agnostic
+
+Thanks to the `IncomingEvent` abstraction, you can write **one handler** that works across:
+
+- **HTTP** requests
+- **CLI** commands
+- **WebSocket** messages
+- **MQTT** events
+- And more…
+
+The event handler doesn’t care how the event got in — only **what it means**.  
+This allows your domain logic to stay pure, portable, and deployment-agnostic.
+
+### No Setup or Integration Responsibilities
+
+Event handlers do **not** participate in:
+
+- **Setup dimension** tasks (e.g., registering services, adapters, middleware)
+- **Integration dimension** operations (e.g., transforming raw input, mapping routes)
+
+Those are handled before the event handler is even called.
+
+Your handler's job is simple:  
+**Receive the intention, interpret it, and reply.**
+
+This is what makes Stone.js ideal for continuum-based, context-flexible applications — from mono-lambdas to full systems.
+
+## Best Practices
+
+The event handler is **not a traditional controller**.  
+It’s the **meeting point between intention and domain** — and it should remain as focused as possible.
+
+Here’s how to get the most out of your event handlers in Stone.js:
+
+#### 1. Keep It Thin
+
+Your event handler should do exactly one thing:  
+**Accept the incoming event and pass it along to the right part of your domain.**
+
+Avoid writing business logic inside the handler — that’s what services, use cases, or domain modules are for.
+
+```ts
+handle(event: IncomingEvent) {
+  return this.userService.createUser(event.content)
+}
 ```
 
-### Adding Data
+The thinner your handler, the easier it is to test, maintain, and reuse.
 
-You can also add data to your event object in addition to the incoming data. Generally, adding data is done from within middleware.
+#### 2. Treat It Like a Function Entry Point
 
-To add data, use the powerful `set` method, which takes the key and value of the data to add:
+Think of your handler as a function signature for external input.
 
-```js
-event.set('permissions', [])
-```
+- Validate the event (if needed)
+- Transform the input (if needed)
+- Call into the domain
+- Return the output
 
-You can also use **deep string dot notation**:
+That’s it.  
+No side quests, no side effects.
 
-```js
-event.set('user.isAdmin', false)
-```
+#### 3. Never Bind to Context-Specific APIs
 
-In summary, `IncomingEvent` serves primarily to access incoming data, making it very generic and suitable for a wide range of use cases.
+Avoid direct calls to `req`, `res`, `process`, `console`, or anything else tied to a specific environment.  
+Use the `IncomingEvent` and domain services to stay agnostic and portable.
 
-## IncomingHttpEvent
+#### 4. Compose With Middleware
 
-`IncomingHttpEvent` is a specific type of `IncomingEvent` that represents all incoming HTTP requests in Stone.js. Given its nature, it exposes a comprehensive and unique API to access HTTP elements, regardless of the request's origin.
+If your handler is starting to grow:
 
-The `IncomingHttpEvent` provides various properties and methods to access and inspect incoming HTTP requests. Here, we will focus on the most important ones. For more details, please refer to the [API](https://github.com/stonemjs/http-core/blob/main/src/IncomingHttpEvent.mjs).
+- Move shared logic to middleware (auth, logging, headers)
+- Move domain logic to services or use cases
+- Let the handler just **orchestrate**
 
-### Accessing URL Components
+You’ll thank yourself when it’s time to scale or refactor.
 
-For example, consider this URL: `http://user:pass@site.com:80/pa/th?q=val#hash`, represented by this image:
+#### 5. Prefer Class Shape for Declarative Use
 
-![URL components](/assets/image/url_components.png)
+If you're using the declarative API and `@StoneApp()`, use the **class-based handler**.  
+It integrates naturally with introspection, decorators, and tooling.
 
-Here’s how to access this URL and its components:
+#### 6. Use Factories for Container Access
 
-```js
-event.url // returns the full URL
-event.uri // returns "http://user:pass@site.com:80/pa/th?q=val#hash"
-event.protocol // returns "http"
-event.host // returns "site.com:80"
-event.hostname // returns "site.com"
-event.path // returns "/pa/th?q=val"
-event.pathname // returns "/pa/th"
-event.segments // returns ['pa', 'th']
-event.queryString // returns "?q=val"
-event.query // returns URLSearchParams { 'q' => 'val' }
-event.hash // returns "#hash"
-```
+If you need services or runtime config in your function-based handler, use the **factory shape**.  
+That’s what it’s for.
 
-### Accessing the Method
-
-You can easily access or inspect the request method:
-
-```js
-// Get HTTP method
-event.method // returns 'GET'
-
-// Inspect method
-event.isMethod('GET') // returns `true` or `false`
-event.isMethodSafe() // returns `true` for ['GET', 'HEAD', 'OPTIONS', 'TRACE']
-event.isMethodCacheable() // returns `true` for ['GET', 'HEAD']
-```
-
-### Accessing Headers
-
-You can easily access or inspect the request headers.
-
-Retrieve all headers via the `headers` getter which is an instance of [Headers](https://developer.mozilla.org/en-US/docs/Web/API/Headers):
-
-```js
-// Get Headers
-event.headers // returns Headers
-```
-
-To retrieve a header, use the `getHeader` method, which takes the header name and a default value to return if the header does not exist:
-
-```js
-// Get header
-event.getHeader('authorization') // returns "Bearer XXXXXX"
-
-// Default value
-event.getHeader('x-custom-header', 'my-header') // returns "my-header"
-```
-
-You can also inspect headers using the `hasHeader` method:
-
-```js
-// Has header
-event.hasHeader('authorization') // returns `true` or `false`
-```
-
-### Accessing Cookies
-
-Stone.js provides a convenient API for retrieving and inspecting cookies.
-
-You can retrieve all cookies via the `cookies` getter, which returns a collection of cookies:
-
-```js
-// Get cookies
-event.cookies // returns CookieCollection
-```
-
-To retrieve a cookie, use the `getCookie` method, which takes the cookie name and a default value to return if the cookie does not exist:
-
-```js
-// Get cookie
-event.getCookie('my-cookie') // returns "Cookie"
-// Same as
-event.cookies.get('my-cookie') // returns "Cookie"
-
-// Default value
-event.getCookie('my-cookie', 'my-cookie') // returns "my-cookie"
-// Same as
-event.cookies.get('my-cookie', 'my-cookie') // returns "my-cookie"
-```
-
-You can also inspect cookies using the `hasCookie` method:
-
-```js
-// Has cookie
-event.hasCookie('my-cookie') // returns `true` or `false`
-// Same as
-event.cookies.has('my-cookie') // returns `true` or `false`
-```
-
-### Accessing the Body
-
-To retrieve the request body, use the `body` getter:
-
-```js
-// Get request body
-event.body // returns { foo: { bar: 'baz' } }
-```
-
-You can also access elements within the body using **deep string dot notation** in the case of a JSON request using the `json` method:
-
-```js
-// Get request body element
-event.json('foo.bar') // returns 'baz'
-
-// Default value
-event.json('foo.bar.baz', 'Doe') // returns 'Doe'
-```
-
-You can inspect the body of a JSON request using the `hasJson` method:
-
-```js
-// Has body element
-event.hasJson('foo.bar') // returns `true` or `false`
-```
-
-### Content Negotiation
-
-Stone.js provides several getters and methods to inspect the content types requested by the incoming request, useful for content negotiation.
-
-You can use the following getters to access the elements accepted by the request:
-
-```js
-event.types // returns ['application/json']
-event.charsets // returns ['utf-8']
-event.encodings // returns ['gzip']
-event.languages // returns ['en-US']
-
-// Get content-type
-event.contentType // returns 'application/json'
-// Get content-type charset
-event.charset // returns 'utf-8'
-```
-
-You can use the following methods to inspect the elements accepted by the request:
-
-```js
-// Checks if the request is one of the types
-// If the request has no body, even if there is a Content-Type header, 
-// then null is returned. 
-// If the Content-Type header is invalid or does not match any of the types, 
-// then false is returned. Otherwise, a string of the type that matched is returned.
-event.is(['urlencoded', 'json', 'multipart']) // returns 'json'
-
-// Returns the first accepted type.
-// If nothing in types is accepted, then false is returned.
-event.acceptsTypes('json', 'html')
-
-// Returns the first accepted encoding.
-// If nothing in encodings is accepted, then false is returned.
-event.acceptsEncodings('gzip', 'deflate')
-
-// Returns the first accepted charset.
-// If nothing in charsets is accepted, then false is returned.
-event.acceptsCharsets('utf-8')
-
-// Returns the first accepted language.
-// If nothing in languages is accepted, then false is returned.
-event.acceptsLanguages('en-US')
-```
-
-### Accessing Files
-
-Stone.js provides several getters and methods to retrieve and inspect uploaded files.
-
-Uploaded files are accessible via the `files` getter. The `files` getter returns an object where keys are field names and values are arrays of [`UploadedFile`](https://github.com/stonemjs/http-core/blob/main/src/file/UploadedFile.mjs) instances.
-
-This structure allows you to efficiently manage multiple files uploaded under the same field name, giving you detailed control over each uploaded file.
-
-```js
-// Get uploaded files
-const files = event.files
-const documents = files.documents // returns UploadedFile[]
-```
-
-You can also retrieve files via the `getFile` method:
-
-```js
-// Get uploaded files
-const documents = event.getFile('documents') // returns UploadedFile[]
-```
-
-You can filter uploaded files:
-
-```js
-// Get filtered uploaded files
-const files = event.filterFiles(['documents', 'images'])
-const documents = files.documents // returns UploadedFile[]
-```
-
-You can check for the existence of a file using the `hasFile` method:
-
-```js
-// Check if uploaded files exist
-event.hasFile('documents') // returns `true` or `false`
-```
-
-You can verify if the file is valid using the `isValid` method of [`UploadedFile`](https://github.com/stonemjs/http-core/blob/main/src/file/UploadedFile.mjs):
-
-```js
-// Get the first valid file
-const document = event.getFile('documents').find(document => document.isValid())
-```
-
-You can access file information using these methods:
-
-```js
-// Get the first valid file
-const document = event.getFile('documents').find(document => document.isValid())
-const filePath = document.getPath()
-const fileSize = document.getSize()
-const mimeType = document.getClientMimeType()
-const fileName = document.getClientOriginalName()
-const extension = document.getClientOriginalExtension()
-const guessedExtension = document.guessClientExtension()
-```
-
-### Saving Files
-
-You can save a file using the `move` method, which takes the relative path of the directory where the file will be saved as a mandatory parameter and an optional parameter to specify the name used for saving the file:
-
-```js
-// Get the first valid file
-const document = event.getFile('documents').find(document => document.isValid())
-
-// Save with client filename
-document.move('./files-directory/')
-
-// Save with provided filename
-document.move('./files-directory/', 'file-doc-01')
-```
-
-### Metadata
-
-Stone.js allows you to add and retrieve data within an HTTP event, known as metadata. These can be added from middleware using the `set` method:
-
-```js
-event.set('customData', { foo: { bar: 'baz' } })
-```
-
-You can retrieve all metadata using the `getMetadata` method:
-
-```js
-const metadata = event.getMetadata() // { customData: { foo: { bar: 'baz' } } }
-```
-
-You can also access metadata using **deep string dot notation** with the `metadata` method:
-
-```js
-// Get bar data
-const barData = event.metadata('customData.foo.bar') // returns 'baz'
-
-// Default value
-const bazData = event.metadata('customData.foo.baz', 'Doe') // returns 'Doe'
-```
-
-### Smart Get
-
-The `get` method in the `IncomingHttpEvent` class is a smart and versatile function designed to retrieve request data efficiently. 
-
-It follows a prioritized sequence:
-
-1. **Route Parameters**: First, it checks if the data exists in the route parameters.
-2. **Request Body**: If not found, it looks into the request body.
-3. **Query Parameters**: Next, it searches within the query parameters.
-4. **Headers**: Next, it searches within the headers.
-5. **Cookies**: Next, it searches within the cookies.
-6. **Metadata**: If the data is still not found, it checks the metadata.
-7. **Default**: Finally, if none of the above sources contain the data, it returns a provided default value.
-
-The `get` method ensures that the most relevant data is retrieved in an intelligent and prioritized manner. 
-Additionally, you can use the **deep string dot notation** syntax to retrieve nested data, which applies only to the body, query parameters, and metadata.
-
-```js
-// Go and search where you can find the name 
-// by following the prioritized sequence
-const name = event.get('name', 'Stone.js')
-
-// Get user fullname using Deep string dot notation
-const fullname = event.get('user.fullname', 'Jonh Doe')
-```
-
-This feature provides a flexible and powerful way to access deeply nested values within your request data.
-
-### Other Utilities
-
-Other useful getters to retrieve and inspect HTTP elements:
-
-- `event.ip`: The IP address
-- `event.ips`: The IP addresses
-- `event.isSecure`: Checks if the request is secure (`https`)
-- `event.isXhr` / `event.isAjax`: Checks if the request is an `XMLHttpRequest`
-- `event.userAgent`: The user agent
-- `event.isPrefetch`: Checks if it is a prefetch request
-
-## Configurations
-
-Stone.js allows you to apply configurations on how incoming events will be created by adapters. These configurations serve to filter and validate system inputs and raise exceptions when certain requirements are not met.
-
-Several checks and validations are performed at the integration layer. If something is wrong, an error is immediately returned to the user, enhancing system security by preventing invalid events from propagating to higher layers.
-
-### IncomingHttpEvent
-
-To apply configurations on how incoming HTTP events will be constructed by HTTP adapters, use the explicit API by exporting the HTTP module configurations to `app/config/HttpConfig.mjs` or `app/config/HttpConfig.ts`:
-
-```sh
-npm run export @stone-js/http-core
-```
-
-Once the configurations are exported, you can customize them according to your needs. All configurations are commented for easier understanding.
-
-#### Trusted Proxies
-
-When your application is behind a proxy, the proxy may forward the request to your server with modified information such as the protocol, IP address, or hostname, even if the original request from the client had different values. To ensure your application can detect and use the correct original information, you must specify which proxies are trusted.
-
-You can use one of these configurations to provide either a list of trusted proxies `app.adapter.proxies.trusted` or a list of untrusted proxies `app.adapter.proxies.untrusted`. Use either one, not both simultaneously. They take a list of IP addresses or CIDR ranges as values.
-
-```js
-@Configuration()
-export class HttpConfig {
-  getConfig () {
-    return {
-      app: {
-        adapter: {
-          proxies: {
-            trusted: ['127.0.0.0/8', '10.0.0.0/8'],
-            untrusted: ['127.0.0.0/255.0.0.0', '192.168.0.0/255.255.0.0']
-          }
-        }
-      }
-    }
+```ts
+const Handler = (container: IContainer) => {
+  return (event) => {
+    const auth = container.get(AuthService)
+    return auth.authenticate(event)
   }
 }
 ```
 
-In cases where IP addresses are unknown, you can use `*` to allow all proxies or block all proxies:
+A clean handler is a scalable handler.  
+Stick to the intention → domain → response model, and your apps will remain elegant and resilient.
 
-```js
-{
-  proxies: {
-    trusted: ['*'],
-    untrusted: ['*']
-  }
-}
-```
+## Summary
+
+The **event handler** is the central execution point of every Stone.js application.  
+It’s where context becomes meaningful — and the domain takes action.
+
+Here’s what you should remember:
+
+- It belongs to the **initialization dimension**
+- It is the **only way** to handle an `IncomingEvent`
+- It can be written as a **class**, **function**, or **factory**
+- It can be registered **declaratively** (with `@StoneApp`) or **imperatively** (via `defineBlueprintConfig`)
+- It runs **once per incoming event**, and may return a value, `void`, or a `Promise`
+- It must stay **light**, **clean**, and **focused on delegation**
+- It works identically across all platforms, thanks to the standardized `IncomingEvent`
+
+Stone.js gives you one, and only one, entrypoint for application logic — because that’s all you need to build anything.
+
+> One handler.  
+> Infinite possibilities.  
+> And absolutely zero assumptions about the platform.
+
+Ready to handle some events?
+

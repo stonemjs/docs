@@ -39,7 +39,7 @@ export const enSidebar = sidebar({
         'outgoing-response',
         'cookies',
         'events',
-        'configuration',
+        { text: 'Configuration', link: 'configuration.md' },
         'error-handler',
         'logging',
       ],

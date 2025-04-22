@@ -18,7 +18,7 @@ For dimension-specific details, refer to the [Blueprint](../blueprint) and [Adap
 
 Middleware is how you shape the continuum **from within**. Use it intentionally — and use it often.
 
-## Middleware API
+## Using Middleware
 
 In Stone.js, all middleware follow a **shared structure**, no matter which dimension they belong to. This structural consistency is a core part of the Continuum Architecture: **only the context and return type change**, the shape remains the same.
 
