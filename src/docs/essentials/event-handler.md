@@ -28,6 +28,22 @@ The event handler belongs to the **initialization dimension** of Stone.js.
 It runs after your app is bootstrapped and ready to process a request.  
 Every application **must** define at least one event handler—or it cannot react to incoming events at all.
 
+```mermaid
+%%{init: {"theme": "base", "themeVariables": {
+  "fontSize": "14px",
+  "lineColor": "#d35400"
+}}}%%
+flowchart LR
+    A[Initialization Dimension] --> B[Event Handler]
+    B --> C[Functional Dimension]
+    C --> D[Business Logic]
+%% Styling for all nodes
+    style A stroke-width:4px,fill:#FFFFFF
+    style B stroke-width:4px,fill:#FFFFFF
+    style C stroke-width:4px,fill:#FFFFFF
+    style D stroke-width:4px,fill:#FFFFFF
+```
+
 By default, a Stone.js app has one event handler. If you need multiple entry points, use the [Router](../router) to delegate the right events to the right handlers.
 
 ## Variants and Execution
@@ -53,7 +69,7 @@ Just implement the `handle` method from the `IEventHandler` interface:
 import { IncomingEvent, IEventHandler } from "@stone-js/core"
 
 export class Application implements IEventHandler<IncomingEvent> {
-  handle(incomingEvent: IncomingEvent): void {
+  handle(event: IncomingEvent): void {
     // Handle the event here
   }
 }
@@ -69,7 +85,7 @@ For fast prototyping or single-purpose apps, you can write a simple function:
 ```ts
 import { IncomingEvent } from "@stone-js/core"
 
-const Application = (incomingEvent: IncomingEvent): void => {
+const Application = (event: IncomingEvent): void => {
   // Handle the event here
 }
 ```
@@ -104,6 +120,24 @@ The choice depends on your app size, your preferred programming style, and how m
 Event handlers in Stone.js are executed within the **initialization dimension**, and they are called **once per incoming event**.  
 Each time an external request (or message) reaches your system, the event handler is invoked with a normalized [`IncomingEvent`](./incoming-event) instance.
 
+```mermaid
+%%{init: {"theme": "base", "themeVariables": {
+  "fontSize": "14px",
+  "lineColor": "#d35400"
+}}}%%
+flowchart LR
+    A[Integration] --> B[IncomingEvent]
+    B --> C[Initialization]
+    C --> B1[IncomingEvent]
+    B1 --> D[Event Handler]
+%% Styling for all nodes
+    style A stroke-width:4px,fill:#FFFFFF
+    style B stroke-width:4px,fill:#FFFFFF
+    style B1 stroke-width:4px,fill:#FFFFFF
+    style C stroke-width:4px,fill:#FFFFFF
+    style D stroke-width:4px,fill:#FFFFFF
+```
+
 This is where intention meets behavior — your application, in the most literal sense, *happens* here.
 
 ### One Event, One Handler
@@ -115,11 +149,23 @@ This consistency ensures that:
 
 - Your domain logic remains isolated from transport concerns
 - Your application remains portable and platform-agnostic
-- You always deal with the same [`IncomingEvent`](./incoming-event) interface
+- You always deal with the same [`IncomingEvent`](./incoming-event) interface or its subclasses
 
 ### What You Receive
 
-The handler always receives an [`IncomingEvent`](./incoming-event) — which abstracts the raw request and wraps useful context like:
+The handler always receives an [`IncomingEvent`](./incoming-event) or a subclass of it.
+
+```ts
+handle(event: IncomingHttpEvent): void {
+  event.uri // The request URI
+  event.body // The raw HTTP request body
+  event.headers // The HTTP request headers
+  event.params // The URL parameters
+  event.query // The query string parameters as URLSearchParams
+}
+```
+
+Which abstracts the raw request and wraps useful context like:
 
 - Parameters
 - Headers
@@ -133,10 +179,44 @@ This means you write one handler that works across environments, even across pla
 
 Your handler can return:
 
-- `void` — if you’re doing something side-effectful or async
-- A **value or object** — which will be passed back as the final response
-- A **Promise** — if you’re doing async work (e.g., calling a database)
-- An [`OutgoingResponse`](./outgoing-response) — if you want to have full control over the response body, status code, headers, etc.
+`void` — if you’re doing something side-effectful or async
+```ts
+handle(event: IncomingHttpEvent): void {
+  console.log(event.uri)
+}
+```
+
+A **value** — which will be passed back as the final response
+```ts
+handle(event: IncomingHttpEvent): string {
+  return 'Hello world!'
+}
+```
+
+An **object** — which will be passed back as the final response
+```ts
+handle(event: IncomingHttpEvent): { message: string } {
+  return { message: 'Hello world!' }
+}
+```
+
+A **Promise** — if you’re doing async work (e.g., calling a database)
+```ts
+handle(event: IncomingHttpEvent): Promise<{ message: string }> {
+  return Promise.resolve({ message: 'Hello world!' })
+}
+```
+
+An [`OutgoingResponse`](./outgoing-response) — if you want to have full control over the response body, status code, headers, etc.
+```ts
+handle(event: IncomingHttpEvent): OutgoingHttpResponse {
+  return OutgoingHttpResponse.create({
+    content: {
+      message: 'Hello world!'
+    }
+  })
+}
+```
 
 Stone.js will take care of response normalization based on the integration adapter (e.g., format the object as JSON in HTTP).
 
@@ -173,7 +253,7 @@ import { StoneApp, IncomingEvent, IEventHandler } from "@stone-js/core"
 
 @StoneApp()
 export class Application implements IEventHandler<IncomingEvent> {
-  handle(incomingEvent: IncomingEvent): void {
+  handle(event: IncomingEvent): void {
     // Do your logic here
   }
 }
@@ -241,6 +321,18 @@ If your app needs to support:
 The Router lives in the **initialization dimension**, just like event handlers. 
 It intercepts incoming events and **routes them** to the correct handler, based on metadata like path, method, or headers.
 
+```ts
+@EventHandler('/users', { name: 'users' })
+export class UserEventHandler {
+  @Get('/', { name: 'list' })
+  @JsonHttpResponse(206)
+  async list(event: IncomingHttpEvent): Promise<UserResponse[]> {}
+
+  @Get('/:user@id(\\d+)', { bindings: { user: UserService } })
+  show(event: IncomingHttpEvent): UserResponse {}
+}
+```
+
 Check out the [Router documentation](../router) to learn more about how to set it up and use it.
 
 Stone.js lets you scale from **mono-handler** to **multi-handler** seamlessly, with no change to how event handlers are written.
@@ -285,7 +377,7 @@ Those are handled before the event handler is even called.
 Your handler's job is simple:  
 **Receive the intention, interpret it, and reply.**
 
-This is what makes Stone.js ideal for continuum-based, context-flexible applications — from mono-lambdas to full systems.
+This is what makes Stone.js ideal for continuum-based, context-flexible applications — from mono-cloud systems to full systems.
 
 ## Best Practices
 
