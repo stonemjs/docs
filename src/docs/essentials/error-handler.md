@@ -1,5 +1,5 @@
 ---
-title: Error handler
+title: Error handlers
 ---
 
 In Stone.js, an **Error Handler** is your domain’s safety net. It’s where uncertainty becomes clarity — where thrown errors meet intentional handling. Just like an event handler responds to intentions, an error handler responds to disruptions. It’s not an afterthought — it’s a first-class citizen of the framework.

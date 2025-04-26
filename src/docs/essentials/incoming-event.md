@@ -38,6 +38,20 @@ The `IncomingEvent` class is the most minimal and generic expression of an incom
 
 The `IncomingEvent` encapsulates the **intention** of the system — a normalized, structured version of the external cause. It holds just enough data to represent this intent internally, in a consistent and platform-agnostic way.
 
+```ts
+import { IncomingEvent } from '@stone-js/core'
+
+const handle = (event: IncomingEvent) => {
+  // Access the event's properties
+  const locale = event.locale
+  const metadata = event.metadata
+  const timeStamp = event.timeStamp
+
+  // Use the event's source
+  console.log(event.source.platform) // e.g., 'http_node'
+}
+```
+
 ### Key Properties
 
 Here are the core properties of an `IncomingEvent`:
