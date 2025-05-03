@@ -9,11 +9,10 @@ et la mise en place de ces chemins ainsi que les regles de correspondance est ce
 
 ## Type de définition
 
-Les routes peuvent etre definies de trois manieres:
+Les routes peuvent etre definies de deux manieres:
 
-- [Definition implicite](#definition-implicite)
-- [Definition explicite](#definition-explicite)
-- [Definition implicite via decorateur](#definition-implicite-via-decorateur)
+- Declarative
+- Imperative
 
 Libre à vous de choisir celle qui convient le mieux à votre projet.
 

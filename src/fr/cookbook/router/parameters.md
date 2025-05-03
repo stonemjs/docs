@@ -53,6 +53,26 @@ Les différentes valeurs de `path` pourraient correspondre à :
 
 Le paramètre `id` aura comme valeur respective : `12` et `jonh`, et `slug` comme valeur `javascript` et `stone.js`.
 
+#### Préfixe global segment
+On peut aussi definir des prefixes globalement pour toutes les routes.
+
+At setup time
+```ts
+blueprint.set('stone.router.prefix', 'v1')
+```
+
+At run time
+```ts
+router.configure({ prefix: 'v1' })
+```
+
+Les différentes valeurs de `path` pourraient correspondre à :
+- `/v1/users/user-12/articles/article-javascript`
+- `/v1/users/user-jonh/articles/article-stone.js`
+
+Le paramètre `id` aura comme valeur respective : `12` et `jonh`, et `slug` comme valeur `javascript` et `stone.js`.
+
+
 ### Domain
 
 Pour rendre le domaine dynamique, on doit utiliser uniquement des parenthèses `{}` et non des deux points `:`.
@@ -89,6 +109,18 @@ Pour rendre les chemins des routes stricts afin qu'ils puissent être sensibles 
 }
 ```
 
+Vous pouvez aussi définir la propriété `strict` à `true` pour toutes les routes.
+
+At setup time
+```ts
+blueprint.set('stone.router.strict', true)
+```
+
+At run time
+```ts
+router.configure({ strict: true })
+```
+
 ## Paramètre optionnel
 
 Pour définir des paramètres de route optionnels, on utilise un point d'interrogation `?`.
@@ -100,14 +132,14 @@ Pour définir des paramètres de route optionnels, on utilise un point d'interro
 }
 ```
 
-Les différentes valeurs de `domain` pourraient correspondre à `dev.example.com` ou `example.com`. Et le paramètre `subDomain` aurait comme valeur `dev` ou `null`.
+Les différentes valeurs de `domain` pourraient correspondre à `dev.example.com` ou `example.com`. Et le paramètre `subDomain` aurait comme valeur `dev` ou `undefined`.
 
 Les différentes valeurs de `path` pourraient correspondre à :
 - `/users/12/articles/javascript`
 - `/users/12/articles/`
 - `/users/12/articles`
 
-Et le paramètre `slug` aurait comme valeur respective `javascript`, `null` et `null`.
+Et le paramètre `slug` aurait comme valeur respective `javascript`, `undefined` et `undefined`.
 
 Notes :
 - Pour éviter des comportements indésirables, les paramètres optionnels doivent être définis à la fin.
@@ -174,7 +206,7 @@ Le paramètre `subDomain` aurait comme valeur respective suivant les corresponda
 - `www.admin.dev`
 - `admin.dev`
 - `dev`
-- `null`
+- `undefined`
 
 Les différentes valeurs de `path` pourraient correspondre à :
 - `/articles/javascript/functions/arrow-function`
@@ -186,7 +218,7 @@ Avec comme valeur respective pour le paramètre `slug` :
 - `javascript/functions/arrow-function`
 - `javascript/functions`
 - `javascript`
-- `null`
+- `undefined`
 
 ## Valeur par défaut
 
@@ -218,11 +250,15 @@ Notes :
 
 ### Valeurs globales par défaut
 
-Pour définir des valeurs par défaut communes à toutes les routes, on utilise les méthodes `setDefaults` et `addDefault` depuis le routeur.
+Au moment de la configuration du routeur, on peut définir des valeurs par défaut pour tous les paramètres de route.
+```ts
+blueprint.set('stone.router.defaults', { id: 23 })
+```
+
+Pour définir des valeurs par défaut communes à toutes les routes, on utilise les méthodes `configure` depuis le routeur.
 
 ```js
-router.addDefault('id', 12)
-router.setDefaults({ id: 23 })
+router.configure({ defaults: { id: 23 } })
 ```
 
 ## Règles de validation
@@ -270,20 +306,18 @@ Notes :
 - Les valeurs sont des Regex mais elles ne sont pas échappées comme pour les Regex string.
 - Les règles peuvent être utilisées avec les paramètres optionnels `:slug?`.
 
-Les règles peuvent être ajoutées ou modifiées au moment même de l'exécution avec les méthodes `setRules` et `addRule` depuis la route.
-
-```js
-route.addRule('id', /\d+/)
-route.setRules({ id: /\d+/ })
-```
-
 ### Règles globales
 
-Pour appliquer des règles communes à toutes les routes, on utilise les méthodes `setRules` et `addRule` depuis le routeur.
+Au moment de la configuration du routeur, on peut définir des règles de validation pour tous les paramètres de route.
+
+```ts
+blueprint.set('stone.router.rules', { id: /\d+/ })
+```
+
+Pour appliquer des règles communes à toutes les routes, on utilise les méthodes `configure` depuis le routeur.
 
 ```js
-router.addRule('id', /\d+/)
-router.setRules({ id: /\d+/ })
+router.configure({ rules: { id: /\d+/ } })
 ```
 
 Notes :

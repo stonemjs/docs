@@ -52,10 +52,8 @@ export const enSidebar = sidebar({
         { text: 'Introduction', link: 'README.md' },
         'definitions',
         'parameters',
-        'middleware',
-        'generator',
         'binding',
-        'events',
+        'miscellaneous',
       ],
     },
     {
