@@ -2,19 +2,46 @@
 title: Commands
 ---
 
-The Stone CLI is the command line interface for Stone.js that assists developers throughout the development process. 
-It automates various tasks, making development more efficient and productive. With Stone CLI, developers can create new Stone.js project, 
-export packages configurations, run build, and much more with simple commands.
+Stone.js offers a powerful and unified command system made of two complementary parts:
 
-Additionally, it allows for the creation of custom commands tailored to specific project needs, 
-providing flexibility and enhancing workflow. The Stone CLI is an invaluable tool that streamlines development and helps maintain consistency across projects.
+* **The Stone CLI**, which provides built-in commands like `serve`, `build`, or `init`, and helps automate development workflows across all types of Stone.js projects.
+* **Custom Commands**, which let you define your own CLI commands directly in your application, turning any Stone.js app into a fully functional CLI tool.
 
-## Installation
+With this system, you can run, build, scaffold, or extend your projects, and even publish your own CLI tools, using the same familiar Stone.js architecture.
 
-The Stone CLI is installed by default in all Stone.js projects but it is not installed globally.
-Le mieux serait de l'installer globalement si on veut profiter de son plein potentiel
+### Why It Exists
 
-The CLI package is available on the [npm registry](https://www.npmjs.com) and can be installed globally as follows:
+CLI tools are essential in any developer’s workflow. Instead of reinventing the wheel for each tool, Stone.js lets you:
+
+* Use one consistent, event-driven system to handle CLI input/output.
+* Write CLI commands just like you would write HTTP handlers or frontend page handlers.
+* Reuse your application logic, services, and configuration across all execution modes (web, serverless, CLI).
+
+The goal is clear: **one continuum, one skillset**, from server to script.
+
+### Where It Fits in the Continuum
+
+In the Continuum Architecture:
+
+* CLI commands are triggered from the **Integration dimension** via the **CLI adapter**.
+* This produces an `IncomingEvent`, just like HTTP, browser or Lambda triggers.
+* Your event handler (in the **Functional dimension**) processes the intention and returns a response, or just prints it to the console.
+
+Whether you're writing a complex admin tool or a quick script, you're still operating inside the same contextual flow as the rest of your Stone.js app.
+
+## Stone CLI
+
+The **Stone CLI** is the official command-line tool for Stone.js. It helps you bootstrap new projects, run development servers, build production bundles, and export third-party configurations, all from a single entry point.
+
+Stone CLI comes preinstalled in every Stone.js project, but to unlock its full potential, you should install it globally on your machine.
+
+It offers a consistent, developer-friendly interface to perform essential tasks across all environments, whether you're building a backend API, frontend app, fullstack project, or CLI tool.
+
+### Installation
+
+#### Global Installation (Recommended)
+
+To use the Stone CLI everywhere from your terminal, install it globally from the npm registry:
 
 ::: code-tabs#shell
 @tab:active npm
@@ -34,512 +61,922 @@ yarn add -g @stone-js/cli
 ```bash
 pnpm add -g @stone-js/cli
 ```
+
 :::
 
-## Built in commands
+#### Local Usage
 
-Une fois installer globallement vous pouvez commencer par lister les built-in commandes disponibles actuellement en utilisant `--help`:
+If you prefer not to install globally, you can still use the CLI in a local project via `npx`:
 
-```sh
+```bash
+npx stone
+```
+
+### Built-in Commands
+
+Once installed, you can view all available built-in commands using:
+
+```bash
 stone --help
 ```
 
-Chaque commande comprend également un écran « d'aide » qui affiche et décrit les arguments et options disponibles de la commande. 
-Pour afficher un écran d'aide, faites succeder le nom de la commande de `--help`:
+Each command also has its own help screen:
 
-```sh
+```bash
 stone export --help
 ```
 
-La commande `serve` sert a rouler votre application en `dev`:
+#### Main Commands
 
-```sh
-stone serve
+* `stone serve`
+  Start your application in development mode.
+
+* `stone build`
+  Build your application for production.
+
+* `stone preview`
+  Preview the production build locally.
+
+* `stone init`
+  Create a new Stone.js application. A questionnaire will guide you through the setup.
+
+* `stone export`
+  Export preconfigured settings for third-party libraries. Example:
+
+  ```bash
+  stone export rollup
+  ```
+
+* `stone typings`
+  Perform static type validation for TypeScript projects.
+
+* `stone cache-clear`
+  Clear internal cache, useful during development.
+
+* `stone list`
+  List all available custom commands, including your custom ones and those provided by third-party libraries.
+
+* `stone --version`
+  Show the current version of the Stone CLI.
+
+## Custom Commands
+
+In addition to built-in commands, Stone.js lets you create your own custom commands.
+
+A **custom command** is an event handler designed to respond to a CLI-triggered `IncomingEvent`.
+You write it just like you would write an HTTP event handler or a browser event handler, same shape, same lifecycle, same power.
+
+Not only can you build your own CLI tools, but third-party libraries can also expose their own custom commands. This makes the Stone CLI ecosystem modular, extensible, and highly adaptable to real-world project needs.
+
+### CLI Adapter Installation
+
+To run your custom commands, you’ll need to install the CLI adapter package:
+
+```bash
+npm i @stone-js/node-cli-adapter
 ```
 
-La commande `build` sert a creer un build de production:
+Important, this adapter is **not** the same as `@stone-js/cli`.
 
-```sh
-stone build
-```
+* `@stone-js/cli` is the command orchestrator. It launches your app, parses the CLI input, and wires up the system.
+* `@stone-js/node-cli-adapter` is what allows your application to receive command events and act on them.
 
-La commande `init` sert a creer une nouvelle application Stone.js, Vous aurez a remplir un questionnaire une fois executée.
+The CLI tool talks to your app through the CLI adapter. Without it, your custom commands won’t be executed.
 
-```sh
-stone init
-```
+::: tip Fun Fact
+No better demonstration of Stone.js's power than its own CLI, it was the first application built with Stone.js.  
+Talk about dogfooding!  
+We used Stone.js to build the tool that builds Stone.js apps. 🤓 
+:::
 
-La commande `export` sert a exporter les configuration des packages afin de profiter de la configuration explicite:
+### CLI Adapter Activation
 
-```sh
-stone export @stone-js/router
-```
+Like any other adapter in Stone.js, you must activate the CLI adapter before it can process command line events.
 
-`typings` sert à faire une validation statique des types du code pour les projet Typescript et `cache` sert à vider la cache durant le processus de developpement.
+::: tabs#declarative-imperative
+@tab:active Declarative
+#### Declarative Activation
 
-## Custom commands
+You can activate the CLI adapter declaratively, by adding the `@NodeConsole()` decorator to your main application handler.
 
-Stone.js vous permet d'etendre les fonctionnalités du CLI en ajoutant vos propres commandes, non seulement vous, 
-mais les librairies tierce etendent aussi les fonctionnalités du CLI en ajoutant leur propres commandes, 
-dans les deux cas on les appelent des custom commands.
+```ts
+import { NodeConsole } from '@stone-js/node-cli-adapter'
+import { StoneApp, IEventHandler, IncomingEvent } from '@stone-js/core'
 
-Les custom commands constituent une autre applications independante au yeux de Stone.js et ne seront pas inclu dans le build de production, 
-car le but des custom command c'est de faciliter le processus de developpement.
-
-Cette structure nous permet de produire un build très leger afin de profiter totalement des fonctionnalités du cloud native, 
-surtout des services FAAS ou le concept de CLI n'existe meme pas.
-
-Toutefois pour avoir les custom commands en prod il va falloir dans ce cas deployer le projet au grand complet sur votre serveur de production 
-et non le build de production.
-
-### Initialisation
-
-Les custom commands ne sont pas activé par defaut, il va falloir utiliser la commande `init cli` afin de les activer:
-
-```sh
-stone init cli
-```
-
-Cette commande va venir creer une classe `Application` decorer avec le decorator `StoneCliApp` 
-dans le repertoire `commands` a la racine de votre projet, cette classe joue le meme role que celle la `app/Application`, 
-c'est a dire il constitue le main handler de votre application CLI.
-
-```js
-import { StoneCliApp } from '@stone-js/cli/decorators'
-
-@StoneCliApp()
-export class Application {}
-```
-
-Meme etant deux applications independantes les fonctionnalités de votre application CLI a accès à celles de votre application 
-et partage le meme service container, ce qui vous permet bien sur d'appeler et d'utiliser vos fonctionnalités en ligne de commande. 
-Il est a noter que l'inverse n'est pas vrai.
-
-En conclusion toutes les fonctionnalités qui ne devraient pas aller en prod, donc qui n'ajoute aucune valeur à l'utilisateur, 
-qui sont juste des utilitaire, utilisé uniquement a des fins de developpement doivent etre implementé au niveau de l'application CLI.
-
-### Configuration
-
-Vous pouvez profiter des APIs implicite et explictes afin de configurer votre application CLI.
-
-#### Implicit
-
-Vous pouvez enregistrer des providers et des middleware depuis les options du decorateur:
-
-```js
-@StoneCliApp({
-  providers: [],
-  middleware: []
-})
-export class Application {}
-```
-
-Vous pouvez aussi activer les fonctionnalités CLI d'une librairie tierce en enregistrant leur service provider depuis le main handler.
-Voici un exemple de comment activer les fonctionnalités CLI du router:
-
-```js
-import { StoneCliApp } from '@stone-js/cli/decorators'
-import { RoutingCliServiceProvider } from '@stone-js/router/decorators'
-
-@StoneCliApp({
-  providers: [RoutingCliServiceProvider]
-})
-export class Application {}
-```
-
-#### Explicit
-
-Pour profiter des configurations explicites on peut utiliser la commande `export` avec le flag `--cli` sur n'importe quel package, 
-si la configuration existe, elle sera exporté dans le repertoire `commands/config`.
-
-Voici comment exporter les configurations de votre application CLI:
-
-```sh
-stone export @stone-js/cli --cli
-```
-
-Cette commande va venir exporter les configurations dans `commands/config/AppConfig.mjs` ou `commands/config/AppConfig.ts` dans le cas d'une application Typescript, 
-que vous pouvez personnaliser a volonté, d'ailleurs toutes les options sont bien commentées.
-
-Pour les librairies tierces veuillez vous referer leur documentation respectives afin de savoir comment activer leurs fonctionnalités CLI.
-
-### Create command
-
-Pour creer une nouvelle commande on utilise la commande `make command <command-name>`:
-
-```sh
-stone make command UserCommand
-```
-
-Cette commande va venir creer votre fichier command dans le repertoire `commands/UserCommand.mjs` 
-ou `commands/UserCommand.ts` dans le cas d'une application TypeScript.
-
-Vous pouvez aussi organiser vos commandes par repertoire:
-
-```sh
-stone make command user/UserCommand
-```
-
-Cette fois ci votre fichier command sera ajouter dans le repertoire `commands/user/UserCommand.mjs` 
-ou `commands/user/UserCommand.ts` dans le cas d'une application TypeScript.
-
-Une commande dans stone.js est represente par une classe ES6 qui etend la classe `AbstractCommand`, decorer avec le decorator `@Command()` 
-et dont la methode `handle` est obligatoire afin d'intercepter les evenement entrants quand la commande sera executer.
-
-```js
-import { AbstractCommand } from '@stone-js/cli'
-import { Command } from '@stone-js/cli/decorators'
-
-@Command()
-export class UserCommand extends AbstractCommand {
-  handle (event) {}
+@StoneApp()
+@NodeConsole()
+export class Application implements IEventHandler<IncomingEvent> {
+  handle(event: IncomingEvent): void {
+    // Your code here
+  }
 }
 ```
 
+@tab:active Imperative
+#### Imperative Activation
+
+You can activate the CLI adapter imperatively, by adding it's blueprint `nodeConsoleAdapterBlueprint` to your app's configuration.
+
+```ts
+import { nodeConsoleAdapterBlueprint } from '@stone-js/node-cli-adapter'
+import { IncomingEvent, stoneBlueprint, defineEventHandler } from '@stone-js/core'
+
+export const Application = () => (event: IncomingEvent) {
+  // Your code here
+}
+
+export const AppBlueprint = defineBlueprintConfig((blueprint) => {
+  blueprint
+    .set(stoneBlueprint)
+    .set(nodeConsoleAdapterBlueprint)
+    .set(defineEventHandler(Application, true))
+})
+```
+:::
+
+::: important
+All your global initialization middleware are disabled when your app runs in CLI mode.
+:::
+
+##### Fallback
+By default, when the CLI adapter is active and no custom command handler is defined, your main application handler will act as a fallback for any command not explicitly defined.
+This means that if you run a command that doesn't match any custom command, or you don't have any custom command defined, the CLI adapter will call your main application handler.
+
+To avoid this, simply remove the `handle` method from the main application handler and Stone.js will handle the command as an unrecognized command.
+
+##### Contextual decoherence
+You can add the CLI adapter to **any existing Stone.js project**, just like any other adapter.
+Stone.js supports **adapter overlay**, which means you can combine CLI, HTTP, Browser, and more within the same app.
+
+Thanks to **contextual decoherence**, Stone.js automatically infers the runtime environment and uses the appropriate adapter during execution. Don’t worry, the CLI adapter is automatically stripped out of frontend bundles, since it only applies to backend runtimes.
+
+If you’re building a mono app, your `Application` handler can receive events from **any environment**, including CLI input, HTTP requests, cloud functions, or browser app.
+
+Just activate the adapters you need, and your handler will serve them all.
+
+```ts
+@Browser()
+@UseReact()
+@NodeHttp()
+@StoneApp()
+@NodeConsole()
+@AwsLambdaHttp()
+export class Application {
+  handle(event: IncomingEvent): { message: string } {
+    const message = `Hello ${event.get<string>('name', 'World')}!`
+    this.logger.info(message)
+    return { message }
+  }
+
+  render({ data }: RenderContext<{ message: string }>): ReactNode {
+    return <h1>{data?.message}</h1>
+  }
+}
+```
+
+This React app can now run custom commands and run as a serverless function or as a web app in both Node.js and browser environments, all from the same codebase.
+
+### Defining a Custom Command
+
+Stone.js treats every CLI command as an event handler. This means your command can be structured just like a web route or background task, and it will benefit from the same context injection, introspection, and modularity.
+
+There are **three ways** to define a custom command in Stone.js:
+
+* Class-based
+* Function-based
+* Factory-based
+
+You can pick the shape that best suits your needs, from structured applications to one-off utilities.
+
+No matter which shape you choose, your command handler always receives an `IncomingEvent` and optionally returns a response.
+
+::: tabs#class-factory-function
+@tab:active Class-based
+
+#### Class-based Command Handler
+
+This is the most robust and introspectable shape, recommended for production apps or when using the declarative API.
+
+```ts
+import { IncomingEvent } from "@stone-js/core"
+import { ICommandHandler } from "@stone-js/node-cli-adapter"
+
+export class MyCommand implements ICommandHandler<IncomingEvent> {
+  handle(event: IncomingEvent): void {
+    // Handle the event here
+  }
+}
+```
+
+@tab Function-based
+
+#### Function-based Command Handler
+
+Ideal for small scripts, automation tasks, or single-purpose tools.
+
+```ts
+import { IncomingEvent } from "@stone-js/core"
+
+export const MyCommand = (event: IncomingEvent): void => {
+  // Handle CLI input here
+}
+```
+
+Lightweight, testable, and expressive.
+
+@tab Factory-based
+
+#### Factory-based Command Handler
+
+When you need runtime dependencies from the service container, use a factory.
+
+```ts
+import { IContainer, IncomingEvent } from "@stone-js/core"
+
+export const MyCommand = (container: IContainer) => {
+  return (event: IncomingEvent): { message: string } => {
+    const name = event.get<string>('name', 'World')
+    return { message: `Hello ${name}!!` }
+  }
+}
+```
+
+Factory-based commands give you maximum flexibility and seamless access to your internal services.
+:::
+
+Each shape is valid, and they’re all interoperable.
+Use the one that matches your command’s complexity, lifecycle, and ecosystem needs.
+
+### Registering the Command Handler
+
+Once your command handler is defined, you need to register it so that Stone.js can recognize it and execute it when a matching CLI event occurs.
+
+Stone.js offers **two registration styles**, depending on how much control you want:
+
+* Declarative API, using the `@Command()` decorator (for class-based handlers only)
+* Imperative API, using `defineCommand()` (for any shape)
+
+::: tabs#declarative-imperative
+
+@tab:active Declarative
+
+#### Declarative Registration
+
+This is the most concise and recommended approach for most CLI commands.
+
+You decorate your handler class with `@Command`, passing its metadata like name, alias, description, arguments, and options:
+
+```ts
+import { IncomingEvent } from "@stone-js/core"
+import { ICommandHandler, Command } from "@stone-js/node-cli-adapter"
+
+@Command({ name: 'greet', desc: 'Say hello to someone' })
+export class GreetCommand implements ICommandHandler<IncomingEvent> {
+  handle(event: IncomingEvent): void {
+    const name = event.get('name', 'World')
+    console.log(`Hello ${name}!`)
+  }
+}
+```
+
+Once your class is decorated, and your app is bootstrapped with `@StoneApp()`, it will be automatically detected and registered at runtime.
+
+@tab Imperative
+
+#### Imperative Registration
+
+If you prefer more manual control, or want to use function or factory-based shapes, you can register your commands using `defineCommand`.
+
+###### Function-based Handler
+
+```ts
+import { defineCommand } from '@stone-js/node-cli-adapter'
+
+export const GreetCommand = (event: IncomingEvent) => {
+  console.log('Hello from function!')
+}
+
+blueprint.set(defineCommand(GreetCommand, { name: 'greet' }))
+```
+
+###### Factory-based Handler
+
+```ts
+export const GreetCommandFactory = () => (event: IncomingEvent) => {
+  const name = event.get('name', 'World')
+  console.log(`Hello ${name}!`)
+}
+
+blueprint.set(defineCommand(GreetCommandFactory, { name: 'greet' }, true))
+```
+
+This mode gives you flexibility for dynamic registration, runtime assembly, or advanced CLI composition.
+
+:::
+
+Once registered, your command handler becomes available to the kernel, and will be executed every time a matching CLI event is received.
+
 ### Command Signature
 
-Stone.js met a votre disposition une API tres interessante afin de definir la signature de vos commandes, 
-à savoir leurs noms, descriptions et les valeur souhaitée en entrées à savoir les arguments ou les options.
+Stone.js gives you full control over how your CLI commands are defined and invoked, including their names, aliases, descriptions, arguments, and options.
 
-La signature des commandes peuvent etre defini via les options du decorator `@Command`.
+You can declare the signature through:
+
+* The `@Command({...})` decorator (declarative)
+* The `defineCommand(..., options)` function (imperative)
+
+Both approaches support the same set of metadata.
 
 #### Name
 
-Pour donner un nom à votre commande on utilise l'option `name`:
+Every command needs a unique `name`. This is the string the user types in the terminal to invoke your command:
 
-```js
-@Command({
-  name: 'user:list'
-})
+```ts
+@Command({ name: 'user:list' })
 ```
-
-Ensuite vous pourrez l'executer depuis la racine de votre projet:
 
 ```sh
 stone user:list
 ```
 
-On peut aussi definir des alias pour nos commandes en utilisant l'option `alias`:
+#### Alias
 
-```js
-@Command({
-  name: 'user:list',
-  alias: 'ul'
-})
+You can define one or more shortcuts using the `alias` property:
+
+```ts
+@Command({ name: 'user:list', alias: 'ul' })
 ```
-
-Ensuite vous pourrez l'executer depuis la racine de votre projet via son alias:
 
 ```sh
 stone ul
 ```
 
-#### Description
+Multiple aliases can be defined as an array:
 
-Pour fournir une description à votre commande vous pouvez utiliser l'options `desc`:
-
-```js
-@Command({
-  name: 'user:list',
-  desc: 'List application users'
-})
+```ts
+@Command({ name: 'user:list', alias: ['ul', 'usli'] })
 ```
 
-On peut utiliser le flag `--help` pour afficher les details d'une commande y compris sa description:
+#### Description
+
+The `desc` property provides a human-readable explanation of what your command does. It’s shown in the help screen:
+
+```ts
+@Command({ name: 'user:list', desc: 'List application users' })
+```
 
 ```sh
 stone user:list --help
 ```
 
+This helps users understand your command’s purpose at a glance.
+
 #### Arguments
 
-Pour definir des valeurs obligatoires souhaités pour les arguments on utilise 
-l'option `args` avec le nom de l'argument enveloppé dans `<name>`:
+Arguments are positional inputs passed after the command name.
+You define them using the `args` property:
 
-```js
+* Required arguments are wrapped in angle brackets: `<email>`
+* Optional arguments are wrapped in square brackets: `[status]`
+
+```ts
 @Command({
   name: 'user:list',
-  alias: 'ul',
-  args: '<email>',
+  args: '<email> [status]'
 })
 ```
 
-A ce moment la on pourra passer une valeur à notre argument obligatoire:
-
-```sh
-stone user:list jonh.doe@domain.com
-```
-
-On peut aussi rendre les arguments optionels, pour se faire on enveloppe le nom de l'argument dans `[name]`:
-
-```js
-@Command({
-  name: 'user:list',
-  alias: 'ul',
-  args: '<email> [status]',
-})
-```
-
-Dans cet exemple `email` sera obligatoire et `status` optionnel. 
-La commande tombera en erreur et imprimera la signature de la commande quand un argument obligatoire n'est pas fournit.
-
-Voici un simple exemple d'utilisation:
+Used like this:
 
 ```sh
 stone user:list jonh.doe@domain.com active
 ```
 
+Stone.js will throw a helpful error and show the command signature if required arguments are missing.
+
 #### Options
 
-Pour definir des valeurs souhaités pour les options on utilise 
-l'option `options` qui prend comme valeur soit un objet literal avec le nom de l'option comme clé 
-et les parametres de l'options comme valeur:
+Options are named inputs prefixed by `--`, useful for flags and toggles.
 
-```js
+You define them using the `options` property. Each key defines an option name and accepts an object of metadata:
+
+```ts
 @Command({
   name: 'user:list',
-  alias: 'ul',
-  options: {
-    admin: {}
-  }
-})
-```
-
-Les options contairement aux argument sont prefixé de `--`, en voici un simple exemple d'utilisation:
-
-```sh
-stone user:list --admin
-```
-
-On peut profiter des parametres des options afin de mieux les definir, à savoir leur type, leur alias, leur description et leur valeur par defaut:
-
-```js
-@Command({
   options: {
     admin: {
       alias: 'ad',
       default: false,
-      describe: 'List only admin',
+      describe: 'List only admins',
       type: 'boolean'
     }
   }
 })
 ```
 
-Stone.js utilise Yargs en arriere plan, veuillez vous referer à sa 
-[documentation](https://yargs.js.org/docs/#api-reference-optionskey-opt) pour plus de parametre pour la definition des options.
+Used like this:
 
-### Command I/O
+```sh
+stone user:list --admin
+```
 
-Une fois vos commandes definis, vous allez devoir vouloir acceder aux `arguments` et `options` durant l'execution de la commande, 
-mais aussi afficher des messages à l'utilisateur, pour ce faire Stone.js met à votre disposition une API tres interessante qui vous 
-permet de bien gerer les flux des entrées et sorties de votre application.
+#### Supported Option Parameters
 
-#### Retrieving Input
+* `alias`, shortcut for the option
+* `default`, default value if not provided
+* `describe`, description shown in help output
+* `type`, one of `'boolean'`, `'string'`, `'number'`, etc.
 
-Losrque votre commande s'execute, vous devrez probablement accéder aux valeurs des `arguments` et des `options` acceptées par votre commande. 
-Pour ce faire, vous pouvez utiliser le méthode `get` de votre objet d'`event`. Si un `argument` ou une `option` n'existe pas, `null` sera renvoyé:
+Stone.js uses [Yargs](https://yargs.js.org/docs/#api-reference-optionskey-opt) behind the scenes to parse arguments and options. You can refer to their documentation for even more advanced configurations.
 
-```js
-handle (event) {
-  const email = event.get('email') // Your arg
-  const status = event.get('status') // Your arg
-  const isAdmin = event.get('admin') // Your options
+### Custom Matching Logic
+
+Sometimes, you may want more control over which handler responds to a command, especially when multiple handlers are available.
+Stone.js provides a clean solution for this through the optional `match` method.
+
+The `match` method allows your handler to inspect the `IncomingEvent` and decide whether it should handle it.
+This is particularly useful when:
+
+* You have multiple command handlers registered
+* You want to filter by arguments, options, or context
+* You’re building dynamic CLI tools
+
+#### Supported Shapes
+
+* ✅ **Class-based handlers**: just define a `match(event)` method alongside your `handle(event)` method.
+* ✅ **Factory-based handlers**: return an object with both `match` and `handle` functions.
+* ❌ **Function-based handlers**: do not support custom matching. They're always treated as default handlers for the given command name.
+
+::: tabs#class-factory-function
+@tab:active Class-based
+#### Example, Class-based
+
+```ts
+export class MyCommand implements ICommandHandler<IncomingEvent> {
+  match(event: IncomingEvent): boolean {
+    return event.get<string>('role') === 'admin'
+  }
+
+  handle(event: IncomingEvent): void {
+    // Executed only if match returns true
+  }
 }
 ```
 
-La methode `get` prend un second argument en parametre qui est la valeur a renvoyé si un `argument` ou une option n'existe pas:
+@tab Factory-based
 
-```js
-handle (event) {
-  const status = event.get('status', 'disabled') // Your arg
-  const isAdmin = event.get('admin', false) // Your options
+#### Example, Factory-based
+
+```ts
+export const MyCommand = () => {
+  return {
+    match: (event: IncomingEvent) => event.get('env') === 'production',
+    handle: (event: IncomingEvent) => {
+      // Only runs in production
+    }
+  }
 }
 ```
-
-#### Prompting for Input
-
-Vous pouriez aussi demander à l'utilisateur de fournir des entrées durant l'execution de votre commande 
-en utilisant les differentes methodes que Stone met à votre disposition.
-
-::: important
-L'API des entrées de Stone.js est asynchrone.
 :::
 
-##### Ask
+If the `match` function returns `false`, Stone.js will skip this handler and continue searching for another match.
+If no handler matches, the main handler will act as fallback (unless disabled).
 
-Vous pouvez utiliser la methode `ask` afin de poser une question à l'utilisateur, qui fera sa saisi, 
-ensuite la donnée saisie sera retourner à votre commande:
+This small function can be the gatekeeper for complex CLI logic, keep it focused and efficient.
 
-```js
-async handle (event) {
-  const email = await this.ask('Provide your email?')
+### Command Input API
+
+Once your command is running, you’ll want to interact with the user, whether by reading passed arguments and options, or by asking for input dynamically.
+
+Stone.js provides two powerful tools to help you handle CLI input:
+
+* The `IncomingEvent` object, which gives you access to parsed arguments and options
+* The `CommandInput` class, which allows interactive user prompts
+
+#### Accessing Parsed Input
+
+Every command handler receives an `IncomingEvent` instance.
+You can use the `.get()` method to retrieve values by key, whether it's an argument or an option.
+
+```ts
+handle(event: IncomingEvent) {
+  const email = event.get('email')             // From args
+  const status = event.get('status')           // From args
+  const isAdmin = event.get('admin')           // From options
 }
 ```
 
-La methode `ask` prend un second argument en parametre qui est la valeur a renvoyé si aucune entrée utilisateur n'est fournie:
+You can also provide a default value as the second argument:
 
-```js
-async handle (event) {
-  const email = await this.ask('Provide your email?', 'jonh.doe@domain.com')
+```ts
+const isAdmin = event.get('admin', false)
+const email = event.get('email', 'unknown@stone.dev')
+```
+
+This gives you a safe, consistent way to extract CLI data.
+
+#### Prompting for Input (Interactive)
+
+Stone.js goes further by offering a set of async utilities for interactive input, such as asking questions or requesting confirmation.
+
+You access these through the `CommandInput` instance, which is injected into your command via the factory shape or constructor.
+
+###### Example with Factory Injection
+
+```ts
+import { CommandInput } from '@stone-js/node-cli-adapter'
+
+export const askCommand = ({ input }: { input: CommandInput }) => {
+  return async (event: IncomingEvent): Promise<void> => {
+    const name = await input.ask('What is your name?')
+    console.log(`Welcome ${name}`)
+  }
 }
 ```
 
-##### AskNumber
+#### Prompt Methods
 
-La methode `askNumber` fait la meme chose que `ask` à l'exception que la donnée saisie en entrée doit etre de type `number`:
+###### ask
 
-```js
-const salary = await this.askNumber('Provide your salary?')
+Ask the user for a string input.
+
+```ts
+const email = await input.ask('Provide your email?')
 ```
 
-##### Secret
+With default value:
 
-La methode `secret` fait la meme chose que `ask` à l'exception que la donnée saisie en entrée sera cacher durant la saison par l'utilisateur, 
-utile pour demander des données sensibles à l'utilisateur:
-
-```js
-const password = await this.secret('Provide your password?')
+```ts
+const email = await input.ask('Provide your email?', 'jonh.doe@domain.com')
 ```
 
-##### Confirm
+###### askNumber
 
-Pour avoir la confirmation de l'utilisateur on peut utiliser la methode `confirm` qui par defaut retourne `false`:
+Prompt for a numeric input. If the user enters invalid data, the system will re-prompt.
 
-```js
-const agreements = await this.confirm('Do accept the terms and conditions?')
+```ts
+const age = await input.askNumber('Your age?')
 ```
 
-Ce que vous pouvez aussi personnalisé en passant `true` via le second argument:
+###### secret
 
-```js
-const agreements = await this.confirm('Do accept the terms and conditions?', false)
+Same as `ask`, but input is hidden (e.g., for passwords):
+
+```ts
+const password = await input.secret('Enter your password')
 ```
 
-##### Choice
+###### confirm
 
-Pour proposer un ensemble de choix prédéfinis à l'utilisateur on utilise la méthode `choice`. 
-Vous pouvez définir l'index du tableau de la valeur par défaut à renvoyer si aucune option n'est choisie en passant l'index comme troisième argument à la méthode :
+Ask a yes/no question. Returns `true` or `false`.
 
-```js
-const color = await this.secret('Choose a color?', ['Red', 'Green'], 1)
+```ts
+const confirm = await input.confirm('Proceed with deployment?')
 ```
 
-Par defaut l'utilisateur a doit a un seul choix, pour lui permettre de faire des choix multiple on passe true au quatrieme argument 
-de la methode:
+With default value:
 
-```js
-const color = await this.secret('Choose some colors?', ['Red', 'Green'], 1, true)
+```ts
+const confirm = await input.confirm('Proceed?', true)
 ```
 
-##### Editor
+###### choice
 
-Pour permettre à l'utilisateur de fournir une large quantite de données en entré on peut utiliser la methode `editor`:
+Let the user select from a predefined list of options.
 
-```js
-const biography = await this.editor('Provide your biography?')
+```ts
+const color = await input.choice('Choose a color', ['Red', 'Green', 'Blue'], 0)
 ```
 
-Elle prend aussi un second argument en parametre qui est la valeur a renvoyé si aucune entrée utilisateur n'est fournie:
+Enable multiple selections by passing `true` as the fourth argument:
 
-```js
-const biography = await this.editor('Provide your biography?', 'I am Jonh Doe')
+```ts
+const colors = await input.choice('Pick your favorite', ['Red', 'Green'], 0, true)
 ```
 
-#### Writing Output
+###### editor
 
-Pour afficher la sortie dans la console, vous pouvez utiliser les méthodes : `info`, `show`, `breakLine`, `error`, `warn` et `succeed`. 
-Ces méthodes appliquent automatiquement les couleurs ANSI appropriées à leurs objectifs respectifs.
+Let the user enter a large amount of text in their preferred system editor.
 
-On utilise la methode `info` pour transmettre une informations générales à l'utilisateur, 
-elle affiche généralement le texte en blue dans la console.
+```ts
+const bio = await input.editor('Your biography?')
+```
 
-```js
-handle (event) {
-  this.info('You need to change your name.')
+With fallback content:
+
+```ts
+const bio = await input.editor('Your biography?', 'I am a passionate developer.')
+```
+
+Stone.js uses [Prompts](https://www.npmjs.com/package/prompts) under the hood to provide these prompts, but you never have to touch it directly.
+
+### Command Output API
+
+When building CLI tools, presenting information clearly is just as important as receiving input.
+Stone.js offers a rich `CommandOutput` utility to help you format and display your messages cleanly and efficiently.
+
+This object is injected into your command the same way as `CommandInput`, either via the class constructor or factory parameters.
+
+#### Example with Factory Injection
+
+```ts
+import { CommandInput, CommandOutput } from '@stone-js/node-cli-adapter'
+
+export const greetCommand = (
+  { input, output }: { input: CommandInput, output: CommandOutput }
+) => {
+  return async (event: IncomingEvent): Promise<void> => {
+    const name = await input.ask('Your name?')
+    output.info(`Hello ${name}`)
+  }
 }
 ```
 
-Pour afficher un message d'erreur, utilisez la méthode `error`. Le texte du message d'erreur est généralement affiché en rouge:
+#### Basic Output Methods
 
-```js
-this.info('An error has occured!')
+###### info
+
+Display a general message (usually blue):
+
+```ts
+output.info('Processing complete.')
 ```
 
-Pour afficher un message de succès, utilisez la méthode `succeed`. Le texte du message de succès est généralement affiché en vert:
+###### warn
 
-```js
-this.succeed('Operation succeed!')
+Display a warning message (yellow):
+
+```ts
+output.warn('Some entries were skipped.')
 ```
 
-Vous pouvez utiliser la méthode `breakLine` pour faire un retour chariot et afficher une ligne vide :
+###### error
 
-```js
-this.breakLine()
+Display an error message (red):
+
+```ts
+output.error('Failed to connect to database.')
 ```
 
-##### Table
+###### succeed
 
-La méthode `table` permet de formatter plusieurs lignes et colonnes de données. 
-Il prend un argument obligatoire, qui doit être un tableau ou un objet, 
-et un argument optionel qui doit etre un tableau contenant les noms des colonnes à inclure dans la sortie.
+Display a success message (green):
 
-```js
-const data = [
+```ts
+output.succeed('All users imported successfully!')
+```
+
+###### breakLine
+
+Insert a blank line in the terminal:
+
+```ts
+output.breakLine()
+```
+
+Useful to improve readability between sections.
+
+#### Advanced Output
+
+###### table
+
+Display tabular data in rows and columns.
+
+```ts
+const users = [
   { name: 'Jonh Doe', email: 'jonh.doe@domain.com' },
   { name: 'Jane Doe', email: 'jane.doe@domain.com' }
 ]
 
-this.table(data, ['name', 'email'])
+output.table(users, ['name', 'email'])
 ```
 
-##### Spiner
+You can pass either an array of objects, or a single object, and optionally filter specific columns.
 
-Vous pouvez utiliser la méthode `spin` pour avoir un jolie spinner, utile pour les commandes qui prennent un peu plus de temps a s'executer:
+###### spin
 
-```js
-const spinner = this.spin()
+Start a loading spinner, great for tasks that take time.
+
+```ts
+const spinner = output.spin('Uploading file...')
 ```
 
-Il prend aussi un texte en parametre a afficher avec le spinner:
+Stop the spinner when done:
 
-```js
-const spinner = this.spin('Loading...')
-```
-
-Pour arreter le spinner on utilise la methode `stop` depuis l'instance retourné par la methode `spin`:
-
-```js
+```ts
 spinner.stop()
 ```
 
+This gives your commands a polished, responsive feel.
 
-#### Progress bar
+###### progressBar
 
-Pour les tâches longues, l'affichage d'une barre de progression peut être utile pour informer les utilisateurs de l'état d'avancement de la tâche. 
-La méthode `progresBar` nous retourne un objet qui permet d'afficher une barre de progression qui se met à jour 
-à chaque itération sur une valeur itérable spécifiée en appelant la methode `tick`, il prend en parametre un token et un objet d'options:
+Display a visual progress bar for iterative tasks.
 
-```js
-const progress = this.progresBar(':bar', { total: 10 })
+```ts
+const progress = output.progressBar(':bar', { total: 10 })
 
-const timer = setInterval(() => {
+const interval = setInterval(() => {
   progress.tick()
-  progress.complete && clearInterval(timer)
+  if (progress.complete) clearInterval(interval)
 }, 100)
 ```
 
-Stone.js utilise la fameuse librairie [`Progress`](https://www.npmjs.com/package/progress) veuillez vous referez a sa documentation pour plus d'informations.
+Stone.js uses the [`progress`](https://www.npmjs.com/package/progress) library under the hood, so you can pass any supported format and options.
 
-#### Calling Commands From Other Commands
+Clear, styled output helps users understand what your CLI is doing, and turns scripts into professional tools.
 
-Pour executer une commande depuis une autre on peut utiliser la methode `call` qui prend en parametre le nom de la commande 
-et un tableau des arguments et options de la commande:
+## Extensibility
 
-```js
-handle (event) {
-  this.call('user:list', ['jonh.doe@domain.com', 'active', '--admin'])
+Stone.js was designed to be modular and library-friendly. That means you can not only create your own commands, but also consume commands from third-party packages, or provide them yourself if you’re building reusable libraries.
+
+### Third-party Commands
+
+Any third-party library can register its own built-in commands. These commands can be implemented using:
+
+* Class-based handlers
+* Factory-based handlers
+* Function-based handlers
+
+They behave just like your own commands and are executed through the same CLI interface.
+For example:
+
+```sh
+stone router list
+```
+
+This command could come from an external library that provides routing features, and it will be seamlessly available in your CLI once the library is activated.
+
+### Registration Requirements
+
+Third-party commands **must** use the **Imperative API** for registration.
+
+Why? Because commands are attached to the CLI adapter, and the adapter is only resolved at runtime. This means the command registration must be dynamic, during the blueprint resolution phase.
+
+Libraries do this by registering a **Blueprint Middleware**, which adds their command definitions when the current platform is `node-console`.
+
+### Example: Router Command from a Third-party Library
+
+#### Step 1, Define Command Options and Handler
+
+```ts
+export const routerCommandOptions: CommandOptions = {
+  name: 'router',
+  alias: 'r',
+  args: ['<action>'],
+  desc: 'Router utility commands',
+  options: (yargs: IArgv) => {
+    return yargs.positional('action', {
+      type: 'string',
+      choices: ['list'],
+      desc: 'Display route definitions'
+    })
+  }
+}
+
+export class RouterCommand {
+  constructor(private readonly container: IContainer) {}
+
+  async handle(event: IncomingEvent): Promise<void> {
+    const action = event.get<string>('action')
+    if (action === 'list') {
+      console.table(await Router.create(this.getRouterOptions()).dumpRoutes())
+    }
+  }
+
+  private getRouterOptions(): RouterOptions {
+    const routerOptions = this.container
+      .make<IBlueprint>('blueprint')
+      .get<RouterOptions>('stone.router', {} as any)
+    return { ...routerOptions, dependencyResolver: this.container }
+  }
 }
 ```
 
-Comme vous pouvez le voir les valeur du tableau doivent suivre le meme ordre que la signature de la commande.
+#### Step 2, Register Commands Dynamically via Middleware
+
+```ts
+export const SetRouterCommandsMiddleware = async (
+  context: BlueprintContext<IBlueprint, ClassType>,
+  next: NextMiddleware<BlueprintContext<IBlueprint, ClassType>, IBlueprint>
+): Promise<IBlueprint> => {
+  if (context.blueprint.get('stone.adapter.platform') === NODE_CONSOLE_PLATFORM) {
+    context.blueprint.add('stone.adapter.commands', [
+      { options: routerCommandOptions, isClass: true, module: RouterCommand }
+    ])
+  }
+
+  return await next(context)
+}
+```
+
+#### Step 3, Expose the Middleware in Your Library's Blueprint
+
+```ts
+export const myLibBlueprint = {
+  stone: {
+    blueprint: {
+      middleware: [
+        { module: SetRouterCommandsMiddleware }
+      ]
+    }
+  }
+}
+```
+
+Once your library is used and its blueprint is registered, the command becomes available to the user automatically.
+
+This mechanism ensures:
+
+* Third-party commands are only registered when relevant (CLI context)
+* Registration is dynamic and scoped to the CLI adapter
+* No pollution of environments like browser or Lambda
+
+Stone.js makes sure that commands defined in libraries remain lightweight, discoverable, and executable, all while keeping full control over the CLI namespace.
+
+## Best Practices
+
+#### Choose the Right Handler Shape
+
+Each handler shape has its own sweet spot. Here’s how to pick the right one:
+
+* **Class-based**
+  Best for structured CLI tools with decorators, metadata, and clear organization.
+  Recommended when using the Declarative API.
+
+* **Function-based**
+  Ideal for scripts, automation, or quick utilities.
+  Simple and direct, but limited (no dependency injection, no match function).
+
+* **Factory-based**
+  Perfect when you need runtime access to services, containers, or need to inject `input` and `output` explicitly.
+  Best choice for advanced CLI applications.
+
+#### Register Explicit Handlers
+
+Avoid defining a `handle()` method in your main `Application` class unless you're using a wildcard pattern.
+
+Once the CLI adapter is activated, the main handler will be invoked for **any command** that doesn’t match a custom handler.
+To prevent accidental fallbacks, leave `handle()` undefined when you're only using explicit commands.
+
+#### Use Descriptions and Aliases
+
+Always define:
+
+* A `desc` so users understand the command’s purpose
+* One or more `alias` values for convenience
+
+This improves `--help` output and makes your CLI friendlier to use.
+
+#### Use CommandInput When Appropriate
+
+Don’t overload your command signature with arguments and options.
+Instead, use `CommandInput` to collect additional or sensitive data interactively:
+
+* Ask for passwords with `secret()`
+* Confirm destructive actions with `confirm()`
+* Get long input with `editor()`
+
+Your users will thank you.
+
+#### Structure Your Output
+
+Use `CommandOutput` to:
+
+* Group steps visually with `breakLine()`
+* Display lists with `table()`
+* Handle longer operations with `spin()` and `progressBar()`
+* Keep things colorful and readable using `info()`, `warn()`, `error()`, and `succeed()`
+
+Avoid `console.log()` unless you’re printing raw data for scripting purposes.
+
+#### One Command, One Purpose
+
+Keep each command focused on a single task. If your command does too many things, break it down into subcommands or split logic into services.
+
+#### Prefer Declarative API for Simplicity
+
+Unless you need manual control, prefer `@Command()` for its clarity and automatic wiring.
+If you're building a library, you can even expose reusable command classes with their own decorators.
+
+## Summary
+
+Stone.js provides a unified, flexible, and extensible system for building CLI tools, whether you're working on a single project or an entire ecosystem of libraries.
+
+Here’s what you’ve learned:
+
+* **Stone CLI** is the official command-line tool, installed globally or locally, offering built-in commands like `serve`, `build`, and `init`.
+* **Custom Commands** let you turn your application into a full CLI tool by defining handlers that respond to CLI input.
+* You can define commands using **class-based**, **function-based**, or **factory-based** shapes depending on your needs.
+* You can register command handlers via:
+
+  * **Declarative API** using the `@Command()` decorator
+  * **Imperative API** using `defineCommand(...)`
+* Stone.js allows you to define your command’s **name**, **alias**, **description**, **arguments**, and **options** using a clean and declarative format.
+* Use the `IncomingEvent.get()` method to retrieve arguments and options, and the `CommandInput` class for interactive prompts like `ask`, `secret`, `choice`, etc.
+* Use the `CommandOutput` class to print messages, render tables, spin loaders, and show progress bars.
+* You can create libraries that expose CLI commands by dynamically registering them through **Blueprint Middleware**, targeting the CLI adapter only when relevant.
+
+Whether you’re building dev tools, setup scripts, admin CLIs, or internal utilities, the Stone.js command system gives you power, clarity, and consistency, across every dimension of the Continuum.
+
+Welcome to the CLI continuum, where your terminal just got a whole lot smarter.
