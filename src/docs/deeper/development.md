@@ -2,383 +2,976 @@
 title: Package development
 ---
 
-Stone.js is a micro-framework, and one of the primary ways to extend its capabilities is through package development. Packages in Stone.js are designed to add various functionalities, enhancing the framework's versatility. 
-For instance, the [Router package](../../packages/router/) extends Stone.js by providing powerful routing capabilities, 
-allowing developers to manage application routes efficiently. 
+Stone.js is a micro-framework by design, lightweight, composable, and cloud-native. Its true power, however, unfolds through packages. Packages allow you to extend, specialize, or modularize Stone.js capabilities across projects, teams, or entire ecosystems.
 
-Packages can be of two types: standalone and specific to Stone.js. Standalone packages are universal and can be used in any JavaScript project, offering functionalities that are not tied exclusively to Stone.js. On the other hand, Stone.js-specific packages are tailored to work seamlessly within the Stone.js ecosystem, leveraging its unique features and architecture.
+In Stone.js, a **package** is simply a module that exposes a set of features through the Continuum Architecture. These features can include services, utilities, decorators, middleware, commands, event handlers, or even entire integrations with third-party tools or platforms.
 
-This documentation will guide you through the process of creating your own Stone.js package or converting existing standalone packages into Stone.js-compatible packages. Whether you're looking to add new utilities, integrate third-party services, or build custom functionalities, this guide will provide you with the necessary steps and best practices for package development in Stone.js.
+There are **two kinds of packages** you can build:
 
-## ES Module
+* **Standalone Packages**
+  These are universal libraries, not bound to Stone.js. They provide general-purpose utilities or logic and can be used in any JavaScript or TypeScript environment. You can still make them Stone-compatible by exposing a blueprint wrapper, more on that later.
 
-Stone.js est un framework JavaScript et TypeScript qui suit la philosophie [Pure ESM](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c), 
-c'est à dire qu'on utilise uniquement ES module dans Stone.js.
-Ensuite il faut que tous les modules exposé par le packages soit uniquement du Javascript, 
-Meme si vous utiliser TypeScript pour creer votre package, vous devez le transpiler en ESM avant de le publier.
-Vous devez aussi inclure des Typings pour vos librairies pour les application TypeScript, 
-Meme quand votre librairie est ecrit en Vanilla Javascript, vous pouvez profiter de 
-la puissante librairie [JSDoc](https://jsdoc.app) et de TypeScript afin d'ajouter des Typing à vos codes.
-Vous pouvez vous inspirer de n'importe quelle librairie core de Stone.js car elles sont tous ecrit en Vanilla JavaScript.
+* **Stone.js-specific Packages**
+  These are deeply integrated into the Stone ecosystem. They speak the language of blueprints, adapters, providers, and the Continuum. Examples include the official `@stone-js/router` or `@stone-js/use-react`.
 
-## Package Blueprint
+This documentation will guide you through building both types — from creating a reusable, framework-agnostic module, to turning it into a fully integrated, declarative-first Stone.js package.
 
-Le package blueprint dans le contexte d'une librairie tierce represente sa fiche technique qui contient toutes 
-les informations necessaires sur comment Stone.js doit enregistrer et configurer ses differents composants, 
-le blueprint est un fichier obligatoire a toutes les librairies tierces car sans lui, 
-Stone.js ne sait quasiment rien au sujet de votre librairie.
+Whether you're crafting new utilities, wrapping external services, or formalizing your team’s internal logic into reusable features — you're in the right place.
 
-Voici ce à quoi ressemble un package blueprint:
+**By the end of this guide, you'll know how to:**
 
-```ts
-type PackageBlueprint = {
-  builder: { // Setup layer config
-    middleware: Function[]
-  },
-  adapters: AdapterBlueprint[], // Integration layer config
-  app: { // Initialization layer config
-    providers: Function[],
-    middleware: {
-      event: Function[],
-      response: Function[],
-      terminate: Function[],
-    }
-  },
-  router: { // Feature layer config
-    definitions: Object[],
-    middleware: Function[]
-  }
-}
+* Structure and build modern ESM packages.
+* Support both JavaScript and TypeScript consumers.
+* Create blueprints and service providers.
+* Expose your logic using both imperative and declarative APIs.
+* Integrate with the Continuum's Setup and Initialization dimensions.
+* Package, test, document, and publish your work like a pro.
 
-type AdapterBlueprint = {
-  alias: string,
-  default: boolean,
-  type: Function,
-  input: {
-    type: Function,
-    resolver: Function,
-    middleware: Function[]
-  },
-  output: {
-    type: Function,
-    resolver: Function,
-    middleware: Function[]
-  }
+Welcome to the power of modular, continuum-native package development.
+
+## Authoring a Package
+
+Stone.js encourages you to think modular. Each package is its own universe, encapsulating functionality in a clean, reusable, and portable way — whether it’s a CLI utility, a middleware suite, or a full-blown service layer.
+
+Here’s how to build that universe properly.
+
+### Language and Format
+
+Stone.js is built for the modern JavaScript ecosystem. That means:
+
+* **Pure ESM only**
+  All packages must be shipped as [ES Modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules). No CommonJS, no `require()`, no `module.exports`. This ensures compatibility across browsers, runtimes, and serverless environments.
+
+* **TypeScript or JavaScript? Both.**
+  You’re free to use either language to write your package — but **you must expose typings**. Stone.js is strongly typed under the hood, and consumers of your package (especially TypeScript users) rely on your types to benefit from autocomplete, validation, and context awareness.
+
+If you write in JavaScript, use [JSDoc](https://jsdoc.app/) to generate typings. If you write in TypeScript, just emit the `.d.ts` files during build.
+
+Example using JSDoc in JS:
+
+```js
+/**
+ * @param {number} x
+ * @param {number} y
+ * @returns {number}
+ */
+export function add(x, y) {
+  return x + y
 }
 ```
 
-Comme vous pouvez le voir, le blueprint expose les configuration pour toutes les couches du continuum architecture 
-et sont classé par namespace:
+### Build and Transpile
 
-- `builder` contient les configuration de la couche de configuration et c'est la dedans qu'il faut enregistrer vos middleware d'introspection
-- `adapters` contient les configuration de la couche d'integration et c'est la qu'il faut venir enregistrer vos adapters. Si vous voulez 
-bonifier un adapters existant avec des middleware il faut juste indiquer l'`alias` de l'adapter existant et vos `middleware` `input` ou `output`, Stone.js 
-est assez intelligent pour les fusionner avec ceux de l'adpater existant
-- `app` contient les configuration de la couche d'initialisation et c'est la qu'il faut venir enregistrer vos service providers et middleware
-- `router` contient les configuration de la couche features et c'est la qu'il faut venir enregistrer vos middleware et definitions de routes. 
-Il est important de savoir que le `router` est activé suivant le besoin de l'utilisateur et que dans le cas des nano application, 
-le `router` n'est souvent pas present.
+Even if you develop in TypeScript, your package must be **transpiled to ESM JavaScript** before publishing.
 
-Vous pouvez definir votre propre namespace dans le blueprint pourvu qu'il soit unique afin de ne pas ecraser d'autre namespace, 
-c'est pourquoi qu'il est conseiller d'utiliser le nom de votre package comme namespace afin de s'assurer de son unicité.
+Key principles:
 
-### Exports
+* Don’t minify. Stone.js handles optimization and minification during deployment.
+* Externalize dependencies. Don’t bundle them — let the application resolve them.
+* Transpile to ESM. Use `tsc`, `rollup`, `esbuild`, or your tool of choice.
+* Optionally bundle your code (e.g. into `dist/index.js`) for convenience — but it’s not required.
 
-Vous devez exposer et votre code et vos typings en utilisant le field [`exports`](https://nodejs.org/api/packages.html#package-entry-points) du `package.json` de Node.js, 
-si votre package utilise des dependances core de Stone.js exemple: `@stone-js/core` vous devez les declarer comme `peerDependencies`,
-enfin vous devez utiliser `"type": "module"` pour indiquer que votre package expose uniquement que du ESM, 
-voici un exemple ce a quoi devrait ressembler votre `package.json`
+Stone.js core packages use [Rollup](https://rollupjs.org/) for bundling and tree-shaking. You’re free to use the same setup for consistency and performance.
+
+### Exporting Modules
+
+Stone.js expects your `package.json` to declare exports cleanly.
+
+Use the modern [Node.js exports field](https://nodejs.org/api/packages.html#exports) — not `main`.
 
 ```json
 {
-  ...,
   "type": "module",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/types/index.d.ts",
+      "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     }
-  },
-  "peerDependencies": {
-    "@stone-js/cli": "^x.x.x",
-    "@stone-js/core": "^x.x.x",
-    "@stone-js/http-core": "^x.x.x"
-  },
-  ...
-}
-```
-
-## Service Providers
-
-Le service provider constitue l'entrepot des fonctionnalités et c'est par lui qu'on peut ajouter de nouvelles fonctionnalités à Stone.js, 
-car c'est lui qui fait le bootstraping des differentes composantes applicative, en identifiant les composants, en les enregistrant dans le service container, 
-et en les configurant afin d'etre pret a etre utilisé.
-
-Dans Stone.js un service provider est une classe ES6 avec ces methodes `onInit`, `beforeHandle`, `register`, `boot`, `onTerminate`
-qui servent de hooks permettant ainsi aux librarie d'enregistrer et de configurer leurs fonctionnalités au moment opportun. 
-Il est conseiller de suffixer tous les services providers de `ServiceProvider`.
-
-En resume une fois vos fonctionnalités sont prete il faut venir l'enregistrer et le configurer dans le service provider afin d'etre pret a etre utilise dans Stone.js.
-Veuillez vous referez a la [documentation](../architecture/providers.md) sur les Service provider pour plus d'informations
-
-## Configuration
-
-Stone.js est concu sur la philosophie plug and play, c'est à dire que tous les packages de Stone.js une fois installer doit etre pret à etre utiliser 
-et ceci sans le moindre effort coté utilisateur, c'est pour cela que Stone.js met à votre disposition deux APIs de configuration implicite et explicites.
-
-### Implicit API
-
-L'API de configuration implicite est concu sur le paradigme de programmation metadata et consiste a utiliser des decorator afin de mettre des metadata sur vos composants,
-qui permet à la couche de configuration de faire l'auto discovery via des middleware, et 
-permet ensuite au service provider de les identifier, de les enregistrer dans le service container et de les configurer correctement.
-
-Chaque librairie devrait implementer l'API implicite afin de permettre au consommateurs de cette librairie de profiter de cette fonctionnalité au sein de Stone.js, 
-ce qui lui permettra d'enregistrer et de configurer votre librairie en utilisant votre decorator afin de decorer le main handler.
-Par exemple pour activer le Router dans n'importe que projet Stone.js on utilise le decorator `@RouterProvider` afin de decorer le main handler, 
-ce qui nous permet d'utiliser toutes les fonctionnalités fournit par le Router en un moindre temps.
-
-Veuillez vous referez a la documentation sur la configuration implicite pour plus de details sur comment implementer vos propes decorators.
-
-Une fois vos decorators prets, il va falloir les exposer afin d'etre consommé au sein de Stone.js, 
-afin de garder une coherence, tous les decorators doivent etre exposé en definissant un sous path `decorators` comme point d'entré vers vos decorators 
-dans le `package.json`. Exemple tous les decorator du router sont exposé via ce sous path `@stone-js/router/decorators`.
-Disons que tous vos decorators sont builder et bundle dans ce fichier `dist/decorators.js`, voici un exemple de comment les exporter depuis le sous path `decorators`:
-
-```json
-{
-  ...,
-  "exports": {
-    ...
-    "./decorators": {
-      "types": "./dist/types/decorators.d.ts",
-      "default": "./dist/decorators.js"
-    }
-  },
-  ...
-}
-```
-
-Ce qui permet à quiconque de les consommer facilement via cette importation:
-
-```js
-import { MyDecorator } 'my-stonejs-lib/decorators'
-```
-
-### Explicit API
-
-L'API de configuration explicite vous permet d'utiliser le CLI afin d'exporter toutes les options de configurations 
-utiliser en interne par Stone.js ou par des librairies en vu de les personnaliser selon ses besoins et 
-Stone.js utilisera la configuration exporté en guise de celle definie en interne.
-
-Chaque librairie devrait implementer l'API explicite afin de permettre au consommateurs 
-de cette librairie de profiter de cette fonctionnalité au sein de Stone.js, 
-ce qui lui permettra de personnaliser la configuration selon ses besoins. 
-Par exemple après avoir installé le router pour l'activer de maniere explicite dans n'importe quel projet Stone.js, 
-on utilise la commande `npm run export @stone-js/router`, qui va exporter les configurations utilisé en interne par le router 
-dans le repertoire `config` avec toutes les options du router utile pour personnaliser ce dernier.
-
-Veuillez vous referez a la documentation sur la configuration explicite pour plus de details.
-
-Une fois vos configurations pretes, il va falloir les enregistrer afin qu'il puisse etre exporté par la commande `npm run export`.
-Disons que vos configurations explicites se trouvent dans le repertoire `dist/stub/`, voici un exemple de comment l'enregistrer 
-dans le fichier `package.json`:
-
-
-```json
-{
-  ...
-  "stone": {
-    "export": {
-      "config": {
-        "router": {
-          "default": "dist/stub/router",
-          "typescript": "dist/stub/router-ts"
-        }
-      }
-    }
-  }
-  ...
-}
-```
-
-Comme vous pouvez le voir, elles sont enregistrer sous le namespace `stone.export.config` d'ou la clé constitue le nom de votre librairie 
-qui doit etre unique au sein de l'ecosysteme de Stone.js et sera utilisé comme nom du fichier qui va etre crée
-ensuite deux champs, `default` qui contient votre configuration pour les 
-projets vanilla javascript et `typescript` pour les projets `TypeScript`.
-
-## Commands
-
-Stone.js permet aussi librairie de definir des custom commands afin de fournir des fonctionnalités en ligne de commande aux consommateurs.
-Il est important de se rappeler que les custom commands constituent une applications independante 
-qui ne seront pas inclu dans le build de production, car le but des custom command c'est de faciliter le processus de developpement.
-
-### Defining
-
-La definition des customs commands se fait differement lorsqu'on est dans un package, 
-voici les etapes afin de bien definir des customs au sein de votre package:
-
-Il faut que votre classe soit une sous classe de `AbstractCommand`:
-
-```js
-export class MyCustomCommand extends AbstractCommand {}
-```
-
-Ensuite il faut definir le nom de votre custom commande depuis le getter `metadata`:
-
-```js
-export class MyCustomCommand extends AbstractCommand {
-  get metadata () {
-    return { name: 'my-command' }
   }
 }
 ```
 
-Par la suite il faut utiliser la methode `registerCommand` qui prend en paramètre une intance de [`yargs`](https://yargs.js.org/docs/)
-que vous pouvez utiliser afin de definir la signature de votre commande:
+This makes your package compatible with both JavaScript and TypeScript, and ensures Stone.js can resolve your modules precisely.
 
-```js
-registerCommand (builder) {
-  builder
-    .command({
-      command: 'my-command <action>',
-      desc: 'My custom lib command',
-      builder: (yargs) => {
-        return yargs
-          .positional('action', {
-            type: 'string',
-            choices: ['list'],
-            desc: 'List my lib items'
-          })
-      }
-    })
-}
+### Directory Structure (Recommended)
+
+Stone.js doesn’t force a strict folder structure, but if you want to keep things clean and predictable (which you should), here’s a recommended layout:
+
+```
+my-package/
+├── src/
+│   ├── commands/
+│   ├── decorators/
+│   ├── middleware/
+│   ├── errors/
+│   ├── options/
+│   ├── events/
+│   ├── declarations.ts
+│   ├── blueprintUtils.ts
 ```
 
-Enfin vous pouvez utiliser la methode `handle` pour traiter la demande de l'utilisateur lorsque votre commande sera executer:
+What goes where:
 
-```js
-handle (event) {
-  this.output.info(event.get('action'))
-}
-```
+* `commands/`: CLI handlers
+* `decorators/`: Your custom decorators (for declarative API)
+* `middleware/`: Integration or HTTP middleware
+* `errors/`: Custom error classes
+* `options/`: Configuration types or options interfaces
+* `events/`: Custom event types
+* `declarations.ts`: All exposed types
+* `blueprintUtils.ts`: Utility functions to help with blueprint creation
 
-Les APIs I/O sont les memes que celles explicité dans la documentation CLI, veuillez vous referez à cette documentation pour plus d'informations.
+This structure isn't mandatory, but it’s battle-tested and scales well.
 
-Il est aussi important de savoir que votre custom command a aussi accès aux different hooks: `onInit`, `beforeHandle` et `onTerminate` 
-du cycle de vie d'un event.
+## API Paradigms for Consumers
 
-```js
-beforeHandle () {
-  this.output.info('Before handle...')
-}
-```
+Stone.js supports both **imperative** and **declarative** programming styles — and your package should too.
 
-### Exposing
+Internally, you’re free to build your logic however you want (hint: imperative is required). But when exposing your API to developers, **you must support both paradigms** so users can choose what fits their flow.
 
-Une fois vos commandes definies il faut les exposer afin de permettre leur consommation,
-pour ce faire vous devez exposer toutes vos commandes sous le sous path `commands` depuis votre `package.json`:
+::: tabs#declarative-imperative
+@tab:active Imperative
+### Imperative Usage
 
-```json
-{
-  ...
-  "./commands": {
-    "types": "./dist/types/commands.d.ts",
-    "default": "./dist/commands.js"
+This is the *foundational* way Stone.js packages are consumed.
+
+You **must expose a blueprint** — a static object that tells Stone.js what your package provides and how to configure it. Think of it as the package's contract with the framework.
+
+Example:
+
+```ts
+export const myLibBlueprint = {
+  stone: {
+    providers: [
+      { module: MyLibProvider, isClass: true }
+    ]
+  },
+  myLib: {
+    maxServices: 1
   }
-  ...
 }
 ```
 
-Ce qui permettra aux consommateurs d'importer uniquement les commandes dont il a besoin au sein de son application.
+Then users can activate it like this:
 
-### Registering
+```ts
+import { myLibBlueprint } from 'my-lib'
 
-Pour enregistrer une commande d'une librairie tierce dans un contexte de configuration implicite
-on utilise l'option `commands` du decorator `@StoneCliApp`:
+blueprint.set(myLibBlueprint)
+```
 
-```js
-import { MyCustomCommand } from 'my-package/commands'
-import { StoneCliApp } from '@stone-js/cli/decorators'
+You can also expose helper functions like `defineMyFeature()` to allow more granular control if needed.
 
-@StoneCliApp({
-  commands: [MyCustomCommand]
-})
+@tab Declarative
+### Declarative Usage
+
+This is the sugar on top — a clean and elegant way for developers to enable your package through decorators.
+
+Stone.js uses the Stage 3 [decorators proposal](https://github.com/tc39/proposal-decorators), but also provides utility wrappers to maintain compatibility with existing decorator syntax.
+
+To expose declarative usage:
+
+1. Create a class decorator using `classDecoratorLegacyWrapper`.
+2. Inside it, inject your blueprint using `addBlueprint(...)`.
+
+Example:
+
+```ts
+import { myLibBlueprint } from './myLibBlueprint'
+import { ClassType, classDecoratorLegacyWrapper, addBlueprint } from '@stone-js/core'
+
+export const MyLib = <T extends ClassType = ClassType>(options = {}): ClassDecorator => {
+  return classDecoratorLegacyWrapper<T>((target: T, context): undefined => {
+    addBlueprint(target, context, myLibBlueprint, { myLib: options } as any)
+  })
+}
+```
+
+Then the user activates it like this:
+
+```ts
+import { MyLib } from 'my-lib'
+import { StoneApp } from '@stone-js/core'
+
+@StoneApp()
+@MyLib({ maxServices: 2 })
 export class Application {}
 ```
 
-Dans un contexte de configuration explicite on le fait dans le namespace `app.commands`:
+This approach makes it easy for users to plug in your package with minimal friction — no manual blueprint juggling required.
+:::
 
-```js
-import { MyCustomCommand } from 'my-package/commands'
+::: important
+Even in declarative mode, you're still injecting a blueprint under the hood. It's just hidden behind a nice decorator wrapper.
+:::
 
-{
-  app: {
-    commands: [MyCustomCommand]
+Declarative for elegance, imperative for control — your package should offer both.
+
+## Blueprint & Service Integration
+
+Stone.js uses the **blueprint** as the universal setup interface. It’s how your package introduces itself to the framework, and how users configure it in a predictable, declarative or imperative way.
+
+This section covers all the integration points your package may expose: setup (blueprint), integration (adapters), and initialization (providers).
+
+### Static Blueprint
+
+The **blueprint** is a plain object that describes:
+
+* What your package provides (services, middlewares, options, etc.)
+* How it should be configured
+* Where it fits within Stone.js (under `stone` namespace or a custom one)
+
+Example:
+
+```ts
+export const myLibBlueprint = {
+  stone: {
+    providers: [
+      { module: MyLibProvider, isClass: true }
+    ]
+  },
+  myLib: {
+    maxServices: 1
   }
 }
 ```
 
-## Best practices
+You can define custom namespaces (`myLib`) for package-specific options, or use the `stone` namespace for framework-native components (services, middleware, etc).
 
-Pour garder une certaines coherence et faciliter le developpement et la collaboration au sein de l'ecosysteme de Stone.js,
-il est conseillé d'appliquer les bonnes pratiques suivantes dans le processus de developpement de package Stone.js.
+This blueprint is what users will pass into `blueprint.set(...)` or inject via decorators.
 
-### Package Structure
+::: important
+A package without a blueprint is invisible to Stone.js. No blueprint, no setup, no activation.
+:::
 
-Il est conseillé de structurer les packages Stone.js de la sorte dans le repertoire `src` à la racine de votre package:
+You can refer to the [blueprint documentation](../architecture/blueprint) for more details on how to structure your blueprint.
 
-- `ServiceProvider`: Le fichier de votre service provider
-- `decorators`: Le repertoire contenant la liste des decorateur pour la configuration implicite
-- `config`: Le repertoire contenant les options pour la configuration explicite
-- `commands`: Le repertoire contenant tous les composants qui seront utilisé depuis la console
+### Decorator Wrapper (for Declarative Setup)
 
-Comme ca quiconque pourra facilement se reperer et porter sa collaboration. Qu'il soit un nouveau package ou 
-une conversion d'un package standalone le principe reste le meme.
+As seen earlier, your blueprint decorator is just a convenient way to inject this blueprint into the system.
 
-### Bundler
+Recap:
 
-Il est conseillé d'utiliser un bundler afin d'organiser et de reduire la taille de votre librairie,
-par contre il n'est pas conseiller de minifier vos modules.
+```ts
+@StoneApp()
+@MyLib({ maxServices: 1 })
+export class App {}
+```
 
-- Tous vos decorators doivent etre bundlé dans le fichier `decorators.js`
-- Toutes vos commandes doivent etre bundlé dans le fichiers `commands.js`
-- Toutes configurations doivent etre bundlé dans le fichier `config.js`
-- Et tous les autres modules de votre librairies doivent etre bundler dans `index.js`
+Behind the scenes:
 
-Et les modules exporté dans chacun d'eux doivent etre accessible via un sous path specifique.
+* Your decorator wraps the blueprint.
+* Stone.js merges the options.
+* The setup dimension activates your package.
 
-Voici un exemple complet:
+Use this to reduce friction and make your package feel **first-class** to declarative developers.
 
-```json
-{
-  ...
-  "exports": {
-    ".": {
-      "types": "./dist/types/index.d.ts",
-      "default": "./dist/index.js"
-    },
-    "./config": {
-      "types": "./dist/types/config.d.ts",
-      "default": "./dist/config.js"
-    },
-    "./commands": {
-      "types": "./dist/types/commands.d.ts",
-      "default": "./dist/commands.js"
-    },
-    "./decorators": {
-      "types": "./dist/types/decorators.d.ts",
-      "default": "./dist/decorators.js"
+### Service Providers
+
+Service providers are how your package injects functionality into the **Service Container**, which is part of the Continuum’s **Initialization dimension**.
+
+You must:
+
+1. Create a provider class that registers services into the container.
+2. Reference that provider in your blueprint under `stone.providers`.
+
+Example provider:
+
+```ts
+export class MyLibProvider {
+  constructor(private readonly container: IContainer) {}
+
+  register() {
+    this
+      .container
+      .singleton(MyLibService, () => new MyLibService())
+      .alias(MyLibService, 'myLibService')
+  }
+}
+```
+
+Blueprint registration:
+
+```ts
+export const myLibBlueprint = {
+  stone: {
+    providers: [
+      { module: MyLibProvider, isClass: true }
+    ]
+  }
+}
+```
+
+::: important
+Stone.js only supports **imperative** service registration for third-party library, this is by design.
+:::
+
+### Blueprint Middleware (Dynamic Logic)
+
+Some things can’t be defined statically, like conditionally injecting middleware based on the active adapter or runtime context.
+
+In these cases, you can provide a **blueprint middleware**.
+
+Blueprint middleware runs after the blueprint is loaded but before the application starts, giving you access to dynamic state (like the current adapter, runtime environment, etc).
+
+Example registration:
+
+```ts
+export const myLibBlueprint = {
+  stone: {
+    providers: [
+      { module: MyLibProvider, isClass: true }
+    ],
+    blueprint: {
+      middleware: [
+        { module: myLibBlueprintMiddleware }
+      ]
     }
   }
-  ...
 }
 ```
 
-Suivant cette configuration les modules peuvent etre acceder comme suit:
+Inside your middleware function:
 
-- `import { MyProvider } from 'my-package'`
-- `import { MyConfig } from 'my-package/config'`
-- `import { MyCommand } from 'my-package/commands'`
-- `import { MyDecorator } from 'my-package/decorators'`
+```ts
+const myLibBlueprintMiddleware = async (
+  context: BlueprintContext,
+  next: NextMiddleware
+): Promise<IBlueprint> => {
+  const blueprint = await next(context)
 
-Ce qui permettra de garder une seule et meme nomenclature, donc une certaines coherence au niveau de l'ecosysteme de Stone.js.
+  if (blueprint.get('stone.adapter.platform') === 'browser') {
+    blueprint.add(
+      'stone.adapter.middleware',
+      [{ module: MyLibMiddleware, isClass: true }]
+    )
+  }
+
+  return blueprint
+}
+```
+
+This gives your package **runtime-aware behavior**, without compromising the static configuration model of Stone.js.
+
+Your package should support static blueprint registration first, and use middleware only when necessary, keep your design predictable, flexible, and easy to inspect.
+
+## Testing
+
+In Stone.js, testing isn’t an afterthought, it’s part of the package’s DNA.
+
+A well-tested package is:
+
+* Easier to trust
+* Easier to change
+* Easier to adopt
+
+While Stone.js doesn’t enforce a specific coverage percentage, **core packages aim for 100% test coverage**, and you should aim high too, especially on public APIs, side-effect logic, and blueprint integration. While 100% doesn't guarantee quality, it's a good goal to aim for.
+
+### Recommended Stack
+
+Stone.js uses [Vitest](https://vitest.dev/) internally, and so should you, unless you have a strong reason not to. It’s:
+
+* Fast
+* TypeScript-native
+* Jest-compatible in syntax
+* Easily integratable with Vite or standalone
+
+### What to Test
+
+Here’s a quick checklist for a healthy test suite:
+
+| Area                       | What to Cover                                    |
+| -------------------------- | ------------------------------------------------ |
+| Blueprint                  | Are the right components declared?               |
+| Decorators                 | Do they inject blueprints correctly?             |
+| Service providers          | Do services register in the container?           |
+| Public functions/utilities | Do they return expected results?                 |
+| Edge cases                 | Does your package behave correctly when misused? |
+
+Example (using Vitest):
+
+```ts
+import { describe, it, expect } from 'vitest'
+import { myLibBlueprint } from '../src/myLibBlueprint'
+
+describe('myLibBlueprint', () => {
+  it('should define a valid provider', () => {
+    expect(myLibBlueprint.stone?.providers?.[0]?.module).toBeDefined()
+  })
+})
+```
+
+You don’t have to test *everything*, but you do have to test *what matters*.
+
+### Directory Structure
+
+Create a `test/` directory at the root of your package:
+
+```
+my-package/
+├── src/
+├── test/
+│   ├── blueprint.test.ts
+│   ├── service.test.ts
+│   └── utils.test.ts
+```
+
+Your test files can be suffixed with `.test.ts` or `.spec.ts`, and you can organize them by feature, type, or whatever suits your package.
+
+Stone.js believes in confidence through coverage, when your tests pass, your blueprint becomes bulletproof.
+
+## Documentation
+
+Documentation is your package’s handshake with the outside world.
+It’s how users know what it does, how to use it, and why they should care.
+
+In the Stone.js ecosystem, a good package isn’t just one that works — it’s one that’s **well-documented, well-typed, and easy to onboard**.
+
+### What to Document
+
+| Area                  | What to Include                                                             |
+| --------------------- | --------------------------------------------------------------------------- |
+| Public API            | Every function, class, decorator, or config option exposed by your package. |
+| Blueprint structure   | Show how to use `blueprint.set(...)` with your package.                     |
+| Decorator usage       | If you offer a decorator, show how to use it in a `@StoneApp()` class.      |
+| Service registration  | Document any services added to the container.                               |
+| Configuration options | Detail all available options and their effects.                             |
+
+### In-Code Documentation
+
+All public API should be documented inline.
+
+* **JavaScript** users: use [JSDoc](https://jsdoc.app)
+* **TypeScript** users: use doc comments and generate `.d.ts` files
+
+Example with JSDoc:
+
+```ts
+/**
+ * Initializes the cache with optional TTL.
+ * @param {Object} options
+ * @param {number} options.ttl - Time to live in seconds.
+ */
+export function initCache(options = {}) { ... }
+```
+
+### Project-Level Files
+
+These must be present in every serious package:
+
+| File              | Purpose                                               |
+| ----------------- | ----------------------------------------------------- |
+| `README.md`       | Your front-facing doc: installation, usage, examples. |
+| `CHANGELOG.md`    | Track changes, additions, and breaking changes.       |
+| `LICENSE`         | Define legal usage and distribution terms.            |
+| `CONTRIBUTING.md` | (Optional) Explain how others can contribute.         |
+
+### Folder Layout for Extended Docs
+
+If your package has a lot to explain (e.g. multiple decorators, services, or runtime options), use a `docs/` folder:
+
+```
+my-package/
+├── docs/
+│   ├── index.md        ← overview or advanced guide
+│   ├── api/
+│   │   ├── decorators.md
+│   │   ├── blueprint.md
+│   │   └── config.md
+```
+
+You can generate the API docs using:
+
+* [TypeDoc](https://typedoc.org/) for TypeScript
+* [JSDoc](https://jsdoc.app/) + static site for JavaScript
+
+### Bonus: Examples
+
+Always include 1–2 **realistic usage examples** in your `README.md`.
+Even if your package is simple, showing how it integrates into a `@StoneApp()` setup or with a `blueprint.set(...)` call helps developers understand the context immediately.
+
+Documented code is maintained code.
+A well-documented package saves time for everyone, including you.
+
+## Publishing
+
+Once your package is built, tested, and documented, it’s time to get it out into the world.
+
+Publishing a Stone.js-compatible package follows the same principles as any modern JavaScript package, with a few additional best practices to keep things ecosystem-friendly.
+
+### Versioning
+
+Use [Semantic Versioning (semver)](https://semver.org/):
+
+```
+MAJOR.MINOR.PATCH
+```
+
+* `MAJOR`: breaking changes
+* `MINOR`: new features, backwards compatible
+* `PATCH`: bug fixes, backwards compatible
+
+Stick to it. Automate it if possible. Respect your users’ time.
+
+### NPM Publishing
+
+If your package is public:
+
+1. Make sure you're logged in:
+
+   ```bash
+   npm login
+   ```
+
+2. Set the access level (only on first publish):
+
+   ```bash
+   npm publish --access public
+   ```
+
+3. Publish!
+
+   ```bash
+   npm publish
+   ```
+
+If you're using `pnpm` or `yarn`, their publish commands work the same way.
+
+### GitHub / GitLab Registry
+
+If you’re publishing a private or internal package, consider using a scoped registry like GitHub Packages:
+
+* Set your package name to `@org/package-name`
+* Configure `.npmrc` to authenticate with GitHub Token
+* Run `npm publish` as usual
+
+### Peer Dependencies
+
+If your package depends on Stone.js core modules like `@stone-js/core`, or `@stone-js/http-core`, list them as **peer dependencies**:
+
+```json
+"peerDependencies": {
+  "@stone-js/core": "^1.0.0",
+  "@stone-js/http-core": "^1.0.0"
+}
+```
+
+Don’t install them directly, let the consumer’s app control the version.
+Also avoid hard dependencies on things like `react`, `vue`, or `aws-sdk` unless absolutely necessary.
+
+### Distribution Files
+
+Keep it clean:
+
+* Don’t publish your `src/` folder unless it’s needed.
+* Only include `dist/`, `types/`, `docs/`, and your core config files.
+* Add a `.npmignore` or use `files` in `package.json`.
+
+Example:
+
+```json
+"files": [
+  "dist/",
+  "docs/",
+  "README.md",
+  "LICENSE"
+]
+```
+
+### Package Naming
+
+For official or community packages, use a clear and scoped naming convention:
+
+* Official: `@stone-js/<name>`
+* Community: `stone-<name>` or `@your-org/stone-<name>`
+
+This makes it clear what your package does and how it fits in.
+
+Publishing is your package’s debut, don’t let it show up to the party in sweatpants.
+
+## Standalone vs Framework-specific Packages
+
+Not all packages need to be tied to Stone.js, but any package can be **Stone-compatible** if you design it right.
+
+This section helps you decide *what kind of package you're building*, and how to support both styles if needed.
+
+### Standalone Packages
+
+Standalone packages are:
+
+* Framework-agnostic
+* Usable in Node.js, browser, serverless, or other environments
+* Do **not** assume the presence of Stone.js
+
+Examples:
+
+* A utility library (`date-utils`, `http-client`, `cache-layer`)
+* A wrapper around a third-party SDK (Stripe, S3, etc.)
+* A CLI tool
+
+These packages **do not** depend on `@stone-js/core`, and can be published and used like any regular JavaScript package.
+
+However… if you want them to work smoothly inside a Stone.js application, you can add **Stone.js compatibility** without losing their standalone nature.
+
+### Making Standalone Packages Stone-Compatible
+
+To adapt a universal package to Stone.js:
+
+1. **Create a blueprint wrapper**
+   You can define a simple blueprint file that registers your module into the Stone.js context:
+
+   ```ts
+   import { MyService } from './core/MyService'
+
+   export const myStandaloneBlueprint = {
+     stone: {
+       services: [
+         { module: MyService, isFactory: true, alias: 'myService' }
+       ]
+     }
+   }
+   ```
+
+2. **Expose a decorator (optional)**
+   If you want to support declarative activation:
+
+   ```ts
+   export const MyStandalone = () => {
+    return classDecoratorLegacyWrapper((target, context) => {
+       addBlueprint(target, context, myStandaloneBlueprint)
+     })
+   }
+   ```
+
+3. **Avoid hard dependencies** on `@stone-js/core`. Use optional peer dependencies instead if needed.
+
+This pattern keeps your package universal but allows it to “snap into” the Stone.js ecosystem when needed.
+
+### Stone.js-specific Packages
+
+These are packages built specifically for, and only for, Stone.js.
+
+They rely on:
+
+* The blueprint system
+* Lifecycle hooks
+* Service container
+* Event handlers
+* Decorators
+* Adapter awareness
+* And other continuum concepts
+
+Examples:
+
+* `@stone-js/http-core`
+* `@stone-js/use-react`
+* `@stone-js/aws-lambda-adapter`
+
+These packages **should not** be used outside Stone.js apps, and that’s fine.
+
+They are deeply tied to the framework’s philosophy and internal mechanics, and their purpose is to **extend Stone.js itself**.
+
+If your package registers middleware, providers, lifecycle hooks, or uses the adapter context, it’s Stone-specific.
+
+### Choose What Fits
+
+| Package Type         | Use When...                                                 |
+| -------------------- | ----------------------------------------------------------- |
+| Standalone           | Logic is reusable in any JS project.                        |
+| Stone-specific       | You want tight integration into the Continuum architecture. |
+| Hybrid (Recommended) | You want reusability **and** Stone-native integration.      |
+
+You don’t have to choose sides.
+You can write portable logic, then expose it with a Stone.js wrapper, just like the `@stone-js/router` package does. 😉
+
+Best of both worlds. 😎
+
+## Best Practices
+
+Whether you’re building a one-off internal package or a reusable library for the entire ecosystem, following best practices ensures that your work is readable, reliable, and respected.
+
+These guidelines apply across the board, to structure, naming, design, and API exposure.
+
+#### Expose Both Paradigms
+
+* Always offer **imperative usage** via a `blueprint`.
+* Support **declarative usage** via a decorator when it makes sense.
+* Even if your package is simple, offering both improves developer experience.
+
+#### Use Named Exports Only
+
+Stone.js does not support default exports — **anywhere**.
+
+Good:
+
+```ts
+export const myLibBlueprint = { ... }
+export class MyService { ... }
+```
+
+Bad:
+
+```ts
+export default { ... } // ❌
+```
+
+#### Prefix Your Namespace
+
+If your blueprint adds a custom namespace, use a clear and collision-free key:
+
+```ts
+export const myLibBlueprint = {
+  myLib: {
+    enabled: true,
+    retries: 3
+  }
+}
+```
+
+Avoid dumping things into `stone` unless you're contributing to core areas like `services`, `commands`, `adapters`, etc.
+
+#### Keep Dependencies Light
+
+Your package should not pull in heavy dependencies unless absolutely necessary.
+
+* Avoid bloated libraries
+* Use peer dependencies for things the user app should own (e.g. `@stone-js/core`, `react`, etc.)
+* Don’t hard-couple your logic to external systems if you can avoid it
+
+#### Type Everything
+
+* Public API must be typed
+* Prefer TypeScript, or use JSDoc + `.d.ts` for JavaScript
+* Export your types explicitly (`types`, `declarations.ts`)
+
+#### Don't Register Anything by Side Effect
+
+Do not auto-register services, middlewares, or logic when your package is imported.
+
+Force users to activate your package via:
+
+* `blueprint.set(...)`
+* `@MyLib()` decorator
+
+This ensures predictability and avoids surprise bugs or resource conflicts.
+
+#### Use `undefined`, Never `null`
+
+Stone.js follows a **strict design convention**:
+**Missing values are always represented as `undefined`, never `null`.**
+
+You’ll see this consistently in APIs like:
+
+* `blueprint.get(...)`
+* `container.make(...)`
+* Middleware and lifecycle responses
+
+To stay aligned with the platform’s behavior:
+
+* Do **not** return or assign `null` in your package’s public API
+* Use `undefined` to represent absence
+* Favor `??` over `||` to provide defaults
+
+```ts
+const value = blueprint.get('foo') ?? 'default'
+```
+
+Following this pattern ensures your package feels native to Stone.js and avoids ambiguous edge cases.
+
+#### Your Package Should Be Bundleable
+
+Stone.js applications are built as **self-contained artifacts**, they do not rely on `node_modules` at runtime.
+To support this architecture, your package must be **easily bundleable** with tools like Rollup or esbuild.
+
+* Avoid dynamic `require()`
+* Use ESM imports only
+* Keep dependencies minimal and explicit
+
+This ensures your package can be included directly in the final application artifact, making it lightweight and deployment-friendly.
+
+#### Treat Your Package Like a Product
+
+* Add a `README.md` with clear usage instructions.
+* Use a `CHANGELOG.md` to track updates.
+* Document options, decorators, services, and gotchas.
+* Add tests, even a few is better than none.
+* Respect semver. Break things on purpose, not by accident.
+
+#### Avoid “Magic”
+
+Keep your logic introspectable and traceable.
+
+Avoid things like:
+
+* Auto-imports
+* Runtime dependency injection without clear registration
+* Hidden side effects
+
+Stone.js is designed to be **explicit**, not magical.
+
+#### Reuse Core Patterns
+
+When in doubt, look at existing Stone.js packages.
+Patterns are consistent for a reason, decorators, blueprint structure, service providers, etc. are all repeatable.
+
+Stay aligned with those patterns and your package will *just work*.
+
+Stone.js is built on clarity, predictability, and composability, your package should reflect the same values.
+
+## Examples & Boilerplate
+
+The fastest way to learn is to build, but the second fastest is to clone.
+
+Here are two types of examples you can follow to kickstart your own package development:
+
+### Minimal Package Template
+
+If you're starting from scratch, here's the bare minimum you need:
+
+```
+my-stone-package/
+├── src/
+│   ├── MyService.ts
+│   └── myStoneBlueprint.ts
+├── test/
+│   ├── MyService.test.ts
+│   └── myStoneBlueprint.test.ts
+├── README.md
+├── package.json
+├── tsconfig.json
+```
+
+With a simple `myStoneBlueprint.ts` file like:
+
+```ts
+export const myStoneBlueprint = {
+  stone: {
+    services: [
+      { module: MyService, isFactory: true, alias: 'myService' }
+    ]
+  }
+}
+```
+
+Consumers can activate it via:
+
+```ts
+import { myStoneBlueprint } from 'my-stone-package'
+
+blueprint.set(myStoneBlueprint)
+```
+
+Or you can go declarative:
+
+```ts
+@StoneApp()
+@MyPackage()
+export class App {}
+```
+
+### Axios Integration Example (Real-World)
+
+Here’s how to wrap `axios` as a service in a Stone.js package.
+
+```ts
+import axios, { AxiosInstance } from 'axios'
+import { IBlueprint, IContainer, IServiceProvider } from '@stone-js/core'
+
+export class AxiosServiceProvider implements IServiceProvider {
+  constructor(private readonly container: IContainer) {}
+
+  register(): void {
+    this.container.instanceIf('axios', this.createAxios())
+  }
+
+  private createAxios(): AxiosInstance {
+    const blueprint = this.container.make<IBlueprint>('blueprint')
+    const baseURL = blueprint.get<string>('app.api.baseURL', 'http://localhost:8080')
+    return axios.create({ baseURL })
+  }
+}
+```
+
+Then your blueprint:
+
+```ts
+export const axiosBlueprint = {
+  stone: {
+    providers: [
+      { module: AxiosServiceProvider, isClass: true }
+    ]
+  }
+}
+```
+
+And usage in the app:
+
+```ts
+import { axiosBlueprint } from '@your-org/stone-axios'
+
+blueprint.set(axiosBlueprint)
+```
+
+Use Axios in the app services:
+
+```ts
+import { AxiosInstance } from 'axios'
+import { IContainer, defineService } from '@stone-js/core'
+
+export const MyService = (container: IContainer) => {
+  const axios = container.make<AxiosInstance>('axios')
+
+  return {
+    fetchData: async (url: string) => {
+      const response = await axios.get(url)
+      return response.data
+    }
+  }
+}
+
+export const MyServiceBlueprint = defineService(
+  MyService,
+  true,
+  { alias: 'myService' }
+)
+```
+
+That’s it — you now have an `axios` instance injected into the Stone.js service container, fully configurable via `blueprint.set('app.api.baseURL', ...)`.
+
+This structure can be reused for any third-party SDK or integration. It’s clean, clear, and continuum-aligned.
+
+### Bonus: Template Repo
+
+If you want to get going fast, you can fork this starter (create this in your GitHub org or community):
+
+```
+stone-js/stone-package-template
+```
+
+Features:
+
+* Rollup + TypeScript
+* Vitest setup
+* Blueprint + decorator
+* Typed services
+* README + LICENSE + CHANGELOG
+* Basic usage examples
+
+Use it as your official starting point for internal and community packages.
+
+## Summary
+
+Let’s recap what makes a proper Stone.js package:
+
+* **ESM-only**: your package must be modern and portable.
+* **Typed**: always expose typings, even if you write in JS.
+* **Blueprint-powered**: everything flows through blueprints, they are the universal interface.
+* **Declarative + Imperative**: give users the power to choose.
+* **Minimal and modular**: register only what’s needed, expose only what matters.
+* **Tested and documented**: it’s not done until it’s trusted.
+
+Stone.js is built for clarity, composability, and cloud-native architecture, and your packages should be too.
+
+Welcome to the ecosystem. Build wisely.
+

@@ -78,8 +78,8 @@ export const enSidebar = sidebar({
       collapsible: false,
       prefix: "deeper/",
       children: [
-        'commands',
         { text: 'Testing', link: 'commands.md' },
+        'commands',
         'development',
       ],
     },
