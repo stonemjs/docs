@@ -56,7 +56,7 @@ export const AuthMiddleware = ({ reactRuntime, authService }: { ... }) => {
 
 This ensures the user is fetched once and hydrated properly on the client without re-calling the service.
 
-For more informations about the snapshotting data, refer to the [Snapshot](./snapshot) documentation.
+For more informations about the snapshotting data, refer to the [Snapshot](./snapshot) section.
 
 ## Fetching data inside components
 
@@ -76,54 +76,229 @@ If you really must fetch inside the component:
 * Wrap it in suspense if needed
 * Avoid coupling it with container services
 
-## Snapshotting data (SSR only)
+## Snapshotting Data (SSR)
 
-Stone.js includes an automatic **snapshot** mechanism for data returned from `handle()`.
+In Stone.js, a **snapshot** is a mechanism that captures and transfers data across execution dimensions, from server to browser, during SSR (Server-Side Rendering).
 
-During SSR:
+Imagine the lifecycle like this:
 
-* The data is fetched once on the server
-* It's serialized and injected into the HTML
-* On the client, the page is hydrated using that snapshot
-* No additional fetching is needed
+1. Your page receives an incoming event (e.g. browser request)
+2. It processes the request on the **server** and returns data
+3. That data is serialized into the **HTML response**
+4. On the **client**, Stone.js restores the data to **hydrate** the page
+5. The page renders, **without fetching again**
 
-This keeps server and client in sync and avoids double-loading.
+This mechanism is called a **snapshot**, and it ensures that the system doesn’t double-fetch, keeps server and client in sync, and improves performance.
 
-> You don’t need to do anything, if you return raw data from `handle()`, it will be snapshotted automatically.
+### Why does it matter?
 
-### Manual snapshotting (e.g. in middleware)
+Traditional SSR frameworks often suffer from this trap:
 
-In some cases, like middleware or custom pipelines, you may want to snapshot manually. Use `reactRuntime.snapshot()`:
+* The server fetches data to render HTML
+* The client then re-fetches the **same data** during hydration
+
+Stone.js avoids that entirely.
+
+Snapshots are the **bridge between the functional and view dimensions**.
+They’re what allow SSR apps to feel like SPA apps, **without waste**.
+
+And the best part?
+If you return raw data from your page’s `handle()` method, **Stone.js snapshots it automatically.**
+
+```ts
+handle() {
+  return { message: 'Hello from the server!' }
+}
+
+// No re-fetch on client, snapshot is restored
+```
+
+No extra code, no configuration, no ceremony.
+
+### Automatic Snapshotting in `handle()`
+
+In Stone.js, every page’s `handle()` method is part of the **functional dimension**.
+When this method returns raw data, like an object, array, or primitive, and your app is running in **SSR mode**, Stone.js:
+
+1. Executes `handle()` on the server
+2. Serializes the return value into a **snapshot**
+3. Injects the snapshot into the HTML response
+4. On the client, during hydration, restores the snapshot to avoid re-fetching
+
+This means:
+
+* No duplication of data fetching logic
+* No extra network requests
+* And no mismatch between server-rendered and client-hydrated content
+
+#### Example
+
+```ts
+export class ProfilePage implements IComponentEventHandler<ReactIncomingEvent> {
+  constructor(private readonly userService: UserService) {}
+
+  async handle(event: ReactIncomingEvent) {
+    return await this.userService.getProfile()
+  }
+
+  render({ data }: RenderContext<{ name: string }>): React.ReactNode {
+    return <h1>Hello, {data.name}</h1>
+  }
+}
+```
+
+If the page is rendered on the server, the result of `handle()` is **automatically snapshotted** and **reused on the client**, no need to fetch again.
+
+### Manual Snapshotting
+
+Automatic snapshots work great inside a page’s `handle()` method, but sometimes, you're not in `handle()`.
+
+You may be fetching data from:
+
+* Middleware
+* Route bindings
+* Services
+* Custom pipelines
+* Layouts
+
+In these cases, **you are responsible** for snapshotting the data manually if you want it to be reused on the client.
+
+#### Why?
+
+Because outside the `handle()` method, Stone.js has no way of knowing whether the data you're fetching:
+
+* Needs to be hydrated on the client
+* Should be serialized into the HTML
+
+::: info
+Without a manual snapshot, the data will be lost after the server response. And the client will have to re-fetch it.
+:::
+
+#### Example: Middleware with snapshot
+
+```ts
+const authMiddleware = ({ reactRuntime, userService }) => async (event: ReactIncomingEvent, next: NextMiddleware) => {
+  const user = await reactRuntime.snapshot('user', () => userService.getById(id))
+  event.setUserResolver(() => user)
+  return await next(event)
+}
+```
+
+Here, the user is fetched once on the server and snapshotted, so it’s already available on the client after hydration.
+
+Without the `snapshot()`, the browser would fetch the data again.
+
+### Manual Snapshot Techniques
+
+Stone.js offers **three** ways to manually snapshot data during SSR:
+
+#### 1. `reactRuntime.snapshot()`
+
+This is the **recommended and context-aware** method for most use cases.
 
 ```ts
 const user = await reactRuntime.snapshot('user', () => userService.getById(id))
 ```
 
-This ensures that the value is stored during SSR and restored on the client.
+What it does:
 
-## When to use what
+* Executes the handler if running on the server
+* Snapshots the result using a unique key
+* On the client, returns the snapshotted value if available
+* Falls back to the handler if not
 
-| Location   | Use case                              | SSR snapshot support | Notes                        |
-| ---------- | ------------------------------------- | -------------------- | ---------------------------- |
-| `handle()` | Most data fetching                    | ✅ Yes                | Recommended                  |
-| Middleware | Cross-cutting logic (e.g. auth)       | ✅ With snapshot()    | Must return full response    |
-| Component  | DOM-dependent or user-triggered fetch | ❌ No                 | Use `useEffect`, no SSR sync |
+It is:
+- Automatically scoped to the request
+- Safe to use in any SSR-aware logic: middleware, layouts, services
+- Works in both server and browser
 
-If your data affects initial rendering, prefer `handle()` or middleware.
+#### 2. `@Snapshot()` Decorator
 
-If your data is reactive, client-only, or depends on user actions, fetch it inside the component.
+This is the **declarative shortcut** for snapshotting data inside your services.
+
+```ts
+@Service({ alias: 'userService' })
+export class UserService {
+  @Snapshot()
+  async getById(id: string) {
+    return await this.userRepository.getById(id)
+  }
+}
+```
+
+Stone.js will automatically:
+
+* Generate a stable key based on the method name + arguments
+* Snapshot the result during SSR
+* Retrieve it from the snapshot store on the client
+
+It provides:
+- Minimal syntax
+- Works out of the box in route bindings and services
+- You can add your custom unique key name as first argument `@Snapshot('user')`
+
+#### 3. `ISnapshot` Service
+
+This is the **low-level API** for accessing the raw snapshot store.
+
+```ts
+const snapshot = container.make<ISnapshot>('snapshot')
+
+if (isServer()) {
+  const user = await userService.getById(id)
+  snapshot.set('user', user)
+  return user
+} else {
+  return snapshot.get('user') ?? await userService.getById(id)
+}
+```
+
+Use this when:
+
+* You need full control over snapshot logic
+* You want to write fallback strategies manually
+* You’re outside of the React runtime (e.g., background job or system task)
+
+It provides:
+- Maximum control
+- You must manage scope, naming, and fallback manually
+- Not scoped per request, so take care in SPA mode
+
+In most cases, prefer `reactRuntime.snapshot()` or `@Snapshot()` for simplicity, correctness, and contextual awareness.
+
+### When to Use What
+
+Depending on where you are in the application lifecycle, different snapshot strategies apply.
+Here’s a practical guide to help you decide.
+
+| Location      | Typical Use Case                       | Snapshot Method                            | Notes                                             |
+| ------------- | -------------------------------------- | ------------------------------------------ | ------------------------------------------------- |
+| `handle()`    | Standard page data fetching            | None (automatic)                           | Data is snapshotted by Stone.js                   |
+| Middleware    | Auth, guards, route-specific logic     | `reactRuntime.snapshot()`                  | Must return a full response                       |
+| Service       | General-purpose business logic         | `@Snapshot()` decorator                    | Use when called from routes, middleware or layout |
+| Route Binding | Pre-handler data resolution            | `@Snapshot()` or `reactRuntime.snapshot()` | Not snapshotted by default                        |
+| React Page    | Local state setup                      | Use `render({ data })`                     | Data already injected from `handle()`             |
+| Component     | Interactive or reactive fetch (client) | None                                       | Use `useEffect()`, no SSR sync                    |
+| Layout        | Shared layout data                     | `reactRuntime.snapshot()`                  | Snapshot once, reuse across pages                 |
+
+#### Key takeaways:
+
+* Use `handle()` for most SSR-friendly data needs, it just works.
+* Use `reactRuntime.snapshot()` when you’re outside of `handle()` but still in the SSR pipeline.
+* Use `@Snapshot()` when you want automatic snapshotting from your service methods.
+* Avoid `ISnapshot` unless you need complete control.
 
 ## State Management
 
 Once you’ve fetched data, you often need to hold it somewhere, between components, across views, or through user interaction. That’s where **state management** comes in.
 
-In Stone.js, state lives in the **React layer**, not in the system layer. Stone.js doesn't provide its own state system, because React already gives you everything you need.
+In Stone.js, state lives in the **View**, not in the functional dimension. Stone.js doesn't provide its own state system, because React already gives you everything you need.
 
 You can use:
 
 * `useState`, `useReducer`, `useContext` (for local and shared state)
 * External tools like Zustand, Redux, or Jotai (manually integrated)
-* StoneContext for accessing application-wide context (services, event, data)
+* `StoneContext` for accessing application-wide context (services, event, data)
 
 But there’s one thing you **shouldn’t do**...
 
@@ -140,7 +315,9 @@ Storing mutable state (e.g. current user, UI flags, language) in the container c
 * Hard-to-track bugs
 * Snapshot breakage
 
-> Use the container to **resolve services**, not to **store values**.
+::: important
+Use the container to **resolve services**, not to **store values**.
+:::
 
 ### Use `StoneContext` for shared application context
 
@@ -172,7 +349,9 @@ export const ProfileButton = () => {
 }
 ```
 
-> This lets you stay inside the React ecosystem while still accessing Stone.js context.
+::: tip Magic
+This lets you stay inside the React ecosystem while still accessing Stone.js context.
+:::
 
 You can:
 
@@ -197,28 +376,187 @@ const useStore = create(set => ({
 
 You’re also free to create a Stone.js wrapper package (e.g. `@stone-js/use-redux`) if you want deeper DI or context integration.
 
-> As always: keep your state **outside Stone.js** and **inside React**.
+::: tip
+As always: keep your state **outside Stone.js** and **inside React**.
+:::
 
+## Hydration in SSR and the Role of Snapshots
+
+When using **SSR** in Stone.js, rendering happens in **two phases**:
+
+1. On the **server**, the page is fully rendered to HTML
+2. On the **client**, that HTML is **hydrated** into a live React application
+
+Stone.js handles this entire process for you, no extra configuration required.
+
+But hydration is not just about the DOM. It's also about **data continuity** between server and client.
+That’s where **snapshots** and **StoneContext** come in.
+
+### How hydration works in Stone.js
+
+When a page is requested in SSR mode:
+
+* The `handle()` method is executed on the server
+* The returned data is **snapshotted**
+* The `render()` method generates the HTML
+* On the client, that HTML is hydrated using React’s `hydrateRoot()`
+* Stone.js injects the snapshotted data into the React tree via `StoneContext`
+
+This avoids:
+
+* Re-fetching data on the client
+* UI flickers
+* Out-of-sync states between server and browser
+
+### What APIs are used under the hood?
+
+Depending on the runtime environment:
+
+| Context               | React API used                          |
+| --------------------- | --------------------------------------- |
+| Server (SSR/SOR)      | `renderToString()`                      |
+| Browser (SSR-hydrate) | `hydrateRoot()` from `react-dom/client` |
+| Browser (SPA/CSR)     | `createRoot()`                          |
+
+Stone.js chooses the correct one **based on your adapters** (`@Browser`, `@NodeHttp`, etc.).
+
+### What should I do to support hydration?
+
+Mostly: **nothing**.
+
+If you:
+
+* Use `handle()` to return data
+* Use `render()` to return JSX
+* Consume data from the `RenderContext` or `StoneContext`
+
+…you’re already hydrated and hydrated correctly.
+
+### Lazy loading and hydration
+
+If your page is lazy-loaded (via `@Page()` or `definePage()` with `lazy: true`), Stone.js defers loading the module **until the route is matched**.
+
+This works with SSR hydration too, only the code needed for the current page is loaded.
+
+### Suspense and limitations
+
+Stone.js doesn’t yet implement full Suspense or React Server Components.
+
+However:
+
+* You can use `<Suspense />` in your client-rendered components (CSR or hydrated SSR)
+* You cannot use streaming or partial hydration (yet)
+
+These features may be added in a future release, they require additional adapter-level support.
 
 ## Best Practices
 
-* ✅ **Use `handle()`** for 90% of your data fetching, it’s where Stone.js expects it.
-* ✅ Use **middleware + `snapshot()`** for session/user/global state.
-* ✅ Always **return raw data** from `handle()` unless you need headers or control, Stone.js wraps it for you.
-* ❌ **Avoid fetching in components** unless absolutely necessary.
-* ❌ Don’t use the DI container to hold reactive state, React has its own system for that.
-* ✅ **Use route bindings** for quick data injection, but manually snapshot the results if needed.
-* ✅ Cache and debounce in your services, not your UI.
+Data fetching in Stone.js is context-aware by design. Here’s how to use it effectively across SSR, SOR, and SPA applications.
+
+#### Use `handle()` for initial data
+
+If your data is required at page load time, the cleanest place to fetch it is in the `handle()` method of your page.
+
+* It’s automatically snapshotted in SSR
+* It integrates with the lifecycle
+* It’s passed to the `render()` method via `RenderContext.data`
+
+```ts
+handle(event: ReactIncomingEvent) {
+  return this.profileService.getCurrentUser()
+}
+```
+
+#### Use `reactRuntime.snapshot()` outside `handle()`
+
+If you’re in middleware, a layout, or a service that runs outside the page handler:
+
+* Use `reactRuntime.snapshot()` to avoid double-fetching in SSR
+* Scope your key carefully (e.g. `'user.profile'`, `'auth.token'`)
+
+```ts
+const profile = await reactRuntime.snapshot('user.profile', () => this.profileService.get())
+```
+
+#### Use the `@Snapshot()` decorator for services
+
+Want to hide the snapshot logic entirely? Use the decorator, ideal for services used in route bindings or middlewares.
+
+```ts
+@Snapshot()
+getById(id: string) {
+  return this.userRepository.find(id)
+}
+```
+
+#### Don’t fetch in components if you need SSR sync
+
+Components rendered via React don’t run until the client is live. That means `useEffect()` fetches will never be snapshotted.
+
+Use component fetches only for:
+
+* Reactive state
+* Interactive behavior
+* Client-only concerns
+
+#### Use `StoneContext` to access services
+
+Avoid passing the container or router manually into components. Instead, use:
+
+```ts
+const { container } = useContext(StoneContext)
+const router = container.resolve(Router)
+```
+
+This ensures your components remain portable and loosely coupled to the framework.
+
+#### Never use the service container for reactive state
+
+The service container is for:
+
+* Instantiating services
+* Providing architectural structure
+* Managing shared stateless dependencies
+
+It is not designed for global mutable state.
+
+Use React’s own tools (`useState`, `useReducer`, or libraries like Zustand) for reactive client state.
+
+#### Snapshot only when needed
+
+If your data is:
+
+* Fetched in `handle()` → already snapshotted ✅
+* Used only on the server → no need to snapshot ❌
+* Used across SSR boundary → use snapshot() or `@Snapshot()` ✅
+* Never snapshot sensitive data (e.g. passwords, tokens) ❌
+* Avoid snapshotting large objects or arrays unnecessarily ❌
+
+::: important
+Snapshotting too much can bloat HTML and affect hydration performance.  
+So be mindful of what you snapshot and don't overdo it.
+:::
 
 ## Summary
 
-Stone.js gives you **multiple levels** of control for data fetching:
+Stone.js provides a unified, context-aware approach to data fetching that adapts to all dimensions, SSR, CSR, and SOR, without requiring separate strategies or mental models.
 
-* Pages (`handle()`) for route-specific data
-* Middleware for session or security logic
-* Snapshots for seamless SSR
-* Components for interactive, dynamic, or client-only behavior
+Thanks to the Continuum Architecture:
 
-Each one has its place. Together, they allow your data to move smoothly across the backend/frontend divide, without coupling your views to infrastructure.
+* You can fetch data in the **functional dimension** using `handle()` or services.
+* You can render it in the **view dimension** using React components.
+* And you can hydrate it **automatically** through snapshots, bridging both worlds.
 
-Stone.js doesn't impose a data layer, it just gives you the architecture to handle it anywhere.
+### Key takeaways:
+
+* Use `handle()` to fetch data for your pages, it will be snapshotted in SSR.
+* Use `reactRuntime.snapshot()` in middleware, layouts, or services when needed.
+* Use the `@Snapshot()` decorator to snapshot service methods transparently.
+* Use `StoneContext` to access runtime context in React components.
+* Don't use the container for reactive state, keep state local or use a store.
+* Lazy loading works seamlessly with data fetching and hydration.
+
+Stone.js does not reinvent data fetching, it simplifies it by aligning it with architectural boundaries and runtime awareness.
+
+When you fetch, render, and hydrate in sync, your app feels seamless.
+That’s not just SSR done right, it’s the **continuum in action**.

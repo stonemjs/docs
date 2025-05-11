@@ -1,5 +1,6 @@
 ---
-title: Introduction
+title: React
+description: Integrating React with Stone.js
 ---
 
 React is one of the most popular libraries for building user interfaces. It focuses entirely on the view layer, leaving the rest of the application structure up to you.
@@ -51,7 +52,7 @@ Here’s what each package does:
 
 * `react` and `react-dom`: the standard React packages.
 * `@stone-js/use-react`: the bridge that allows Stone.js to render and orchestrate React components.
-* `@stone-js/browser-adapter`: enables Stone.js to run your application in the browser, whether as a SPA, or a SSR app.
+* `@stone-js/browser-adapter`: enables Stone.js to run your application in the browser as a CSR/SPA app.
 
 This way, you stay in control. React remains React. And your architecture stays sound.
 
@@ -92,14 +93,10 @@ This is especially useful when working in factory-based setups or when you want 
 
 ```ts
 import { browserAdapterBlueprint } from '@stone-js/browser-adapter'
-import {
-  useReactBlueprint, defineComponentEventHandler
-} from  '@stone-js/use-react'
-import {
-  defineBlueprintConfig, IBlueprint, stoneBlueprint
-} from '@stone-js/core'
+import { defineBlueprintConfig, IBlueprint, stoneBlueprint } from '@stone-js/core'
+import { useReactBlueprint, defineComponentEventHandler } from  '@stone-js/use-react'
 
-const Application = () => {
+export const Application = () => {
   // Your React app logic
 }
 

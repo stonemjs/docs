@@ -1,5 +1,5 @@
 .vp-hero-info-wrapper {
-  margin-top: 2rem!important;
+  padding: 2rem!important;
 }
 
 .api-page {
@@ -28,9 +28,13 @@
   }
 }
 
+.code-block-title-bar{
+  color: #9f9faf
+}
+
 .mermaid-wrapper {
   border-radius: 8px;
-  border: 1px dashed var(--border-color);
+  border: 1px dashed var(--vp-c-gutter, #e2e2e3);
 }
 
 .mermaid-actions {

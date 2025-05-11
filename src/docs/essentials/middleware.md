@@ -98,7 +98,7 @@ while explicit registration is handled through configuration files in the `confi
 ### Configuration Middleware
 
 Here, we give just an overview to facilitate a general understanding of Configuration Middleware within Stone.js. 
-For a deeper understanding, please refer to the section on [adaptive configurations](../deeper/configurations.md).
+For a deeper understanding, please refer to the section on [adaptive configurations](../architecture/blueprint).
 
 #### Implicit Registration
 

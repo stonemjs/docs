@@ -2,130 +2,370 @@
 title: Routing
 ---
 
-Routing in Stone.js is not an afterthought, it’s the backbone of how pages are matched, resolved, and rendered across browser and server contexts.
+Routing in Stone.js is not just about navigating between views, it’s about **matching user intent with system logic** in a way that works seamlessly across **all execution contexts**: browser, server, or serverless.
 
-Instead of coupling routing with components or relying on static file-based structures, Stone.js uses a **router-first, handler-driven architecture**. This makes routing:
+In traditional frameworks, routing is often tightly coupled to components or file-based conventions.
+In Stone.js, routing is decoupled, explicit, and unified. It operates on **event handlers**, and since every **page is an event handler**, routing pages becomes a natural extension of the Stone.js architecture.
 
-* Explicit
-* Modular
-* Extensible
-* And shared across all dimensions (SPA, SSR, SOR)
+This gives you a powerful and declarative way to:
 
-Every **page** in Stone.js is an event handler, and every route is mapped directly to a page using the full power of the Stone.js [Router](../router/).
+* Match routes to pages
+* Inject parameters and services
+* Define bindings
+* Support dynamic registration
+* And ensure routing works the same way across SPA, SSR, and SOR
+
+Whether you're building a small client-side app or a large distributed system, your routing model stays consistent and continuum-aligned.
+
+::: info Intentions
+In Stone.js, pages don’t just render views, they handle intentions.  
+And routing is how we connect those intentions to the right handler.
+:::
 
 ## Defining Routes for Pages
 
-Whether you use the declarative API with `@Page()` or the imperative API with `definePage()`, you have access to all the advanced router features.
+In Stone.js, you define page routes using the same techniques available for any event handler, because **pages are just handlers** in the view dimension.
+
+You can register a route to a page using:
+
+* The **declarative API**, with the `@Page()` decorator
+* The **imperative API**, with the `definePage()` utility
+
+These definitions are static, they’re evaluated during the application’s setup phase and are ideal for most applications.
+
+::: important
+All advanced router features are available for pages: parameters, regex validation, aliases assignment, bindings, and more.
+:::
 
 ::: tabs#declarative-imperative
 @tab:active Declarative
 ### Declarative Example
 
+Use the `@Page()` decorator for class-based pages. It provides better introspection, supports lazy loading out of the box, and works perfectly with the blueprint system.
+
 ```ts
+import { Page } from '@stone-js/use-react'
+
 @Page('/users/:id@user(\\d+)', {
   name: 'user.view',
   bindings: { id: 'userService@findOneBy' }
 })
 export class UserPage implements IComponentEventHandler<ReactIncomingEvent> {
   render({ event }: RenderContext): React.ReactNode {
-    return <div>Hello {event.get('user.fullname', 'Jonh Doe')}!</div>
+    const user = event.get('user')
+    return <div>Hello {user.fullname}</div>
   }
 }
 ```
+
 @tab Imperative
 ### Imperative Example
 
+Use `definePage()` when working with factory-based pages or when you prefer full control.
+
 ```ts
+import { definePage } from '@stone-js/use-react'
+
 const UserPage = () => ({
   render({ event }: RenderContext): React.ReactNode {
-    return <div>Hello {event.get('user.fullname', 'Jonh Doe')}!</div>
+    const user = event.get('user')
+    return <div>Hello {user.fullname}</div>
   }
 })
 
 definePage(UserPage, {
   name: 'user.view',
   path: '/users/:id@user(\\d+)',
-  bindings: { id: 'userService@findOneBy' }
+  bindings: { id: 'userService@findOneBy' },
 }, true)
 ```
 :::
 
-Thanks to router bindings, the user data is automatically fetched before the page loads, no `handle()` method required!
+### Why Static Definitions?
 
-This uses a **dynamic route with bindings**:
+Static routes:
 
-* `:id@user(\\d+)` defines a route param named `id`, validates it with a regex, and creates a local binding named `user`.
-* `bindings` tells the router to call `userService.findOneBy(id)` and inject the result.
+* Are fully introspectable
+* Support lazy-loading
+* Are compatible with all adapter types (browser/server/etc.)
+* Integrate naturally with the Blueprint setup
 
-The resolved `user` is available directly inside `event.get('user')`. No need to fetch it manually.
+For more dynamic or runtime-driven scenarios, refer to the **Runtime Page Registration** section or the [Router documentation](../router/definitions).
 
-## Using Route Bindings
+## Dynamic Route Bindings
 
-Route bindings allow you to attach services and fetch data **before the page handler is even called**. 
-This can greatly simplify your `handle()` logic or get rid of it entirely.
+Stone.js allows you to define smart, declarative routes that not only match a path, but also **inject data directly into the request context**, before your page handler is even called.
 
-However, data fetched through bindings is **not automatically snapshotted**.
+This is done using **route bindings**.
 
-If you want that data to be available on the client in SSR mode, 
-you need to explicitly snapshot it directly in your services using `reactRuntime.snapshot()`.
+Bindings enable you to:
 
-Refer to the **Snapshot** section for more details.
+* Validate and extract route parameters
+* Automatically resolve data from services (e.g., load a user by ID)
+* Reduce boilerplate in your `handle()` or `render()` methods
 
-## Routing Features Available to Pages
+### Syntax: `:param@alias(regex)`
 
-Since Stone.js pages are just handlers bound to routes, **all the router features apply**. This includes:
+```ts
+@Page('/users/:id@user(\\d+)', {
+  bindings: {
+    id: 'userService@findOneBy'
+  }
+})
+```
 
-* ✅ Declarative & Imperative route definitions
-* ✅ Runtime route registration
-* ✅ Aliased paths
-* ✅ Nested routes
-* ✅ Parameter validation with regex
-* ✅ Repeatable parameters
-* ✅ Defaults and optional segments
-* ✅ Protocol-specific routes (`http`, `https`, `ws`, etc.)
-* ✅ Grouping routes for modular structure
+This tells Stone.js:
 
-You can define your routes using the full power of the `@stone-js/router` module, and they’ll behave the same way when attached to pages.
+* `:id` is the route parameter
+* `user` is the binding alias
+* `\\d+` is the regex that validates the parameter
+* `userService@findOneBy` is the service method to call with `id` as argument
 
-For complete details, refer to the [Router documentation](../router/). 
-Stone pages are event handlers at their core, and follow the same principles, so you can use the same patterns and features.
+### How it works
+
+With that definition in place:
+
+* Before your page is executed, Stone.js calls `userService.findOneBy(key, value)`
+* The result is injected as `event.params.user`
+* No `handle()` method is required, you can access the user directly in `render()`
+
+```tsx
+render({ event }: RenderContext) {
+  const user = event.get('user')
+  return <h1>Hello, {user.fullname}</h1>
+}
+```
+
+::: tip
+This makes pages lighter, especially when your data model is tightly bound to your URL structure.
+:::
+
+### SSR Notice: Bindings are not snapshotted automatically
+
+If you're using **SSR** and want to pass the bound data to the client without fetching again, you must **explicitly snapshot it** in your service using `reactRuntime.snapshot()`.
+
+Refer to the [Snapshot documentation](./fetching#snapshot) for guidance.
+
+### When to use bindings
+
+Use bindings when:
+
+* The parameter maps directly to a resource (e.g., `/users/:id`)
+* You want to inject data into `event` with minimal code
+* You want to keep pages minimal and focused
+
+Avoid bindings when:
+
+* You need conditional logic, branching, or multiple service calls, use `handle()` instead.
+
+## Lazy Loading
+
+Stone.js fully supports **lazy loading** for pages, allowing you to load only the code needed for the active route. This improves performance, reduces initial bundle size, and makes large applications more scalable.
+
+The way lazy loading is handled depends on which API you use to register your page.
+
+::: tabs#declarative-imperative
+@tab:active Declarative
+
+### Declarative API: Lazy by default
+
+When you register pages using the `@Page()` decorator, **lazy loading is enabled automatically**.
+
+Stone.js uses dynamic imports behind the scenes to ensure your page module is only loaded when its route is accessed.
+
+```ts
+@Page('/about', { name: 'about' })
+export class AboutPage implements IComponentEventHandler<ReactIncomingEvent> {
+  render(): React.ReactNode {
+    return <div>About Us</div>
+  }
+}
+```
+
+Even though this looks like a normal class, Stone.js will isolate the file and load it only when the `/about` route is activated.
+
+No manual configuration required, declarative pages are lazy by design.
+
+@tab Imperative
+
+### Imperative API: Lazy by manual setup
+
+When using the imperative `definePage()` function, **you must configure lazy loading explicitly**.
+
+You do this by:
+
+1. Returning a function that performs a dynamic `import()`
+2. Setting the `lazy: true` flag in the route options
+
+```ts
+definePage(
+  () => import('./HomePage').then(v => Object.values(v)[0]),
+  {
+    name: 'home',
+    path: '/home',
+    lazy: true
+  },
+  true
+)
+```
+
+Let’s break it down:
+
+* `() => import('./HomePage')` is a function returning a Promise of the module.
+* `Object.values(v)[0]` grabs the first export (your page class or factory).
+* `lazy: true` tells the router to defer loading this page until the route is accessed.
+
+**Important:** The module must contain only **one page per file** to avoid ambiguity.
+:::
+
+Whether you prefer full control or automatic behavior, Stone.js gives you both:
+
+* **Automatic lazy loading when you want it**
+* **Manual control when you need it**
+
+## Runtime Page Registration
+
+While static route definitions are ideal for most use cases, Stone.js also supports **runtime page registration**, giving you the flexibility to define routes dynamically after the application has started.
+
+This is useful when:
+
+* Routes depend on runtime data (e.g. feature toggles, plugin systems)
+* You want to load routes from external sources
+* You're building an admin panel, CMS, or multi-tenant app
+
+Since pages are just handlers, you register them at runtime using the **same APIs** as any other event handler, via the `router` instance.
+
+::: important
+Runtime routes should always be registered inside a **service provider’s `boot()` method**, where the `Router` service is guaranteed to be available.
+:::
+
+::: tabs#runtime-definitions
+@tab:active Fluent
+### Fluent API (Chained)
+
+You can define routes fluently using methods like `.page()` and pass a page handler directly:
+
+```ts
+@Provider()
+export class PageProvider implements IServiceProvider {
+  constructor(private readonly container: IContainer) {}
+
+  boot() {
+    const router = this.container.make<Router>('router')
+
+    router.page('/help', defineEventHandler(() => ({
+      render (event: ReactIncomingEvent) {
+        return reactResponse({ content: { message: 'Help Page' } })
+      }
+    }), true));
+  }
+}
+```
+
+@tab Option
+### Option-based Definition
+
+Prefer a structured format? Use `router.define()` and pass route definitions in array form:
+
+```ts
+router.define([
+  {
+    method: 'GET',
+    path: '/legal',
+    handler: defineEventHandler(() => ({
+      render (event: ReactIncomingEvent) {
+        return reactResponse({ content: { message: 'Legal Page' } })
+      }
+    }), true)
+  }
+]);
+```
+
+@tab Collection
+### Advanced: Collection API
+
+Need full control over routing structures? Use `Route` and `RouteCollection`:
+
+```ts
+const routes = RouteCollection.create()
+
+routes.add(Route.create({
+  method: 'GET',
+  path: '/faq',
+  handler: defineEventHandler(() => ({
+    render (event: ReactIncomingEvent) {
+      return reactResponse({ content: { message: 'FAQ Page' } })
+    }
+  }), true)
+}));
+
+router.setRoutes(routes);
+```
+:::
+
+### Runtime Pages Work the Same
+
+The handler for a runtime-registered route can be a valid **page**, as long as it implements the `IComponentEventHandler` interface and returns JSX in its `render()` method.
+
+But be aware:
+
+* **Lazy loading is not automatic**
+* You must use `import()` and pass a proper handler instance
+* Runtime pages are not introspected during setup
+
+For more details on dynamic routing, see the [Router documentation](../router/definitions#runtime-definition).
 
 ## Navigation
 
-### Declarative Navigation: `<StoneLink />`
+Stone.js provides two primary ways to navigate between pages:
 
-Stone.js provides a built-in component for linking to other pages: `<StoneLink />`.
+1. **Declaratively**, using the built-in `<StoneLink />` component
+2. **Programmatically**, using the `Router` service
+
+Both approaches are **context-aware** and adapt automatically depending on whether your app is running in **CSR**, **SSR**, or **SOR**.
+
+### Declarative Navigation with `<StoneLink />`
+
+Use `<StoneLink />` to create links between pages in your application.
 
 ```tsx
-<StoneLink to="/profile" className="btn">My Profile</StoneLink>
+import { StoneLink } from '@stone-js/use-react'
+
+<StoneLink to="/profile" className="btn btn-primary">
+  Go to Profile
+</StoneLink>
 ```
 
-This component:
+**Why use it instead of a regular `<a>` tag?**
 
-* Works in **SPA** and **SSR** by using the router to trigger navigation
-* Falls back to a traditional `<a href>` when used in **SOR** (Server-Only Rendering)
+Because `<StoneLink />` is:
 
-So no matter where your app runs, `<StoneLink />` behaves correctly, **without any special configuration**.
+* Smart: Uses client-side navigation in SPA/SSR
+* Safe: Falls back to traditional navigation in SOR
+* Seamless: Keeps routing platform-agnostic
 
-### Programmatic Navigation with `Router`
+```txt
+CSR / SSR → router.navigate()
+SOR       → <a href="...">
+```
 
-If you need to navigate based on logic (e.g. after form submission or auth), use the `Router` service.
+### Programmatic Navigation with `Router.navigate()`
 
-You can access it:
+You can also navigate manually, typically after a user interaction, like form submission or authentication.
 
-* In the `constructor()` of your page (via DI)
-* Inside a React component (via `StoneContext`)
-
-#### In a Page:
+#### In a Page (via DI):
 
 ```ts
+constructor(private readonly router: Router) {}
+
 this.router.navigate('/dashboard')
 ```
 
-#### In a React Component:
+#### In a Component (via StoneContext):
 
 ```tsx
 import { useContext } from 'react'
+import { Router } from '@stone-js/router'
 import { StoneContext } from '@stone-js/use-react'
 
 const { container } = useContext(StoneContext)
@@ -134,81 +374,214 @@ const router = container.resolve(Router)
 router.navigate('/logout')
 ```
 
-### Where can `router.navigate()` be used?
+### Where is `navigate()` supported?
 
-| Context        | Supported? | Notes                                                    |
-| -------------- | ---------- | -------------------------------------------------------- |
-| CSR (SPA)      | ✅         | Standard navigation                                      |
-| SSR (hydrated) | ✅         | Acts like SPA after hydration                            |
-| SOR            | ❌         | Not available,  use `<StoneLink />` or redirect response |
+| Context        | Supported? | Behavior                            |
+| -------------- | ---------- | ----------------------------------- |
+| SPA (CSR)      | ✅          | Uses history API for seamless nav   |
+| SSR (hydrated) | ✅          | Behaves like CSR after hydration    |
+| SOR            | ❌          | Not available, use `<StoneLink />` |
 
-In **SOR**, no JavaScript runs in the browser. For navigation in this context, rely on `<StoneLink />`, which will render a real `<a href>` and trigger a traditional page reload.
+In **SOR (Server-Only Rendering)**, there is **no JavaScript runtime** in the browser. That’s why `router.navigate()` cannot work there.
+
+To ensure safe navigation in SOR, always use `<StoneLink />`.
+
+## Router Features Available to Pages
+
+Because every **page** in Stone.js is just a specialized **event handler**, it inherits **all router features** available through the `@stone-js/router` module.
+
+This means you don’t need a separate routing system for pages, everything you can do with the router, you can do with pages.
+
+Here’s what’s available:
+
+### Declarative and Imperative Definitions
+
+You can define routes using:
+
+* `@Page()` for class-based declarative registration
+* `definePage()` for factory-based or runtime control
+
+Both support lazy loading, bindings, and more.
+
+### Route Bindings
+
+Automatically fetch and inject resources based on route parameters:
+
+```ts
+@Page('/articles/:slug@article', {
+  bindings: { slug: 'articleService@findBySlug' }
+})
+```
+
+The resolved `article` is available in `event.get('article')`.
+
+::: info Reminder
+Bindings are **not** snapshotted automatically, use `reactRuntime.snapshot()` when needed.
+:::
+
+### Nested & Grouped Routes
+
+Organize your routes using naming conventions or use nested path structures:
+
+```ts
+@Page('/admin/users/:id', { name: 'admin.users.view' })
+```
+
+You can group routes logically by domain, module, or adapter.
+
+### Regex Parameter Validation
+
+Validate route parameters inline:
+
+```ts
+@Page('/posts/:id(\\d+)', { name: 'posts.detail' })
+```
+
+This matches only numeric IDs.
+
+### Repeatable & Optional Parameters
+
+Use advanced path patterns for more expressive URLs:
+
+```ts
+@Page('/tags/:names*', { name: 'tags.filter' }) // Repeatable
+@Page('/archive/:year?/:month?', { name: 'archive' }) // Optional
+```
+
+### Aliases and Protocol-Specific Routes
+
+You can define multiple paths for a single page or restrict a route to a specific protocol (e.g., `http`, `https`, `ws`).
+
+```ts
+@Page(['/faq', '/help'], { name: 'support.faq' })
+```
+
+📘 For the full list of routing features, see the [Router documentation](../router/).
+Pages follow the same model and benefit from every router capability.
 
 ## Best Practices
 
-Routing is powerful in Stone.js, but with great power comes the chance to overcomplicate things. These best practices help you get the most out of the router while keeping your app clean and maintainable.
+Routing in Stone.js gives you an expressive, flexible system with full control over behavior, structure, and context. But with flexibility comes the need for discipline.
 
-#### Prefer declarative registration for most pages
+Here are the recommended practices to keep your routing layer clean, robust, and continuum-aligned.
 
-Use the `@Page()` decorator when possible. It makes routes self-contained, introspectable, and lazy-loadable by default.
+#### Use `@Page()` for most routes
+
+Prefer the declarative API (`@Page()`) whenever possible:
+
+* Automatically lazy-loads the page
+* Keeps route logic close to the handler
+* Provides better introspection and developer tooling
+* Aligns with Blueprint and Dimension registration patterns
 
 ```ts
 @Page('/about', { name: 'about' })
 export class AboutPage { ... }
 ```
 
-#### Use route bindings for quick access, not full control
+#### Use `definePage()` only when necessary
 
-Route bindings are excellent for fetching associated models or parameters. But avoid using them for complex logic or chaining multiple service calls, use the `handle()` method for that.
+Reserve imperative registration for:
 
-Also, remember: **bindings are not snapshotted automatically**. If you want the data to survive into the client during SSR, use `reactRuntime.snapshot()` explicitly in your service.
+* Factory-based pages
+* Runtime-assembled apps
+* Dynamic plugin/module injection
+* Third-party libraries
 
-#### Use `<StoneLink />` for navigation
+Don't overuse imperative routes just for stylistic reasons, declarative is more maintainable long-term.
 
-Use `<StoneLink />` for declarative navigation, and only use `router.navigate()` inside your page or component logic only when necessary.
+#### Don’t overuse bindings
 
-#### In SOR apps, never rely on `router.navigate()`
+Route bindings are a great way to simplify event handler logic, but they:
 
-Server-Only Rendering (SOR) doesn’t run React in the browser. There is no router service on the client.
-Use `<StoneLink />` for navigation, it will render a standard `<a>` tag and work as expected.
+* Don’t snapshot data automatically
+* Should stay simple and predictable
 
-#### Keep routes modular and grouped by domain
+Use bindings for common resource loading (`/users/:id`), not for complex logic.
 
-Use route grouping and nested paths to keep your route definitions organized. This makes large apps easier to navigate and extend.
+Snapshot your binding results explicitly if needed in SSR.
+
+#### Avoid `router.navigate()` in SOR
+
+In Server-Only Rendering (SOR) mode, there’s no JavaScript runtime on the client, so `router.navigate()` doesn’t work.
+
+Always use `<StoneLink />` in components and templates when you need cross-platform-safe navigation.
+
+#### Use `<StoneLink />` by default
+
+Use `<StoneLink to="..." />` instead of `<a href="..." />` to:
+
+* Enable seamless navigation in SPA/SSR
+* Fallback gracefully to real links in SOR
+* Keep the user experience consistent
+
+#### Keep routes grouped by domain
+
+Use namespaces, naming conventions, or route groups to organize pages:
 
 ```ts
-@Page('/admin/users/:id', { name: 'admin.user.view' })
+@Page('/admin/settings', { name: 'admin.settings' })
+@Page('/admin/users/:id', { name: 'admin.users.view' })
 ```
 
-#### Don’t abuse dynamic routes
+This improves readability, maintainability, and runtime introspection.
 
-Dynamic routes are powerful (`/users/:id@user(\\d+)`), but be deliberate:
+#### Validate your dynamic parameters
 
-* Add validations using regex when needed.
-* Use consistent parameter naming.
-* Prefer specificity over overly generic patterns.
+When using dynamic routes (`:id`, `:slug`), always add regex validation to:
 
-#### Avoid client-side routing libraries
+* Prevent route matching ambiguity
+* Add light security and clarity
+* Make behavior predictable
 
-React frameworks often introduce their own routing systems (`react-router`, `next/router`, etc.). You don’t need them here.
+```ts
+@Page('/orders/:id(\\d+)', { name: 'orders.detail' })
+```
 
-Stone.js provides the router, manages the lifecycle, and abstracts platform differences. Adding a second router leads to conflict, not flexibility.
+#### Define runtime routes in `boot()`
 
-With these practices, you’ll keep your routing layer:
+If you're registering routes dynamically, always do it inside a service provider’s `boot()` method:
 
-* Declarative when possible
-* Composable when needed
-* Platform-agnostic always
+```ts
+@Provider()
+export class MyModuleProvider {
+  boot() {
+    const router = this.container.make<Router>('router')
+    router.page('/docs', DocsPageHandler)
+  }
+}
+```
+
+This ensures that all dependencies are available and the router is initialized.
+
+#### Don’t bring another router
+
+Stone.js already provides a unified, multi-context router with support for SPA, SSR, SOR, and middleware.
+
+You don’t need `react-router`, or any other third-party navigation library.
+Using them will lead to conflicts, redundancy, and unnecessary complexity.
 
 ## Summary
 
-* Every Stone.js page is a route handler.
-* Routing is **context-aware**, adapter-agnostic, and extensible.
-* You can declaratively or imperatively define routes using powerful patterns.
-* You can navigate with `<StoneLink />` declaratively or use the `Router` service for programmatic control.
-* Route bindings allow auto-fetching data before the page loads, but don’t forget to snapshot manually if needed.
+In Stone.js, routing is not a side feature, it’s a foundational mechanism that connects user intention with application behavior across every dimension of execution.
 
-The routing layer in Stone.js gives you the **power of a backend router**, the **ease of frontend navigation**, and the **continuity of context across dimensions**.
+Pages in Stone.js are just context-aware event handlers, and routing is the way they’re discovered, matched, and invoked.
 
-This is routing rethought, from request to render.
+By aligning routing with the Continuum Architecture:
 
+* You get consistent, introspectable routing behavior across SPA, SSR, and SOR
+* You can define routes declaratively or imperatively, statically or at runtime
+* You gain access to powerful features like route bindings, nested paths, protocol filters, and more
+* You avoid framework lock-in by using a router designed for both frontend and backend dimensions
+
+With `<StoneLink />`, `Router.navigate()`, and adapter-aware navigation handling, you're always in control, no matter the environment.
+
+### In short:
+
+* A **Page** is a handler.
+* A **route** is an intention pathway.
+* An **Incoming Event** is an intention.
+* And **Stone.js routing** is how you map one to the other, elegantly, contextually, and universally.
+
+For more advanced features and low-level routing tools, refer to the full [Router documentation](../router/).  
+But when it comes to Pages, this is everything you need to route with power and precision.

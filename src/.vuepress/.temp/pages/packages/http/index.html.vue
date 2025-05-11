@@ -1,0 +1,9 @@
+<template><div><p>The <code v-pre>HTTP Core</code> Library is an essential component of the <strong>Stone.js</strong> ecosystem, designed to handle HTTP communication within <strong>Stone.js</strong> applications.</p>
+<p><strong>Stone.js</strong> is a modular framework built on a microkernel architecture, allowing developers to include only the necessary modules,
+keeping applications lightweight and efficient. This library provides crucial classes for managing HTTP requests and responses,
+such as <code v-pre>IncomingHttpEvent</code>, <code v-pre>OutgoingHttpResponse</code>, and specialized response types like <code v-pre>JsonResponse</code> and <code v-pre>BinaryFileResponse</code>.</p>
+<p>The primary objective of this documentation is to facilitate the integration and deep understanding of how <strong>Stone.js</strong> handles the HTTP flow. It provides detailed guidance on setting up and using the library, ensuring that developers can seamlessly transform platform-specific requests into <strong>Stone.js</strong> events and return appropriate responses.</p>
+<p>In <strong>Stone.js</strong>, everything entering the application is considered an event, specifically <code v-pre>IncomingEvent</code> or <code v-pre>IncomingHttpEvent</code> (a subclass of <code v-pre>IncomingEvent</code>). Similarly, everything exiting the application is a response to the received event, either an <code v-pre>OutgoingResponse</code> or <code v-pre>OutgoingHttpResponse</code> (a subclass of <code v-pre>OutgoingResponse</code>). By leveraging these classes, developers can build robust and efficient web applications that integrate seamlessly with platform-specific HTTP handling. This document aims to help developers integrate this module into a <strong>Stone.js</strong> application and understand the package comprehensively, ensuring that all <strong>Stone.js</strong> packages remain plug-and-play for ease of use and flexibility.</p>
+</div></template>
+
+
