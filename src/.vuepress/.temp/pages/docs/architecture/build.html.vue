@@ -1,15 +1,15 @@
 <template><div><p>Before a Stone.js system can run, it must be built.</p>
-<p>Stone.js leverages the most recent ECMAScript features — including the <a href="https://github.com/tc39/proposal-decorators" target="_blank" rel="noopener noreferrer">2023-11 decorators proposal</a> — to provide a modern, expressive, and powerful developer experience. However, these features are not yet natively supported across all JavaScript runtimes, which makes the build step essential.</p>
-<p>This phase is not part of the Continuum Architecture itself — it’s the preparation step that ensures your code is compatible, optimized, and ready to run <em>anywhere</em>.</p>
+<p>Stone.js leverages the most recent ECMAScript features, including the <a href="https://github.com/tc39/proposal-decorators" target="_blank" rel="noopener noreferrer">2023-11 decorators proposal</a>, to provide a modern, expressive, and powerful developer experience. However, these features are not yet natively supported across all JavaScript runtimes, which makes the build step essential.</p>
+<p>This phase is not part of the Continuum Architecture itself, it’s the preparation step that ensures your code is compatible, optimized, and ready to run <em>anywhere</em>.</p>
 <p>The build process transforms your source files into deployable artifacts:</p>
 <ul>
-<li><code v-pre>dist/index.mjs</code> — the universal entry point for your server or backend app</li>
-<li><code v-pre>dist/index.html</code> — the HTML entry point for your frontend (SPA)</li>
+<li><code v-pre>dist/index.mjs</code>, the universal entry point for your server or backend app</li>
+<li><code v-pre>dist/index.html</code>, the HTML entry point for your frontend (SPA)</li>
 </ul>
-<p>Whether you're targeting Node.js, the browser, or serverless platforms, this phase ensures you ship a lightweight and fully functional artifact — with no need for <code v-pre>node_modules</code> or runtime compilation.</p>
+<p>Whether you're targeting Node.js, the browser, or serverless platforms, this phase ensures you ship a lightweight and fully functional artifact, with no need for <code v-pre>node_modules</code> or runtime compilation.</p>
 <p>Let’s explore how it works.</p>
 <h2 id="build-commands" tabindex="-1"><a class="header-anchor" href="#build-commands"><span>Build Commands</span></a></h2>
-<p>Stone.js projects come with built-in scripts that simplify development and production workflows. These commands are designed to help you iterate quickly in development and produce clean, optimized builds for deployment — with zero runtime dependencies.</p>
+<p>Stone.js projects come with built-in scripts that simplify development and production workflows. These commands are designed to help you iterate quickly in development and produce clean, optimized builds for deployment, with zero runtime dependencies.</p>
 <h3 id="npm-run-dev-or-npm-run-serve" tabindex="-1"><a class="header-anchor" href="#npm-run-dev-or-npm-run-serve"><span><code v-pre>npm run dev</code> or <code v-pre>npm run serve</code></span></a></h3>
 <p>Launches your system in <strong>development mode</strong> with file watching and automatic restarts.<br>
 This is your go-to command while building your app.</p>
@@ -28,10 +28,10 @@ This is your go-to command while building your app.</p>
 </ul>
 <p>It outputs the following in the <code v-pre>dist/</code> folder:</p>
 <ul>
-<li><code v-pre>index.mjs</code> — the production-ready server entry point</li>
-<li><code v-pre>index.html</code> — the frontend entry point (for SPAs, SSR, etc.)</li>
+<li><code v-pre>index.mjs</code>, the production-ready server entry point</li>
+<li><code v-pre>index.html</code>, the frontend entry point (for SPAs, SSR, etc.)</li>
 </ul>
-<p>These are standalone, tree-shaken artifacts — <strong>no <code v-pre>node_modules</code>, no <code v-pre>package.json</code> required</strong>. Just deploy and run.</p>
+<p>These are standalone, tree-shaken artifacts, <strong>no <code v-pre>node_modules</code>, no <code v-pre>package.json</code> required</strong>. Just deploy and run.</p>
 <h3 id="npm-run-preview" tabindex="-1"><a class="header-anchor" href="#npm-run-preview"><span><code v-pre>npm run preview</code></span></a></h3>
 <p>Serves the production build locally, exactly as it will behave in your deployment environment.</p>
 <p>Use this to:</p>
@@ -43,7 +43,7 @@ This is your go-to command while building your app.</p>
 <p>Each of these commands plays a distinct role in the Stone.js workflow, but they all lead to the same outcome: a modern system ready to deploy anywhere.</p>
 <h2 id="rollup-babel-backend" tabindex="-1"><a class="header-anchor" href="#rollup-babel-backend"><span>Rollup + Babel (Backend)</span></a></h2>
 <p>To support modern JavaScript features while producing lightweight, portable artifacts, Stone.js uses <a href="https://rollupjs.org" target="_blank" rel="noopener noreferrer">Rollup</a> and <a href="https://babeljs.io" target="_blank" rel="noopener noreferrer">Babel</a> under the hood to build and bundle backend applications.</p>
-<p>By default, everything is preconfigured for you — no setup required. But when you need more control, the system is fully extensible.</p>
+<p>By default, everything is preconfigured for you, no setup required. But when you need more control, the system is fully extensible.</p>
 <h3 id="built-in-configuration" tabindex="-1"><a class="header-anchor" href="#built-in-configuration"><span>Built-in Configuration</span></a></h3>
 <p>Stone.js includes an internal preset configuration that:</p>
 <ul>
@@ -56,7 +56,7 @@ This is your go-to command while building your app.</p>
 <p>If you want full access to the underlying Rollup config, you can export the internal setup:</p>
 <div class="language-bash line-numbers-mode" data-highlighter="prismjs" data-ext="sh"><pre v-pre><code><span class="line">npx stone <span class="token builtin class-name">export</span> rollup</span>
 <span class="line"></span></code></pre>
-<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div></div></div><p>This will generate a file named <code v-pre>rollup.config.mjs</code> at the root of your project. From there, you can modify the config as needed — just keep in mind that <strong>you’re taking full responsibility</strong> for the changes.</p>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div></div></div><p>This will generate a file named <code v-pre>rollup.config.mjs</code> at the root of your project. From there, you can modify the config as needed, just keep in mind that <strong>you’re taking full responsibility</strong> for the changes.</p>
 <p>This file exposes two named exports:</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line"><span class="token keyword">export</span> <span class="token punctuation">{</span> rollupBuildConfig<span class="token punctuation">,</span> rollupBundleConfig <span class="token punctuation">}</span><span class="token punctuation">;</span></span>
 <span class="line"></span></code></pre>
@@ -64,7 +64,7 @@ This is your go-to command while building your app.</p>
 <li><code v-pre>rollupBuildConfig</code>: Used to compile the source files</li>
 <li><code v-pre>rollupBundleConfig</code>: Used to create the final artifact</li>
 </ul>
-<p>If you're overriding this file, be cautious. You’re replacing an engine part — not just tweaking a UI color.</p>
+<p>If you're overriding this file, be cautious. You’re replacing an engine part, not just tweaking a UI color.</p>
 <h3 id="light-customization-via-stone-config-mjs" tabindex="-1"><a class="header-anchor" href="#light-customization-via-stone-config-mjs"><span>Light Customization via <code v-pre>stone.config.mjs</code></span></a></h3>
 <p>If you only need to tweak or extend the config (e.g. to add a Rollup or Babel plugin), you don’t have to override the entire config file. Instead, use the <code v-pre>rollup</code> key in <code v-pre>stone.config.mjs</code>:</p>
 <div class="language-javascript line-numbers-mode" data-highlighter="prismjs" data-ext="js"><pre v-pre><code><span class="line"><span class="token comment">// stone.config.mjs</span></span>
@@ -85,12 +85,12 @@ This is your go-to command while building your app.</p>
 <span class="line">  <span class="token punctuation">}</span></span>
 <span class="line"><span class="token punctuation">}</span><span class="token punctuation">)</span></span>
 <span class="line"></span></code></pre>
-<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>This approach <strong>extends or overrides</strong> the built-in config without replacing it entirely — giving you control <strong>without sacrificing stability</strong>.</p>
-<p>This dual-level customization — presets by default, escape hatch when needed — is part of Stone.js’s commitment to flexibility without complexity.</p>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>This approach <strong>extends or overrides</strong> the built-in config without replacing it entirely, giving you control <strong>without sacrificing stability</strong>.</p>
+<p>This dual-level customization, presets by default, escape hatch when needed, is part of Stone.js’s commitment to flexibility without complexity.</p>
 <h2 id="vite-babel-frontend" tabindex="-1"><a class="header-anchor" href="#vite-babel-frontend"><span>Vite + Babel (Frontend)</span></a></h2>
-<p>For frontend applications, Stone.js uses <a href="https://vite.dev" target="_blank" rel="noopener noreferrer">Vite</a> and <a href="https://babeljs.io" target="_blank" rel="noopener noreferrer">Babel</a> to provide a fast, modern development experience while supporting the latest JavaScript features — including decorators, top-level <code v-pre>await</code>, and more.</p>
+<p>For frontend applications, Stone.js uses <a href="https://vite.dev" target="_blank" rel="noopener noreferrer">Vite</a> and <a href="https://babeljs.io" target="_blank" rel="noopener noreferrer">Babel</a> to provide a fast, modern development experience while supporting the latest JavaScript features, including decorators, top-level <code v-pre>await</code>, and more.</p>
 <p>Vite handles your client-side code with lightning-fast hot module replacement in dev mode and optimized bundling for production. Babel ensures compatibility with cutting-edge ECMAScript syntax.</p>
-<p>Like the backend build process, everything is configured out of the box — but fully customizable when needed.</p>
+<p>Like the backend build process, everything is configured out of the box, but fully customizable when needed.</p>
 <h3 id="built-in-configuration-1" tabindex="-1"><a class="header-anchor" href="#built-in-configuration-1"><span>Built-in Configuration</span></a></h3>
 <p>Stone.js ships with an internal Vite configuration that:</p>
 <ul>
@@ -98,7 +98,7 @@ This is your go-to command while building your app.</p>
 <li>Automatically integrates with the rest of your Stone.js project</li>
 <li>Bundles the frontend into <code v-pre>dist/index.html</code> (and associated assets) for SPA or SSR deployment</li>
 </ul>
-<p>No manual setup is required — just run <code v-pre>npm run dev</code> or <code v-pre>npm run build</code> and you're good to go.</p>
+<p>No manual setup is required, just run <code v-pre>npm run dev</code> or <code v-pre>npm run build</code> and you're good to go.</p>
 <h3 id="full-customization-1" tabindex="-1"><a class="header-anchor" href="#full-customization-1"><span>Full Customization</span></a></h3>
 <p>If you need to take full control over the Vite configuration, you can export it:</p>
 <div class="language-bash line-numbers-mode" data-highlighter="prismjs" data-ext="sh"><pre v-pre><code><span class="line">npx stone <span class="token builtin class-name">export</span> vite</span>
@@ -107,7 +107,7 @@ This is your go-to command while building your app.</p>
 <p>It exposes a single named export:</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line"><span class="token keyword">export</span> <span class="token keyword">const</span> viteConfig <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token operator">...</span> <span class="token punctuation">}</span></span>
 <span class="line"></span></code></pre>
-<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div></div></div><p>From there, you can customize your Vite setup however you like — but remember: <strong>you’re bypassing the built-in safety net</strong>, so proceed only if you know what you're doing.</p>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div></div></div><p>From there, you can customize your Vite setup however you like, but remember: <strong>you’re bypassing the built-in safety net</strong>, so proceed only if you know what you're doing.</p>
 <h3 id="light-customization-via-stone-config-mjs-1" tabindex="-1"><a class="header-anchor" href="#light-customization-via-stone-config-mjs-1"><span>Light Customization via <code v-pre>stone.config.mjs</code></span></a></h3>
 <p>For most use cases, you don’t need to override the entire Vite config. Instead, you can extend it safely from your <code v-pre>stone.config.mjs</code> file using the <code v-pre>vite</code> key:</p>
 <div class="language-javascript line-numbers-mode" data-highlighter="prismjs" data-ext="js"><pre v-pre><code><span class="line"><span class="token comment">// stone.config.mjs</span></span>
@@ -121,13 +121,13 @@ This is your go-to command while building your app.</p>
 <span class="line">  <span class="token punctuation">}</span></span>
 <span class="line"><span class="token punctuation">}</span><span class="token punctuation">)</span></span>
 <span class="line"></span></code></pre>
-<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>This method lets you plug into the system without replacing it — a clean way to extend functionality while preserving the Stone.js defaults.</p>
-<p>This flexible system — one command to eject, one config to extend — is designed to meet you where you are, whether you're building a simple SPA or pushing the boundaries of SSR and edge rendering.</p>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>This method lets you plug into the system without replacing it, a clean way to extend functionality while preserving the Stone.js defaults.</p>
+<p>This flexible system, one command to eject, one config to extend, is designed to meet you where you are, whether you're building a simple SPA or pushing the boundaries of SSR and edge rendering.</p>
 <h2 id="stone-config-file-stone-config-mjs" tabindex="-1"><a class="header-anchor" href="#stone-config-file-stone-config-mjs"><span>Stone Config File (<code v-pre>stone.config.mjs</code>)</span></a></h2>
-<p>In Stone.js, the <code v-pre>stone.config.mjs</code> file defines how your <strong>system</strong> is built and bundled — across all dimensions of your continuum.</p>
+<p>In Stone.js, the <code v-pre>stone.config.mjs</code> file defines how your <strong>system</strong> is built and bundled, across all dimensions of your continuum.</p>
 <p>This configuration exists <strong>only at build-time</strong>. It does not affect runtime behavior, middleware, lifecycle hooks, or any runtime execution flow. Its sole job is to shape your application artifact: what is included, how it is bundled, and how it is optimized for deployment.</p>
 <h3 id="why-it-matters" tabindex="-1"><a class="header-anchor" href="#why-it-matters"><span>Why it matters</span></a></h3>
-<p>Stone.js applications are continuum-native — designed to be deployed anywhere. To achieve this, the build system must:</p>
+<p>Stone.js applications are continuum-native, designed to be deployed anywhere. To achieve this, the build system must:</p>
 <ul>
 <li>Support both frontend and backend targets</li>
 <li>Handle multiple module types and application types</li>
@@ -198,7 +198,7 @@ This is your go-to command while building your app.</p>
 <span class="line">  bundle<span class="token operator">:</span> <span class="token punctuation">{</span> plugins<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token operator">...</span><span class="token punctuation">]</span> <span class="token punctuation">}</span>   <span class="token comment">// Used to bundle the final output</span></span>
 <span class="line"><span class="token punctuation">}</span></span>
 <span class="line"></span></code></pre>
-<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>Use this to extend or override internal presets — without replacing them entirely.</p>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>Use this to extend or override internal presets, without replacing them entirely.</p>
 <h4 id="vite" tabindex="-1"><a class="header-anchor" href="#vite"><span><code v-pre>vite</code></span></a></h4>
 <p>Extend the frontend bundling process for SPA/SSR apps by injecting plugins or custom settings into the internal Vite config:</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line">vite<span class="token operator">:</span> <span class="token punctuation">{</span></span>
@@ -206,9 +206,9 @@ This is your go-to command while building your app.</p>
 <span class="line"><span class="token punctuation">}</span></span>
 <span class="line"></span></code></pre>
 <div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>Stone.js gives you control where you need it, and safety where you don't.<br>
-The <code v-pre>stone.config.mjs</code> is your <strong>build-time command center</strong>, shaping how your application continuum turns into a portable artifact — ready for any platform.</p>
+The <code v-pre>stone.config.mjs</code> is your <strong>build-time command center</strong>, shaping how your application continuum turns into a portable artifact, ready for any platform.</p>
 <h2 id="custom-bootstrap-file" tabindex="-1"><a class="header-anchor" href="#custom-bootstrap-file"><span>Custom Bootstrap File</span></a></h2>
-<p>Every Stone.js system begins with a <strong>bootstrap file</strong> — a special entry point used during the build to assemble and initialize your continuum system.</p>
+<p>Every Stone.js system begins with a <strong>bootstrap file</strong>, a special entry point used during the build to assemble and initialize your continuum system.</p>
 <p>This file isn't created manually and doesn’t appear in your project by default. Instead, it's auto-generated internally when you run dev or build commands. Each environment (server, client, console) has its own dedicated bootstrap file.</p>
 <h3 id="default-bootstrap-targets" tabindex="-1"><a class="header-anchor" href="#default-bootstrap-targets"><span>Default Bootstrap Targets</span></a></h3>
 <table>
@@ -250,7 +250,7 @@ e.g., <code v-pre>index.html</code>, <code v-pre>client.mjs</code>, and <code v-
 <div class="language-bash line-numbers-mode" data-highlighter="prismjs" data-ext="sh"><pre v-pre><code><span class="line">npx stone <span class="token builtin class-name">export</span> console</span>
 <span class="line"></span></code></pre>
 <div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div></div></div><p>This will export the console-specific bootstrap logic as <code v-pre>console.mjs</code> (or <code v-pre>.ts</code> if your project uses TypeScript).</p>
-<p>Once exported, these files become your responsibility — but also your canvas. Stone.js will now use <em>your custom bootstrap file</em> instead of the internal one.</p>
+<p>Once exported, these files become your responsibility, but also your canvas. Stone.js will now use <em>your custom bootstrap file</em> instead of the internal one.</p>
 <h3 id="why-it-matters-1" tabindex="-1"><a class="header-anchor" href="#why-it-matters-1"><span>Why It Matters</span></a></h3>
 <p>Sometimes you need to:</p>
 <ul>
@@ -264,11 +264,11 @@ It’s your one and only <strong>entry point to the system</strong>, and it runs
 <h3 id="caution" tabindex="-1"><a class="header-anchor" href="#caution"><span>Caution</span></a></h3>
 <p>The exported bootstrap file is <strong>not regenerated automatically</strong>.<br>
 Once exported, it becomes a persistent part of your project.<br>
-<strong>Do not modify internal <code v-pre>.stone</code> bootstrap files directly</strong> — use the exported versions instead, as they are auto-generated and overwritten on every build.</p>
+<strong>Do not modify internal <code v-pre>.stone</code> bootstrap files directly</strong>, use the exported versions instead, as they are auto-generated and overwritten on every build.</p>
 <p>In short, the bootstrap file is the <strong>top-level trigger of your system</strong>.<br>
-It’s where the continuum awakens — and yes, you can customize it.</p>
+It’s where the continuum awakens, and yes, you can customize it.</p>
 <h2 id="summary-best-practices" tabindex="-1"><a class="header-anchor" href="#summary-best-practices"><span>Summary &amp; Best Practices</span></a></h2>
-<p>The build phase in Stone.js is simple by design — but powerful under the hood. It ensures your <strong>continuum system</strong> is transformed into a clean, portable artifact that’s ready to run in any context: browser, server, or function-as-a-service.</p>
+<p>The build phase in Stone.js is simple by design, but powerful under the hood. It ensures your <strong>continuum system</strong> is transformed into a clean, portable artifact that’s ready to run in any context: browser, server, or function-as-a-service.</p>
 <p>Here’s what to remember:</p>
 <h3 id="summary" tabindex="-1"><a class="header-anchor" href="#summary"><span>Summary</span></a></h3>
 <ul>
@@ -294,16 +294,16 @@ To use the latest ECMAScript features (e.g., <a href="https://github.com/tc39/pr
 </ul>
 <h3 id="best-practices" tabindex="-1"><a class="header-anchor" href="#best-practices"><span>Best Practices</span></a></h3>
 <ul>
-<li>Use <code v-pre>stone.config.mjs</code> <strong>only for build configuration</strong> — not runtime logic.</li>
-<li>Do not use it to inject runtime logic — that’s what middleware, decorators, and lifecycle hooks are for</li>
-<li>Keep your <code v-pre>input</code> patterns clean and modular — this helps the system split views from core logic (useful for lazy loading and nano apps)</li>
-<li>Be mindful of exclusions — especially in browser builds — to avoid bundling server-only modules</li>
+<li>Use <code v-pre>stone.config.mjs</code> <strong>only for build configuration</strong>, not runtime logic.</li>
+<li>Do not use it to inject runtime logic, that’s what middleware, decorators, and lifecycle hooks are for</li>
+<li>Keep your <code v-pre>input</code> patterns clean and modular, this helps the system split views from core logic (useful for lazy loading and nano apps)</li>
+<li>Be mindful of exclusions, especially in browser builds, to avoid bundling server-only modules</li>
 <li>Extend internal configs (Rollup/Vite) via <code v-pre>stone.config.mjs</code> instead of overriding them when possible.</li>
 <li>Only export full configs with <code v-pre>npx stone export rollup/vite</code> if you have advanced needs.</li>
 <li>Export your bootstrap file with <code v-pre>npx stone export app</code> or <code v-pre>npx stone export console</code> <strong>only if you need</strong> top-level control.</li>
-<li>Never edit files inside <code v-pre>.stone/</code> manually — they’re overwritten during each build.</li>
+<li>Never edit files inside <code v-pre>.stone/</code> manually, they’re overwritten during each build.</li>
 </ul>
-<p>Stone.js gives you full control over how your system is built — but only when you need it.<br>
+<p>Stone.js gives you full control over how your system is built, but only when you need it.<br>
 Stick with the defaults to move fast, and customize only when your use case demands it.</p>
 <p>Now that your system is built…<br>
 Let’s see what happens when it runs.</p>

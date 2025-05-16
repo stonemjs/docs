@@ -2,9 +2,9 @@
 title: Service Providers
 ---
 
-In Stone.js, **Service Providers** are the official mechanism for plugging functionality into the **initialization dimension** — the moment when the system constructs its internal execution context and binds all core services before handling any request, command, or event.
+In Stone.js, **Service Providers** are the official mechanism for plugging functionality into the **initialization dimension**, the moment when the system constructs its internal execution context and binds all core services before handling any request, command, or event.
 
-They are not the only extension point in Stone.js — but they are the main one for **initialization**.  
+They are not the only extension point in Stone.js, but they are the main one for **initialization**.  
 Other dimensions (like **setup** and **integration**) have their own mechanisms. The service provider belongs solely to the phase where the application is “coming to life.”
 
 A **service provider** is a specialized module that can:
@@ -17,7 +17,7 @@ A **service provider** is a specialized module that can:
 However, in most cases, you won’t need one.
 
 Stone.js favors declarative configuration via **decorators** and imperative configuration via the **blueprint API**. These should be your first tools.  
-Reach for a service provider only when you need **explicit**, **fine-grained**, or **programmatic control** over how services are wired — or when building a **third-party package** that needs to extend the system in a reusable way.
+Reach for a service provider only when you need **explicit**, **fine-grained**, or **programmatic control** over how services are wired, or when building a **third-party package** that needs to extend the system in a reusable way.
 
 Providers are especially useful when:
 
@@ -29,15 +29,15 @@ Providers are especially useful when:
 In summary:
 
 ::: tip
-Stone.js can be extended in many ways — but the service provider is the main one for the initialization dimension.
+Stone.js can be extended in many ways, but the service provider is the main one for the initialization dimension.
 :::
 
-It’s your bridge into the internal execution context — and your tool of choice when configuration turns into orchestration.
+It’s your bridge into the internal execution context, and your tool of choice when configuration turns into orchestration.
 
 ## Using Service Provider
 
 Service providers in Stone.js come in two variants: **class-based** and **factory-based**.  
-Both are valid and first-class citizens in the system — but each serves different needs.
+Both are valid and first-class citizens in the system, but each serves different needs.
 
 What matters is **what** a provider does: it must implement one or both of these methods:
 
@@ -106,7 +106,7 @@ This shape is ideal for libraries, or simple modules that don’t need decorator
 
 You may wonder: why not allow raw functions?
 
-Because the provider system is lifecycle-aware — and lifecycle awareness requires structure.  
+Because the provider system is lifecycle-aware, and lifecycle awareness requires structure.  
 A plain function can’t express `register`, `boot`, or hooks reliably. So to stay coherent with the Continuum, Stone.js only accepts **class-based** and **factory-based** variants.
 :::
 
@@ -114,7 +114,7 @@ A plain function can’t express `register`, `boot`, or hooks reliably. So to st
 
 A service provider’s power lies in **when** it does things, not just **what** it does.
 
-Stone.js executes all providers during the **initialization phase** — the moment your system is “bootstrapping” itself into a running app. This phase is split into two key steps:
+Stone.js executes all providers during the **initialization phase**, the moment your system is “bootstrapping” itself into a running app. This phase is split into two key steps:
 
 - `register()` → Bind things into the service container.
 - `boot()` → Configure or activate them once all bindings are available.
@@ -124,13 +124,13 @@ Both are **optional**. But you must implement at least one of them to make your 
 ### `register()`
 
 The `register()` method is used to bind services, classes, values, and factories into the service container.  
-This is where you describe **what your provider offers** — not how it behaves.
+This is where you describe **what your provider offers**, not how it behaves.
 
 At this stage:
 
 - Your provider can access the service container
 - No other provider’s `boot()` method has run yet
-- You **should not resolve or use** other services — just bind them
+- You **should not resolve or use** other services, just bind them
 - You have access to the `blueprint` and the `eventEmitter`
 
 ```ts
@@ -147,7 +147,7 @@ This ensures the system builds a complete registry before any configuration or e
 
 ### `boot()`
 
-Once all providers have been registered, Stone.js calls their `boot()` methods — in the order they were loaded.
+Once all providers have been registered, Stone.js calls their `boot()` methods, in the order they were loaded.
 
 Now is the time to:
 
@@ -165,7 +165,7 @@ export class MyServiceProvider {
 }
 ```
 
-The `boot()` phase is the safe place to **use** the things you registered earlier — or to coordinate logic between multiple providers.
+The `boot()` phase is the safe place to **use** the things you registered earlier, or to coordinate logic between multiple providers.
 
 ### Hooks (`@Hook`)
 
@@ -184,14 +184,14 @@ export class MyServiceProvider {
 }
 ```
 
-This makes your providers reactive and introspectable — and allows third-party packages to extend the framework behavior in clean, declarative ways.
+This makes your providers reactive and introspectable, and allows third-party packages to extend the framework behavior in clean, declarative ways.
 
 You can subscribe to any of the documented [setup](./blueprint#setup-hooks), [integration](./adapter#integration-hooks), or [initialization](./lifecycle) hooks. 
 It’s one more reason to use class-based providers when you need deep integration.
 
 ## Accessing the Service Container
 
-The service container is the beating heart of your Stone.js application — and service providers are its surgeons.  
+The service container is the beating heart of your Stone.js application, and service providers are its surgeons.  
 But timing matters: **not everything is available all the time**.
 
 ### Constructor Access
@@ -209,7 +209,7 @@ export class MyServiceProvider implements IServiceProvider {
 
 ::: important
 But be careful: at construction time, only the **blueprint** and the **event emitter** are available, **no other services are registered yet**.
-Don’t try to `make()` anything else in the constructor — wait for `boot()`.
+Don’t try to `make()` anything else in the constructor, wait for `boot()`.
 :::
 
 ### What’s Safe to Use (and When)
@@ -225,7 +225,7 @@ So the rule is simple:
 - **Register early** (`register()`)
 - **Configure late** (`boot()`)
 
-That’s the continuum between **definition** and **activation** — don’t mix them up.
+That’s the continuum between **definition** and **activation**, don’t mix them up.
 
 ### Common Container Patterns
 
@@ -240,7 +240,7 @@ They allow your provider to be modular and respectful of other providers’ boun
 ## Registering Providers
 
 Creating a provider is just the first step.  
-To make it part of the system, you need to **register it** — either **declaratively** or **imperatively**.
+To make it part of the system, you need to **register it**, either **declaratively** or **imperatively**.
 
 Stone.js offers both options, so you can pick what fits your architecture and context best.
 
@@ -316,7 +316,7 @@ So in short:
 ## Best Practices
 
 Service providers are one of the most powerful mechanisms in Stone.js. But with great power comes great modularity.
-Here’s how to make the most of them — without shooting yourself in the boot phase.
+Here’s how to make the most of them, without shooting yourself in the boot phase.
 
 #### Prefer Declarative or Blueprint Configuration First
 
@@ -329,7 +329,7 @@ Reach for a service provider **only** when:
 - You’re integrating advanced logic that decorators or blueprint fields can’t express
 - You’re building a reusable **third-party extension** to plug into the initialization phase
 
-This keeps your system clean, introspectable, and aligned with the Continuum — where configuration is separated by **dimension**, not just by type.
+This keeps your system clean, introspectable, and aligned with the Continuum, where configuration is separated by **dimension**, not just by type.
 
 
 #### Keep Providers Focused
@@ -360,9 +360,9 @@ Good:
 - `FeatureXProvider`
 - ...
 
-This improves reuse, testing, maintainability — and your sanity.
+This improves reuse, testing, maintainability, and your sanity.
 
-#### Use `register()` to declare — not to execute
+#### Use `register()` to declare, not to execute
 
 Your `register()` method should **only bind** things, never resolve or execute them.
 
@@ -404,7 +404,7 @@ Shorter aliases improve readability and reduce coupling to implementation names.
 
 #### Use lifecycle hooks for diagnostics or extension
 
-Hooks are not just for fun — they let you:
+Hooks are not just for fun, they let you:
 
 - Log startup/shutdown
 - Add diagnostics
@@ -426,14 +426,14 @@ A good provider should be easy to extract into a library or share across apps.
 - Use config injection (`blueprint.get(...)`)
 - Keep dependencies explicit and controlled
 
-Your future self — or the next developer — will thank you.
+Your future self, or the next developer, will thank you.
 
 ## Summary
 
 While service providers are powerful, they are not the default way to configure your app.
-Use them when you need control over the **initialization dimension** — and prefer decorators and blueprint-based configuration for everything else.
+Use them when you need control over the **initialization dimension**, and prefer decorators and blueprint-based configuration for everything else.
 
-Think of providers as your advanced toolkit — precise, low-level, and perfect for libraries or complex orchestration.
+Think of providers as your advanced toolkit, precise, low-level, and perfect for libraries or complex orchestration.
 But for common scenarios, let the Continuum guide you: configure declaratively, and only dive deeper when you must.
 
 Here’s what to remember:
@@ -447,5 +447,5 @@ Here’s what to remember:
 
 By organizing your system into clean, focused, reusable providers, you unlock the full power of Stone.js’s modular and scalable architecture.
 
-> You don’t “use” Stone.js —  
+> You don’t “use” Stone.js,  
 > You *provide* it.

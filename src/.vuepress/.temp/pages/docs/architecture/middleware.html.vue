@@ -1,24 +1,24 @@
 <template><div><p>In Stone.js, middleware is how you <strong>act on the internal context</strong>.</p>
 <p>Unlike <a href="./lifecycle">Hooks</a>, which observe and react, middleware <strong>participates directly</strong> in the flow. It can <strong>intercept, transform, short-circuit</strong>, or fully redirect the system’s behavior as it unfolds across dimensions.</p>
-<p>Middleware is always <strong>dimension-specific</strong>, but its structure remains consistent. It gives you the power to shape both the <strong>creation</strong> and the <strong>execution</strong> of context — making it one of the most expressive tools in the framework.</p>
-<p>This page focuses on <strong>Initialization middleware</strong>, which operates at the kernel or route level — where intentions are fully formed and ready to meet the domain. It’s where most user-level logic lives, and where middleware becomes your primary tool to <strong>control the interaction between context and domain logic</strong>.</p>
+<p>Middleware is always <strong>dimension-specific</strong>, but its structure remains consistent. It gives you the power to shape both the <strong>creation</strong> and the <strong>execution</strong> of context, making it one of the most expressive tools in the framework.</p>
+<p>This page focuses on <strong>Initialization middleware</strong>, which operates at the kernel or route level, where intentions are fully formed and ready to meet the domain. It’s where most user-level logic lives, and where middleware becomes your primary tool to <strong>control the interaction between context and domain logic</strong>.</p>
 <div class="hint-container tip">
 <p class="hint-container-title">Tips</p>
 <p>The principles described here apply to <strong>all middleware</strong>, regardless of dimension.<br>
 Even if you’re working with Integration or Setup middleware, this page lays the foundation.<br>
 For dimension-specific details, refer to the <a href="../blueprint">Blueprint</a> and <a href="../adapter">Adapter</a> documentation.</p>
 </div>
-<p>Middleware is how you shape the continuum <strong>from within</strong>. Use it intentionally — and use it often.</p>
+<p>Middleware is how you shape the continuum <strong>from within</strong>. Use it intentionally, and use it often.</p>
 <h2 id="using-middleware" tabindex="-1"><a class="header-anchor" href="#using-middleware"><span>Using Middleware</span></a></h2>
 <p>In Stone.js, all middleware follow a <strong>shared structure</strong>, no matter which dimension they belong to. This structural consistency is a core part of the Continuum Architecture: <strong>only the context and return type change</strong>, the shape remains the same.</p>
-<p>Whether you're enriching a blueprint, transforming an adapter’s raw input, or intercepting a request before it reaches the domain — middleware always receives a <strong>context</strong>, a <code v-pre>next()</code> function, and must return a result.</p>
+<p>Whether you're enriching a blueprint, transforming an adapter’s raw input, or intercepting a request before it reaches the domain, middleware always receives a <strong>context</strong>, a <code v-pre>next()</code> function, and must return a result.</p>
 <p>Stone.js supports three interchangeable middleware variants:</p>
 <ul>
-<li><strong>Class-based</strong> — required when using the Declarative API with decorators</li>
-<li><strong>Function-based</strong> — simple, flexible, ideal for functional or imperative registration</li>
-<li><strong>Factory-based</strong> — dynamic and dependency-aware, used when function-based middleware needs to be parameterized or contextualized</li>
+<li><strong>Class-based</strong>, required when using the Declarative API with decorators</li>
+<li><strong>Function-based</strong>, simple, flexible, ideal for functional or imperative registration</li>
+<li><strong>Factory-based</strong>, dynamic and dependency-aware, used when function-based middleware needs to be parameterized or contextualized</li>
 </ul>
-<p>You can use any of these shapes in <strong>any dimension</strong>. The continuum doesn’t restrict you — it empowers you to choose what fits best.</p>
+<p>You can use any of these shapes in <strong>any dimension</strong>. The continuum doesn’t restrict you, it empowers you to choose what fits best.</p>
 <h3 id="middleware-signature" tabindex="-1"><a class="header-anchor" href="#middleware-signature"><span>Middleware Signature</span></a></h3>
 <p>All middleware in Stone.js share the <strong>same function signature</strong>, regardless of the dimension they operate in:</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line"><span class="token keyword">const</span> middleware <span class="token operator">=</span> <span class="token operator">&lt;</span>ContextType<span class="token punctuation">,</span> ReturnType<span class="token operator">></span><span class="token punctuation">(</span></span>
@@ -39,10 +39,10 @@ For dimension-specific details, refer to the <a href="../blueprint">Blueprint</a
 <li><strong>Short-circuit</strong> the flow by returning early (e.g. an error response)</li>
 <li><strong>Break the chain</strong> entirely by throwing an exception</li>
 </ul>
-<p>This structure makes middleware expressive, composable, and highly controllable — regardless of where it runs in the continuum.</p>
+<p>This structure makes middleware expressive, composable, and highly controllable, regardless of where it runs in the continuum.</p>
 <h3 id="middleware-variants" tabindex="-1"><a class="header-anchor" href="#middleware-variants"><span>Middleware Variants</span></a></h3>
 <p>Stone.js middleware can be written in three interchangeable forms: <strong>class</strong>, <strong>function</strong>, or <strong>factory</strong>.<br>
-Each variant provides the same capabilities and can be used in any dimension — choose the shape that best fits your design or context.</p>
+Each variant provides the same capabilities and can be used in any dimension, choose the shape that best fits your design or context.</p>
 <Tabs id="113" :data='[{"id":"Class-based"},{"id":"Function-based"},{"id":"Factory-based"}]' :active="0" tab-id="class-factory-function">
 <template #title0="{ value, isActive }">Class-based</template>
 <template #title1="{ value, isActive }">Function-based</template>
@@ -128,11 +128,11 @@ This form is compatible with the Declarative API and supports dependency injecti
 <span class="line">  <span class="token keyword">return</span> result</span>
 <span class="line"><span class="token punctuation">}</span></span>
 <span class="line"></span></code></pre>
-<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>This shape is useful when you need dynamic logic based on runtime conditions, environment, or resolved services — without using a class.</p>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>This shape is useful when you need dynamic logic based on runtime conditions, environment, or resolved services, without using a class.</p>
 </template>
 </Tabs>
 <h3 id="why-call-next" tabindex="-1"><a class="header-anchor" href="#why-call-next"><span>Why call <code v-pre>next()</code></span></a></h3>
-<p>Calling <code v-pre>next()</code> signals that your middleware has finished its work and the context should proceed to the next middleware in the chain — or to the final handler if none remain.<br>
+<p>Calling <code v-pre>next()</code> signals that your middleware has finished its work and the context should proceed to the next middleware in the chain, or to the final handler if none remain.<br>
 Every middleware <strong>must return a value</strong>, either by returning early, forwarding the result of <code v-pre>next()</code>, or throwing an error.</p>
 <p>This mechanism gives you full control over the execution flow:</p>
 <h4 id="_1-modify-the-context-before-continuing" tabindex="-1"><a class="header-anchor" href="#_1-modify-the-context-before-continuing"><span>1. Modify the context before continuing</span></a></h4>
@@ -166,7 +166,7 @@ Every middleware <strong>must return a value</strong>, either by returning early
 <p>This simple yet powerful pattern is what makes middleware composable, interruptible, and expressive across all dimensions.</p>
 <h3 id="sync-or-async-both" tabindex="-1"><a class="header-anchor" href="#sync-or-async-both"><span>Sync or Async? Both.</span></a></h3>
 <p>Middleware can be <strong>synchronous</strong> or <strong>asynchronous</strong>, as long as it returns the appropriate value.<br>
-Stone.js handles middleware flow seamlessly — so you're free to mix sync and async styles without friction.</p>
+Stone.js handles middleware flow seamlessly, so you're free to mix sync and async styles without friction.</p>
 <h3 id="use-any-variant-in-any-dimension" tabindex="-1"><a class="header-anchor" href="#use-any-variant-in-any-dimension"><span>Use Any Variant, in Any Dimension</span></a></h3>
 <p>Stone.js does not restrict middleware variants by dimension.</p>
 <p>You can use:</p>
@@ -182,13 +182,13 @@ Stone.js handles middleware flow seamlessly — so you're free to mix sync and a
 <li>Initialization</li>
 </ul>
 <p>The only difference is the <strong>context and return type</strong>, which are defined by the dimension itself.</p>
-<p><strong>Continuum means flexibility</strong> — choose the shape that suits your logic, and let the system adapt to it.</p>
+<p><strong>Continuum means flexibility</strong>, choose the shape that suits your logic, and let the system adapt to it.</p>
 <h2 id="middleware-registration" tabindex="-1"><a class="header-anchor" href="#middleware-registration"><span>Middleware Registration</span></a></h2>
 <p>Once your middleware is defined, it needs to be <strong>registered</strong> so Stone.js can discover and execute it at the appropriate point in the system lifecycle.</p>
 <p>There are two ways to register middleware:</p>
 <ul>
-<li><strong>Declarative API</strong> — via decorators on class-based middleware</li>
-<li><strong>Imperative API</strong> — via the blueprint, using namespace keys and metadata</li>
+<li><strong>Declarative API</strong>, via decorators on class-based middleware</li>
+<li><strong>Imperative API</strong>, via the blueprint, using namespace keys and metadata</li>
 </ul>
 <CodeTabs id="282" :data='[{"id":"Declarative"},{"id":"Imperative"}]' :active="0" tab-id="declarative-imperative">
 <template #title0="{ value, isActive }">Declarative</template>
@@ -210,7 +210,7 @@ Stone.js handles middleware flow seamlessly — so you're free to mix sync and a
 <div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div></template>
 </CodeTabs>
 <h3 id="priority-and-execution-order" tabindex="-1"><a class="header-anchor" href="#priority-and-execution-order"><span>Priority and Execution Order</span></a></h3>
-<p>Stone.js executes middleware in the order they are defined — unless you specify a <code v-pre>priority</code>.</p>
+<p>Stone.js executes middleware in the order they are defined, unless you specify a <code v-pre>priority</code>.</p>
 <ul>
 <li>Lower values run first (<code v-pre>priority: 0</code> runs before <code v-pre>priority: 10</code>)</li>
 <li>If no priority is defined, middleware are executed in registration order</li>
@@ -255,14 +255,14 @@ Stone.js handles middleware flow seamlessly — so you're free to mix sync and a
 <div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div></template>
 </CodeTabs>
 <h4 id="alias" tabindex="-1"><a class="header-anchor" href="#alias"><span><code v-pre>alias</code></span></a></h4>
-<p>A named identifier you can use to reference the middleware later — for example, in route definitions:</p>
+<p>A named identifier you can use to reference the middleware later, for example, in route definitions:</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line"><span class="token decorator"><span class="token at operator">@</span><span class="token function">Get</span></span><span class="token punctuation">(</span><span class="token punctuation">{</span> middleware<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'auth'</span><span class="token punctuation">]</span> <span class="token punctuation">}</span><span class="token punctuation">)</span></span>
 <span class="line"></span></code></pre>
 <div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div></div></div><h4 id="global" tabindex="-1"><a class="header-anchor" href="#global"><span><code v-pre>global</code></span></a></h4>
 <p>Set to <code v-pre>true</code> to apply this middleware to <strong>all IncomingEvent executions</strong> by default.<br>
 If omitted or <code v-pre>false</code>, the middleware is considered <strong>route-specific</strong> and must be explicitly referenced.</p>
 <h2 id="best-practices" tabindex="-1"><a class="header-anchor" href="#best-practices"><span>Best Practices</span></a></h2>
-<p>Middleware is one of the most flexible and expressive features in Stone.js — but with great power comes great opportunity for chaos. Follow these guidelines to get the most out of your middleware design while keeping your system clean, scalable, and continuum-aligned.</p>
+<p>Middleware is one of the most flexible and expressive features in Stone.js, but with great power comes great opportunity for chaos. Follow these guidelines to get the most out of your middleware design while keeping your system clean, scalable, and continuum-aligned.</p>
 <h4 id="keep-middleware-single-purpose" tabindex="-1"><a class="header-anchor" href="#keep-middleware-single-purpose"><span>Keep Middleware Single-Purpose</span></a></h4>
 <p>Each middleware should do <strong>one thing well</strong>.</p>
 <p>Good:</p>
@@ -273,7 +273,7 @@ If omitted or <code v-pre>false</code>, the middleware is considered <strong>rou
 </ul>
 <p>Avoid building &quot;mega-middleware&quot; that tries to handle multiple unrelated concerns.</p>
 <h4 id="don-t-skip-the-return" tabindex="-1"><a class="header-anchor" href="#don-t-skip-the-return"><span>Don’t Skip the Return</span></a></h4>
-<p>Every middleware <strong>must return a value</strong> — either:</p>
+<p>Every middleware <strong>must return a value</strong>, either:</p>
 <ul>
 <li>A custom response</li>
 <li>The result of <code v-pre>next(context)</code></li>
@@ -282,7 +282,7 @@ If omitted or <code v-pre>false</code>, the middleware is considered <strong>rou
 <p>Returning <code v-pre>undefined</code> will break the chain and can result in runtime errors.</p>
 <h4 id="use-next-with-intention" tabindex="-1"><a class="header-anchor" href="#use-next-with-intention"><span>Use <code v-pre>next()</code> with Intention</span></a></h4>
 <p>Call <code v-pre>next()</code> only when you're ready to pass control forward.<br>
-Modify the context before it, and the result after it — but avoid calling it conditionally or in multiple branches unless absolutely necessary.</p>
+Modify the context before it, and the result after it, but avoid calling it conditionally or in multiple branches unless absolutely necessary.</p>
 <h4 id="use-aliases-for-reusability" tabindex="-1"><a class="header-anchor" href="#use-aliases-for-reusability"><span>Use Aliases for Reusability</span></a></h4>
 <p>Register middleware with an <code v-pre>alias</code> to reuse it across routes declaratively.</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line"><span class="token decorator"><span class="token at operator">@</span><span class="token function">Middleware</span></span><span class="token punctuation">(</span><span class="token punctuation">{</span> alias<span class="token operator">:</span> <span class="token string">'auth'</span> <span class="token punctuation">}</span><span class="token punctuation">)</span></span>
@@ -304,7 +304,7 @@ Modify the context before it, and the result after it — but avoid calling it c
 <li>Use <strong>function-based middleware</strong> for quick, clear logic</li>
 <li>Use <strong>factory-based middleware</strong> for dynamic, parameterized logic or need DI</li>
 </ul>
-<p>All shapes are valid — choose based on context, not preference.</p>
+<p>All shapes are valid, choose based on context, not preference.</p>
 <h4 id="avoid-cross-dimensional-confusion" tabindex="-1"><a class="header-anchor" href="#avoid-cross-dimensional-confusion"><span>Avoid Cross-Dimensional Confusion</span></a></h4>
 <p>Keep dimension-specific logic in its place:</p>
 <ul>
@@ -314,22 +314,22 @@ Modify the context before it, and the result after it — but avoid calling it c
 <li>Use <a href="./lifecycle"><strong>Hooks</strong></a> for passive observation</li>
 <li>Use <strong>Middleware</strong> for active transformation</li>
 <li>Use <strong>Blueprint</strong> for system-wide configuration</li>
-<li>Follow the lifecycle — middleware is powerful because it's scoped</li>
+<li>Follow the lifecycle, middleware is powerful because it's scoped</li>
 </ul>
 <h2 id="summary" tabindex="-1"><a class="header-anchor" href="#summary"><span>Summary</span></a></h2>
-<p>Middleware in Stone.js gives you the power to <strong>actively shape the flow of your system</strong> — from the moment an intention is created to the point a response is returned.</p>
-<p>In this document, we focused on <strong>initialization middleware</strong> — the most common type used to handle per-intention logic like authentication, validation, and context enrichment. But the same principles apply across all dimensions.</p>
+<p>Middleware in Stone.js gives you the power to <strong>actively shape the flow of your system</strong>, from the moment an intention is created to the point a response is returned.</p>
+<p>In this document, we focused on <strong>initialization middleware</strong>, the most common type used to handle per-intention logic like authentication, validation, and context enrichment. But the same principles apply across all dimensions.</p>
 <p><strong>Key takeaways:</strong></p>
 <ul>
 <li>Middleware always receives a <code v-pre>context</code>, a <code v-pre>next()</code> function, and must return a value</li>
 <li>You can write middleware as a <strong>class</strong>, <strong>function</strong>, or <strong>factory</strong></li>
 <li>Stone.js supports both <strong>Declarative</strong> (via decorators) and <strong>Imperative</strong> (via blueprint) registration</li>
-<li>Middleware can mutate, intercept, short-circuit, or wrap the execution — giving you full control</li>
+<li>Middleware can mutate, intercept, short-circuit, or wrap the execution, giving you full control</li>
 <li>Always return a result and keep middleware <strong>single-responsibility and focused</strong></li>
 <li>Use <code v-pre>alias</code> and <code v-pre>global</code> for composability and reuse</li>
 </ul>
-<p>When you need to <strong>transform</strong> the system — use middleware.<br>
-When you only need to <strong>observe</strong> — use <a href="./lifecycle">Hooks</a>.<br>
+<p>When you need to <strong>transform</strong> the system, use middleware.<br>
+When you only need to <strong>observe</strong>, use <a href="./lifecycle">Hooks</a>.<br>
 The dimension defines the context. The shape is your choice.<br>
 That’s the continuum.</p>
 </div></template>

@@ -4,21 +4,21 @@ title: Logging
 
 Logging is effortless and extensible in Stone.js.
 
-At its core, Stone.js provides a built-in logging utility through a console-based singleton logger. This default logger is designed for simplicity — it's available globally, context-aware, and ready to use without configuration.
+At its core, Stone.js provides a built-in logging utility through a console-based singleton logger. This default logger is designed for simplicity, it's available globally, context-aware, and ready to use without configuration.
 
 But that's just the beginning.
 
-The logger system in Stone.js is fully integrated into the Continuum Architecture, meaning it works seamlessly across all dimensions: setup, initialization, and integration. You can access it from lifecycle hooks, middleware, event handlers, services and so on. The default implementation is perfect for development and prototyping — but when you need more power, you can replace it entirely with your own logger (like [pino](https://getpino.io/#/) or [winston](https://github.com/winstonjs/winston)).
+The logger system in Stone.js is fully integrated into the Continuum Architecture, meaning it works seamlessly across all dimensions: setup, initialization, and integration. You can access it from lifecycle hooks, middleware, event handlers, services and so on. The default implementation is perfect for development and prototyping, but when you need more power, you can replace it entirely with your own logger (like [pino](https://getpino.io/#/) or [winston](https://github.com/winstonjs/winston)).
 
 Stone.js treats logging like any other part of your internal context: injectable, configurable, and replaceable.
 
-Logging is not just for debugging — it's a first-class citizen in the Stone.js ecosystem. Whether you're building a CLI tool, a backend microservice, or a frontend app, the logger is always there, fluent with your context.
+Logging is not just for debugging, it's a first-class citizen in the Stone.js ecosystem. Whether you're building a CLI tool, a backend microservice, or a frontend app, the logger is always there, fluent with your context.
 
 ## Using Logger
 
 ### Access the Logger
 
-Stone.js gives you multiple ways to access the logger, depending on the context you're in. The default logger is available as a singleton, but it’s also automatically injected into the system's internal context during setup — so no need for global imports, you can just inject it where you need it.
+Stone.js gives you multiple ways to access the logger, depending on the context you're in. The default logger is available as a singleton, but it’s also automatically injected into the system's internal context during setup, so no need for global imports, you can just inject it where you need it.
 
 #### Global Singleton (Anywhere)
 
@@ -61,7 +61,7 @@ export class MyService {
 }
 ```
 
-**Tip**: Avoid accessing the global `Logger` singleton in constructors — always prefer injection. This keeps your code clean, testable, and aligned with the Continuum.
+**Tip**: Avoid accessing the global `Logger` singleton in constructors, always prefer injection. This keeps your code clean, testable, and aligned with the Continuum.
 
 @tab Factory-based
 ##### Factory-based
@@ -119,11 +119,11 @@ Logger.error('Something went wrong', { context: 'ServiceX' });
 
 This logger is available immediately after the blueprint is initialized and is accessible from anywhere in your application.
 
-The behavior is context-aware — meaning you don’t need to manually check log levels or environment conditions. Stone.js handles that based on your blueprint settings.
+The behavior is context-aware, meaning you don’t need to manually check log levels or environment conditions. Stone.js handles that based on your blueprint settings.
 
 ### Configuring the Logger
 
-Stone.js uses the blueprint as the single source of truth for all logger configuration. You don’t need to hardcode log levels or timestamps — just define your preferences, and the logger will adapt automatically across your entire application.
+Stone.js uses the blueprint as the single source of truth for all logger configuration. You don’t need to hardcode log levels or timestamps, just define your preferences, and the logger will adapt automatically across your entire application.
 
 #### Available Configuration Keys
 
@@ -168,11 +168,11 @@ blueprint.set('stone.logger.useTimestamp', true);
 blueprint.set('stone.logger.useColors', true);
 ```
 
-This setup ensures that your logs are verbose, readable, and timestamped — ideal for development or debugging sessions.
+This setup ensures that your logs are verbose, readable, and timestamped, ideal for development or debugging sessions.
 
 ## Customizing the Logger
 
-Stone.js is not opinionated about how you log — it simply defines an interface and lets you plug in whatever tool fits your needs. If the built-in `ConsoleLogger` doesn’t meet your requirements, you can replace it with your own implementation.
+Stone.js is not opinionated about how you log, it simply defines an interface and lets you plug in whatever tool fits your needs. If the built-in `ConsoleLogger` doesn’t meet your requirements, you can replace it with your own implementation.
 
 You might want to customize the logger if:
 
@@ -237,7 +237,7 @@ Both approaches give you access to the blueprint, so you can conditionally enabl
 
 ### Using a Custom Logger
 
-Once your custom logger is defined — either as a class or a factory — you don’t need to change how you use logging in your application.  
+Once your custom logger is defined, either as a class or a factory, you don’t need to change how you use logging in your application.  
 Everything works the same: you can still access the logger via the global singleton or via dependency injection in lifecycle hooks, services, or middleware.
 
 ```ts
@@ -311,7 +311,7 @@ blueprint.set(defineLogger(MyCustomLogger, true, {
 ```
 :::
 
-This allows you to register your custom logger and inject any required configuration upfront — no extra boilerplate, just pure context-driven setup.
+This allows you to register your custom logger and inject any required configuration upfront, no extra boilerplate, just pure context-driven setup.
 
 ## Example: Using Pino with Stone.js
 
@@ -490,9 +490,9 @@ This ensures consistency across environments and makes it easier to switch loggi
 - Use `info()` for general application state.
 - Use `warn()` for unexpected but non-fatal conditions.
 - Use `error()` only when something truly failed and should be investigated.
-- Use `trace()` sparingly — it's meant for very fine-grained diagnostics.
+- Use `trace()` sparingly, it's meant for very fine-grained diagnostics.
 
-Don’t log everything all the time — too much logging can hide real problems in a sea of noise.
+Don’t log everything all the time, too much logging can hide real problems in a sea of noise.
 
 #### Avoid logging sensitive data
 
@@ -510,7 +510,7 @@ When you're ready to move beyond the console:
 - Choose `winston` for flexibility and multiple output targets.
 - Choose your own tool if it fits your ecosystem.
 
-Stone.js makes swapping the logger easy — just implement the `ILogger` interface and register it via `defineLogger()`.
+Stone.js makes swapping the logger easy, just implement the `ILogger` interface and register it via `defineLogger()`.
 
 #### Keep log messages meaningful
 
@@ -528,17 +528,17 @@ logger.debug('Something happened'); // 🚫 too vague
 
 Logging in Stone.js is simple, flexible, and built to scale with your application.
 
-Out of the box, you get a lightweight, console-based logger that’s fully integrated into the framework. It’s available globally via a singleton and is automatically injected into your context where appropriate — services, middleware, lifecycle hooks, and more.
+Out of the box, you get a lightweight, console-based logger that’s fully integrated into the framework. It’s available globally via a singleton and is automatically injected into your context where appropriate, services, middleware, lifecycle hooks, and more.
 
-You can configure its behavior through the blueprint, adjusting verbosity, timestamp formatting, and debug mode. When you're ready to move beyond the basics, you can easily replace the logger with your own class or factory — whether that’s wrapping a library like Pino or Winston, or building a completely custom solution.
+You can configure its behavior through the blueprint, adjusting verbosity, timestamp formatting, and debug mode. When you're ready to move beyond the basics, you can easily replace the logger with your own class or factory, whether that’s wrapping a library like Pino or Winston, or building a completely custom solution.
 
-Stone.js doesn’t lock you into one way of doing things — it gives you a common interface, a clean contract, and the freedom to extend logging in a way that fits your needs.
+Stone.js doesn’t lock you into one way of doing things, it gives you a common interface, a clean contract, and the freedom to extend logging in a way that fits your needs.
 
 **Quick recap:**
 - Use the logger via `Logger` or inject it where available.
 - Configure it with `stone.logger.level`, `useTimestamp`, and `stone.debug`.
 - Implement `ILogger` if you want to customize.
-- Register your logger using `defineLogger()` — class or factory, your choice.
+- Register your logger using `defineLogger()`, class or factory, your choice.
 - Log intentionally. Debug confidently. Deploy with traceability.
 
-That's it — you're now fully equipped to tame your logs in the Continuum.
+That's it, you're now fully equipped to tame your logs in the Continuum.

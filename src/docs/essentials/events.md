@@ -8,7 +8,7 @@ However, it is important to understand that **not all events are the same**.
 Stone.js distinguishes between two major categories:
 
 - **Incoming Events**:  
-  These events come from the external world — such as HTTP requests, WebSocket messages, or CLI commands.  
+  These events come from the external world, such as HTTP requests, WebSocket messages, or CLI commands.  
   They represent *intentions* from outside the system and are handled using **Event Handlers**, not listeners or subscribers.  
   To learn more about handling external events, refer to the [`IncomingEvent`](./incoming-event) and [`Event Handlers`](./event-handler) documentations.
 
@@ -34,7 +34,7 @@ In the next sections, you’ll learn how to define listeners, group subscription
 
 Listeners are the primary way to react to **internal events** in Stone.js. A listener waits for a specific event to occur and then executes its associated logic.
 
-Listeners promote **low coupling** between parts of your system, the module that emits the event doesn't need to know who will react to it — it simply emits the event into the system.
+Listeners promote **low coupling** between parts of your system, the module that emits the event doesn't need to know who will react to it, it simply emits the event into the system.
 
 Stone.js supports multiple ways to define listeners, giving you full flexibility depending on your needs.
 
@@ -118,8 +118,8 @@ Once your listener is defined, you must **register** it so that Stone.js knows i
 
 Stone.js offers two ways to register listeners:
 
-- **Declarative API** — using decorators (recommended for class-based modules)
-- **Imperative API** — using blueprint utilities for manual control
+- **Declarative API**, using decorators (recommended for class-based modules)
+- **Imperative API**, using blueprint utilities for manual control
 
 No matter which variant you choose (class, function, or factory), the registration process ensures your listeners are properly integrated at runtime.
 
@@ -242,7 +242,7 @@ const subscribe = (eventEmitter: EventEmitter) => {
 ```
 
 - Lightweight and quick to implement.
-- No dependency injection — perfect for small tasks or nano apps.
+- No dependency injection, perfect for small tasks or nano apps.
 
 @tab Factory-based
 
@@ -269,8 +269,8 @@ After defining your subscriber, you need to **register** it so that Stone.js can
 
 Stone.js provides two ways to register subscribers:
 
-- **Declarative API** — using decorators (recommended for class-based modules)
-- **Imperative API** — using blueprint utilities for manual control
+- **Declarative API**, using decorators (recommended for class-based modules)
+- **Imperative API**, using blueprint utilities for manual control
 
 Subscribers behave similarly to listeners during registration but are attached to the system at the subscription level rather than the individual event level.
 
@@ -366,7 +366,7 @@ Key points:
 #### Why use a static getter for the event type?
 
 In frontend builds (or aggressive bundling scenarios), class names can be mangled or renamed.  
-Using a static string getter ensures that your event names remain **stable**, **predictable**, and **safe** — even after minification.
+Using a static string getter ensures that your event names remain **stable**, **predictable**, and **safe**, even after minification.
 
 ### Listener
 
@@ -523,7 +523,7 @@ When working with internal events in Stone.js, following a few simple best pract
 #### Custom Events
 
 - **Always define your event type as a static getter**.  
-  Never rely on class names directly — use constants to guarantee stability after bundling and minification.
+  Never rely on class names directly, use constants to guarantee stability after bundling and minification.
 
 - **Design metadata explicitly**.  
   Keep your event payloads small, predictable, and documented.
@@ -549,7 +549,7 @@ They allow different parts of your system to **react to changes** without creati
 - **Subscribers** allow you to organize multiple related event reactions inside one module.
 - **Custom Events** enable you to define your own domain-specific events and propagate structured data across your system.
 
-Listeners and subscribers can be defined using classes, functions, or factories — giving you full flexibility depending on your application's size and needs.  
+Listeners and subscribers can be defined using classes, functions, or factories, giving you full flexibility depending on your application's size and needs.  
 Class-based (declarative) patterns are preferred for introspection, clarity, and maintainability.
 
 Every internal event is an instance of the `Event` class, ensuring a consistent API for accessing metadata, event type, and origin.

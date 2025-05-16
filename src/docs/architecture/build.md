@@ -4,21 +4,21 @@ title: Build Phase
 
 Before a Stone.js system can run, it must be built.
 
-Stone.js leverages the most recent ECMAScript features — including the [2023-11 decorators proposal](https://github.com/tc39/proposal-decorators) — to provide a modern, expressive, and powerful developer experience. However, these features are not yet natively supported across all JavaScript runtimes, which makes the build step essential.
+Stone.js leverages the most recent ECMAScript features, including the [2023-11 decorators proposal](https://github.com/tc39/proposal-decorators), to provide a modern, expressive, and powerful developer experience. However, these features are not yet natively supported across all JavaScript runtimes, which makes the build step essential.
 
-This phase is not part of the Continuum Architecture itself — it’s the preparation step that ensures your code is compatible, optimized, and ready to run *anywhere*.
+This phase is not part of the Continuum Architecture itself, it’s the preparation step that ensures your code is compatible, optimized, and ready to run *anywhere*.
 
 The build process transforms your source files into deployable artifacts:
-- `dist/index.mjs` — the universal entry point for your server or backend app
-- `dist/index.html` — the HTML entry point for your frontend (SPA)
+- `dist/index.mjs`, the universal entry point for your server or backend app
+- `dist/index.html`, the HTML entry point for your frontend (SPA)
 
-Whether you're targeting Node.js, the browser, or serverless platforms, this phase ensures you ship a lightweight and fully functional artifact — with no need for `node_modules` or runtime compilation.
+Whether you're targeting Node.js, the browser, or serverless platforms, this phase ensures you ship a lightweight and fully functional artifact, with no need for `node_modules` or runtime compilation.
 
 Let’s explore how it works.
 
 ## Build Commands
 
-Stone.js projects come with built-in scripts that simplify development and production workflows. These commands are designed to help you iterate quickly in development and produce clean, optimized builds for deployment — with zero runtime dependencies.
+Stone.js projects come with built-in scripts that simplify development and production workflows. These commands are designed to help you iterate quickly in development and produce clean, optimized builds for deployment, with zero runtime dependencies.
 
 ### `npm run dev` or `npm run serve`
 
@@ -40,10 +40,10 @@ This command compiles your source files using:
 - **Vite + Babel** for frontend/client code
 
 It outputs the following in the `dist/` folder:
-- `index.mjs` — the production-ready server entry point
-- `index.html` — the frontend entry point (for SPAs, SSR, etc.)
+- `index.mjs`, the production-ready server entry point
+- `index.html`, the frontend entry point (for SPAs, SSR, etc.)
 
-These are standalone, tree-shaken artifacts — **no `node_modules`, no `package.json` required**. Just deploy and run.
+These are standalone, tree-shaken artifacts, **no `node_modules`, no `package.json` required**. Just deploy and run.
 
 ### `npm run preview`
 
@@ -60,7 +60,7 @@ Each of these commands plays a distinct role in the Stone.js workflow, but they 
 
 To support modern JavaScript features while producing lightweight, portable artifacts, Stone.js uses [Rollup](https://rollupjs.org) and [Babel](https://babeljs.io) under the hood to build and bundle backend applications.
 
-By default, everything is preconfigured for you — no setup required. But when you need more control, the system is fully extensible.
+By default, everything is preconfigured for you, no setup required. But when you need more control, the system is fully extensible.
 
 ### Built-in Configuration
 
@@ -79,7 +79,7 @@ If you want full access to the underlying Rollup config, you can export the inte
 npx stone export rollup
 ```
 
-This will generate a file named `rollup.config.mjs` at the root of your project. From there, you can modify the config as needed — just keep in mind that **you’re taking full responsibility** for the changes.
+This will generate a file named `rollup.config.mjs` at the root of your project. From there, you can modify the config as needed, just keep in mind that **you’re taking full responsibility** for the changes.
 
 This file exposes two named exports:
 
@@ -90,7 +90,7 @@ export { rollupBuildConfig, rollupBundleConfig };
 - `rollupBuildConfig`: Used to compile the source files
 - `rollupBundleConfig`: Used to create the final artifact
 
-If you're overriding this file, be cautious. You’re replacing an engine part — not just tweaking a UI color.
+If you're overriding this file, be cautious. You’re replacing an engine part, not just tweaking a UI color.
 
 ### Light Customization via `stone.config.mjs`
 
@@ -116,17 +116,17 @@ export default defineConfig({
 })
 ```
 
-This approach **extends or overrides** the built-in config without replacing it entirely — giving you control **without sacrificing stability**.
+This approach **extends or overrides** the built-in config without replacing it entirely, giving you control **without sacrificing stability**.
 
-This dual-level customization — presets by default, escape hatch when needed — is part of Stone.js’s commitment to flexibility without complexity.
+This dual-level customization, presets by default, escape hatch when needed, is part of Stone.js’s commitment to flexibility without complexity.
 
 ## Vite + Babel (Frontend)
 
-For frontend applications, Stone.js uses [Vite](https://vite.dev) and [Babel](https://babeljs.io) to provide a fast, modern development experience while supporting the latest JavaScript features — including decorators, top-level `await`, and more.
+For frontend applications, Stone.js uses [Vite](https://vite.dev) and [Babel](https://babeljs.io) to provide a fast, modern development experience while supporting the latest JavaScript features, including decorators, top-level `await`, and more.
 
 Vite handles your client-side code with lightning-fast hot module replacement in dev mode and optimized bundling for production. Babel ensures compatibility with cutting-edge ECMAScript syntax.
 
-Like the backend build process, everything is configured out of the box — but fully customizable when needed.
+Like the backend build process, everything is configured out of the box, but fully customizable when needed.
 
 ### Built-in Configuration
 
@@ -135,7 +135,7 @@ Stone.js ships with an internal Vite configuration that:
 - Automatically integrates with the rest of your Stone.js project
 - Bundles the frontend into `dist/index.html` (and associated assets) for SPA or SSR deployment
 
-No manual setup is required — just run `npm run dev` or `npm run build` and you're good to go.
+No manual setup is required, just run `npm run dev` or `npm run build` and you're good to go.
 
 ### Full Customization
 
@@ -153,7 +153,7 @@ It exposes a single named export:
 export const viteConfig = { ... }
 ```
 
-From there, you can customize your Vite setup however you like — but remember: **you’re bypassing the built-in safety net**, so proceed only if you know what you're doing.
+From there, you can customize your Vite setup however you like, but remember: **you’re bypassing the built-in safety net**, so proceed only if you know what you're doing.
 
 ### Light Customization via `stone.config.mjs`
 
@@ -172,19 +172,19 @@ export default defineConfig({
 })
 ```
 
-This method lets you plug into the system without replacing it — a clean way to extend functionality while preserving the Stone.js defaults.
+This method lets you plug into the system without replacing it, a clean way to extend functionality while preserving the Stone.js defaults.
 
-This flexible system — one command to eject, one config to extend — is designed to meet you where you are, whether you're building a simple SPA or pushing the boundaries of SSR and edge rendering.
+This flexible system, one command to eject, one config to extend, is designed to meet you where you are, whether you're building a simple SPA or pushing the boundaries of SSR and edge rendering.
 
 ## Stone Config File (`stone.config.mjs`)
 
-In Stone.js, the `stone.config.mjs` file defines how your **system** is built and bundled — across all dimensions of your continuum.
+In Stone.js, the `stone.config.mjs` file defines how your **system** is built and bundled, across all dimensions of your continuum.
 
 This configuration exists **only at build-time**. It does not affect runtime behavior, middleware, lifecycle hooks, or any runtime execution flow. Its sole job is to shape your application artifact: what is included, how it is bundled, and how it is optimized for deployment.
 
 ### Why it matters
 
-Stone.js applications are continuum-native — designed to be deployed anywhere. To achieve this, the build system must:
+Stone.js applications are continuum-native, designed to be deployed anywhere. To achieve this, the build system must:
 - Support both frontend and backend targets
 - Handle multiple module types and application types
 - Strip away unnecessary context (e.g. Node-only modules from the browser build)
@@ -273,7 +273,7 @@ rollup: {
 }
 ```
 
-Use this to extend or override internal presets — without replacing them entirely.
+Use this to extend or override internal presets, without replacing them entirely.
 
 #### `vite`
 Extend the frontend bundling process for SPA/SSR apps by injecting plugins or custom settings into the internal Vite config:
@@ -285,11 +285,11 @@ vite: {
 ```
 
 Stone.js gives you control where you need it, and safety where you don't.  
-The `stone.config.mjs` is your **build-time command center**, shaping how your application continuum turns into a portable artifact — ready for any platform.
+The `stone.config.mjs` is your **build-time command center**, shaping how your application continuum turns into a portable artifact, ready for any platform.
 
 ## Custom Bootstrap File
 
-Every Stone.js system begins with a **bootstrap file** — a special entry point used during the build to assemble and initialize your continuum system.
+Every Stone.js system begins with a **bootstrap file**, a special entry point used during the build to assemble and initialize your continuum system.
 
 This file isn't created manually and doesn’t appear in your project by default. Instead, it's auto-generated internally when you run dev or build commands. Each environment (server, client, console) has its own dedicated bootstrap file.
 
@@ -327,7 +327,7 @@ npx stone export console
 
 This will export the console-specific bootstrap logic as `console.mjs` (or `.ts` if your project uses TypeScript).
 
-Once exported, these files become your responsibility — but also your canvas. Stone.js will now use *your custom bootstrap file* instead of the internal one.
+Once exported, these files become your responsibility, but also your canvas. Stone.js will now use *your custom bootstrap file* instead of the internal one.
 
 ### Why It Matters
 
@@ -344,14 +344,14 @@ It’s your one and only **entry point to the system**, and it runs **before any
 
 The exported bootstrap file is **not regenerated automatically**.  
 Once exported, it becomes a persistent part of your project.  
-**Do not modify internal `.stone` bootstrap files directly** — use the exported versions instead, as they are auto-generated and overwritten on every build.
+**Do not modify internal `.stone` bootstrap files directly**, use the exported versions instead, as they are auto-generated and overwritten on every build.
 
 In short, the bootstrap file is the **top-level trigger of your system**.  
-It’s where the continuum awakens — and yes, you can customize it.
+It’s where the continuum awakens, and yes, you can customize it.
 
 ## Summary & Best Practices
 
-The build phase in Stone.js is simple by design — but powerful under the hood. It ensures your **continuum system** is transformed into a clean, portable artifact that’s ready to run in any context: browser, server, or function-as-a-service.
+The build phase in Stone.js is simple by design, but powerful under the hood. It ensures your **continuum system** is transformed into a clean, portable artifact that’s ready to run in any context: browser, server, or function-as-a-service.
 
 Here’s what to remember:
 
@@ -371,16 +371,16 @@ Here’s what to remember:
 
 ### Best Practices
 
-- Use `stone.config.mjs` **only for build configuration** — not runtime logic.
-- Do not use it to inject runtime logic — that’s what middleware, decorators, and lifecycle hooks are for
-- Keep your `input` patterns clean and modular — this helps the system split views from core logic (useful for lazy loading and nano apps)
-- Be mindful of exclusions — especially in browser builds — to avoid bundling server-only modules
+- Use `stone.config.mjs` **only for build configuration**, not runtime logic.
+- Do not use it to inject runtime logic, that’s what middleware, decorators, and lifecycle hooks are for
+- Keep your `input` patterns clean and modular, this helps the system split views from core logic (useful for lazy loading and nano apps)
+- Be mindful of exclusions, especially in browser builds, to avoid bundling server-only modules
 - Extend internal configs (Rollup/Vite) via `stone.config.mjs` instead of overriding them when possible.
 - Only export full configs with `npx stone export rollup/vite` if you have advanced needs.
 - Export your bootstrap file with `npx stone export app` or `npx stone export console` **only if you need** top-level control.
-- Never edit files inside `.stone/` manually — they’re overwritten during each build.
+- Never edit files inside `.stone/` manually, they’re overwritten during each build.
 
-Stone.js gives you full control over how your system is built — but only when you need it.  
+Stone.js gives you full control over how your system is built, but only when you need it.  
 Stick with the defaults to move fast, and customize only when your use case demands it.
 
 Now that your system is built…  

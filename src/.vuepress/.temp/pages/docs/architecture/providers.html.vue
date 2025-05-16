@@ -1,5 +1,5 @@
-<template><div><p>In Stone.js, <strong>Service Providers</strong> are the official mechanism for plugging functionality into the <strong>initialization dimension</strong> — the moment when the system constructs its internal execution context and binds all core services before handling any request, command, or event.</p>
-<p>They are not the only extension point in Stone.js — but they are the main one for <strong>initialization</strong>.<br>
+<template><div><p>In Stone.js, <strong>Service Providers</strong> are the official mechanism for plugging functionality into the <strong>initialization dimension</strong>, the moment when the system constructs its internal execution context and binds all core services before handling any request, command, or event.</p>
+<p>They are not the only extension point in Stone.js, but they are the main one for <strong>initialization</strong>.<br>
 Other dimensions (like <strong>setup</strong> and <strong>integration</strong>) have their own mechanisms. The service provider belongs solely to the phase where the application is “coming to life.”</p>
 <p>A <strong>service provider</strong> is a specialized module that can:</p>
 <ul>
@@ -10,7 +10,7 @@ Other dimensions (like <strong>setup</strong> and <strong>integration</strong>) 
 </ul>
 <p>However, in most cases, you won’t need one.</p>
 <p>Stone.js favors declarative configuration via <strong>decorators</strong> and imperative configuration via the <strong>blueprint API</strong>. These should be your first tools.<br>
-Reach for a service provider only when you need <strong>explicit</strong>, <strong>fine-grained</strong>, or <strong>programmatic control</strong> over how services are wired — or when building a <strong>third-party package</strong> that needs to extend the system in a reusable way.</p>
+Reach for a service provider only when you need <strong>explicit</strong>, <strong>fine-grained</strong>, or <strong>programmatic control</strong> over how services are wired, or when building a <strong>third-party package</strong> that needs to extend the system in a reusable way.</p>
 <p>Providers are especially useful when:</p>
 <ul>
 <li>You’re registering complex services with runtime logic</li>
@@ -21,12 +21,12 @@ Reach for a service provider only when you need <strong>explicit</strong>, <stro
 <p>In summary:</p>
 <div class="hint-container tip">
 <p class="hint-container-title">Tips</p>
-<p>Stone.js can be extended in many ways — but the service provider is the main one for the initialization dimension.</p>
+<p>Stone.js can be extended in many ways, but the service provider is the main one for the initialization dimension.</p>
 </div>
-<p>It’s your bridge into the internal execution context — and your tool of choice when configuration turns into orchestration.</p>
+<p>It’s your bridge into the internal execution context, and your tool of choice when configuration turns into orchestration.</p>
 <h2 id="using-service-provider" tabindex="-1"><a class="header-anchor" href="#using-service-provider"><span>Using Service Provider</span></a></h2>
 <p>Service providers in Stone.js come in two variants: <strong>class-based</strong> and <strong>factory-based</strong>.<br>
-Both are valid and first-class citizens in the system — but each serves different needs.</p>
+Both are valid and first-class citizens in the system, but each serves different needs.</p>
 <p>What matters is <strong>what</strong> a provider does: it must implement one or both of these methods:</p>
 <ul>
 <li><code v-pre>register()</code> → bind services, listeners, etc.</li>
@@ -86,13 +86,13 @@ And depending on your use case, you might choose one variant over the other.</p>
 <template #tab2="{ value, isActive }">
 <h3 id="no-function-based-providers" tabindex="-1"><a class="header-anchor" href="#no-function-based-providers"><span>No Function-Based Providers</span></a></h3>
 <p>You may wonder: why not allow raw functions?</p>
-<p>Because the provider system is lifecycle-aware — and lifecycle awareness requires structure.<br>
+<p>Because the provider system is lifecycle-aware, and lifecycle awareness requires structure.<br>
 A plain function can’t express <code v-pre>register</code>, <code v-pre>boot</code>, or hooks reliably. So to stay coherent with the Continuum, Stone.js only accepts <strong>class-based</strong> and <strong>factory-based</strong> variants.</p>
 </template>
 </Tabs>
 <h2 id="lifecycle-methods" tabindex="-1"><a class="header-anchor" href="#lifecycle-methods"><span>Lifecycle Methods</span></a></h2>
 <p>A service provider’s power lies in <strong>when</strong> it does things, not just <strong>what</strong> it does.</p>
-<p>Stone.js executes all providers during the <strong>initialization phase</strong> — the moment your system is “bootstrapping” itself into a running app. This phase is split into two key steps:</p>
+<p>Stone.js executes all providers during the <strong>initialization phase</strong>, the moment your system is “bootstrapping” itself into a running app. This phase is split into two key steps:</p>
 <ul>
 <li><code v-pre>register()</code> → Bind things into the service container.</li>
 <li><code v-pre>boot()</code> → Configure or activate them once all bindings are available.</li>
@@ -100,12 +100,12 @@ A plain function can’t express <code v-pre>register</code>, <code v-pre>boot</
 <p>Both are <strong>optional</strong>. But you must implement at least one of them to make your provider useful.</p>
 <h3 id="register" tabindex="-1"><a class="header-anchor" href="#register"><span><code v-pre>register()</code></span></a></h3>
 <p>The <code v-pre>register()</code> method is used to bind services, classes, values, and factories into the service container.<br>
-This is where you describe <strong>what your provider offers</strong> — not how it behaves.</p>
+This is where you describe <strong>what your provider offers</strong>, not how it behaves.</p>
 <p>At this stage:</p>
 <ul>
 <li>Your provider can access the service container</li>
 <li>No other provider’s <code v-pre>boot()</code> method has run yet</li>
-<li>You <strong>should not resolve or use</strong> other services — just bind them</li>
+<li>You <strong>should not resolve or use</strong> other services, just bind them</li>
 <li>You have access to the <code v-pre>blueprint</code> and the <code v-pre>eventEmitter</code></li>
 </ul>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line"><span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">MyServiceProvider</span> <span class="token punctuation">{</span></span>
@@ -118,7 +118,7 @@ This is where you describe <strong>what your provider offers</strong> — not ho
 <span class="line"></span></code></pre>
 <div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>This ensures the system builds a complete registry before any configuration or execution begins.</p>
 <h3 id="boot" tabindex="-1"><a class="header-anchor" href="#boot"><span><code v-pre>boot()</code></span></a></h3>
-<p>Once all providers have been registered, Stone.js calls their <code v-pre>boot()</code> methods — in the order they were loaded.</p>
+<p>Once all providers have been registered, Stone.js calls their <code v-pre>boot()</code> methods, in the order they were loaded.</p>
 <p>Now is the time to:</p>
 <ul>
 <li>Resolve services (<code v-pre>container.make(...)</code>)</li>
@@ -133,7 +133,7 @@ This is where you describe <strong>what your provider offers</strong> — not ho
 <span class="line">  <span class="token punctuation">}</span></span>
 <span class="line"><span class="token punctuation">}</span></span>
 <span class="line"></span></code></pre>
-<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>The <code v-pre>boot()</code> phase is the safe place to <strong>use</strong> the things you registered earlier — or to coordinate logic between multiple providers.</p>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>The <code v-pre>boot()</code> phase is the safe place to <strong>use</strong> the things you registered earlier, or to coordinate logic between multiple providers.</p>
 <h3 id="hooks-hook" tabindex="-1"><a class="header-anchor" href="#hooks-hook"><span>Hooks (<code v-pre>@Hook</code>)</span></a></h3>
 <p>Stone.js supports a lifecycle hook system, and providers are the best place to listen to major system events.</p>
 <p>This works only with <strong>class-based providers</strong>, using the <code v-pre>@Hook</code> decorator:</p>
@@ -146,11 +146,11 @@ This is where you describe <strong>what your provider offers</strong> — not ho
 <span class="line">  <span class="token punctuation">}</span></span>
 <span class="line"><span class="token punctuation">}</span></span>
 <span class="line"></span></code></pre>
-<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>This makes your providers reactive and introspectable — and allows third-party packages to extend the framework behavior in clean, declarative ways.</p>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>This makes your providers reactive and introspectable, and allows third-party packages to extend the framework behavior in clean, declarative ways.</p>
 <p>You can subscribe to any of the documented <a href="./blueprint#setup-hooks">setup</a>, <a href="./adapter#integration-hooks">integration</a>, or <a href="./lifecycle">initialization</a> hooks.
 It’s one more reason to use class-based providers when you need deep integration.</p>
 <h2 id="accessing-the-service-container" tabindex="-1"><a class="header-anchor" href="#accessing-the-service-container"><span>Accessing the Service Container</span></a></h2>
-<p>The service container is the beating heart of your Stone.js application — and service providers are its surgeons.<br>
+<p>The service container is the beating heart of your Stone.js application, and service providers are its surgeons.<br>
 But timing matters: <strong>not everything is available all the time</strong>.</p>
 <h3 id="constructor-access" tabindex="-1"><a class="header-anchor" href="#constructor-access"><span>Constructor Access</span></a></h3>
 <p>In class-based providers, the service container is injected via the constructor, and via the function argument in factory-based providers.<br>
@@ -164,7 +164,7 @@ This lets you store and reuse it across <code v-pre>register()</code>, <code v-p
 <div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="hint-container important">
 <p class="hint-container-title">Important</p>
 <p>But be careful: at construction time, only the <strong>blueprint</strong> and the <strong>event emitter</strong> are available, <strong>no other services are registered yet</strong>.
-Don’t try to <code v-pre>make()</code> anything else in the constructor — wait for <code v-pre>boot()</code>.</p>
+Don’t try to <code v-pre>make()</code> anything else in the constructor, wait for <code v-pre>boot()</code>.</p>
 </div>
 <h3 id="what-s-safe-to-use-and-when" tabindex="-1"><a class="header-anchor" href="#what-s-safe-to-use-and-when"><span>What’s Safe to Use (and When)</span></a></h3>
 <table>
@@ -202,7 +202,7 @@ Don’t try to <code v-pre>make()</code> anything else in the constructor — wa
 <li><strong>Register early</strong> (<code v-pre>register()</code>)</li>
 <li><strong>Configure late</strong> (<code v-pre>boot()</code>)</li>
 </ul>
-<p>That’s the continuum between <strong>definition</strong> and <strong>activation</strong> — don’t mix them up.</p>
+<p>That’s the continuum between <strong>definition</strong> and <strong>activation</strong>, don’t mix them up.</p>
 <h3 id="common-container-patterns" tabindex="-1"><a class="header-anchor" href="#common-container-patterns"><span>Common Container Patterns</span></a></h3>
 <p>You’ll mostly use three methods:</p>
 <ul>
@@ -213,7 +213,7 @@ Don’t try to <code v-pre>make()</code> anything else in the constructor — wa
 <p>They allow your provider to be modular and respectful of other providers’ boundaries.</p>
 <h2 id="registering-providers" tabindex="-1"><a class="header-anchor" href="#registering-providers"><span>Registering Providers</span></a></h2>
 <p>Creating a provider is just the first step.<br>
-To make it part of the system, you need to <strong>register it</strong> — either <strong>declaratively</strong> or <strong>imperatively</strong>.</p>
+To make it part of the system, you need to <strong>register it</strong>, either <strong>declaratively</strong> or <strong>imperatively</strong>.</p>
 <p>Stone.js offers both options, so you can pick what fits your architecture and context best.</p>
 <Tabs id="395" :data='[{"id":"Declarative"},{"id":"Imperative"}]' :active="0" tab-id="declarative-imperative">
 <template #title0="{ value, isActive }">Declarative</template>
@@ -298,7 +298,7 @@ Use the <strong>Blueprint API</strong> to register them manually.</p>
 </table>
 <h2 id="best-practices" tabindex="-1"><a class="header-anchor" href="#best-practices"><span>Best Practices</span></a></h2>
 <p>Service providers are one of the most powerful mechanisms in Stone.js. But with great power comes great modularity.
-Here’s how to make the most of them — without shooting yourself in the boot phase.</p>
+Here’s how to make the most of them, without shooting yourself in the boot phase.</p>
 <h4 id="prefer-declarative-or-blueprint-configuration-first" tabindex="-1"><a class="header-anchor" href="#prefer-declarative-or-blueprint-configuration-first"><span>Prefer Declarative or Blueprint Configuration First</span></a></h4>
 <p>Stone.js is designed to be highly declarative.
 Whenever possible, configure your system using decorators (<code v-pre>@Controller</code>, <code v-pre>@Service</code>, <code v-pre>@Middleware</code>, etc.) or the <code v-pre>defineBlueprintConfig()</code> API.</p>
@@ -308,7 +308,7 @@ Whenever possible, configure your system using decorators (<code v-pre>@Controll
 <li>You’re integrating advanced logic that decorators or blueprint fields can’t express</li>
 <li>You’re building a reusable <strong>third-party extension</strong> to plug into the initialization phase</li>
 </ul>
-<p>This keeps your system clean, introspectable, and aligned with the Continuum — where configuration is separated by <strong>dimension</strong>, not just by type.</p>
+<p>This keeps your system clean, introspectable, and aligned with the Continuum, where configuration is separated by <strong>dimension</strong>, not just by type.</p>
 <h4 id="keep-providers-focused" tabindex="-1"><a class="header-anchor" href="#keep-providers-focused"><span>Keep Providers Focused</span></a></h4>
 <p>Split your logic across <strong>multiple small providers</strong> instead of a giant one.</p>
 <p>Bad:</p>
@@ -332,8 +332,8 @@ Whenever possible, configure your system using decorators (<code v-pre>@Controll
 <li><code v-pre>FeatureXProvider</code></li>
 <li>...</li>
 </ul>
-<p>This improves reuse, testing, maintainability — and your sanity.</p>
-<h4 id="use-register-to-declare-—-not-to-execute" tabindex="-1"><a class="header-anchor" href="#use-register-to-declare-—-not-to-execute"><span>Use <code v-pre>register()</code> to declare — not to execute</span></a></h4>
+<p>This improves reuse, testing, maintainability, and your sanity.</p>
+<h4 id="use-register-to-declare-not-to-execute" tabindex="-1"><a class="header-anchor" href="#use-register-to-declare-not-to-execute"><span>Use <code v-pre>register()</code> to declare, not to execute</span></a></h4>
 <p>Your <code v-pre>register()</code> method should <strong>only bind</strong> things, never resolve or execute them.</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line"><span class="token comment">// ❌ Don't do this in register()</span></span>
 <span class="line"><span class="token keyword">this</span><span class="token punctuation">.</span>container<span class="token punctuation">.</span><span class="token function">make</span><span class="token punctuation">(</span><span class="token string">'db'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">connect</span><span class="token punctuation">(</span><span class="token punctuation">)</span></span>
@@ -361,7 +361,7 @@ Let the system finish wiring everything before you flip the switch.</p>
 <span class="line"></span></code></pre>
 <div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>Shorter aliases improve readability and reduce coupling to implementation names.</p>
 <h4 id="use-lifecycle-hooks-for-diagnostics-or-extension" tabindex="-1"><a class="header-anchor" href="#use-lifecycle-hooks-for-diagnostics-or-extension"><span>Use lifecycle hooks for diagnostics or extension</span></a></h4>
-<p>Hooks are not just for fun — they let you:</p>
+<p>Hooks are not just for fun, they let you:</p>
 <ul>
 <li>Log startup/shutdown</li>
 <li>Add diagnostics</li>
@@ -380,11 +380,11 @@ Let the system finish wiring everything before you flip the switch.</p>
 <li>Use config injection (<code v-pre>blueprint.get(...)</code>)</li>
 <li>Keep dependencies explicit and controlled</li>
 </ul>
-<p>Your future self — or the next developer — will thank you.</p>
+<p>Your future self, or the next developer, will thank you.</p>
 <h2 id="summary" tabindex="-1"><a class="header-anchor" href="#summary"><span>Summary</span></a></h2>
 <p>While service providers are powerful, they are not the default way to configure your app.
-Use them when you need control over the <strong>initialization dimension</strong> — and prefer decorators and blueprint-based configuration for everything else.</p>
-<p>Think of providers as your advanced toolkit — precise, low-level, and perfect for libraries or complex orchestration.
+Use them when you need control over the <strong>initialization dimension</strong>, and prefer decorators and blueprint-based configuration for everything else.</p>
+<p>Think of providers as your advanced toolkit, precise, low-level, and perfect for libraries or complex orchestration.
 But for common scenarios, let the Continuum guide you: configure declaratively, and only dive deeper when you must.</p>
 <p>Here’s what to remember:</p>
 <ul>
@@ -397,7 +397,7 @@ But for common scenarios, let the Continuum guide you: configure declaratively, 
 </ul>
 <p>By organizing your system into clean, focused, reusable providers, you unlock the full power of Stone.js’s modular and scalable architecture.</p>
 <blockquote>
-<p>You don’t “use” Stone.js —<br>
+<p>You don’t “use” Stone.js,<br>
 You <em>provide</em> it.</p>
 </blockquote>
 </div></template>

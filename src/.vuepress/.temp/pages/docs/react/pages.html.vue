@@ -210,7 +210,7 @@ In <strong>multi-route apps</strong>, you must register your routes using the St
 <li><strong>Multi-route apps</strong> require you to define each route explicitly, using either API style.</li>
 <li>Routes in Stone.js support advanced features: parameter validation, bindings, aliases, protocols, and more.</li>
 </ul>
-<p>See the <RouteLink to="/docs/react/Routing.html">Routing documentation</RouteLink> for the full routing API available to your pages.</p>
+<p>See the <a href="./routing">Routing documentation</a> for the full routing API available to your pages.</p>
 <h2 id="page-lifecycle" tabindex="-1"><a class="header-anchor" href="#page-lifecycle"><span>Page Lifecycle</span></a></h2>
 <p>In Stone.js, every page operates across two interconnected dimensions:</p>
 <ul>

@@ -5,8 +5,8 @@
 <h2 id="dynamic-parameters" tabindex="-1"><a class="header-anchor" href="#dynamic-parameters"><span>Dynamic Parameters</span></a></h2>
 <p>Dynamic parameters allow you to define flexible routes that match variable values in the path or domain. Stone Router supports two syntaxes:</p>
 <ul>
-<li><code v-pre>/users/:id</code> — <strong>Colon-based</strong> (preferred in this documentation)</li>
-<li><code v-pre>/users/{id}</code> — <strong>Brace-based</strong></li>
+<li><code v-pre>/users/:id</code>, <strong>Colon-based</strong> (preferred in this documentation)</li>
+<li><code v-pre>/users/{id}</code>, <strong>Brace-based</strong></li>
 </ul>
 <p>Both are supported and behave identically, but <strong>you should stick to one style for consistency</strong>. We'll use the colon syntax throughout.</p>
 <h3 id="path-parameters" tabindex="-1"><a class="header-anchor" href="#path-parameters"><span>Path Parameters</span></a></h3>
@@ -230,9 +230,9 @@ They’re especially useful to ensure consistency and reduce conditional logic i
 This lets you enforce format constraints directly in your route definitions.</p>
 <p>There are three levels of validation:</p>
 <ul>
-<li><strong>Implicit Rules</strong> — inline regex in the path or domain</li>
-<li><strong>Explicit Rules</strong> — using the <code v-pre>rules</code> option</li>
-<li><strong>Global Rules</strong> — applied to all routes</li>
+<li><strong>Implicit Rules</strong>, inline regex in the path or domain</li>
+<li><strong>Explicit Rules</strong>, using the <code v-pre>rules</code> option</li>
+<li><strong>Global Rules</strong>, applied to all routes</li>
 </ul>
 <h3 id="implicit-rules" tabindex="-1"><a class="header-anchor" href="#implicit-rules"><span>Implicit Rules</span></a></h3>
 <p>Add regex patterns directly inside your path or domain parameters:</p>
@@ -297,7 +297,7 @@ This lets you enforce format constraints directly in your route definitions.</p>
 <h4 id="keep-optional-parameters-at-the-end" tabindex="-1"><a class="header-anchor" href="#keep-optional-parameters-at-the-end"><span>Keep Optional Parameters at the End</span></a></h4>
 <ul>
 <li>Always define optional parameters (<code v-pre>:slug?</code>) <strong>after</strong> required ones</li>
-<li>Avoid ambiguous routes like <code v-pre>/users/:slug?/edit/:id</code> — they lead to confusion and bugs</li>
+<li>Avoid ambiguous routes like <code v-pre>/users/:slug?/edit/:id</code>, they lead to confusion and bugs</li>
 </ul>
 <h4 id="use-defaults-strategically" tabindex="-1"><a class="header-anchor" href="#use-defaults-strategically"><span>Use Defaults Strategically</span></a></h4>
 <ul>

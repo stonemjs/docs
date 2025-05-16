@@ -3,26 +3,26 @@ title: Blueprint
 ---
 
 **The Blueprint is the centralized place where all configuration lives.**  
-It is the output of the **Setup Dimension** — an object that defines the structure, components, and behaviors of your Stone.js system before it runs. It consolidates all declared modules, services, middleware, handlers, adapters, and more — and crucially, it is also where you register all configuration and settings your modules need to operate correctly.
+It is the output of the **Setup Dimension**, an object that defines the structure, components, and behaviors of your Stone.js system before it runs. It consolidates all declared modules, services, middleware, handlers, adapters, and more, and crucially, it is also where you register all configuration and settings your modules need to operate correctly.
 
 This object is then passed along the rest of the system lifecycle. It’s available throughout the **Integration**, **Initialization**, and **Functional** dimensions, making it the cornerstone for building predictable, portable, and introspectable software across contexts.
 
-The **Blueprint** is not frozen by default — it remains mutable. However, **mutating it at runtime is discouraged** unless absolutely necessary. It should be treated as a stable artifact once setup is complete. Mutation is possible, but it must be deliberate and controlled; the developer must understand the risks involved and the impact on system coherence.
+The **Blueprint** is not frozen by default, it remains mutable. However, **mutating it at runtime is discouraged** unless absolutely necessary. It should be treated as a stable artifact once setup is complete. Mutation is possible, but it must be deliberate and controlled; the developer must understand the risks involved and the impact on system coherence.
 
 ### Why It Exists
 
-Complex, cross-platform systems need a place to define what they are made of — and how they should behave. The Blueprint provides exactly that: a **declarative manifest** and **runtime instruction model**, separated cleanly from execution logic.
+Complex, cross-platform systems need a place to define what they are made of, and how they should behave. The Blueprint provides exactly that: a **declarative manifest** and **runtime instruction model**, separated cleanly from execution logic.
 
 Without it, setup logic becomes fragmented across files, dimensions, and abstractions. With it, everything is unified:
 - System configuration is centralized and introspectable
 - Dependencies and features are organized and declared up-front
 - Dynamic behavior remains possible through middleware and hooks
 
-Whether your system runs on Node.js, in the browser, or in a FaaS environment — the Blueprint ensures every component is composed consistently and logically.
+Whether your system runs on Node.js, in the browser, or in a FaaS environment, the Blueprint ensures every component is composed consistently and logically.
 
 ### Where It Fits in the Continuum
 
-In the Continuum Architecture, the Blueprint is built only once — in the **Setup Dimension** — and made **accessible in all other dimensions**. It does not *drive* those dimensions directly, but it provides the necessary context and configuration to operate within them.
+In the Continuum Architecture, the Blueprint is built only once, in the **Setup Dimension**, and made **accessible in all other dimensions**. It does not *drive* those dimensions directly, but it provides the necessary context and configuration to operate within them.
 
 ```mermaid
 %%{init: {"theme": "base", "themeVariables": {
@@ -53,7 +53,7 @@ flowchart LR
 - It is also passed into the **Initialization Dimension**, making it available inside services, handlers, lifecycle hooks, and modules.
 - During runtime, any module can access the Blueprint to retrieve configurations or references established during setup.
 
-This cross-dimensional accessibility is what enables Stone.js to unify runtime behavior across platforms — all through a consistent, introspected, and purpose-driven configuration model.
+This cross-dimensional accessibility is what enables Stone.js to unify runtime behavior across platforms, all through a consistent, introspected, and purpose-driven configuration model.
 
 In short:
   - The Setup Dimension builds the Blueprint.  
@@ -62,7 +62,7 @@ In short:
 
 ## Blueprint API
 
-The **Blueprint** is an instance of the `Config` class — a configuration registry built by the Setup Dimension and shared across all others.
+The **Blueprint** is an instance of the `Config` class, a configuration registry built by the Setup Dimension and shared across all others.
 
 ### Working with Configuration
 
@@ -185,7 +185,7 @@ blueprint.get('stone.kernel.middleware')
 
 ### Core Namespaces
 
-Here’s a list of common built-in namespaces under `stone.*`. This list is **not exhaustive** — each module can define its own.
+Here’s a list of common built-in namespaces under `stone.*`. This list is **not exhaustive**, each module can define its own.
 
 | Namespace                                   | Dimension      | Purpose                            |
 | ------------------------------------------- | -------------- | ---------------------------------- |
@@ -213,10 +213,10 @@ Here’s a list of common built-in namespaces under `stone.*`. This list is **no
 
 ## Blueprint Configuration
 
-Once your system starts, the **Setup Dimension** builds the **Blueprint** — and this is your chance to define exactly what your system should look like. You can configure the Blueprint [**statically**](#static-configuration) (without control over timing) 
+Once your system starts, the **Setup Dimension** builds the **Blueprint**, and this is your chance to define exactly what your system should look like. You can configure the Blueprint [**statically**](#static-configuration) (without control over timing) 
 or [**dynamically**](#dynamic-configuration-with-middleware) (using setup middleware, with full control over execution order and logic).
 
-This section explains how to register values, modules, services, middleware, and anything else your system needs — either **declaratively** or **imperatively**.
+This section explains how to register values, modules, services, middleware, and anything else your system needs, either **declaratively** or **imperatively**.
 
 ### Static Configuration
 
@@ -227,7 +227,7 @@ Static configuration is the simplest way to **configure the Blueprint**. It allo
 
 #### Declarative
 
-To configure the Blueprint declaratively, use the `@Configuration()` decorator. This decorator marks a class that exposes a `configure(blueprint)` method — called automatically during the setup process.
+To configure the Blueprint declaratively, use the `@Configuration()` decorator. This decorator marks a class that exposes a `configure(blueprint)` method, called automatically during the setup process.
 
 ```ts
 import { Configuration, IConfiguration, IBlueprint } from '@stone-js/core'
@@ -257,7 +257,7 @@ export class MyConfig implements IConfiguration {
 
 ##### Built-in Decorators
 
-Many features in Stone.js offer their own decorators. For example, `@Service()`, `@Hook()`, `@Middleware()`, etc. — these often register themselves into the Blueprint automatically. Use `@Configuration()` only when no feature-specific decorator exists, or when you need to customize the configuration values.
+Many features in Stone.js offer their own decorators. For example, `@Service()`, `@Hook()`, `@Middleware()`, etc., these often register themselves into the Blueprint automatically. Use `@Configuration()` only when no feature-specific decorator exists, or when you need to customize the configuration values.
 
 **`@StoneApp()`**
 
@@ -302,7 +302,7 @@ export const appBlueprint = defineBlueprintConfig(async (blueprint: IBlueprint) 
 **Setup middleware** (also called **Blueprint middleware**) allows you to configure the **Blueprint** dynamically. This gives you full control over the execution flow and lets you introspect modules, apply conditional logic, or modify structure based on other config.
 
 ::: important
-Setup middleware runs once during the Setup Phase — before any request is received.
+Setup middleware runs once during the Setup Phase, before any request is received.
 :::
 
 Setup middleware receives a `BlueprintContext`:
@@ -341,7 +341,7 @@ export class MySetupMiddleware {
 }
 ```
 
-This example adds an integration middleware *only if* the selected platform is the browser — perfect for cross-platform configurations.
+This example adds an integration middleware *only if* the selected platform is the browser, perfect for cross-platform configurations.
 
 @tab Imperative
 
@@ -372,7 +372,7 @@ export const appBlueprint = defineBlueprintConfig((blueprint: IBlueprint) => {
 })
 ```
 
-This example adds an integration middleware *only if* the selected platform is the browser — perfect for cross-platform configurations.
+This example adds an integration middleware *only if* the selected platform is the browser, perfect for cross-platform configurations.
 
 :::
 
@@ -380,7 +380,7 @@ This example adds an integration middleware *only if* the selected platform is t
 
 By default, all Blueprint configuration is loaded **once** at application startup and remains static for the lifetime of the system.
 
-**Live configuration** allows you to define logic that re-runs and updates the blueprint **at every request**. This is useful when settings change dynamically (e.g., database-driven config, tenant-specific options) and must take effect immediately — without restarting the system.
+**Live configuration** allows you to define logic that re-runs and updates the blueprint **at every request**. This is useful when settings change dynamically (e.g., database-driven config, tenant-specific options) and must take effect immediately, without restarting the system.
 
 You can define live configuration both **declaratively** and **imperatively**.
 
@@ -430,7 +430,7 @@ Each live configuration module runs independently on every request, ensuring you
 
 ### Meta Modules and Imperative Utilities
 
-When working with the **imperative API**, you interact directly with Stone.js’s meta module system — a low-level, flexible system based on **metaprogramming**. This system is transparent in the declarative API (via decorators), but in the imperative world, **you build and register meta modules yourself**.
+When working with the **imperative API**, you interact directly with Stone.js’s meta module system, a low-level, flexible system based on **metaprogramming**. This system is transparent in the declarative API (via decorators), but in the imperative world, **you build and register meta modules yourself**.
 
 #### Meta Modules
 
@@ -508,9 +508,9 @@ blueprint.add('stone.kernel.middleware', [
 ])
 ```
 
-If a utility function exists for your module type, prefer using it — it ensures consistency and reduces the chance of misconfigured metadata. When no utility is available yet, you can fall back to using `add()` with a properly formed meta module.
+If a utility function exists for your module type, prefer using it, it ensures consistency and reduces the chance of misconfigured metadata. When no utility is available yet, you can fall back to using `add()` with a properly formed meta module.
 
-This low-level power is what makes the imperative API flexible and expressive. It lets you build your application exactly how you want — from scratch — while staying aligned with the Continuum Architecture.
+This low-level power is what makes the imperative API flexible and expressive. It lets you build your application exactly how you want, from scratch, while staying aligned with the Continuum Architecture.
 
 ### Let's Recap
 
@@ -526,7 +526,7 @@ Use live configuration when values must reflect external changes without restart
 
 ## Setup Hooks
 
-Setup hooks are lifecycle events triggered **only during the Setup Phase**. Their purpose is to give you visibility into the blueprint construction process — whether for logging, debugging, analytics, or performance tracking.
+Setup hooks are lifecycle events triggered **only during the Setup Phase**. Their purpose is to give you visibility into the blueprint construction process, whether for logging, debugging, analytics, or performance tracking.
 
 ```mermaid
 %%{init: {"theme": "base", "themeVariables": {
@@ -557,7 +557,7 @@ flowchart TD
     style F stroke-width:4px,fill:#FFFFFF
 ```
 
-These hooks do **not** participate in modifying the system — they exist purely for **observability**.
+These hooks do **not** participate in modifying the system, they exist purely for **observability**.
 
 ::: important
 If you need to modify the blueprint dynamically, use **setup middleware** instead.  
@@ -610,7 +610,7 @@ You can register setup hooks using either the **declarative API** or the **imper
 
 #### Declarative API
 
-Use the `@Hook('<hookName>')` method decorator to register a hook. Hook methods can live in any class — but for clarity and separation of concerns, it's best to place them in a dedicated observer class or service provider.
+Use the `@Hook('<hookName>')` method decorator to register a hook. Hook methods can live in any class, but for clarity and separation of concerns, it's best to place them in a dedicated observer class or service provider.
 
 ```ts
 import {
@@ -630,7 +630,7 @@ export class BlueprintObserver {
 }
 ```
 
-Hook methods are executed via reflection. They are **not** tied to class lifecycle — avoid using `this`.
+Hook methods are executed via reflection. They are **not** tied to class lifecycle, avoid using `this`.
 
 @tab Imperative
 
@@ -659,7 +659,7 @@ export const appSetupBlueprint = defineBlueprintConfig((blueprint) => {
 ```
 :::
 
-That’s it. Setup hooks give you powerful insight into how your system is assembled — without affecting behavior. Use them to instrument your system early and catch issues before runtime.
+That’s it. Setup hooks give you powerful insight into how your system is assembled, without affecting behavior. Use them to instrument your system early and catch issues before runtime.
 
 ## Best Practices
 
@@ -705,7 +705,7 @@ If you must mutate it, document the reasoning clearly and isolate the change.
 
 #### Avoid `this` in Hooks
 
-Hook methods are called via reflection, independently of any class lifecycle. Do not rely on `this` in hook methods — prefer static logic or external utilities.
+Hook methods are called via reflection, independently of any class lifecycle. Do not rely on `this` in hook methods, prefer static logic or external utilities.
 
 #### Use Utility Functions for Clarity
 
@@ -733,11 +733,11 @@ Use them for:
 
 If you define your own configuration structure, document it clearly for future contributors. This ensures consistent usage and easier onboarding.
 
-Following these practices ensures your blueprint remains structured, predictable, and introspectable — keeping your Stone.js system aligned with the Continuum Architecture.
+Following these practices ensures your blueprint remains structured, predictable, and introspectable, keeping your Stone.js system aligned with the Continuum Architecture.
 
 ## Summary
 
-The Blueprint is the foundation of your Stone.js system. It defines all configurations, registered modules, middleware, lifecycle hooks, and services — built once during setup, then accessed across all dimensions.
+The Blueprint is the foundation of your Stone.js system. It defines all configurations, registered modules, middleware, lifecycle hooks, and services, built once during setup, then accessed across all dimensions.
 
 You can populate the Blueprint in three primary ways:
 
@@ -759,4 +759,4 @@ export const mainBlueprint = defineBlueprintConfig((blueprint) => {
 })
 ```
 
-Once defined, the Blueprint becomes your system’s introspectable, shareable configuration — powering every adapter, every request, and every dimension.
+Once defined, the Blueprint becomes your system’s introspectable, shareable configuration, powering every adapter, every request, and every dimension.

@@ -1,12 +1,12 @@
 <template><div><p>Logging is effortless and extensible in Stone.js.</p>
-<p>At its core, Stone.js provides a built-in logging utility through a console-based singleton logger. This default logger is designed for simplicity — it's available globally, context-aware, and ready to use without configuration.</p>
+<p>At its core, Stone.js provides a built-in logging utility through a console-based singleton logger. This default logger is designed for simplicity, it's available globally, context-aware, and ready to use without configuration.</p>
 <p>But that's just the beginning.</p>
-<p>The logger system in Stone.js is fully integrated into the Continuum Architecture, meaning it works seamlessly across all dimensions: setup, initialization, and integration. You can access it from lifecycle hooks, middleware, event handlers, services and so on. The default implementation is perfect for development and prototyping — but when you need more power, you can replace it entirely with your own logger (like <a href="https://getpino.io/#/" target="_blank" rel="noopener noreferrer">pino</a> or <a href="https://github.com/winstonjs/winston" target="_blank" rel="noopener noreferrer">winston</a>).</p>
+<p>The logger system in Stone.js is fully integrated into the Continuum Architecture, meaning it works seamlessly across all dimensions: setup, initialization, and integration. You can access it from lifecycle hooks, middleware, event handlers, services and so on. The default implementation is perfect for development and prototyping, but when you need more power, you can replace it entirely with your own logger (like <a href="https://getpino.io/#/" target="_blank" rel="noopener noreferrer">pino</a> or <a href="https://github.com/winstonjs/winston" target="_blank" rel="noopener noreferrer">winston</a>).</p>
 <p>Stone.js treats logging like any other part of your internal context: injectable, configurable, and replaceable.</p>
-<p>Logging is not just for debugging — it's a first-class citizen in the Stone.js ecosystem. Whether you're building a CLI tool, a backend microservice, or a frontend app, the logger is always there, fluent with your context.</p>
+<p>Logging is not just for debugging, it's a first-class citizen in the Stone.js ecosystem. Whether you're building a CLI tool, a backend microservice, or a frontend app, the logger is always there, fluent with your context.</p>
 <h2 id="using-logger" tabindex="-1"><a class="header-anchor" href="#using-logger"><span>Using Logger</span></a></h2>
 <h3 id="access-the-logger" tabindex="-1"><a class="header-anchor" href="#access-the-logger"><span>Access the Logger</span></a></h3>
-<p>Stone.js gives you multiple ways to access the logger, depending on the context you're in. The default logger is available as a singleton, but it’s also automatically injected into the system's internal context during setup — so no need for global imports, you can just inject it where you need it.</p>
+<p>Stone.js gives you multiple ways to access the logger, depending on the context you're in. The default logger is available as a singleton, but it’s also automatically injected into the system's internal context during setup, so no need for global imports, you can just inject it where you need it.</p>
 <h4 id="global-singleton-anywhere" tabindex="-1"><a class="header-anchor" href="#global-singleton-anywhere"><span>Global Singleton (Anywhere)</span></a></h4>
 <p>The simplest way to log from anywhere in your code is by using the singleton instance:</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line"><span class="token keyword">import</span> <span class="token punctuation">{</span> Logger <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@stone-js/core'</span><span class="token punctuation">;</span></span>
@@ -40,7 +40,7 @@ But avoid it in constructors if you can inject <code v-pre>logger</code> properl
 <span class="line">  <span class="token punctuation">}</span></span>
 <span class="line"><span class="token punctuation">}</span></span>
 <span class="line"></span></code></pre>
-<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p><strong>Tip</strong>: Avoid accessing the global <code v-pre>Logger</code> singleton in constructors — always prefer injection. This keeps your code clean, testable, and aligned with the Continuum.</p>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p><strong>Tip</strong>: Avoid accessing the global <code v-pre>Logger</code> singleton in constructors, always prefer injection. This keeps your code clean, testable, and aligned with the Continuum.</p>
 </template>
 <template #tab1="{ value, isActive }">
 <h5 id="factory-based" tabindex="-1"><a class="header-anchor" href="#factory-based"><span>Factory-based</span></a></h5>
@@ -82,9 +82,9 @@ But avoid it in constructors if you can inject <code v-pre>logger</code> properl
 <span class="line">Logger<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token string">'Something went wrong'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> context<span class="token operator">:</span> <span class="token string">'ServiceX'</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></span>
 <span class="line"></span></code></pre>
 <div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div></div></div><p>This logger is available immediately after the blueprint is initialized and is accessible from anywhere in your application.</p>
-<p>The behavior is context-aware — meaning you don’t need to manually check log levels or environment conditions. Stone.js handles that based on your blueprint settings.</p>
+<p>The behavior is context-aware, meaning you don’t need to manually check log levels or environment conditions. Stone.js handles that based on your blueprint settings.</p>
 <h3 id="configuring-the-logger" tabindex="-1"><a class="header-anchor" href="#configuring-the-logger"><span>Configuring the Logger</span></a></h3>
-<p>Stone.js uses the blueprint as the single source of truth for all logger configuration. You don’t need to hardcode log levels or timestamps — just define your preferences, and the logger will adapt automatically across your entire application.</p>
+<p>Stone.js uses the blueprint as the single source of truth for all logger configuration. You don’t need to hardcode log levels or timestamps, just define your preferences, and the logger will adapt automatically across your entire application.</p>
 <h4 id="available-configuration-keys" tabindex="-1"><a class="header-anchor" href="#available-configuration-keys"><span>Available Configuration Keys</span></a></h4>
 <p>You can set the following options in your blueprint:</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line">blueprint<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token string">'stone.logger.level'</span><span class="token punctuation">,</span> <span class="token string">'debug'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>     <span class="token comment">// Minimum log level</span></span>
@@ -116,9 +116,9 @@ But avoid it in constructors if you can inject <code v-pre>logger</code> properl
 <span class="line">blueprint<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token string">'stone.logger.useTimestamp'</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span></span>
 <span class="line">blueprint<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token string">'stone.logger.useColors'</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span></span>
 <span class="line"></span></code></pre>
-<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>This setup ensures that your logs are verbose, readable, and timestamped — ideal for development or debugging sessions.</p>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>This setup ensures that your logs are verbose, readable, and timestamped, ideal for development or debugging sessions.</p>
 <h2 id="customizing-the-logger" tabindex="-1"><a class="header-anchor" href="#customizing-the-logger"><span>Customizing the Logger</span></a></h2>
-<p>Stone.js is not opinionated about how you log — it simply defines an interface and lets you plug in whatever tool fits your needs. If the built-in <code v-pre>ConsoleLogger</code> doesn’t meet your requirements, you can replace it with your own implementation.</p>
+<p>Stone.js is not opinionated about how you log, it simply defines an interface and lets you plug in whatever tool fits your needs. If the built-in <code v-pre>ConsoleLogger</code> doesn’t meet your requirements, you can replace it with your own implementation.</p>
 <p>You might want to customize the logger if:</p>
 <ul>
 <li>You need file-based or remote logging (e.g. writing to disk, HTTP, Elasticsearch).</li>
@@ -174,7 +174,7 @@ But avoid it in constructors if you can inject <code v-pre>logger</code> properl
 </Tabs>
 <p>Both approaches give you access to the blueprint, so you can conditionally enable logs, pull log levels, or respect other system settings.</p>
 <h3 id="using-a-custom-logger" tabindex="-1"><a class="header-anchor" href="#using-a-custom-logger"><span>Using a Custom Logger</span></a></h3>
-<p>Once your custom logger is defined — either as a class or a factory — you don’t need to change how you use logging in your application.<br>
+<p>Once your custom logger is defined, either as a class or a factory, you don’t need to change how you use logging in your application.<br>
 Everything works the same: you can still access the logger via the global singleton or via dependency injection in lifecycle hooks, services, or middleware.</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line"><span class="token keyword">import</span> <span class="token punctuation">{</span> Logger <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@stone-js/core'</span><span class="token punctuation">;</span></span>
 <span class="line"></span>
@@ -231,7 +231,7 @@ So once registered, all logging across your system will automatically route thro
 <span class="line"></span></code></pre>
 <div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div></template>
 </Tabs>
-<p>This allows you to register your custom logger and inject any required configuration upfront — no extra boilerplate, just pure context-driven setup.</p>
+<p>This allows you to register your custom logger and inject any required configuration upfront, no extra boilerplate, just pure context-driven setup.</p>
 <h2 id="example-using-pino-with-stone-js" tabindex="-1"><a class="header-anchor" href="#example-using-pino-with-stone-js"><span>Example: Using Pino with Stone.js</span></a></h2>
 <p><a href="https://getpino.io/#/" target="_blank" rel="noopener noreferrer">Pino</a> is a high-performance JSON logger, ideal for structured logging in production environments.</p>
 <h3 id="installation" tabindex="-1"><a class="header-anchor" href="#installation"><span>Installation</span></a></h3>
@@ -376,9 +376,9 @@ So once registered, all logging across your system will automatically route thro
 <li>Use <code v-pre>info()</code> for general application state.</li>
 <li>Use <code v-pre>warn()</code> for unexpected but non-fatal conditions.</li>
 <li>Use <code v-pre>error()</code> only when something truly failed and should be investigated.</li>
-<li>Use <code v-pre>trace()</code> sparingly — it's meant for very fine-grained diagnostics.</li>
+<li>Use <code v-pre>trace()</code> sparingly, it's meant for very fine-grained diagnostics.</li>
 </ul>
-<p>Don’t log everything all the time — too much logging can hide real problems in a sea of noise.</p>
+<p>Don’t log everything all the time, too much logging can hide real problems in a sea of noise.</p>
 <h4 id="avoid-logging-sensitive-data" tabindex="-1"><a class="header-anchor" href="#avoid-logging-sensitive-data"><span>Avoid logging sensitive data</span></a></h4>
 <p>Even though logs are meant for diagnostics, never log passwords, tokens, personal identifiers, or any confidential business logic. If needed, use redaction libraries or manual masking.</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line">logger<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">'User login'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> username <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// ✅ okay</span></span>
@@ -391,7 +391,7 @@ So once registered, all logging across your system will automatically route thro
 <li>Choose <code v-pre>winston</code> for flexibility and multiple output targets.</li>
 <li>Choose your own tool if it fits your ecosystem.</li>
 </ul>
-<p>Stone.js makes swapping the logger easy — just implement the <code v-pre>ILogger</code> interface and register it via <code v-pre>defineLogger()</code>.</p>
+<p>Stone.js makes swapping the logger easy, just implement the <code v-pre>ILogger</code> interface and register it via <code v-pre>defineLogger()</code>.</p>
 <h4 id="keep-log-messages-meaningful" tabindex="-1"><a class="header-anchor" href="#keep-log-messages-meaningful"><span>Keep log messages meaningful</span></a></h4>
 <p>Treat log messages like code comments. They should:</p>
 <ul>
@@ -404,18 +404,18 @@ So once registered, all logging across your system will automatically route thro
 <span class="line"></span></code></pre>
 <div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="summary" tabindex="-1"><a class="header-anchor" href="#summary"><span>Summary</span></a></h2>
 <p>Logging in Stone.js is simple, flexible, and built to scale with your application.</p>
-<p>Out of the box, you get a lightweight, console-based logger that’s fully integrated into the framework. It’s available globally via a singleton and is automatically injected into your context where appropriate — services, middleware, lifecycle hooks, and more.</p>
-<p>You can configure its behavior through the blueprint, adjusting verbosity, timestamp formatting, and debug mode. When you're ready to move beyond the basics, you can easily replace the logger with your own class or factory — whether that’s wrapping a library like Pino or Winston, or building a completely custom solution.</p>
-<p>Stone.js doesn’t lock you into one way of doing things — it gives you a common interface, a clean contract, and the freedom to extend logging in a way that fits your needs.</p>
+<p>Out of the box, you get a lightweight, console-based logger that’s fully integrated into the framework. It’s available globally via a singleton and is automatically injected into your context where appropriate, services, middleware, lifecycle hooks, and more.</p>
+<p>You can configure its behavior through the blueprint, adjusting verbosity, timestamp formatting, and debug mode. When you're ready to move beyond the basics, you can easily replace the logger with your own class or factory, whether that’s wrapping a library like Pino or Winston, or building a completely custom solution.</p>
+<p>Stone.js doesn’t lock you into one way of doing things, it gives you a common interface, a clean contract, and the freedom to extend logging in a way that fits your needs.</p>
 <p><strong>Quick recap:</strong></p>
 <ul>
 <li>Use the logger via <code v-pre>Logger</code> or inject it where available.</li>
 <li>Configure it with <code v-pre>stone.logger.level</code>, <code v-pre>useTimestamp</code>, and <code v-pre>stone.debug</code>.</li>
 <li>Implement <code v-pre>ILogger</code> if you want to customize.</li>
-<li>Register your logger using <code v-pre>defineLogger()</code> — class or factory, your choice.</li>
+<li>Register your logger using <code v-pre>defineLogger()</code>, class or factory, your choice.</li>
 <li>Log intentionally. Debug confidently. Deploy with traceability.</li>
 </ul>
-<p>That's it — you're now fully equipped to tame your logs in the Continuum.</p>
+<p>That's it, you're now fully equipped to tame your logs in the Continuum.</p>
 </div></template>
 
 

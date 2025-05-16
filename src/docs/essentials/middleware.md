@@ -128,7 +128,7 @@ export const appOptions = {
 ### Integration Middleware
 
 Here, we give just an overview to facilitate a general understanding of Integration Middleware within Stone.js. 
-For a deeper understanding, please refer to the section on [adapters](../http/adapters.md).
+For a deeper understanding, please refer to the section on adapters.
 
 #### Simultaneous Registration
 Define and register middleware, specifying `adapter` for the integration layer, `input` or `output` type, and platform (e.g., `NODE_HTTP_PLATFORM`):

@@ -2,7 +2,7 @@
 title: Service Container
 ---
 
-The **Service Container** is Stone.js’s powerful internal dependency injection engine — your system's backstage manager.
+The **Service Container** is Stone.js’s powerful internal dependency injection engine, your system's backstage manager.
 
 It lives in the **Initialization Dimension**, where your system is bootstrapped and prepared to respond to intentions. Within the Continuum Architecture, the service container acts as the **ephemeral internal context**, managing the concrete dependencies that your system needs *right now* to apply its domain logic in the current execution context.
 
@@ -29,7 +29,7 @@ In Stone.js, everything revolves around managing **context**. The container repr
 - Passed into your services and factories
 - Destroyed when the system is done processing the event
 
-It is **ephemeral**, which means it lives only for the lifetime of the current event, but it's **universal** — the same mechanism powers your CLI, Lambda, SSR server, or frontend app.
+It is **ephemeral**, which means it lives only for the lifetime of the current event, but it's **universal**, the same mechanism powers your CLI, Lambda, SSR server, or frontend app.
 
 ### Core Responsibilities
 
@@ -40,7 +40,7 @@ It is **ephemeral**, which means it lives only for the lifetime of the current e
 
 ## Accessing the Container
 
-In Stone.js, the **Service Container** is passed to your services so they can resolve their own dependencies. How you access it depends on how your service is defined — **class-based**, **factory-based**, or **function-based** (spoiler: that one’s not allowed).
+In Stone.js, the **Service Container** is passed to your services so they can resolve their own dependencies. How you access it depends on how your service is defined, **class-based**, **factory-based**, or **function-based** (spoiler: that one’s not allowed).
 
 Let’s break it down.
 
@@ -77,7 +77,7 @@ export class AdminService {
 }
 ```
 
-This works because the container is a **Proxy** — it resolves dependencies as properties.
+This works because the container is a **Proxy**, it resolves dependencies as properties.
 
 @tab Factory-based
 ### Factory-Based Services
@@ -110,7 +110,7 @@ Factory-based access is ideal when you need dynamic setup or want to pass the co
 @tab Function-based
 ### Function-Based Services: Not Allowed
 
-Function-based handlers — that is, direct `(event) => {}` functions — don’t receive the container. Why?
+Function-based handlers, that is, direct `(event) => {}` functions, don’t receive the container. Why?
 
 Because there's no place to inject it. They’re not a class, not a factory, and not wrapped in anything.
 
@@ -134,9 +134,9 @@ This is a good practice because it makes your code more readable and maintainabl
 
 In Stone.js, services can be registered in three main ways, depending on your style and needs:
 
-- **Declarative API** — Clean and class-friendly
-- **Imperative API** — Blueprint-based and flexible
-- **Explicit API** — Full manual control (for advanced use)
+- **Declarative API**, Clean and class-friendly
+- **Imperative API**, Blueprint-based and flexible
+- **Explicit API**, Full manual control (for advanced use)
 
 All these methods inject your service into the **Service Container**, making it available for resolution anywhere in the system.
 
@@ -144,11 +144,11 @@ All these methods inject your service into the **Service Container**, making it 
 @tab:active Declarative
 ### Declarative API
 
-This is the easiest and most elegant way to register a service — just decorate your class.
+This is the easiest and most elegant way to register a service, just decorate your class.
 
-#### `@Stone()` — The Foundation
+#### `@Stone()`, The Foundation
 
-Use the `@Stone()` decorator to register any class into the container. It’s the most generic form — like placing a foundational stone in your app.
+Use the `@Stone()` decorator to register any class into the container. It’s the most generic form, like placing a foundational stone in your app.
 
 ```ts
 import { Stone } from '@stone-js/core'
@@ -159,7 +159,7 @@ export class LoggerService {
 }
 ```
 
-#### `@Service()` — The Specialized Shortcut
+#### `@Service()`, The Specialized Shortcut
 
 Prefer this when registering actual services. It behaves the same as `@Stone()`, but it's semantically clearer.
 
@@ -191,7 +191,7 @@ You’ll learn more about aliases in the [Aliases](#aliases) section.
 @tab Imperative
 ### Imperative API
 
-For more control — or for programmatic setups — use the `defineBlueprintConfig()` function. You register services in the `stone.services` namespace.
+For more control, or for programmatic setups, use the `defineBlueprintConfig()` function. You register services in the `stone.services` namespace.
 
 ```ts
 import { defineBlueprintConfig } from '@stone-js/core'
@@ -261,7 +261,7 @@ Remember: declarative and blueprint-based bindings are preferred for most apps. 
 
 Once your services are registered, it’s time to use them. The Stone.js Service Container offers several ways to **resolve** dependencies, from classic methods to some truly elegant tricks using destructuring and proxies.
 
-### `make()` — Classic Resolution
+### `make()`, Classic Resolution
 
 Use `make()` to resolve a registered binding by its name or class.
 
@@ -272,7 +272,7 @@ const logger = container.make(LoggerService)
 
 If the binding doesn’t exist, `make()` throws an error. Use it when you expect the service to already be bound.
 
-### `resolve()` — Auto-Binding Included
+### `resolve()`, Auto-Binding Included
 
 Use `resolve()` when you're not sure if a service is registered. It tries to resolve the binding, and if it doesn't exist, it **automatically binds and returns** it.
 
@@ -280,7 +280,7 @@ Use `resolve()` when you're not sure if a service is registered. It tries to res
 const logger = container.resolve(LoggerService)
 ```
 
-This is particularly useful for classes that haven’t been registered manually — they’ll be auto-bound as singletons by default.
+This is particularly useful for classes that haven’t been registered manually, they’ll be auto-bound as singletons by default.
 
 You can also control that behavior:
 
@@ -290,7 +290,7 @@ const temp = container.resolve(TempService, false) // Bind as factory instead
 
 ### Destructuring Resolution
 
-Because the container is a Proxy, you can **destructure** multiple dependencies at once — clean and elegant, especially in constructor or factory parameters.
+Because the container is a Proxy, you can **destructure** multiple dependencies at once, clean and elegant, especially in constructor or factory parameters.
 
 ::: tabs#class-factory-function
 @tab:active Class-based
@@ -314,12 +314,12 @@ const handler = ({ config, logger }: { config: Config; logger: Logger }) => {
 :::
 
 ::: tip
-This is our favorite method — readable, intuitive, and type-safe in TypeScript.
+This is our favorite method, readable, intuitive, and type-safe in TypeScript.
 :::
 
 ### Proxy-Based Resolution
 
-Want to access services like properties? Go for it — the container is a Proxy!
+Want to access services like properties? Go for it, the container is a Proxy!
 
 ```ts
 const logger = container.logger
@@ -329,7 +329,7 @@ const userService = container.userService
 This works thanks to `Proxy.get`, which intercepts property access and calls `make()` under the hood.
 
 ::: important
-But don’t get carried away — only one-level property resolution is supported. No `container.services.user`, just `container.userService`.
+But don’t get carried away, only one-level property resolution is supported. No `container.services.user`, just `container.userService`.
 :::
 
 ### Factory Access
@@ -345,7 +345,7 @@ This is useful for passing service creators around without resolving them yet.
 
 ## Aliases
 
-In Stone.js, you can assign **aliases** to your services — alternate names used when resolving a service. This is more than just syntactic sugar. It’s a **best practice** that safeguards your app against name mangling (like minification during bundling), Facilitates destructuring DI, and improves long-term flexibility.
+In Stone.js, you can assign **aliases** to your services, alternate names used when resolving a service. This is more than just syntactic sugar. It’s a **best practice** that safeguards your app against name mangling (like minification during bundling), Facilitates destructuring DI, and improves long-term flexibility.
 
 ### Why Use Aliases?
 
@@ -389,7 +389,7 @@ blueprint.add('stone.services', [
 ```
 :::
 
-#### Explicit (via container method — inside a Service Provider only)
+#### Explicit (via container method, inside a Service Provider only)
 
 ```ts
 container.alias(UserService, ['userService', 'usr'])
@@ -423,7 +423,7 @@ Aliases are just keys mapped to real bindings. They’re lightweight, powerful, 
 
 ### Always Alias
 
-For every registered service, give it an alias. Whether it’s class-based, factory-based, or even just a plain object — an alias guarantees consistency.
+For every registered service, give it an alias. Whether it’s class-based, factory-based, or even just a plain object, an alias guarantees consistency.
 
 Especially important when:
 
@@ -445,8 +445,8 @@ container.bound('myService')
 
 ### Which One to Use?
 
-- `has` — Feels like you're querying a map or dictionary.  
-- `bound` — Feels like you're asking “has this been bound already?”
+- `has`, Feels like you're querying a map or dictionary.  
+- `bound`, Feels like you're asking “has this been bound already?”
 
 Choose whichever fits your mental model. Under the hood, they do the same thing.
 
@@ -475,7 +475,7 @@ Need to inspect everything? Use `container.getBindings()` and `container.getAlia
 
 ## Best Practices
 
-The Service Container in Stone.js is simple by design — but with great power comes great… opportunity for mistakes. Here are the best ways to use it effectively (and avoid common traps).
+The Service Container in Stone.js is simple by design, but with great power comes great… opportunity for mistakes. Here are the best ways to use it effectively (and avoid common traps).
 
 #### 1. **Prefer Declarative Binding When Possible**
 
@@ -506,7 +506,7 @@ Explicit binding (`container.singleton`, `container.binding`, etc.) is for advan
 - During system bootstrapping or testing
 - For edge cases like external libraries, raw values, or mocking
 
-Avoid using it **inside event handlers or business logic** — it breaks the dependency model and can lead to hidden side effects.
+Avoid using it **inside event handlers or business logic**, it breaks the dependency model and can lead to hidden side effects.
 
 #### 4. **Alias Everything**
 
@@ -564,17 +564,17 @@ The **Service Container** is the beating heart of Stone.js’ initialization flo
 Let’s recap what you’ve learned:
 
 - The container lives in the **Initialization Dimension** as the **ephemeral internal context**.
-- It supports **class-based** and **factory-based** services — but **not** raw function-based handlers.
+- It supports **class-based** and **factory-based** services, but **not** raw function-based handlers.
 - You can register services through:
   - **Declarative decorators** (`@Stone`, `@Service`)
   - **Blueprint configuration** (`defineBlueprintConfig`)
-  - **Explicit bindings** (`singleton`, `binding`, `instance`) — for power users
+  - **Explicit bindings** (`singleton`, `binding`, `instance`), for power users
 - Services can be resolved using:
-  - `make()` — strict resolution
-  - `resolve()` — with fallback auto-binding
-  - **Destructuring** — elegant and type-safe
-  - **Proxy access** — clean syntax, but only one level deep
+  - `make()`, strict resolution
+  - `resolve()`, with fallback auto-binding
+  - **Destructuring**, elegant and type-safe
+  - **Proxy access**, clean syntax, but only one level deep
 - Aliases are your friends. They protect your code from name changes and build processes.
 - The container offers both **flexibility** and **discipline**. Follow the best practices and it will stay clean, efficient, and predictable.
 
-Stone.js doesn’t just inject dependencies — it injects clarity into your architecture.
+Stone.js doesn’t just inject dependencies, it injects clarity into your architecture.

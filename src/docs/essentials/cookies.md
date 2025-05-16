@@ -2,7 +2,7 @@
 title: Cookies
 ---
 
-Stone.js provides a simple, universal API for managing cookies across all environments — Node.js servers and browsers alike.  
+Stone.js provides a simple, universal API for managing cookies across all environments, Node.js servers and browsers alike.  
 In the spirit of the Continuum Architecture, cookie management is fully integrated into the platform layer, offering a **single, context-aware API** regardless of where your code runs.
 
 Cookies can be accessed from incoming events (such as `IncomingHttpEvent` and `IncomingBrowserEvent`) and attached to outgoing responses (`OutgoingHttpResponse`, `OutgoingBrowserResponse`).
@@ -13,7 +13,7 @@ You can easily:
 - **Set** cookies in outgoing responses.
 - **Clear** cookies when needed.
 
-Because the Stone.js Cookie API abstracts the underlying platform differences, you can use exactly the same code on the server and in the browser — no conditions, no special cases.
+Because the Stone.js Cookie API abstracts the underlying platform differences, you can use exactly the same code on the server and in the browser, no conditions, no special cases.
 
 Here’s a quick glimpse:
 
@@ -41,7 +41,7 @@ Both are simple, powerful, and fully platform-agnostic.
 ### Cookie Class
 
 The `Cookie` class represents a single cookie instance.  
-You usually won’t need to create `Cookie` objects manually — Stone.js handles that for you — but it’s good to know how they behave.
+You usually won’t need to create `Cookie` objects manually, Stone.js handles that for you, but it’s good to know how they behave.
 
 | Method                                 | Description                                                                           |
 | :------------------------------------- | :------------------------------------------------------------------------------------ |
@@ -92,7 +92,7 @@ response.cookies
 ```
 
 ::: important
-You almost never have to think about cookie parsing or formatting yourself — Stone.js does it automatically.
+You almost never have to think about cookie parsing or formatting yourself, Stone.js does it automatically.
 :::
 
 ### CookieOptions Type (Quick Overview)
@@ -111,12 +111,12 @@ When setting a cookie, you can pass standard options:
 
 These are passed when creating or setting cookies, just like in standard HTTP cookies.
 
-Stone.js ensures you interact with cookies in a **typed, structured, and secure** way — no brittle string parsing or manual cookie headers needed.
+Stone.js ensures you interact with cookies in a **typed, structured, and secure** way, no brittle string parsing or manual cookie headers needed.
 
 ## Using Cookies
 
 Stone.js abstracts away all cookie handling differences between Node.js and the browser, so you can write your code once and deploy it anywhere.  
-Behind the scenes, cookies behave slightly differently depending on the environment — but you almost never have to care.
+Behind the scenes, cookies behave slightly differently depending on the environment, but you almost never have to care.
 
 ### Reading Cookies
 
@@ -259,7 +259,7 @@ Instead of manually reading `document.cookie` or setting `Set-Cookie` headers yo
 - `response.setCookie()`
 - `response.clearCookie()`
 
-Stone.js ensures that cookies are parsed, signed, serialized, and secured properly across environments — don't bypass this layer.
+Stone.js ensures that cookies are parsed, signed, serialized, and secured properly across environments, don't bypass this layer.
 
 #### Sign Sensitive Cookies on the Backend
 
@@ -268,7 +268,7 @@ When dealing with authentication tokens, sessions, or other sensitive data:
 - Always sign cookies by setting a `stone.http.cookie.secret` in the blueprint.
 - Signed cookies prevent tampering: if someone tries to alter a cookie, Stone.js will detect it and reject the value.
 
-**Do not attempt to sign cookies in the browser** — secrets must stay on the server side.
+**Do not attempt to sign cookies in the browser**, secrets must stay on the server side.
 
 #### Secure Your Cookies
 
@@ -300,7 +300,7 @@ Example:
 response.setCookie('settings', { theme: 'dark', lang: 'en' });
 ```
 
-No manual serialization needed — just pass your object, Stone.js handles it safely.
+No manual serialization needed, just pass your object, Stone.js handles it safely.
 
 #### Separate Backend and Frontend Configurations
 
@@ -316,7 +316,7 @@ By following these practices, you ensure your cookies are secure, portable, and 
 
 ## Summary
 
-The Stone.js Cookie API gives you a simple, structured, and secure way to work with cookies — across both Node.js servers and browsers — without ever worrying about platform differences.
+The Stone.js Cookie API gives you a simple, structured, and secure way to work with cookies, across both Node.js servers and browsers, without ever worrying about platform differences.
 
 In Stone.js:
 
@@ -324,10 +324,10 @@ In Stone.js:
 - You **set** cookies in outgoing responses (`response.cookies`, `response.setCookie()`).
 - You **clear** cookies easily (`response.clearCookie()`).
 - You **configure** cookie behavior globally via the blueprint (`stone.http.cookie`, `stone.browser.cookie`).
-- You **sign** sensitive backend cookies safely — while keeping frontend cookies simple and clean.
+- You **sign** sensitive backend cookies safely, while keeping frontend cookies simple and clean.
 - You use the **same code** in both frontend and backend applications thanks to the Continuum Architecture.
 
-Stone.js handles all the heavy lifting behind the scenes: parsing, serializing, signing, securing — so you can focus on what really matters: building modern, cloud-native applications without friction.
+Stone.js handles all the heavy lifting behind the scenes: parsing, serializing, signing, securing, so you can focus on what really matters: building modern, cloud-native applications without friction.
 
 **One Cookie API to rule them all.**  
 **Anywhere. Any platform. Any app.**

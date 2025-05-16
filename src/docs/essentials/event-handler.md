@@ -3,7 +3,7 @@ title: Event Handlers
 ---
 
 The **Event handler** is the core execution unit of every Stone.js application.  
-It represents the precise moment when the domain finally meets the context — when your logic responds to a real-world intention.
+It represents the precise moment when the domain finally meets the context, when your logic responds to a real-world intention.
 
 In Stone.js, **all external interactions**—HTTP requests, CLI commands, WebSocket messages, MQTT events—are normalized as a single type: the [`IncomingEvent`](./incoming-event).  
 And there's exactly **one** way to handle an incoming event: the **event handler**.
@@ -138,7 +138,7 @@ flowchart LR
     style D stroke-width:4px,fill:#FFFFFF
 ```
 
-This is where intention meets behavior — your application, in the most literal sense, *happens* here.
+This is where intention meets behavior, your application, in the most literal sense, *happens* here.
 
 ### One Event, One Handler
 
@@ -179,35 +179,35 @@ This means you write one handler that works across environments, even across pla
 
 Your handler can return:
 
-`void` — if you’re doing something side-effectful or async
+`void`, if you’re doing something side-effectful or async
 ```ts
 handle(event: IncomingHttpEvent): void {
   console.log(event.uri)
 }
 ```
 
-A **value** — which will be passed back as the final response
+A **value**, which will be passed back as the final response
 ```ts
 handle(event: IncomingHttpEvent): string {
   return 'Hello world!'
 }
 ```
 
-An **object** — which will be passed back as the final response
+An **object**, which will be passed back as the final response
 ```ts
 handle(event: IncomingHttpEvent): { message: string } {
   return { message: 'Hello world!' }
 }
 ```
 
-A **Promise** — if you’re doing async work (e.g., calling a database)
+A **Promise**, if you’re doing async work (e.g., calling a database)
 ```ts
 handle(event: IncomingHttpEvent): Promise<{ message: string }> {
   return Promise.resolve({ message: 'Hello world!' })
 }
 ```
 
-An [`OutgoingResponse`](./outgoing-response) — if you want to have full control over the response body, status code, headers, etc.
+An [`OutgoingResponse`](./outgoing-response), if you want to have full control over the response body, status code, headers, etc.
 ```ts
 handle(event: IncomingHttpEvent): OutgoingHttpResponse {
   return OutgoingHttpResponse.create({
@@ -235,8 +235,8 @@ This means you can focus purely on **what the domain should do**, while Stone.js
 
 Stone.js offers **two ways** to register your event handler:
 
-- Declarative API — using decorators and class-based modules
-- Imperative API — using `defineBlueprintConfig` for manual control
+- Declarative API, using decorators and class-based modules
+- Imperative API, using `defineBlueprintConfig` for manual control
 
 No matter the shape (class, function, factory), the registration process makes your handler available to the kernel for runtime execution.
 
@@ -306,7 +306,7 @@ But what if your app needs to handle **multiple types of requests**, mapped to d
 
 Out of the box, the kernel expects a **single** event handler. 
 It will receive every `IncomingEvent` and decide what to do.
-This makes your app ultra-lightweight and cloud-ready — but limited to one entrypoint.
+This makes your app ultra-lightweight and cloud-ready, but limited to one entrypoint.
 
 ### Scaling with the Router
 
@@ -340,7 +340,7 @@ Stone.js lets you scale from **mono-handler** to **multi-handler** seamlessly, w
 ## Dimension-Specific Behavior
 
 In Stone.js, every component belongs to a **dimension** of the Continuum Architecture.  
-The **event handler** is firmly rooted in the **initialization dimension** — the moment your system is fully built and ready to process intentions.
+The **event handler** is firmly rooted in the **initialization dimension**, the moment your system is fully built and ready to process intentions.
 
 ### Initialization-Only
 
@@ -350,7 +350,7 @@ Unlike setup-time configuration or integration-specific behavior, the event hand
 - Executed **once per incoming event**
 - Independent of the integration layer or platform
 
-It is the final stage of the request lifecycle — the domain’s direct response to the external world.
+It is the final stage of the request lifecycle, the domain’s direct response to the external world.
 
 ### Platform-Agnostic
 
@@ -362,7 +362,7 @@ Thanks to the `IncomingEvent` abstraction, you can write **one handler** that wo
 - **MQTT** events
 - And more…
 
-The event handler doesn’t care how the event got in — only **what it means**.  
+The event handler doesn’t care how the event got in, only **what it means**.  
 This allows your domain logic to stay pure, portable, and deployment-agnostic.
 
 ### No Setup or Integration Responsibilities
@@ -377,12 +377,12 @@ Those are handled before the event handler is even called.
 Your handler's job is simple:  
 **Receive the intention, interpret it, and reply.**
 
-This is what makes Stone.js ideal for continuum-based, context-flexible applications — from mono-cloud systems to full systems.
+This is what makes Stone.js ideal for continuum-based, context-flexible applications, from mono-cloud systems to full systems.
 
 ## Best Practices
 
 The event handler is **not a traditional controller**.  
-It’s the **meeting point between intention and domain** — and it should remain as focused as possible.
+It’s the **meeting point between intention and domain**, and it should remain as focused as possible.
 
 Here’s how to get the most out of your event handlers in Stone.js:
 
@@ -391,7 +391,7 @@ Here’s how to get the most out of your event handlers in Stone.js:
 Your event handler should do exactly one thing:  
 **Accept the incoming event and pass it along to the right part of your domain.**
 
-Avoid writing business logic inside the handler — that’s what services, use cases, or domain modules are for.
+Avoid writing business logic inside the handler, that’s what services, use cases, or domain modules are for.
 
 ```ts
 handle(event: IncomingEvent) {
@@ -453,7 +453,7 @@ Stick to the intention → domain → response model, and your apps will remain 
 ## Summary
 
 The **event handler** is the central execution point of every Stone.js application.  
-It’s where context becomes meaningful — and the domain takes action.
+It’s where context becomes meaningful, and the domain takes action.
 
 Here’s what you should remember:
 
@@ -465,7 +465,7 @@ Here’s what you should remember:
 - It must stay **light**, **clean**, and **focused on delegation**
 - It works identically across all platforms, thanks to the standardized `IncomingEvent`
 
-Stone.js gives you one, and only one, entrypoint for application logic — because that’s all you need to build anything.
+Stone.js gives you one, and only one, entrypoint for application logic, because that’s all you need to build anything.
 
 > One handler.  
 > Infinite possibilities.  

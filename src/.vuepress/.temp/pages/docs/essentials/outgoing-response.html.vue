@@ -1,5 +1,5 @@
-<template><div><p>In Stone.js, the <code v-pre>OutgoingResponse</code> represents the <strong>effect</strong> of your application — the answer to an incoming intention. Just as the <code v-pre>IncomingEvent</code> expresses what the user or system wants, the <code v-pre>OutgoingResponse</code> expresses what your domain wants to say back.</p>
-<p>It travels in the <strong>reverse direction</strong> of an <code v-pre>IncomingEvent</code>, moving from the functional domain, through the initialization layer, and finally into the integration layer — where it’s interpreted by an adapter (HTTP, Browser, CLI, etc.).</p>
+<template><div><p>In Stone.js, the <code v-pre>OutgoingResponse</code> represents the <strong>effect</strong> of your application, the answer to an incoming intention. Just as the <code v-pre>IncomingEvent</code> expresses what the user or system wants, the <code v-pre>OutgoingResponse</code> expresses what your domain wants to say back.</p>
+<p>It travels in the <strong>reverse direction</strong> of an <code v-pre>IncomingEvent</code>, moving from the functional domain, through the initialization layer, and finally into the integration layer, where it’s interpreted by an adapter (HTTP, Browser, CLI, etc.).</p>
 <p>Responses in Stone.js are fully <strong>context-aware</strong>. They support:</p>
 <p>returning plain values (like strings or objects)</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line"><span class="token keyword">const</span> handler <span class="token operator">=</span> <span class="token punctuation">(</span>event<span class="token operator">:</span> IncomingEvent<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token punctuation">{</span> message<span class="token operator">:</span> <span class="token builtin">string</span> <span class="token punctuation">}</span> <span class="token operator">=></span> <span class="token punctuation">{</span></span>
@@ -32,10 +32,10 @@
 <p class="hint-container-title">Important</p>
 <p>While Stone.js automatically wraps primitive return values in an <code v-pre>OutgoingResponse</code> for event handlers, Initialization middleware must explicitly return an <code v-pre>OutgoingResponse</code> or one of its subclasses.</p>
 </div>
-<p>This gives you a unified, declarative or programmatic way to represent everything from a JSON API payload to a file download, a browser redirect, or a CLI output — all part of the same continuum.</p>
+<p>This gives you a unified, declarative or programmatic way to represent everything from a JSON API payload to a file download, a browser redirect, or a CLI output, all part of the same continuum.</p>
 <p>In the Continuum, every intention deserves a meaningful effect.</p>
 <h2 id="using-outgoingresponse" tabindex="-1"><a class="header-anchor" href="#using-outgoingresponse"><span>Using <code v-pre>OutgoingResponse</code></span></a></h2>
-<p>The <code v-pre>OutgoingResponse</code> is the base class for all response types in Stone.js. It’s a lightweight, dimension-neutral response that lets you set content, status codes, and preparation logic — all without tying your app to a specific adapter like HTTP or Browser.</p>
+<p>The <code v-pre>OutgoingResponse</code> is the base class for all response types in Stone.js. It’s a lightweight, dimension-neutral response that lets you set content, status codes, and preparation logic, all without tying your app to a specific adapter like HTTP or Browser.</p>
 <p>You can use it:</p>
 <ul>
 <li><strong>explicitly</strong>, via <code v-pre>OutgoingResponse.create(...)</code>,</li>
@@ -79,8 +79,8 @@
 </table>
 <p>Even if it’s not an HTTP response, you can still set a status code and message. This is useful for CLI or other non-HTTP contexts where you want to convey success or failure.</p>
 <h2 id="using-outgoingbrowserresponse" tabindex="-1"><a class="header-anchor" href="#using-outgoingbrowserresponse"><span>Using <code v-pre>OutgoingBrowserResponse</code></span></a></h2>
-<p>The <code v-pre>OutgoingBrowserResponse</code> is a frontend-only response type. It mimics the behavior of backend responses, but it’s meant strictly for the <strong>browser environment</strong> — whether you're in a full SPA or using client-side hydration in an SSR app.</p>
-<p>This class exists to preserve a <strong>unified API experience</strong> between frontend and backend responses in Stone.js. It allows you to return meaningful responses within a browser-based flow — including redirections — without dealing with transport-specific logic like headers or cookies.</p>
+<p>The <code v-pre>OutgoingBrowserResponse</code> is a frontend-only response type. It mimics the behavior of backend responses, but it’s meant strictly for the <strong>browser environment</strong>, whether you're in a full SPA or using client-side hydration in an SSR app.</p>
+<p>This class exists to preserve a <strong>unified API experience</strong> between frontend and backend responses in Stone.js. It allows you to return meaningful responses within a browser-based flow, including redirections, without dealing with transport-specific logic like headers or cookies.</p>
 <h3 id="example" tabindex="-1"><a class="header-anchor" href="#example"><span>Example</span></a></h3>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line"><span class="token keyword">import</span> <span class="token punctuation">{</span> OutgoingBrowserResponse <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@stone-js/browser-core'</span></span>
 <span class="line"></span>
@@ -89,9 +89,9 @@
 <span class="line">  statusCode<span class="token operator">:</span> <span class="token number">200</span></span>
 <span class="line"><span class="token punctuation">}</span><span class="token punctuation">)</span></span>
 <span class="line"></span></code></pre>
-<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>This response will be interpreted by the browser adapter — it’s never sent as an HTTP response.</p>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>This response will be interpreted by the browser adapter, it’s never sent as an HTTP response.</p>
 <h3 id="api-helpers" tabindex="-1"><a class="header-anchor" href="#api-helpers"><span>API Helpers</span></a></h3>
-<p><code v-pre>OutgoingBrowserResponse</code> provides status code helpers — useful for guards or logic conditions in middlewares:</p>
+<p><code v-pre>OutgoingBrowserResponse</code> provides status code helpers, useful for guards or logic conditions in middlewares:</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line">response<span class="token punctuation">.</span><span class="token function">is2xx</span><span class="token punctuation">(</span><span class="token punctuation">)</span>      <span class="token comment">// true if 2xx success</span></span>
 <span class="line">response<span class="token punctuation">.</span><span class="token function">isError</span><span class="token punctuation">(</span><span class="token punctuation">)</span>    <span class="token comment">// true if 4xx or 5xx</span></span>
 <span class="line">response<span class="token punctuation">.</span><span class="token function">isOk</span><span class="token punctuation">(</span><span class="token punctuation">)</span>       <span class="token comment">// true if exactly 200</span></span>
@@ -125,7 +125,7 @@
 <li>Your app has <strong>multiple routes</strong> managed by a router (not mono-route).</li>
 </ul>
 <h2 id="using-outgoinghttpresponse" tabindex="-1"><a class="header-anchor" href="#using-outgoinghttpresponse"><span>Using <code v-pre>OutgoingHttpResponse</code></span></a></h2>
-<p>The <code v-pre>OutgoingHttpResponse</code> is the main response class for <strong>HTTP server</strong> environments in Stone.js — including REST APIs, SSR applications, and any backend dealing with HTTP transport.</p>
+<p>The <code v-pre>OutgoingHttpResponse</code> is the main response class for <strong>HTTP server</strong> environments in Stone.js, including REST APIs, SSR applications, and any backend dealing with HTTP transport.</p>
 <p>It extends the base <code v-pre>OutgoingResponse</code>, and brings full HTTP capabilities:</p>
 <ul>
 <li>status codes and messages,</li>
@@ -341,7 +341,7 @@ providing a final opportunity to modify the response before it's sent to the cli
 <li><strong>Factory Utilities</strong> for <strong>dynamic</strong>, runtime-defined responses,</li>
 <li><strong>Decorators</strong> for <strong>static</strong>, declarative, handler-based responses.</li>
 </ul>
-<p>Each approach fits a different use case — use the right one depending on your context.</p>
+<p>Each approach fits a different use case, use the right one depending on your context.</p>
 <h3 id="factory-utilities" tabindex="-1"><a class="header-anchor" href="#factory-utilities"><span>Factory Utilities</span></a></h3>
 <p>Factory utilities allow you to create ready-to-use responses dynamically at runtime.<br>
 They abstract away the boilerplate of instantiating and preparing <code v-pre>OutgoingHttpResponse</code> or its subclasses.</p>
@@ -549,7 +549,7 @@ They abstract away the boilerplate of instantiating and preparing <code v-pre>Ou
 </table>
 <div class="hint-container important">
 <p class="hint-container-title">Important</p>
-<p><strong>Do not mix both approaches</strong> for the same handler — it could lead to unexpected behavior.</p>
+<p><strong>Do not mix both approaches</strong> for the same handler, it could lead to unexpected behavior.</p>
 </div>
 <h2 id="built-in-http-middleware" tabindex="-1"><a class="header-anchor" href="#built-in-http-middleware"><span>Built-in HTTP Middleware</span></a></h2>
 <p>In Stone.js, most HTTP behaviors are <strong>explicit</strong>. You must enable and configure them <strong>yourself</strong> through the Blueprint system.</p>
@@ -561,7 +561,7 @@ They abstract away the boilerplate of instantiating and preparing <code v-pre>Ou
 </ul>
 <p>These are powerful, highly customizable, and fully integrated with the Continuum Architecture.</p>
 <h4 id="cors-cross-origin-resource-sharing" tabindex="-1"><a class="header-anchor" href="#cors-cross-origin-resource-sharing"><span>CORS (Cross-Origin Resource Sharing)</span></a></h4>
-<p>By default, <strong>CORS is disabled</strong> in Stone.js — keeping the system as strict and secure as possible out of the box.</p>
+<p>By default, <strong>CORS is disabled</strong> in Stone.js, keeping the system as strict and secure as possible out of the box.</p>
 <p>If your application needs CORS (e.g., APIs accessed by a frontend app from another domain), Stone.js provides the official <code v-pre>CORSHeadersMiddleware</code>.</p>
 <h6 id="enabling-cors" tabindex="-1"><a class="header-anchor" href="#enabling-cors"><span>Enabling CORS</span></a></h6>
 <p>To enable CORS:</p>
@@ -658,7 +658,7 @@ They abstract away the boilerplate of instantiating and preparing <code v-pre>Ou
 <p>The <code v-pre>CompressionMiddleware</code> is an <strong>Initialization Middleware</strong>.</p>
 </div>
 <p>Stone.js will automatically compress responses when the client supports it (based on <code v-pre>Accept-Encoding</code> headers).</p>
-<p>You don’t need to manually compress responses — it happens transparently during the response lifecycle.</p>
+<p>You don’t need to manually compress responses, it happens transparently during the response lifecycle.</p>
 <h4 id="static-files" tabindex="-1"><a class="header-anchor" href="#static-files"><span>Static Files</span></a></h4>
 <p>Need to serve static assets (e.g., images, CSS, JavaScript)?<br>
 Stone.js offers <code v-pre>StaticFileMiddleware</code> for this purpose.</p>
@@ -695,7 +695,7 @@ Stone.js offers <code v-pre>StaticFileMiddleware</code> for this purpose.</p>
 </ul>
 <p>If a compressed version of a file exists, Stone.js can serve it directly to optimize bandwidth.</p>
 <h2 id="best-practices" tabindex="-1"><a class="header-anchor" href="#best-practices"><span>Best Practices</span></a></h2>
-<p>Building responses in Stone.js is powerful — but to maximize <strong>clarity</strong>, <strong>flexibility</strong>, and <strong>portability</strong>, you should follow some important best practices.</p>
+<p>Building responses in Stone.js is powerful, but to maximize <strong>clarity</strong>, <strong>flexibility</strong>, and <strong>portability</strong>, you should follow some important best practices.</p>
 <h4 id="let-stone-js-infer-responses-in-event-handlers" tabindex="-1"><a class="header-anchor" href="#let-stone-js-infer-responses-in-event-handlers"><span>Let Stone.js Infer Responses in Event Handlers</span></a></h4>
 <p>In your <strong>event handlers</strong>, you don't need to manually create a response unless you want to customize it.
 <strong>Just return your data as-is</strong>, and Stone.js will automatically infer the correct <code v-pre>OutgoingResponse</code> based on your platform (HTTP, Browser, Console, etc.).</p>
@@ -728,7 +728,7 @@ In <strong>middleware</strong>, you must <strong>always return an explicit respo
 <span class="line"><span class="token punctuation">}</span></span>
 <span class="line"></span></code></pre>
 <div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>This ensures that the system knows exactly when the pipeline is short-circuited and how to format the outgoing response properly.</p>
-<h4 id="choose-declarative-or-imperative-—-not-both" tabindex="-1"><a class="header-anchor" href="#choose-declarative-or-imperative-—-not-both"><span>Choose Declarative or Imperative — Not Both</span></a></h4>
+<h4 id="choose-declarative-or-imperative-not-both" tabindex="-1"><a class="header-anchor" href="#choose-declarative-or-imperative-not-both"><span>Choose Declarative or Imperative, Not Both</span></a></h4>
 <ul>
 <li>Use <strong>Status Decorators</strong> (<code v-pre>@JsonHttpResponse</code>, <code v-pre>@HtmlHttpResponse</code>, etc.) when your response shape (status code, headers) is <strong>static and predictable</strong>.</li>
 <li>Use <strong>Factory Utilities</strong> (<code v-pre>jsonHttpResponse()</code>, <code v-pre>redirectHttpResponse()</code>, etc.) when your response depends on <strong>runtime conditions</strong> (e.g., different statuses, dynamic headers).</li>
@@ -834,9 +834,9 @@ Mixing declarative and imperative response shaping can cause unexpected behavior
 <li>Let Stone.js infer responses in <strong>event handlers</strong>.</li>
 <li>Always return an <strong>explicit response</strong> in <strong>middleware</strong>.</li>
 <li>Register CORS, Compression, Static Files <strong>through Blueprint</strong>.</li>
-<li>Keep your <strong>domain logic pure</strong> — no HTTP pollution inside handlers.</li>
+<li>Keep your <strong>domain logic pure</strong>, no HTTP pollution inside handlers.</li>
 </ul>
-<p>You now master how responses flow in Stone.js — from your domain back to the world.<br>
+<p>You now master how responses flow in Stone.js, from your domain back to the world.<br>
 Simple, clean, and continuum-aligned.</p>
 </div></template>
 

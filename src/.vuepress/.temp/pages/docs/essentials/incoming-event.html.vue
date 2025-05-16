@@ -1,10 +1,10 @@
-<template><div><p>In Stone.js, the <code v-pre>IncomingEvent</code> is the heart of your application. It represents the <strong>intention</strong> that your system must respond to. This intention doesn’t come out of nowhere — it’s born from a <strong>cause</strong> in the external world.</p>
-<p>That cause — an HTTP request, a CLI command, a cloud event — is captured and interpreted by an <a href="../architecture/adapter"><strong>adapter</strong></a>.
+<template><div><p>In Stone.js, the <code v-pre>IncomingEvent</code> is the heart of your application. It represents the <strong>intention</strong> that your system must respond to. This intention doesn’t come out of nowhere, it’s born from a <strong>cause</strong> in the external world.</p>
+<p>That cause, an HTTP request, a CLI command, a cloud event, is captured and interpreted by an <a href="../architecture/adapter"><strong>adapter</strong></a>.
 The adapter translates it into an <code v-pre>IncomingEvent</code>, and it’s passed through the system for processing.</p>
 <p>In the Continuum Architecture, <strong>every application begins with an intention</strong>. That intention is always modeled as an <code v-pre>IncomingEvent</code>.</p>
-<p>Even though it’s created by the adapter in the <strong>integration dimension</strong>, the <code v-pre>IncomingEvent</code> <strong>belongs to the initialization dimension</strong> — where the core logic and internal context live. It is part of the internal flow of your application, not a raw input you manipulate freely.</p>
+<p>Even though it’s created by the adapter in the <strong>integration dimension</strong>, the <code v-pre>IncomingEvent</code> <strong>belongs to the initialization dimension</strong>, where the core logic and internal context live. It is part of the internal flow of your application, not a raw input you manipulate freely.</p>
 <p>You cannot mutate or instantiate an <code v-pre>IncomingEvent</code> directly. It is created <strong>internally by the adapter</strong>, and as a developer, you only <strong>participate in its creation</strong> via <a href="../architecture/adapter#adapter-middleware">adapter middleware</a>.
-Once received, it is treated as immutable. You can read from it, enrich it with metadata, and respond to it — but you never replace or reassign it.</p>
+Once received, it is treated as immutable. You can read from it, enrich it with metadata, and respond to it, but you never replace or reassign it.</p>
 <p>There are many flavors of <code v-pre>IncomingEvent</code> depending on the platform:</p>
 <table>
 <thead>
@@ -42,15 +42,15 @@ Once received, it is treated as immutable. You can read from it, enrich it with 
 </tr>
 </tbody>
 </table>
-<p>At the base of the hierarchy is <code v-pre>IncomingEvent</code> — it’s not abstract. It’s the simplest usable form of an event in Stone.js, with generic capabilities like accessing metadata and locale. More specific subclasses like <code v-pre>IncomingHttpEvent</code> or <code v-pre>IncomingBrowserEvent</code> extend its behavior for their respective platforms.</p>
-<p>Every <a href="./event-handler">event handler</a> in Stone.js — whether it's your main application entry point or a specific route — receives one <code v-pre>IncomingEvent</code>. Your job as a developer is to respond to this incoming event, using the full expressive power of your domain.</p>
+<p>At the base of the hierarchy is <code v-pre>IncomingEvent</code>, it’s not abstract. It’s the simplest usable form of an event in Stone.js, with generic capabilities like accessing metadata and locale. More specific subclasses like <code v-pre>IncomingHttpEvent</code> or <code v-pre>IncomingBrowserEvent</code> extend its behavior for their respective platforms.</p>
+<p>Every <a href="./event-handler">event handler</a> in Stone.js, whether it's your main application entry point or a specific route, receives one <code v-pre>IncomingEvent</code>. Your job as a developer is to respond to this incoming event, using the full expressive power of your domain.</p>
 <div class="hint-container tip">
 <p class="hint-container-title">Tips</p>
 <p>Throughout the Stone.js documentation and for simplicity, we refer to <code v-pre>IncomingEvent</code> for all incoming events.</p>
 </div>
 <h2 id="using-incomingevent" tabindex="-1"><a class="header-anchor" href="#using-incomingevent"><span>Using IncomingEvent</span></a></h2>
 <p>The <code v-pre>IncomingEvent</code> class is the most minimal and generic expression of an incoming event in Stone.js. It is not abstract. It is fully usable and forms the foundation upon which more specific incoming events are built (like <code v-pre>IncomingBrowserEvent</code> or <code v-pre>IncomingHttpEvent</code>). All <code v-pre>IncomingEvent</code> instances extend the base <code v-pre>Event</code> class, which provides standard metadata and utility features.</p>
-<p>The <code v-pre>IncomingEvent</code> encapsulates the <strong>intention</strong> of the system — a normalized, structured version of the external cause. It holds just enough data to represent this intent internally, in a consistent and platform-agnostic way.</p>
+<p>The <code v-pre>IncomingEvent</code> encapsulates the <strong>intention</strong> of the system, a normalized, structured version of the external cause. It holds just enough data to represent this intent internally, in a consistent and platform-agnostic way.</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line"><span class="token keyword">import</span> <span class="token punctuation">{</span> IncomingEvent <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@stone-js/core'</span></span>
 <span class="line"></span>
 <span class="line"><span class="token keyword">const</span> <span class="token function-variable function">handle</span> <span class="token operator">=</span> <span class="token punctuation">(</span>event<span class="token operator">:</span> IncomingEvent<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span></span>
@@ -96,7 +96,7 @@ Once received, it is treated as immutable. You can read from it, enrich it with 
 </tbody>
 </table>
 <h3 id="the-source-a-portal-to-the-external-context" tabindex="-1"><a class="header-anchor" href="#the-source-a-portal-to-the-external-context"><span>The <code v-pre>source</code>: A Portal to the External Context</span></a></h3>
-<p>While Stone.js encourages you to operate within the internal, normalized incoming event interface, there are situations where you need to peek back at the raw, unprocessed external input — for example, to access a third-party field or inspect the raw platform context.</p>
+<p>While Stone.js encourages you to operate within the internal, normalized incoming event interface, there are situations where you need to peek back at the raw, unprocessed external input, for example, to access a third-party field or inspect the raw platform context.</p>
 <p>This is where the <code v-pre>source</code> property comes into play.</p>
 <p>The <code v-pre>source</code> is your structured gateway to the external world. It holds everything the adapter used to build the <code v-pre>IncomingEvent</code>.</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line"><span class="token keyword">interface</span> <span class="token class-name">IncomingEventSource</span> <span class="token punctuation">{</span></span>
@@ -124,7 +124,7 @@ Once received, it is treated as immutable. You can read from it, enrich it with 
 it may be time to create a new <a href="../architecture/adapter#adapter-middleware">adapter middleware</a> to populate the necessary data into the <code v-pre>metadata</code> store.</p>
 </div>
 <h3 id="smart-api-get-set" tabindex="-1"><a class="header-anchor" href="#smart-api-get-set"><span>Smart API (<code v-pre>get()</code> / <code v-pre>set()</code>)</span></a></h3>
-<p>All IncomingEvents provide a unified API for retrieving and storing data using <code v-pre>get()</code> and <code v-pre>set()</code>. This API is designed to be intuitive, flexible, and most importantly — <strong>platform-agnostic</strong>.</p>
+<p>All IncomingEvents provide a unified API for retrieving and storing data using <code v-pre>get()</code> and <code v-pre>set()</code>. This API is designed to be intuitive, flexible, and most importantly, <strong>platform-agnostic</strong>.</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line">event<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'user.name'</span><span class="token punctuation">)</span></span>
 <span class="line">event<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token string">'user.role'</span><span class="token punctuation">,</span> <span class="token string">'admin'</span><span class="token punctuation">)</span></span>
 <span class="line"></span></code></pre>
@@ -139,7 +139,7 @@ it may be time to create a new <a href="../architecture/adapter#adapter-middlewa
 </ul>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line">event<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token string">'my.custom.flag'</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span></span>
 <span class="line"></span></code></pre>
-<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div></div></div><p>All data written via <code v-pre>set()</code> is stored inside the <strong>metadata store</strong> — it’s safe, isolated from the raw request, and purely internal. This makes it perfect for middleware enrichment, auth flags, and request-specific context propagation.</p>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div></div></div><p>All data written via <code v-pre>set()</code> is stored inside the <strong>metadata store</strong>, it’s safe, isolated from the raw request, and purely internal. This makes it perfect for middleware enrichment, auth flags, and request-specific context propagation.</p>
 <h4 id="platform-aware-magic" tabindex="-1"><a class="header-anchor" href="#platform-aware-magic"><span>Platform-Aware Magic</span></a></h4>
 <p>Here’s where it gets clever.</p>
 <p>On minimal platforms like AWS Lambda or generic CLI contexts, <strong>there’s no native “body” field</strong> like you'd find in HTTP. But that doesn’t stop you. Adapters that produce an <code v-pre>IncomingEvent</code> from those platforms <strong>extract any structured input from the raw external context and inject it into the metadata</strong>.</p>
@@ -153,7 +153,7 @@ it may be time to create a new <a href="../architecture/adapter#adapter-middlewa
 <span class="line"></span></code></pre>
 <div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div></div></div><p>Because <code v-pre>IncomingEvent.get()</code> first looks in the body (if the subclass has one), then falls back to metadata, <strong>your handler logic remains unchanged</strong>, regardless of the platform.</p>
 <p>This gives you true <strong>cross-platform compatibility</strong> with zero branching logic. Write it once. Deploy it anywhere.</p>
-<p>In subclasses like <code v-pre>IncomingBrowserEvent</code> or <code v-pre>IncomingHttpEvent</code>, the <code v-pre>get()</code> method is even smarter — it follows a prioritized lookup strategy specific to each platform (e.g., body → query → headers → cookies → metadata).<br>
+<p>In subclasses like <code v-pre>IncomingBrowserEvent</code> or <code v-pre>IncomingHttpEvent</code>, the <code v-pre>get()</code> method is even smarter, it follows a prioritized lookup strategy specific to each platform (e.g., body → query → headers → cookies → metadata).<br>
 These subclass-specific strategies will be covered in detail in their respective sections.</p>
 <h3 id="lifecycle-and-immutability" tabindex="-1"><a class="header-anchor" href="#lifecycle-and-immutability"><span>Lifecycle and Immutability</span></a></h3>
 <p>You never create an <code v-pre>IncomingEvent</code> yourself. It is instantiated by the adapter when the external cause is received. This happens at the boundary between the integration and initialization dimensions.</p>
@@ -220,8 +220,8 @@ These subclass-specific strategies will be covered in detail in their respective
 </table>
 <h3 id="how-incomingbrowserevent-is-created" tabindex="-1"><a class="header-anchor" href="#how-incomingbrowserevent-is-created"><span>How <code v-pre>IncomingBrowserEvent</code> is Created</span></a></h3>
 <p>Not all browser events are welcome here.</p>
-<p>The <code v-pre>IncomingBrowserEvent</code> is created by the <strong>Stone.js browser adapter</strong>, but not from just any DOM event. Stone.js doesn’t care about <code v-pre>click</code>, <code v-pre>keydown</code>, or <code v-pre>hover</code> events — those belong to the UI world.</p>
-<p>Instead, <strong>Stone.js focuses solely on navigation events</strong> — the kind that express an intention to change the page.</p>
+<p>The <code v-pre>IncomingBrowserEvent</code> is created by the <strong>Stone.js browser adapter</strong>, but not from just any DOM event. Stone.js doesn’t care about <code v-pre>click</code>, <code v-pre>keydown</code>, or <code v-pre>hover</code> events, those belong to the UI world.</p>
+<p>Instead, <strong>Stone.js focuses solely on navigation events</strong>, the kind that express an intention to change the page.</p>
 <p>By default, the browser adapter listens to <strong>two events</strong>:</p>
 <table>
 <thead>
@@ -244,7 +244,7 @@ These subclass-specific strategies will be covered in detail in their respective
 <p>For example:</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line">router<span class="token punctuation">.</span><span class="token function">navigate</span><span class="token punctuation">(</span><span class="token string">'/posts/new'</span><span class="token punctuation">)</span> <span class="token comment">// triggers '@stonejs/router.navigate'</span></span>
 <span class="line"></span></code></pre>
-<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div></div></div><p>These events are treated as <strong>causes</strong>. When the adapter receives one, it launches the internal context pipeline, which in turn creates a new <code v-pre>IncomingBrowserEvent</code> — representing your new navigation <strong>intention</strong>.</p>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div></div></div><p>These events are treated as <strong>causes</strong>. When the adapter receives one, it launches the internal context pipeline, which in turn creates a new <code v-pre>IncomingBrowserEvent</code>, representing your new navigation <strong>intention</strong>.</p>
 <p>Stone.js ensures this stays focused and efficient: it doesn't hijack unrelated events or bloat your event model.</p>
 <h4 id="custom-events" tabindex="-1"><a class="header-anchor" href="#custom-events"><span>Custom Events?</span></a></h4>
 <p>If you really want to extend this, you can register additional browser events to be treated as navigation causes using the blueprint:</p>
@@ -256,7 +256,7 @@ These subclass-specific strategies will be covered in detail in their respective
 <p>You probably won’t need this. The built-in events already cover the most important navigation scenarios.</p>
 </div>
 <h3 id="populating-the-incomingbrowserevent" tabindex="-1"><a class="header-anchor" href="#populating-the-incomingbrowserevent"><span>Populating the <code v-pre>IncomingBrowserEvent</code></span></a></h3>
-<p>Instances are usually created by the browser adapter automatically —
+<p>Instances are usually created by the browser adapter automatically,
 you won’t need to construct them manually unless writing a custom adapter or test fixture.</p>
 <p>But you can participate in the creation process by providing a custom <code v-pre>protocol</code> or <code v-pre>locale</code> value,
 using <a href="../architecture/adapter#adapter-middleware">adapter middleware</a>.<br>
@@ -342,7 +342,7 @@ The declarative API is used for demonstration purposes, but you can also use the
 <li>A metadata store (if set by middleware)</li>
 <li>Fallback to <code v-pre>'light'</code> if not found</li>
 </ul>
-<p>No need to manually inspect cookies, query strings, or params — the browser event does it all for you.
+<p>No need to manually inspect cookies, query strings, or params, the browser event does it all for you.
 This makes your code cleaner and more maintainable, as you can rely on a consistent API for accessing data regardless of its source.<br>
 Feel free to use the specific accessors if you need to be explicit about the source.</p>
 <h2 id="using-incominghttpevent" tabindex="-1"><a class="header-anchor" href="#using-incominghttpevent"><span>Using IncomingHttpEvent</span></a></h2>
@@ -352,7 +352,7 @@ Feel free to use the specific accessors if you need to be explicit about the sou
 <li><code v-pre>@stone-js/aws-lambda-http-adapter</code> (Lambda HTTP functions)</li>
 <li>Any custom HTTP adapter you implement</li>
 </ul>
-<p>It is designed to encapsulate everything about an incoming HTTP request in a platform-agnostic and feature-rich way — without ever dealing directly with raw HTTP request objects.</p>
+<p>It is designed to encapsulate everything about an incoming HTTP request in a platform-agnostic and feature-rich way, without ever dealing directly with raw HTTP request objects.</p>
 <p>It includes everything from <code v-pre>IncomingEvent</code> and <code v-pre>IncomingBrowserEvent</code>, and expands it to support HTTP-specific semantics like methods, headers, request bodies, uploaded files, content negotiation, and caching headers.</p>
 <h3 id="constructor-reference-1" tabindex="-1"><a class="header-anchor" href="#constructor-reference-1"><span>Constructor Reference</span></a></h3>
 <table>
@@ -602,7 +602,7 @@ Feel free to use the specific accessors if you need to be explicit about the sou
 <span class="line">  <span class="token punctuation">}</span></span>
 <span class="line"><span class="token punctuation">}</span><span class="token punctuation">)</span></span>
 <span class="line"></span></code></pre>
-<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>You <strong>must</strong> use the <code v-pre>afterConfigure()</code> hook to register these middlewares, because the adapter is resolved <strong>at runtime</strong>, not statically. That’s part of Stone.js’s continuum flexibility: you can switch adapters dynamically — but it also means you must wait until the adapter is known to bind adapter-specific middleware.</p>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>You <strong>must</strong> use the <code v-pre>afterConfigure()</code> hook to register these middlewares, because the adapter is resolved <strong>at runtime</strong>, not statically. That’s part of Stone.js’s continuum flexibility: you can switch adapters dynamically, but it also means you must wait until the adapter is known to bind adapter-specific middleware.</p>
 </template>
 </Tabs>
 <h3 id="http-specific-features" tabindex="-1"><a class="header-anchor" href="#http-specific-features"><span>HTTP-Specific Features</span></a></h3>
@@ -640,7 +640,7 @@ Feel free to use the specific accessors if you need to be explicit about the sou
 <div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="hint-container tip">
 <p class="hint-container-title">Tips</p>
 <p>Stone.js provides a dedicated <a href="../cookies">Cookie documentation page</a>, where you’ll find all available methods and usage examples.<br>
-The cookie API is unified across the continuum — frontend and backend behave the same.</p>
+The cookie API is unified across the continuum, frontend and backend behave the same.</p>
 </div>
 <h3 id="smart-get-lookup-strategy" tabindex="-1"><a class="header-anchor" href="#smart-get-lookup-strategy"><span>Smart <code v-pre>get()</code> Lookup Strategy</span></a></h3>
 <p>This is where <code v-pre>IncomingHttpEvent</code> shines.</p>
@@ -679,14 +679,14 @@ The cookie API is unified across the continuum — frontend and backend behave t
 <li><code v-pre>event.isPrefetch</code>: Checks if it is a prefetch request</li>
 </ul>
 <h3 id="configuring-incominghttpevent" tabindex="-1"><a class="header-anchor" href="#configuring-incominghttpevent"><span>Configuring <code v-pre>IncomingHttpEvent</code></span></a></h3>
-<p>Stone.js allows you to configure how HTTP events are built and filtered before they ever reach your application. These configurations belong to the <strong>integration dimension</strong> and act as <strong>system-level guards</strong> — validating inputs, limiting payloads, and ensuring safe defaults.</p>
+<p>Stone.js allows you to configure how HTTP events are built and filtered before they ever reach your application. These configurations belong to the <strong>integration dimension</strong> and act as <strong>system-level guards</strong>, validating inputs, limiting payloads, and ensuring safe defaults.</p>
 <p>Misconfigured or malicious requests are rejected <strong>before</strong> they become part of the internal context, preventing invalid <code v-pre>IncomingHttpEvent</code> instances from reaching your code.</p>
 <h4 id="trusted-proxies" tabindex="-1"><a class="header-anchor" href="#trusted-proxies"><span>Trusted Proxies</span></a></h4>
 <p>When running behind a proxy (e.g., NGINX, Cloudflare, Vercel Edge), information like IP address, hostname, or protocol may be rewritten. To ensure Stone.js can restore the original data, you must specify which proxies you trust.</p>
 <p>Use the following blueprint namespaces:</p>
 <ul>
-<li><code v-pre>stone.http.proxies.trustedIp</code> — IP ranges or CIDRs considered trustworthy</li>
-<li><code v-pre>stone.http.proxies.untrustedIp</code> — IPs to explicitly deny</li>
+<li><code v-pre>stone.http.proxies.trustedIp</code>, IP ranges or CIDRs considered trustworthy</li>
+<li><code v-pre>stone.http.proxies.untrustedIp</code>, IPs to explicitly deny</li>
 </ul>
 <p>Do not use both simultaneously.</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line"><span class="token decorator"><span class="token at operator">@</span><span class="token function">Configuration</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span></span>
@@ -750,7 +750,7 @@ The cookie API is unified across the continuum — frontend and backend behave t
 </tr>
 </tbody>
 </table>
-<p>In short, HTTP configuration lets you control what enters your system — which payloads, from whom, in what form, and how much of it.</p>
+<p>In short, HTTP configuration lets you control what enters your system, which payloads, from whom, in what form, and how much of it.</p>
 <p>It’s your <strong>first line of defense</strong>, and a perfect place to enforce consistency and safety across all environments.</p>
 <div class="hint-container important">
 <p class="hint-container-title">When to use it?</p>
@@ -765,7 +765,7 @@ The cookie API is unified across the continuum — frontend and backend behave t
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line"><span class="token decorator"><span class="token at operator">@</span><span class="token function">Stone</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span></span>
 <span class="line"><span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">BadService</span> <span class="token punctuation">{</span></span>
 <span class="line">  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">{</span> event <span class="token punctuation">}</span><span class="token operator">:</span> <span class="token punctuation">{</span> event<span class="token operator">:</span> IncomingEvent <span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token punctuation">{</span></span>
-<span class="line">    <span class="token comment">// ❌ This will break — IncomingEvent isn't available yet</span></span>
+<span class="line">    <span class="token comment">// ❌ This will break, IncomingEvent isn't available yet</span></span>
 <span class="line">  <span class="token punctuation">}</span></span>
 <span class="line"><span class="token punctuation">}</span></span>
 <span class="line"></span></code></pre>
@@ -793,7 +793,7 @@ The cookie API is unified across the continuum — frontend and backend behave t
 <p>If you want to add useful information to the event (like a user object, request ID, permissions), do it via <code v-pre>set()</code> in a middleware:</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line">event<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token string">'user.id'</span><span class="token punctuation">,</span> <span class="token string">'123'</span><span class="token punctuation">)</span></span>
 <span class="line"></span></code></pre>
-<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div></div></div><p>Don’t attempt to change properties like <code v-pre>url</code>, <code v-pre>method</code>, or <code v-pre>body</code> — treat the core of the event as <strong>immutable</strong>.</p>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div></div></div><p>Don’t attempt to change properties like <code v-pre>url</code>, <code v-pre>method</code>, or <code v-pre>body</code>, treat the core of the event as <strong>immutable</strong>.</p>
 <h4 id="install-only-the-middleware-you-need" tabindex="-1"><a class="header-anchor" href="#install-only-the-middleware-you-need"><span>Install Only the Middleware You Need</span></a></h4>
 <p>By default, Stone.js does not include body parsers or file handlers to keep your app lean. Only register <code v-pre>BodyEventMiddleware</code> and <code v-pre>FilesEventMiddleware</code> when needed:</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line">blueprint<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span></span>
@@ -802,21 +802,21 @@ The cookie API is unified across the continuum — frontend and backend behave t
 <span class="line"></span></code></pre>
 <div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>This is especially useful for API-first microservices or endpoints that don’t receive body content.</p>
 <h4 id="use-event-subclasses-for-rich-capabilities" tabindex="-1"><a class="header-anchor" href="#use-event-subclasses-for-rich-capabilities"><span>Use Event Subclasses for Rich Capabilities</span></a></h4>
-<p>Don't stick to <code v-pre>IncomingEvent</code> just because it’s generic. If your context is HTTP, use <code v-pre>IncomingHttpEvent</code> — it gives you content negotiation, headers, method checks, body helpers, and more.</p>
+<p>Don't stick to <code v-pre>IncomingEvent</code> just because it’s generic. If your context is HTTP, use <code v-pre>IncomingHttpEvent</code>, it gives you content negotiation, headers, method checks, body helpers, and more.</p>
 <p>If you’re in a browser, <code v-pre>IncomingBrowserEvent</code> gives you SPA navigation support, cookie helpers, and segment parsing.</p>
-<p>Stone.js will inject the correct subclass for you — just type your handler’s parameter accordingly:</p>
+<p>Stone.js will inject the correct subclass for you, just type your handler’s parameter accordingly:</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line"><span class="token function">handle</span><span class="token punctuation">(</span>event<span class="token operator">:</span> IncomingHttpEvent<span class="token punctuation">)</span> <span class="token punctuation">{</span></span>
 <span class="line">  <span class="token comment">// Full HTTP capabilities available here</span></span>
 <span class="line"><span class="token punctuation">}</span></span>
 <span class="line"></span></code></pre>
 <div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="summary" tabindex="-1"><a class="header-anchor" href="#summary"><span>Summary</span></a></h2>
-<p>The <code v-pre>IncomingEvent</code> system in Stone.js is the central interface through which your application receives and interprets intentions from the outside world — whether from HTTP requests, browser navigations, CLI commands, or serverless platforms.</p>
+<p>The <code v-pre>IncomingEvent</code> system in Stone.js is the central interface through which your application receives and interprets intentions from the outside world, whether from HTTP requests, browser navigations, CLI commands, or serverless platforms.</p>
 <p>Here’s what you should remember:</p>
 <h4 id="everything-starts-with-the-intention" tabindex="-1"><a class="header-anchor" href="#everything-starts-with-the-intention"><span>Everything Starts with the Intention</span></a></h4>
 <ul>
 <li>An <strong>IncomingEvent is not a controller or handler</strong>, it’s the normalized <strong>intention</strong> sent to your domain.</li>
 <li>It’s created by the adapter at runtime, <strong>not by you</strong>, and only after the platform has triggered the app’s lifecycle.</li>
-<li>You never mutate it — you interact with it through safe APIs (<code v-pre>get</code>, <code v-pre>set</code>, <code v-pre>clone</code>).</li>
+<li>You never mutate it, you interact with it through safe APIs (<code v-pre>get</code>, <code v-pre>set</code>, <code v-pre>clone</code>).</li>
 <li>You can participate in its creation using adapter middleware.</li>
 </ul>
 <h4 id="three-forms-one-continuum" tabindex="-1"><a class="header-anchor" href="#three-forms-one-continuum"><span>Three Forms, One Continuum</span></a></h4>
@@ -825,7 +825,7 @@ The cookie API is unified across the continuum — frontend and backend behave t
 <li><code v-pre>IncomingBrowserEvent</code>: Used for SPA and SSR navigation in the browser. Triggered by navigation events only.</li>
 <li><code v-pre>IncomingHttpEvent</code>: The richest event type. Supports methods, headers, bodies, cookies, file uploads, and more.</li>
 </ul>
-<p>Each one builds upon the last — features accumulate from base to top. No duplicated logic. No surprises.</p>
+<p>Each one builds upon the last, features accumulate from base to top. No duplicated logic. No surprises.</p>
 <h4 id="one-unified-api" tabindex="-1"><a class="header-anchor" href="#one-unified-api"><span>One Unified API</span></a></h4>
 <ul>
 <li>All incoming events use the same core API:
@@ -835,20 +835,20 @@ The cookie API is unified across the continuum — frontend and backend behave t
 <li>Platform-aware data resolution</li>
 </ul>
 </li>
-<li>Write your handler logic once — it works on Node, Lambda, CLI, and local dev without changes.</li>
+<li>Write your handler logic once, it works on Node, Lambda, CLI, and local dev without changes.</li>
 </ul>
 <h4 id="platform-features-are-opt-in" tabindex="-1"><a class="header-anchor" href="#platform-features-are-opt-in"><span>Platform Features Are Opt-In</span></a></h4>
 <ul>
 <li>Want to handle request bodies? Add <code v-pre>BodyEventMiddleware</code>.</li>
 <li>Need to parse uploaded files? Add <code v-pre>FilesEventMiddleware</code>.</li>
 <li>Want to limit request size, restrict IPs, or enforce content types? Use the configuration blueprint.</li>
-<li><strong>Nothing is included by default</strong> — you opt-in to what your app needs.</li>
+<li><strong>Nothing is included by default</strong>, you opt-in to what your app needs.</li>
 </ul>
 <h4 id="think-dimensionally" tabindex="-1"><a class="header-anchor" href="#think-dimensionally"><span>Think Dimensionally</span></a></h4>
 <ul>
-<li>The adapter belongs to the <strong>integration dimension</strong> — it translates external chaos into internal order.</li>
-<li>The <code v-pre>IncomingEvent</code> lives in the <strong>initialization dimension</strong> — it’s now ready for business logic, services, and response generation.</li>
-<li>Middleware is the bridge — the place to enrich or sanitize the event before it reaches your handlers.</li>
+<li>The adapter belongs to the <strong>integration dimension</strong>, it translates external chaos into internal order.</li>
+<li>The <code v-pre>IncomingEvent</code> lives in the <strong>initialization dimension</strong>, it’s now ready for business logic, services, and response generation.</li>
+<li>Middleware is the bridge, the place to enrich or sanitize the event before it reaches your handlers.</li>
 </ul>
 <p>With <code v-pre>IncomingEvent</code>, you don’t just handle requests.<br>
 You handle <strong>intentions</strong>, consistently, across space (platforms) and time (contexts).</p>

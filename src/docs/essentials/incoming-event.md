@@ -2,17 +2,17 @@
 title: Incoming Events
 ---
 
-In Stone.js, the `IncomingEvent` is the heart of your application. It represents the **intention** that your system must respond to. This intention doesn’t come out of nowhere — it’s born from a **cause** in the external world.
+In Stone.js, the `IncomingEvent` is the heart of your application. It represents the **intention** that your system must respond to. This intention doesn’t come out of nowhere, it’s born from a **cause** in the external world.
 
-That cause — an HTTP request, a CLI command, a cloud event — is captured and interpreted by an [**adapter**](../architecture/adapter). 
+That cause, an HTTP request, a CLI command, a cloud event, is captured and interpreted by an [**adapter**](../architecture/adapter). 
 The adapter translates it into an `IncomingEvent`, and it’s passed through the system for processing.
 
 In the Continuum Architecture, **every application begins with an intention**. That intention is always modeled as an `IncomingEvent`.
 
-Even though it’s created by the adapter in the **integration dimension**, the `IncomingEvent` **belongs to the initialization dimension** — where the core logic and internal context live. It is part of the internal flow of your application, not a raw input you manipulate freely.
+Even though it’s created by the adapter in the **integration dimension**, the `IncomingEvent` **belongs to the initialization dimension**, where the core logic and internal context live. It is part of the internal flow of your application, not a raw input you manipulate freely.
 
 You cannot mutate or instantiate an `IncomingEvent` directly. It is created **internally by the adapter**, and as a developer, you only **participate in its creation** via [adapter middleware](../architecture/adapter#adapter-middleware). 
-Once received, it is treated as immutable. You can read from it, enrich it with metadata, and respond to it — but you never replace or reassign it.
+Once received, it is treated as immutable. You can read from it, enrich it with metadata, and respond to it, but you never replace or reassign it.
 
 There are many flavors of `IncomingEvent` depending on the platform:
 
@@ -24,9 +24,9 @@ There are many flavors of `IncomingEvent` depending on the platform:
 | AWS Lambda      | `IncomingEvent`        | `@stone-js/aws-lambda-adapter`      |
 | AWS Lambda HTTP | `IncomingHttpEvent`    | `@stone-js/aws-lambda-http-adapter` |
 
-At the base of the hierarchy is `IncomingEvent` — it’s not abstract. It’s the simplest usable form of an event in Stone.js, with generic capabilities like accessing metadata and locale. More specific subclasses like `IncomingHttpEvent` or `IncomingBrowserEvent` extend its behavior for their respective platforms.
+At the base of the hierarchy is `IncomingEvent`, it’s not abstract. It’s the simplest usable form of an event in Stone.js, with generic capabilities like accessing metadata and locale. More specific subclasses like `IncomingHttpEvent` or `IncomingBrowserEvent` extend its behavior for their respective platforms.
 
-Every [event handler](./event-handler) in Stone.js — whether it's your main application entry point or a specific route — receives one `IncomingEvent`. Your job as a developer is to respond to this incoming event, using the full expressive power of your domain.
+Every [event handler](./event-handler) in Stone.js, whether it's your main application entry point or a specific route, receives one `IncomingEvent`. Your job as a developer is to respond to this incoming event, using the full expressive power of your domain.
 
 ::: tip
 Throughout the Stone.js documentation and for simplicity, we refer to `IncomingEvent` for all incoming events.
@@ -36,7 +36,7 @@ Throughout the Stone.js documentation and for simplicity, we refer to `IncomingE
 
 The `IncomingEvent` class is the most minimal and generic expression of an incoming event in Stone.js. It is not abstract. It is fully usable and forms the foundation upon which more specific incoming events are built (like `IncomingBrowserEvent` or `IncomingHttpEvent`). All `IncomingEvent` instances extend the base `Event` class, which provides standard metadata and utility features.
 
-The `IncomingEvent` encapsulates the **intention** of the system — a normalized, structured version of the external cause. It holds just enough data to represent this intent internally, in a consistent and platform-agnostic way.
+The `IncomingEvent` encapsulates the **intention** of the system, a normalized, structured version of the external cause. It holds just enough data to represent this intent internally, in a consistent and platform-agnostic way.
 
 ```ts
 import { IncomingEvent } from '@stone-js/core'
@@ -66,7 +66,7 @@ Here are the core properties of an `IncomingEvent`:
 
 ### The `source`: A Portal to the External Context
 
-While Stone.js encourages you to operate within the internal, normalized incoming event interface, there are situations where you need to peek back at the raw, unprocessed external input — for example, to access a third-party field or inspect the raw platform context.
+While Stone.js encourages you to operate within the internal, normalized incoming event interface, there are situations where you need to peek back at the raw, unprocessed external input, for example, to access a third-party field or inspect the raw platform context.
 
 This is where the `source` property comes into play.
 
@@ -104,7 +104,7 @@ it may be time to create a new [adapter middleware](../architecture/adapter#adap
 
 ### Smart API (`get()` / `set()`)
 
-All IncomingEvents provide a unified API for retrieving and storing data using `get()` and `set()`. This API is designed to be intuitive, flexible, and most importantly — **platform-agnostic**.
+All IncomingEvents provide a unified API for retrieving and storing data using `get()` and `set()`. This API is designed to be intuitive, flexible, and most importantly, **platform-agnostic**.
 
 ```ts
 event.get('user.name')
@@ -124,7 +124,7 @@ event.get('permissions.admin', false)
 event.set('my.custom.flag', true)
 ```
 
-All data written via `set()` is stored inside the **metadata store** — it’s safe, isolated from the raw request, and purely internal. This makes it perfect for middleware enrichment, auth flags, and request-specific context propagation.
+All data written via `set()` is stored inside the **metadata store**, it’s safe, isolated from the raw request, and purely internal. This makes it perfect for middleware enrichment, auth flags, and request-specific context propagation.
 
 #### Platform-Aware Magic
 
@@ -146,7 +146,7 @@ Because `IncomingEvent.get()` first looks in the body (if the subclass has one),
 
 This gives you true **cross-platform compatibility** with zero branching logic. Write it once. Deploy it anywhere.
 
-In subclasses like `IncomingBrowserEvent` or `IncomingHttpEvent`, the `get()` method is even smarter — it follows a prioritized lookup strategy specific to each platform (e.g., body → query → headers → cookies → metadata).  
+In subclasses like `IncomingBrowserEvent` or `IncomingHttpEvent`, the `get()` method is even smarter, it follows a prioritized lookup strategy specific to each platform (e.g., body → query → headers → cookies → metadata).  
 These subclass-specific strategies will be covered in detail in their respective sections.
 
 
@@ -192,9 +192,9 @@ It includes all capabilities of `IncomingEvent` (e.g., `get()`, `set()`, `clone(
 
 Not all browser events are welcome here.
 
-The `IncomingBrowserEvent` is created by the **Stone.js browser adapter**, but not from just any DOM event. Stone.js doesn’t care about `click`, `keydown`, or `hover` events — those belong to the UI world.
+The `IncomingBrowserEvent` is created by the **Stone.js browser adapter**, but not from just any DOM event. Stone.js doesn’t care about `click`, `keydown`, or `hover` events, those belong to the UI world.
 
-Instead, **Stone.js focuses solely on navigation events** — the kind that express an intention to change the page.
+Instead, **Stone.js focuses solely on navigation events**, the kind that express an intention to change the page.
 
 By default, the browser adapter listens to **two events**:
 
@@ -209,7 +209,7 @@ For example:
 router.navigate('/posts/new') // triggers '@stonejs/router.navigate'
 ```
 
-These events are treated as **causes**. When the adapter receives one, it launches the internal context pipeline, which in turn creates a new `IncomingBrowserEvent` — representing your new navigation **intention**.
+These events are treated as **causes**. When the adapter receives one, it launches the internal context pipeline, which in turn creates a new `IncomingBrowserEvent`, representing your new navigation **intention**.
 
 Stone.js ensures this stays focused and efficient: it doesn't hijack unrelated events or bloat your event model.
 
@@ -228,7 +228,7 @@ You probably won’t need this. The built-in events already cover the most impor
 
 ### Populating the `IncomingBrowserEvent`
 
-Instances are usually created by the browser adapter automatically — 
+Instances are usually created by the browser adapter automatically, 
 you won’t need to construct them manually unless writing a custom adapter or test fixture.  
 
 But you can participate in the creation process by providing a custom `protocol` or `locale` value, 
@@ -342,7 +342,7 @@ Will try to find `theme` from:
 - A metadata store (if set by middleware)
 - Fallback to `'light'` if not found
 
-No need to manually inspect cookies, query strings, or params — the browser event does it all for you. 
+No need to manually inspect cookies, query strings, or params, the browser event does it all for you. 
 This makes your code cleaner and more maintainable, as you can rely on a consistent API for accessing data regardless of its source.  
 Feel free to use the specific accessors if you need to be explicit about the source.
 
@@ -354,7 +354,7 @@ Feel free to use the specific accessors if you need to be explicit about the sou
 - `@stone-js/aws-lambda-http-adapter` (Lambda HTTP functions)
 - Any custom HTTP adapter you implement
 
-It is designed to encapsulate everything about an incoming HTTP request in a platform-agnostic and feature-rich way — without ever dealing directly with raw HTTP request objects.
+It is designed to encapsulate everything about an incoming HTTP request in a platform-agnostic and feature-rich way, without ever dealing directly with raw HTTP request objects.
 
 It includes everything from `IncomingEvent` and `IncomingBrowserEvent`, and expands it to support HTTP-specific semantics like methods, headers, request bodies, uploaded files, content negotiation, and caching headers.
 
@@ -591,7 +591,7 @@ export const mainBlueprint = defineBlueprintConfig({
 })
 ```
 
-You **must** use the `afterConfigure()` hook to register these middlewares, because the adapter is resolved **at runtime**, not statically. That’s part of Stone.js’s continuum flexibility: you can switch adapters dynamically — but it also means you must wait until the adapter is known to bind adapter-specific middleware.
+You **must** use the `afterConfigure()` hook to register these middlewares, because the adapter is resolved **at runtime**, not statically. That’s part of Stone.js’s continuum flexibility: you can switch adapters dynamically, but it also means you must wait until the adapter is known to bind adapter-specific middleware.
 :::
 
 
@@ -639,7 +639,7 @@ event.hasCookie('isLoggedIn')
 
 ::: tip
 Stone.js provides a dedicated [Cookie documentation page](../cookies), where you’ll find all available methods and usage examples.  
-The cookie API is unified across the continuum — frontend and backend behave the same.
+The cookie API is unified across the continuum, frontend and backend behave the same.
 :::
 
 ### Smart `get()` Lookup Strategy
@@ -686,7 +686,7 @@ Other useful getters to retrieve and inspect HTTP elements:
 
 ### Configuring `IncomingHttpEvent`
 
-Stone.js allows you to configure how HTTP events are built and filtered before they ever reach your application. These configurations belong to the **integration dimension** and act as **system-level guards** — validating inputs, limiting payloads, and ensuring safe defaults.
+Stone.js allows you to configure how HTTP events are built and filtered before they ever reach your application. These configurations belong to the **integration dimension** and act as **system-level guards**, validating inputs, limiting payloads, and ensuring safe defaults.
 
 Misconfigured or malicious requests are rejected **before** they become part of the internal context, preventing invalid `IncomingHttpEvent` instances from reaching your code.
 
@@ -696,8 +696,8 @@ When running behind a proxy (e.g., NGINX, Cloudflare, Vercel Edge), information 
 
 Use the following blueprint namespaces:
 
-- `stone.http.proxies.trustedIp` — IP ranges or CIDRs considered trustworthy
-- `stone.http.proxies.untrustedIp` — IPs to explicitly deny
+- `stone.http.proxies.trustedIp`, IP ranges or CIDRs considered trustworthy
+- `stone.http.proxies.untrustedIp`, IPs to explicitly deny
 
 Do not use both simultaneously.
 
@@ -761,7 +761,7 @@ This allows you to control:
 | `stone.http.hosts.trustedPattern` | Regex-like patterns for valid hosts        |
 | `stone.http.subdomain.offset`     | Position to parse subdomains from hostname |
 
-In short, HTTP configuration lets you control what enters your system — which payloads, from whom, in what form, and how much of it.
+In short, HTTP configuration lets you control what enters your system, which payloads, from whom, in what form, and how much of it.
 
 It’s your **first line of defense**, and a perfect place to enforce consistency and safety across all environments.
 
@@ -785,7 +785,7 @@ Trying to access the event in a constructor-injected service will cause hard-to-
 @Stone()
 export class BadService {
   constructor({ event }: { event: IncomingEvent }) {
-    // ❌ This will break — IncomingEvent isn't available yet
+    // ❌ This will break, IncomingEvent isn't available yet
   }
 }
 ```
@@ -832,7 +832,7 @@ If you want to add useful information to the event (like a user object, request 
 event.set('user.id', '123')
 ```
 
-Don’t attempt to change properties like `url`, `method`, or `body` — treat the core of the event as **immutable**.
+Don’t attempt to change properties like `url`, `method`, or `body`, treat the core of the event as **immutable**.
 
 #### Install Only the Middleware You Need
 
@@ -848,11 +848,11 @@ This is especially useful for API-first microservices or endpoints that don’t 
 
 #### Use Event Subclasses for Rich Capabilities
 
-Don't stick to `IncomingEvent` just because it’s generic. If your context is HTTP, use `IncomingHttpEvent` — it gives you content negotiation, headers, method checks, body helpers, and more.
+Don't stick to `IncomingEvent` just because it’s generic. If your context is HTTP, use `IncomingHttpEvent`, it gives you content negotiation, headers, method checks, body helpers, and more.
 
 If you’re in a browser, `IncomingBrowserEvent` gives you SPA navigation support, cookie helpers, and segment parsing.
 
-Stone.js will inject the correct subclass for you — just type your handler’s parameter accordingly:
+Stone.js will inject the correct subclass for you, just type your handler’s parameter accordingly:
 
 ```ts
 handle(event: IncomingHttpEvent) {
@@ -862,7 +862,7 @@ handle(event: IncomingHttpEvent) {
 
 ## Summary
 
-The `IncomingEvent` system in Stone.js is the central interface through which your application receives and interprets intentions from the outside world — whether from HTTP requests, browser navigations, CLI commands, or serverless platforms.
+The `IncomingEvent` system in Stone.js is the central interface through which your application receives and interprets intentions from the outside world, whether from HTTP requests, browser navigations, CLI commands, or serverless platforms.
 
 Here’s what you should remember:
 
@@ -870,7 +870,7 @@ Here’s what you should remember:
 
 - An **IncomingEvent is not a controller or handler**, it’s the normalized **intention** sent to your domain.
 - It’s created by the adapter at runtime, **not by you**, and only after the platform has triggered the app’s lifecycle.
-- You never mutate it — you interact with it through safe APIs (`get`, `set`, `clone`).
+- You never mutate it, you interact with it through safe APIs (`get`, `set`, `clone`).
 - You can participate in its creation using adapter middleware.
 
 #### Three Forms, One Continuum
@@ -879,7 +879,7 @@ Here’s what you should remember:
 - `IncomingBrowserEvent`: Used for SPA and SSR navigation in the browser. Triggered by navigation events only.
 - `IncomingHttpEvent`: The richest event type. Supports methods, headers, bodies, cookies, file uploads, and more.
 
-Each one builds upon the last — features accumulate from base to top. No duplicated logic. No surprises.
+Each one builds upon the last, features accumulate from base to top. No duplicated logic. No surprises.
 
 #### One Unified API
 
@@ -887,20 +887,20 @@ Each one builds upon the last — features accumulate from base to top. No dupli
   - `get()`, `set()`, `clone()`
   - Dot notation support
   - Platform-aware data resolution
-- Write your handler logic once — it works on Node, Lambda, CLI, and local dev without changes.
+- Write your handler logic once, it works on Node, Lambda, CLI, and local dev without changes.
 
 #### Platform Features Are Opt-In
 
 - Want to handle request bodies? Add `BodyEventMiddleware`.
 - Need to parse uploaded files? Add `FilesEventMiddleware`.
 - Want to limit request size, restrict IPs, or enforce content types? Use the configuration blueprint.
-- **Nothing is included by default** — you opt-in to what your app needs.
+- **Nothing is included by default**, you opt-in to what your app needs.
 
 #### Think Dimensionally
 
-- The adapter belongs to the **integration dimension** — it translates external chaos into internal order.
-- The `IncomingEvent` lives in the **initialization dimension** — it’s now ready for business logic, services, and response generation.
-- Middleware is the bridge — the place to enrich or sanitize the event before it reaches your handlers.
+- The adapter belongs to the **integration dimension**, it translates external chaos into internal order.
+- The `IncomingEvent` lives in the **initialization dimension**, it’s now ready for business logic, services, and response generation.
+- Middleware is the bridge, the place to enrich or sanitize the event before it reaches your handlers.
 
 With `IncomingEvent`, you don’t just handle requests.  
 You handle **intentions**, consistently, across space (platforms) and time (contexts).

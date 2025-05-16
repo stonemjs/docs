@@ -2,14 +2,14 @@
 title: Deployment
 ---
 
-Stone.js apps are built for freedom — deployable anywhere JavaScript runs: Node.js, the browser, serverless, edge networks, and even that smart toaster with a JS engine (well, almost). Thanks to its Continuum Architecture, Stone.js doesn’t care about your runtime — because everything is context. And deployment? It's just the final form of your app's intention.
+Stone.js apps are built for freedom, deployable anywhere JavaScript runs: Node.js, the browser, serverless, edge networks, and even that smart toaster with a JS engine (well, almost). Thanks to its Continuum Architecture, Stone.js doesn’t care about your runtime, because everything is context. And deployment? It's just the final form of your app's intention.
 
 > **Requirements:**  
 > You'll need Node.js `>= 20`. That’s where the magic starts.
 
 ## Building for Production
 
-Stone.js uses the latest JS features, some still too hot for regular engines. That’s why we bundle your app into a **single deployable artifact** — no `node_modules`, no clutter, just pure power.
+Stone.js uses the latest JS features, some still too hot for regular engines. That’s why we bundle your app into a **single deployable artifact**, no `node_modules`, no clutter, just pure power.
 
 Run:
 
@@ -45,7 +45,7 @@ npm run build
 ```
 
 2. Upload the contents of `dist/` to your favorite static host:
-    - Vercel, Netlify, S3, GitHub Pages, Cloudflare Pages — pick your poison.
+    - Vercel, Netlify, S3, GitHub Pages, Cloudflare Pages, pick your poison.
 
 3. Set your CDN or static server to serve `index.html` as the entry point.
 
@@ -54,7 +54,7 @@ npm run build
 5. For SPA-style routing, configure your server to redirect **all paths** to `index.html`.
 
 ::: tip Tip
-You can even deploy the frontend on a CDN and the backend on Lambda — continuum, baby!
+You can even deploy the frontend on a CDN and the backend on Lambda, continuum, baby!
 :::
 
 ## Serverless Deployment
@@ -225,7 +225,7 @@ docker build -t stone-app .
 docker run -p 8080:8080 stone-app
 ```
 
-You now have a deployable, containerized Stone.js app — no `node_modules`, no junk, just your logic.
+You now have a deployable, containerized Stone.js app, no `node_modules`, no junk, just your logic.
 
 ## GitHub Actions (CI/CD)
 
@@ -284,5 +284,5 @@ Stone.js uses adapters to abstract the runtime environment, so you can build onc
 | Node.js CLI Adapter           | CLI based App                 | `@stone-js/node-cli-adapter`             | Node.js runtime                                |
 
 ::: info
-Don’t see your platform here? Don’t worry — Stone.js was designed to be adaptable. Write your own adapter or let us know what you need!
+Don’t see your platform here? Don’t worry, Stone.js was designed to be adaptable. Write your own adapter or let us know what you need!
 :::

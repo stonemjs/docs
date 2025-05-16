@@ -1,5 +1,5 @@
 <template><div><p>The <strong>Event handler</strong> is the core execution unit of every Stone.js application.<br>
-It represents the precise moment when the domain finally meets the context — when your logic responds to a real-world intention.</p>
+It represents the precise moment when the domain finally meets the context, when your logic responds to a real-world intention.</p>
 <p>In Stone.js, <strong>all external interactions</strong>—HTTP requests, CLI commands, WebSocket messages, MQTT events—are normalized as a single type: the <a href="./incoming-event"><code v-pre>IncomingEvent</code></a>.<br>
 And there's exactly <strong>one</strong> way to handle an incoming event: the <strong>event handler</strong>.</p>
 <p>Each event handler receives the <a href="./incoming-event"><code v-pre>IncomingEvent</code></a> as its only parameter and may return a result, or not.<br>
@@ -77,7 +77,7 @@ The choice depends on your app size, your preferred programming style, and how m
 <h2 id="execution-context-event-lifecycle" tabindex="-1"><a class="header-anchor" href="#execution-context-event-lifecycle"><span>Execution Context &amp; Event Lifecycle</span></a></h2>
 <p>Event handlers in Stone.js are executed within the <strong>initialization dimension</strong>, and they are called <strong>once per incoming event</strong>.<br>
 Each time an external request (or message) reaches your system, the event handler is invoked with a normalized <a href="./incoming-event"><code v-pre>IncomingEvent</code></a> instance.</p>
-<Mermaid id="mermaid-109" code="eJyNjzFrwzAQRnf/ikNBWwwxTRcPhdhpaaFTA12CByU+20cvUpGPpo3xf68iLx0KsRbBe+8DSeuBLEkOg5IOT6hyUAfTo1rCBN6NJ3Ng7IMZEgDVOCs7usQyW39+q+WVMlksHTt/xYv67n69WqlkHEetk4bd+dgZL/D6FlqAzf7FCrbeCDlbQZo+QBHQ0Z3Ito9faKWKXRFVGRQJGabLNIiunGbZv7ssyu0+Mng2tmb0VaI17OQnPLWFxnkwzGBdjX0c9cEgbMLt3QemZ6qly8P/lg0x54uneP6Uxfwym52Ws8vtjfIXX/SR1w=="></Mermaid><p>This is where intention meets behavior — your application, in the most literal sense, <em>happens</em> here.</p>
+<Mermaid id="mermaid-109" code="eJyNjzFrwzAQRnf/ikNBWwwxTRcPhdhpaaFTA12CByU+20cvUpGPpo3xf68iLx0KsRbBe+8DSeuBLEkOg5IOT6hyUAfTo1rCBN6NJ3Ng7IMZEgDVOCs7usQyW39+q+WVMlksHTt/xYv67n69WqlkHEetk4bd+dgZL/D6FlqAzf7FCrbeCDlbQZo+QBHQ0Z3Ito9faKWKXRFVGRQJGabLNIiunGbZv7ssyu0+Mng2tmb0VaI17OQnPLWFxnkwzGBdjX0c9cEgbMLt3QemZ6qly8P/lg0x54uneP6Uxfwym52Ws8vtjfIXX/SR1w=="></Mermaid><p>This is where intention meets behavior, your application, in the most literal sense, <em>happens</em> here.</p>
 <h3 id="one-event-one-handler" tabindex="-1"><a class="header-anchor" href="#one-event-one-handler"><span>One Event, One Handler</span></a></h3>
 <p>Stone.js guarantees a <strong>single point of entry</strong> for handling each incoming event.<br>
 Whether the event originates from HTTP, WebSocket, CLI, MQTT, or another integration, the event handler remains the only valid execution entry.</p>
@@ -108,27 +108,27 @@ Whether the event originates from HTTP, WebSocket, CLI, MQTT, or another integra
 <p>This means you write one handler that works across environments, even across platforms.</p>
 <h3 id="what-you-can-return" tabindex="-1"><a class="header-anchor" href="#what-you-can-return"><span>What You Can Return</span></a></h3>
 <p>Your handler can return:</p>
-<p><code v-pre>void</code> — if you’re doing something side-effectful or async</p>
+<p><code v-pre>void</code>, if you’re doing something side-effectful or async</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line"><span class="token function">handle</span><span class="token punctuation">(</span>event<span class="token operator">:</span> IncomingHttpEvent<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span></span>
 <span class="line">  <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>event<span class="token punctuation">.</span>uri<span class="token punctuation">)</span></span>
 <span class="line"><span class="token punctuation">}</span></span>
 <span class="line"></span></code></pre>
-<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>A <strong>value</strong> — which will be passed back as the final response</p>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>A <strong>value</strong>, which will be passed back as the final response</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line"><span class="token function">handle</span><span class="token punctuation">(</span>event<span class="token operator">:</span> IncomingHttpEvent<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">string</span> <span class="token punctuation">{</span></span>
 <span class="line">  <span class="token keyword">return</span> <span class="token string">'Hello world!'</span></span>
 <span class="line"><span class="token punctuation">}</span></span>
 <span class="line"></span></code></pre>
-<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>An <strong>object</strong> — which will be passed back as the final response</p>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>An <strong>object</strong>, which will be passed back as the final response</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line"><span class="token function">handle</span><span class="token punctuation">(</span>event<span class="token operator">:</span> IncomingHttpEvent<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token punctuation">{</span> message<span class="token operator">:</span> <span class="token builtin">string</span> <span class="token punctuation">}</span> <span class="token punctuation">{</span></span>
 <span class="line">  <span class="token keyword">return</span> <span class="token punctuation">{</span> message<span class="token operator">:</span> <span class="token string">'Hello world!'</span> <span class="token punctuation">}</span></span>
 <span class="line"><span class="token punctuation">}</span></span>
 <span class="line"></span></code></pre>
-<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>A <strong>Promise</strong> — if you’re doing async work (e.g., calling a database)</p>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>A <strong>Promise</strong>, if you’re doing async work (e.g., calling a database)</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line"><span class="token function">handle</span><span class="token punctuation">(</span>event<span class="token operator">:</span> IncomingHttpEvent<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token punctuation">{</span> message<span class="token operator">:</span> <span class="token builtin">string</span> <span class="token punctuation">}</span><span class="token operator">></span> <span class="token punctuation">{</span></span>
 <span class="line">  <span class="token keyword">return</span> <span class="token builtin">Promise</span><span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token punctuation">{</span> message<span class="token operator">:</span> <span class="token string">'Hello world!'</span> <span class="token punctuation">}</span><span class="token punctuation">)</span></span>
 <span class="line"><span class="token punctuation">}</span></span>
 <span class="line"></span></code></pre>
-<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>An <a href="./outgoing-response"><code v-pre>OutgoingResponse</code></a> — if you want to have full control over the response body, status code, headers, etc.</p>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>An <a href="./outgoing-response"><code v-pre>OutgoingResponse</code></a>, if you want to have full control over the response body, status code, headers, etc.</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line"><span class="token function">handle</span><span class="token punctuation">(</span>event<span class="token operator">:</span> IncomingHttpEvent<span class="token punctuation">)</span><span class="token operator">:</span> OutgoingHttpResponse <span class="token punctuation">{</span></span>
 <span class="line">  <span class="token keyword">return</span> OutgoingHttpResponse<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">{</span></span>
 <span class="line">    content<span class="token operator">:</span> <span class="token punctuation">{</span></span>
@@ -150,8 +150,8 @@ Whether the event originates from HTTP, WebSocket, CLI, MQTT, or another integra
 <h2 id="registering-the-event-handler" tabindex="-1"><a class="header-anchor" href="#registering-the-event-handler"><span>Registering the Event Handler</span></a></h2>
 <p>Stone.js offers <strong>two ways</strong> to register your event handler:</p>
 <ul>
-<li>Declarative API — using decorators and class-based modules</li>
-<li>Imperative API — using <code v-pre>defineBlueprintConfig</code> for manual control</li>
+<li>Declarative API, using decorators and class-based modules</li>
+<li>Imperative API, using <code v-pre>defineBlueprintConfig</code> for manual control</li>
 </ul>
 <p>No matter the shape (class, function, factory), the registration process makes your handler available to the kernel for runtime execution.</p>
 <Tabs id="260" :data='[{"id":"Declarative"},{"id":"Imperative"}]' :active="0" tab-id="declarative-imperative">
@@ -203,7 +203,7 @@ But what if your app needs to handle <strong>multiple types of requests</strong>
 <h3 id="one-handler-by-default" tabindex="-1"><a class="header-anchor" href="#one-handler-by-default"><span>One Handler by Default</span></a></h3>
 <p>Out of the box, the kernel expects a <strong>single</strong> event handler.
 It will receive every <code v-pre>IncomingEvent</code> and decide what to do.
-This makes your app ultra-lightweight and cloud-ready — but limited to one entrypoint.</p>
+This makes your app ultra-lightweight and cloud-ready, but limited to one entrypoint.</p>
 <h3 id="scaling-with-the-router" tabindex="-1"><a class="header-anchor" href="#scaling-with-the-router"><span>Scaling with the Router</span></a></h3>
 <p>If your app needs to support:</p>
 <ul>
@@ -228,7 +228,7 @@ It intercepts incoming events and <strong>routes them</strong> to the correct ha
 <p>Stone.js lets you scale from <strong>mono-handler</strong> to <strong>multi-handler</strong> seamlessly, with no change to how event handlers are written.</p>
 <h2 id="dimension-specific-behavior" tabindex="-1"><a class="header-anchor" href="#dimension-specific-behavior"><span>Dimension-Specific Behavior</span></a></h2>
 <p>In Stone.js, every component belongs to a <strong>dimension</strong> of the Continuum Architecture.<br>
-The <strong>event handler</strong> is firmly rooted in the <strong>initialization dimension</strong> — the moment your system is fully built and ready to process intentions.</p>
+The <strong>event handler</strong> is firmly rooted in the <strong>initialization dimension</strong>, the moment your system is fully built and ready to process intentions.</p>
 <h3 id="initialization-only" tabindex="-1"><a class="header-anchor" href="#initialization-only"><span>Initialization-Only</span></a></h3>
 <p>Unlike setup-time configuration or integration-specific behavior, the event handler is:</p>
 <ul>
@@ -236,7 +236,7 @@ The <strong>event handler</strong> is firmly rooted in the <strong>initializatio
 <li>Executed <strong>once per incoming event</strong></li>
 <li>Independent of the integration layer or platform</li>
 </ul>
-<p>It is the final stage of the request lifecycle — the domain’s direct response to the external world.</p>
+<p>It is the final stage of the request lifecycle, the domain’s direct response to the external world.</p>
 <h3 id="platform-agnostic" tabindex="-1"><a class="header-anchor" href="#platform-agnostic"><span>Platform-Agnostic</span></a></h3>
 <p>Thanks to the <code v-pre>IncomingEvent</code> abstraction, you can write <strong>one handler</strong> that works across:</p>
 <ul>
@@ -246,7 +246,7 @@ The <strong>event handler</strong> is firmly rooted in the <strong>initializatio
 <li><strong>MQTT</strong> events</li>
 <li>And more…</li>
 </ul>
-<p>The event handler doesn’t care how the event got in — only <strong>what it means</strong>.<br>
+<p>The event handler doesn’t care how the event got in, only <strong>what it means</strong>.<br>
 This allows your domain logic to stay pure, portable, and deployment-agnostic.</p>
 <h3 id="no-setup-or-integration-responsibilities" tabindex="-1"><a class="header-anchor" href="#no-setup-or-integration-responsibilities"><span>No Setup or Integration Responsibilities</span></a></h3>
 <p>Event handlers do <strong>not</strong> participate in:</p>
@@ -257,15 +257,15 @@ This allows your domain logic to stay pure, portable, and deployment-agnostic.</
 <p>Those are handled before the event handler is even called.</p>
 <p>Your handler's job is simple:<br>
 <strong>Receive the intention, interpret it, and reply.</strong></p>
-<p>This is what makes Stone.js ideal for continuum-based, context-flexible applications — from mono-cloud systems to full systems.</p>
+<p>This is what makes Stone.js ideal for continuum-based, context-flexible applications, from mono-cloud systems to full systems.</p>
 <h2 id="best-practices" tabindex="-1"><a class="header-anchor" href="#best-practices"><span>Best Practices</span></a></h2>
 <p>The event handler is <strong>not a traditional controller</strong>.<br>
-It’s the <strong>meeting point between intention and domain</strong> — and it should remain as focused as possible.</p>
+It’s the <strong>meeting point between intention and domain</strong>, and it should remain as focused as possible.</p>
 <p>Here’s how to get the most out of your event handlers in Stone.js:</p>
 <h4 id="_1-keep-it-thin" tabindex="-1"><a class="header-anchor" href="#_1-keep-it-thin"><span>1. Keep It Thin</span></a></h4>
 <p>Your event handler should do exactly one thing:<br>
 <strong>Accept the incoming event and pass it along to the right part of your domain.</strong></p>
-<p>Avoid writing business logic inside the handler — that’s what services, use cases, or domain modules are for.</p>
+<p>Avoid writing business logic inside the handler, that’s what services, use cases, or domain modules are for.</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line"><span class="token function">handle</span><span class="token punctuation">(</span>event<span class="token operator">:</span> IncomingEvent<span class="token punctuation">)</span> <span class="token punctuation">{</span></span>
 <span class="line">  <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>userService<span class="token punctuation">.</span><span class="token function">createUser</span><span class="token punctuation">(</span>event<span class="token punctuation">.</span>content<span class="token punctuation">)</span></span>
 <span class="line"><span class="token punctuation">}</span></span>
@@ -309,7 +309,7 @@ That’s what it’s for.</p>
 Stick to the intention → domain → response model, and your apps will remain elegant and resilient.</p>
 <h2 id="summary" tabindex="-1"><a class="header-anchor" href="#summary"><span>Summary</span></a></h2>
 <p>The <strong>event handler</strong> is the central execution point of every Stone.js application.<br>
-It’s where context becomes meaningful — and the domain takes action.</p>
+It’s where context becomes meaningful, and the domain takes action.</p>
 <p>Here’s what you should remember:</p>
 <ul>
 <li>It belongs to the <strong>initialization dimension</strong></li>
@@ -320,7 +320,7 @@ It’s where context becomes meaningful — and the domain takes action.</p>
 <li>It must stay <strong>light</strong>, <strong>clean</strong>, and <strong>focused on delegation</strong></li>
 <li>It works identically across all platforms, thanks to the standardized <code v-pre>IncomingEvent</code></li>
 </ul>
-<p>Stone.js gives you one, and only one, entrypoint for application logic — because that’s all you need to build anything.</p>
+<p>Stone.js gives you one, and only one, entrypoint for application logic, because that’s all you need to build anything.</p>
 <blockquote>
 <p>One handler.<br>
 Infinite possibilities.<br>

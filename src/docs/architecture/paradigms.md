@@ -5,7 +5,7 @@ title: Paradigms - Declarative vs Imperative
 In software, a paradigm is a way of thinking about and organizing code. It’s like choosing between building LEGO models by following the instructions (**declarative**) or by creating your own design from scratch (**imperative**).
 
 **Why does Stone.js support both?**  
-Because developers are like Jedi: some prefer the light side (structured, opinionated), others the dark side (raw power and freedom). Stone.js embraces both — so you can build apps the way *you* want.
+Because developers are like Jedi: some prefer the light side (structured, opinionated), others the dark side (raw power and freedom). Stone.js embraces both, so you can build apps the way *you* want.
 
 
 ## Declarative API
@@ -14,7 +14,7 @@ Because developers are like Jedi: some prefer the light side (structured, opinio
 You *describe what* you want, not *how* to do it.
 
 **Philosophy**  
-Let the framework do the heavy lifting through annotations and metadata by introspecting your code. You declare your intent — Stone.js figures out the structure.
+Let the framework do the heavy lifting through annotations and metadata by introspecting your code. You declare your intent, Stone.js figures out the structure.
 
 **Core idea**  
 Use **decorators** to tag your classes, methods, and properties.
@@ -33,7 +33,7 @@ export class WelcomeEventHandler {
 }
 ```
 
-Feels like magic 🪄 — but it’s really just metadata and reflection behind the scenes.
+Feels like magic 🪄, but it’s really just metadata and reflection behind the scenes.
 
 
 ## Imperative API
@@ -57,7 +57,7 @@ export const mainBlueprint = defineBlueprintConfig((blueprint) => {
 })
 ```
 
-Feels like assembling an engine from scratch — but it's clean, testable, and no magic.
+Feels like assembling an engine from scratch, but it's clean, testable, and no magic.
 
 ## Declarative vs Imperative: Comparison
 
@@ -73,7 +73,7 @@ Feels like assembling an engine from scratch — but it's clean, testable, and n
 
 ## When to Use Which?
 
-Stone.js supports **both declarative and imperative** styles — and both work great for **frontend** and **backend** development.
+Stone.js supports **both declarative and imperative** styles, and both work great for **frontend** and **backend** development.
 
 So… which one should you pick?
 
@@ -92,8 +92,8 @@ So… which one should you pick?
 
 ## Final Thoughts
 
-Stone.js gives you both power and flexibility — declarative for speed and elegance, imperative for control and composition.
+Stone.js gives you both power and flexibility, declarative for speed and elegance, imperative for control and composition.
 
 Use the paradigm that fits your brain *and* your context.  
-Stone.js doesn’t force your hand — it extends it. 🤝
+Stone.js doesn’t force your hand, it extends it. 🤝
 

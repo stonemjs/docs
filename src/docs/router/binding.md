@@ -165,7 +165,7 @@ This is handy for dynamic apps or multi-tenant setups where bindings may change 
 
 ## Best Practices
 
-Stone Router’s binding system is powerful — but with great power comes great responsibility. Here’s how to get the most out of it:
+Stone Router’s binding system is powerful, but with great power comes great responsibility. Here’s how to get the most out of it:
 
 #### Use Binding for Models, Not Logic
 
@@ -233,6 +233,6 @@ The binding system supports:
 
 Handle `undefined` when needed, throw smart errors, and keep your resolution logic minimal.
 
-Stone Router takes care of the boilerplate — so you can focus on your domain logic, not your plumbing.  
+Stone Router takes care of the boilerplate, so you can focus on your domain logic, not your plumbing.  
 Feel the power of the Continuum! 😎
 

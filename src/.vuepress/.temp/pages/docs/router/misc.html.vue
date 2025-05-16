@@ -219,8 +219,8 @@ Whether you’re restructuring your app or managing legacy URLs, Stone Router ma
 <span class="line"><span class="token punctuation">}</span></span>
 <span class="line"></span></code></pre>
 <div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>Your function can return either a string or a <code v-pre>{ statusCode: path }</code> object.
-This allows total flexibility — for instance, redirecting based on time, headers, or custom logic.</p>
-<p>Redirection works consistently across platforms — and like everything in Stone.js, it’s context-aware.</p>
+This allows total flexibility, for instance, redirecting based on time, headers, or custom logic.</p>
+<p>Redirection works consistently across platforms, and like everything in Stone.js, it’s context-aware.</p>
 <h2 id="inspections" tabindex="-1"><a class="header-anchor" href="#inspections"><span>Inspections</span></a></h2>
 <p>Stone Router provides a clean API to introspect and analyze the routing layer of your application at runtime.
 This can be useful for debugging, monitoring, dynamic navigation, or even building custom tooling.</p>
@@ -308,7 +308,7 @@ Stone Router provides a CLI command to display them neatly.</p>
 <li>Audit routing setup in large applications</li>
 </ul>
 <h2 id="best-practices" tabindex="-1"><a class="header-anchor" href="#best-practices"><span>Best Practices</span></a></h2>
-<p>The Stone Router is powerful and flexible — but with great power comes great... routing responsibility.
+<p>The Stone Router is powerful and flexible, but with great power comes great... routing responsibility.
 Here are some practical tips to help you keep your routing clean, maintainable, and continuum-aligned:</p>
 <h4 id="prefer-named-routes" tabindex="-1"><a class="header-anchor" href="#prefer-named-routes"><span>Prefer Named Routes</span></a></h4>
 <p>Always give your routes a <code v-pre>name</code>.
@@ -331,24 +331,24 @@ This allows you to use programmatic features like <code v-pre>generate</code>, <
 <span class="line"></span></code></pre>
 <div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div></div></div><p>It keeps your handler logic focused on domain behavior, not plumbing.</p>
 <h4 id="avoid-deep-route-nesting" tabindex="-1"><a class="header-anchor" href="#avoid-deep-route-nesting"><span>Avoid Deep Route Nesting</span></a></h4>
-<p>Stone Router supports deep group nesting — but that doesn’t mean you should abuse it.
+<p>Stone Router supports deep group nesting, but that doesn’t mean you should abuse it.
 Set a reasonable <code v-pre>maxDepth</code> and keep routes flat when possible:</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line">blueprint<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token string">'stone.router.maxDepth'</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span></span>
 <span class="line"></span></code></pre>
 <div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div></div></div><p>This improves readability and debuggability.</p>
 <h4 id="use-excludemiddleware-sparingly" tabindex="-1"><a class="header-anchor" href="#use-excludemiddleware-sparingly"><span>Use <code v-pre>excludeMiddleware</code> Sparingly</span></a></h4>
 <p>It's better to be precise with your <code v-pre>middleware</code> configuration than to globally apply then exclude.
-Use <code v-pre>excludeMiddleware</code> only when you have an edge case — not as your primary strategy.</p>
+Use <code v-pre>excludeMiddleware</code> only when you have an edge case, not as your primary strategy.</p>
 <h4 id="avoid-optional-parameters-in-the-middle-of-paths" tabindex="-1"><a class="header-anchor" href="#avoid-optional-parameters-in-the-middle-of-paths"><span>Avoid Optional Parameters in the Middle of Paths</span></a></h4>
 <p>Optional segments should always go at the end to avoid ambiguity:</p>
 <p>✅ <code v-pre>/users/:id/:tab?</code>
 🚫 <code v-pre>/users/:optional?/settings</code></p>
 <h4 id="don-t-over-rely-on-aliased-paths" tabindex="-1"><a class="header-anchor" href="#don-t-over-rely-on-aliased-paths"><span>Don't Over-Rely on Aliased Paths</span></a></h4>
-<p>Defining multiple paths for the same route (<code v-pre>path: ['/users', '/people']</code>) is powerful but should be used with moderation — or your routing can quickly become hard to reason about.</p>
+<p>Defining multiple paths for the same route (<code v-pre>path: ['/users', '/people']</code>) is powerful but should be used with moderation, or your routing can quickly become hard to reason about.</p>
 <h4 id="dump-and-print-routes-in-development" tabindex="-1"><a class="header-anchor" href="#dump-and-print-routes-in-development"><span>Dump and Print Routes in Development</span></a></h4>
 <p>Use <code v-pre>router.dumpRoutes()</code> or <code v-pre>npx stone router list</code> frequently during development to keep an eye on what’s really going on in your system.</p>
 <h2 id="summary" tabindex="-1"><a class="header-anchor" href="#summary"><span>Summary</span></a></h2>
-<p>Stone Router goes beyond just defining and resolving routes — it empowers you with tools to introspect, adapt, and navigate with precision.
+<p>Stone Router goes beyond just defining and resolving routes, it empowers you with tools to introspect, adapt, and navigate with precision.
 The miscellaneous features complete the routing experience by offering:</p>
 <ul>
 <li><strong>Middleware support</strong> for fine-grained control at the route level</li>
@@ -360,7 +360,7 @@ The miscellaneous features complete the routing experience by offering:</p>
 <li><strong>Inspection methods</strong> to audit, debug, and validate route behavior</li>
 <li><strong>CLI printing</strong> for an instant view of your route map</li>
 </ul>
-<p>These capabilities make Stone Router not just a router, but a <strong>routing platform</strong> — deeply integrated into the Continuum, fully aware of its context, and ready to operate seamlessly in both backend and frontend applications.</p>
+<p>These capabilities make Stone Router not just a router, but a <strong>routing platform</strong>, deeply integrated into the Continuum, fully aware of its context, and ready to operate seamlessly in both backend and frontend applications.</p>
 <p>When in doubt, inspect.
 When working at scale, name and group.
 And when routing feels messy, remember: with Stone.js, everything is a continuum.</p>

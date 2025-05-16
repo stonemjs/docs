@@ -104,7 +104,7 @@ For a deeper understanding, please refer to the section on <a href="../architect
 <span class="line"></span></code></pre>
 <div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="integration-middleware" tabindex="-1"><a class="header-anchor" href="#integration-middleware"><span>Integration Middleware</span></a></h3>
 <p>Here, we give just an overview to facilitate a general understanding of Integration Middleware within Stone.js.
-For a deeper understanding, please refer to the section on <RouteLink to="/docs/http/adapters.html">adapters</RouteLink>.</p>
+For a deeper understanding, please refer to the section on adapters.</p>
 <h4 id="simultaneous-registration" tabindex="-1"><a class="header-anchor" href="#simultaneous-registration"><span>Simultaneous Registration</span></a></h4>
 <p>Define and register middleware, specifying <code v-pre>adapter</code> for the integration layer, <code v-pre>input</code> or <code v-pre>output</code> type, and platform (e.g., <code v-pre>NODE_HTTP_PLATFORM</code>):</p>
 <div class="language-javascript line-numbers-mode" data-highlighter="prismjs" data-ext="js"><pre v-pre><code><span class="line"><span class="token keyword">import</span> <span class="token punctuation">{</span> Middleware <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@stone-js/core/decorators'</span></span>

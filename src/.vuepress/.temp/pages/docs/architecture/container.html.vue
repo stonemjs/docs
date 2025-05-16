@@ -1,4 +1,4 @@
-<template><div><p>The <strong>Service Container</strong> is Stone.js’s powerful internal dependency injection engine — your system's backstage manager.</p>
+<template><div><p>The <strong>Service Container</strong> is Stone.js’s powerful internal dependency injection engine, your system's backstage manager.</p>
 <p>It lives in the <strong>Initialization Dimension</strong>, where your system is bootstrapped and prepared to respond to intentions. Within the Continuum Architecture, the service container acts as the <strong>ephemeral internal context</strong>, managing the concrete dependencies that your system needs <em>right now</em> to apply its domain logic in the current execution context.</p>
 <p>Think of it as the backstage of a play: it doesn’t care about the story (domain), the audience (users), or even the theater (runtime). It just makes sure everyone has their props when they enter the stage.</p>
 <h3 id="why-it-exists" tabindex="-1"><a class="header-anchor" href="#why-it-exists"><span>Why It Exists</span></a></h3>
@@ -18,7 +18,7 @@
 <li>Passed into your services and factories</li>
 <li>Destroyed when the system is done processing the event</li>
 </ul>
-<p>It is <strong>ephemeral</strong>, which means it lives only for the lifetime of the current event, but it's <strong>universal</strong> — the same mechanism powers your CLI, Lambda, SSR server, or frontend app.</p>
+<p>It is <strong>ephemeral</strong>, which means it lives only for the lifetime of the current event, but it's <strong>universal</strong>, the same mechanism powers your CLI, Lambda, SSR server, or frontend app.</p>
 <h3 id="core-responsibilities" tabindex="-1"><a class="header-anchor" href="#core-responsibilities"><span>Core Responsibilities</span></a></h3>
 <ul>
 <li><strong>Register services</strong>: via decorators, blueprint configuration, or manual bindings</li>
@@ -27,7 +27,7 @@
 <li><strong>Alias bindings</strong>: make your services portable across build tools and environments</li>
 </ul>
 <h2 id="accessing-the-container" tabindex="-1"><a class="header-anchor" href="#accessing-the-container"><span>Accessing the Container</span></a></h2>
-<p>In Stone.js, the <strong>Service Container</strong> is passed to your services so they can resolve their own dependencies. How you access it depends on how your service is defined — <strong>class-based</strong>, <strong>factory-based</strong>, or <strong>function-based</strong> (spoiler: that one’s not allowed).</p>
+<p>In Stone.js, the <strong>Service Container</strong> is passed to your services so they can resolve their own dependencies. How you access it depends on how your service is defined, <strong>class-based</strong>, <strong>factory-based</strong>, or <strong>function-based</strong> (spoiler: that one’s not allowed).</p>
 <p>Let’s break it down.</p>
 <Tabs id="103" :data='[{"id":"Class-based"},{"id":"Factory-based"},{"id":"Function-based"}]' :active="0" tab-id="class-factory-function">
 <template #title0="{ value, isActive }">Class-based</template>
@@ -58,7 +58,7 @@
 <span class="line">  <span class="token punctuation">}</span></span>
 <span class="line"><span class="token punctuation">}</span></span>
 <span class="line"></span></code></pre>
-<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>This works because the container is a <strong>Proxy</strong> — it resolves dependencies as properties.</p>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>This works because the container is a <strong>Proxy</strong>, it resolves dependencies as properties.</p>
 </template>
 <template #tab1="{ value, isActive }">
 <h3 id="factory-based-services" tabindex="-1"><a class="header-anchor" href="#factory-based-services"><span>Factory-Based Services</span></a></h3>
@@ -83,7 +83,7 @@
 </template>
 <template #tab2="{ value, isActive }">
 <h3 id="function-based-services-not-allowed" tabindex="-1"><a class="header-anchor" href="#function-based-services-not-allowed"><span>Function-Based Services: Not Allowed</span></a></h3>
-<p>Function-based handlers — that is, direct <code v-pre>(event) =&gt; {}</code> functions — don’t receive the container. Why?</p>
+<p>Function-based handlers, that is, direct <code v-pre>(event) =&gt; {}</code> functions, don’t receive the container. Why?</p>
 <p>Because there's no place to inject it. They’re not a class, not a factory, and not wrapped in anything.</p>
 <p>If you want access to the container in a function-style handler, just wrap it in a factory:</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line"><span class="token keyword">const</span> <span class="token function-variable function">handler</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">{</span> config <span class="token punctuation">}</span><span class="token operator">:</span> IContainer<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span></span>
@@ -102,9 +102,9 @@ This is a good practice because it makes your code more readable and maintainabl
 <h2 id="registering-services" tabindex="-1"><a class="header-anchor" href="#registering-services"><span>Registering Services</span></a></h2>
 <p>In Stone.js, services can be registered in three main ways, depending on your style and needs:</p>
 <ul>
-<li><strong>Declarative API</strong> — Clean and class-friendly</li>
-<li><strong>Imperative API</strong> — Blueprint-based and flexible</li>
-<li><strong>Explicit API</strong> — Full manual control (for advanced use)</li>
+<li><strong>Declarative API</strong>, Clean and class-friendly</li>
+<li><strong>Imperative API</strong>, Blueprint-based and flexible</li>
+<li><strong>Explicit API</strong>, Full manual control (for advanced use)</li>
 </ul>
 <p>All these methods inject your service into the <strong>Service Container</strong>, making it available for resolution anywhere in the system.</p>
 <Tabs id="183" :data='[{"id":"Declarative"},{"id":"Imperative"}]' :active="0" tab-id="declarative-imperative">
@@ -112,9 +112,9 @@ This is a good practice because it makes your code more readable and maintainabl
 <template #title1="{ value, isActive }">Imperative</template>
 <template #tab0="{ value, isActive }">
 <h3 id="declarative-api" tabindex="-1"><a class="header-anchor" href="#declarative-api"><span>Declarative API</span></a></h3>
-<p>This is the easiest and most elegant way to register a service — just decorate your class.</p>
-<h4 id="stone-—-the-foundation" tabindex="-1"><a class="header-anchor" href="#stone-—-the-foundation"><span><code v-pre>@Stone()</code> — The Foundation</span></a></h4>
-<p>Use the <code v-pre>@Stone()</code> decorator to register any class into the container. It’s the most generic form — like placing a foundational stone in your app.</p>
+<p>This is the easiest and most elegant way to register a service, just decorate your class.</p>
+<h4 id="stone-the-foundation" tabindex="-1"><a class="header-anchor" href="#stone-the-foundation"><span><code v-pre>@Stone()</code>, The Foundation</span></a></h4>
+<p>Use the <code v-pre>@Stone()</code> decorator to register any class into the container. It’s the most generic form, like placing a foundational stone in your app.</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line"><span class="token keyword">import</span> <span class="token punctuation">{</span> Stone <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@stone-js/core'</span></span>
 <span class="line"></span>
 <span class="line"><span class="token decorator"><span class="token at operator">@</span><span class="token function">Stone</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span></span>
@@ -122,7 +122,7 @@ This is a good practice because it makes your code more readable and maintainabl
 <span class="line">  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> <span class="token keyword">readonly</span> container<span class="token operator">:</span> IContainer<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span></span>
 <span class="line"><span class="token punctuation">}</span></span>
 <span class="line"></span></code></pre>
-<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h4 id="service-—-the-specialized-shortcut" tabindex="-1"><a class="header-anchor" href="#service-—-the-specialized-shortcut"><span><code v-pre>@Service()</code> — The Specialized Shortcut</span></a></h4>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h4 id="service-the-specialized-shortcut" tabindex="-1"><a class="header-anchor" href="#service-the-specialized-shortcut"><span><code v-pre>@Service()</code>, The Specialized Shortcut</span></a></h4>
 <p>Prefer this when registering actual services. It behaves the same as <code v-pre>@Stone()</code>, but it's semantically clearer.</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line"><span class="token keyword">import</span> <span class="token punctuation">{</span> Service <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@stone-js/core'</span></span>
 <span class="line"></span>
@@ -143,7 +143,7 @@ This is a good practice because it makes your code more readable and maintainabl
 </template>
 <template #tab1="{ value, isActive }">
 <h3 id="imperative-api" tabindex="-1"><a class="header-anchor" href="#imperative-api"><span>Imperative API</span></a></h3>
-<p>For more control — or for programmatic setups — use the <code v-pre>defineBlueprintConfig()</code> function. You register services in the <code v-pre>stone.services</code> namespace.</p>
+<p>For more control, or for programmatic setups, use the <code v-pre>defineBlueprintConfig()</code> function. You register services in the <code v-pre>stone.services</code> namespace.</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line"><span class="token keyword">import</span> <span class="token punctuation">{</span> defineBlueprintConfig <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@stone-js/core'</span></span>
 <span class="line"></span>
 <span class="line"><span class="token keyword">export</span> <span class="token keyword">const</span> mainBlueprint <span class="token operator">=</span> <span class="token function">defineBlueprintConfig</span><span class="token punctuation">(</span><span class="token punctuation">(</span>blueprint<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span></span>
@@ -190,22 +190,22 @@ This is a good practice because it makes your code more readable and maintainabl
 </div>
 <h2 id="resolving-services" tabindex="-1"><a class="header-anchor" href="#resolving-services"><span>Resolving Services</span></a></h2>
 <p>Once your services are registered, it’s time to use them. The Stone.js Service Container offers several ways to <strong>resolve</strong> dependencies, from classic methods to some truly elegant tricks using destructuring and proxies.</p>
-<h3 id="make-—-classic-resolution" tabindex="-1"><a class="header-anchor" href="#make-—-classic-resolution"><span><code v-pre>make()</code> — Classic Resolution</span></a></h3>
+<h3 id="make-classic-resolution" tabindex="-1"><a class="header-anchor" href="#make-classic-resolution"><span><code v-pre>make()</code>, Classic Resolution</span></a></h3>
 <p>Use <code v-pre>make()</code> to resolve a registered binding by its name or class.</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line"><span class="token keyword">const</span> config <span class="token operator">=</span> container<span class="token punctuation">.</span><span class="token function">make</span><span class="token punctuation">(</span><span class="token string">'config'</span><span class="token punctuation">)</span></span>
 <span class="line"><span class="token keyword">const</span> logger <span class="token operator">=</span> container<span class="token punctuation">.</span><span class="token function">make</span><span class="token punctuation">(</span>LoggerService<span class="token punctuation">)</span></span>
 <span class="line"></span></code></pre>
 <div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div></div></div><p>If the binding doesn’t exist, <code v-pre>make()</code> throws an error. Use it when you expect the service to already be bound.</p>
-<h3 id="resolve-—-auto-binding-included" tabindex="-1"><a class="header-anchor" href="#resolve-—-auto-binding-included"><span><code v-pre>resolve()</code> — Auto-Binding Included</span></a></h3>
+<h3 id="resolve-auto-binding-included" tabindex="-1"><a class="header-anchor" href="#resolve-auto-binding-included"><span><code v-pre>resolve()</code>, Auto-Binding Included</span></a></h3>
 <p>Use <code v-pre>resolve()</code> when you're not sure if a service is registered. It tries to resolve the binding, and if it doesn't exist, it <strong>automatically binds and returns</strong> it.</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line"><span class="token keyword">const</span> logger <span class="token operator">=</span> container<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>LoggerService<span class="token punctuation">)</span></span>
 <span class="line"></span></code></pre>
-<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div></div></div><p>This is particularly useful for classes that haven’t been registered manually — they’ll be auto-bound as singletons by default.</p>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div></div></div><p>This is particularly useful for classes that haven’t been registered manually, they’ll be auto-bound as singletons by default.</p>
 <p>You can also control that behavior:</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line"><span class="token keyword">const</span> temp <span class="token operator">=</span> container<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>TempService<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span> <span class="token comment">// Bind as factory instead</span></span>
 <span class="line"></span></code></pre>
 <div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div></div></div><h3 id="destructuring-resolution" tabindex="-1"><a class="header-anchor" href="#destructuring-resolution"><span>Destructuring Resolution</span></a></h3>
-<p>Because the container is a Proxy, you can <strong>destructure</strong> multiple dependencies at once — clean and elegant, especially in constructor or factory parameters.</p>
+<p>Because the container is a Proxy, you can <strong>destructure</strong> multiple dependencies at once, clean and elegant, especially in constructor or factory parameters.</p>
 <Tabs id="300" :data='[{"id":"Class-based"},{"id":"Factory-based"}]' :active="0" tab-id="class-factory-function">
 <template #title0="{ value, isActive }">Class-based</template>
 <template #title1="{ value, isActive }">Factory-based</template>
@@ -228,17 +228,17 @@ This is a good practice because it makes your code more readable and maintainabl
 </Tabs>
 <div class="hint-container tip">
 <p class="hint-container-title">Tips</p>
-<p>This is our favorite method — readable, intuitive, and type-safe in TypeScript.</p>
+<p>This is our favorite method, readable, intuitive, and type-safe in TypeScript.</p>
 </div>
 <h3 id="proxy-based-resolution" tabindex="-1"><a class="header-anchor" href="#proxy-based-resolution"><span>Proxy-Based Resolution</span></a></h3>
-<p>Want to access services like properties? Go for it — the container is a Proxy!</p>
+<p>Want to access services like properties? Go for it, the container is a Proxy!</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line"><span class="token keyword">const</span> logger <span class="token operator">=</span> container<span class="token punctuation">.</span>logger</span>
 <span class="line"><span class="token keyword">const</span> userService <span class="token operator">=</span> container<span class="token punctuation">.</span>userService</span>
 <span class="line"></span></code></pre>
 <div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div></div></div><p>This works thanks to <code v-pre>Proxy.get</code>, which intercepts property access and calls <code v-pre>make()</code> under the hood.</p>
 <div class="hint-container important">
 <p class="hint-container-title">Important</p>
-<p>But don’t get carried away — only one-level property resolution is supported. No <code v-pre>container.services.user</code>, just <code v-pre>container.userService</code>.</p>
+<p>But don’t get carried away, only one-level property resolution is supported. No <code v-pre>container.services.user</code>, just <code v-pre>container.userService</code>.</p>
 </div>
 <h3 id="factory-access" tabindex="-1"><a class="header-anchor" href="#factory-access"><span>Factory Access</span></a></h3>
 <p>Need a factory instead of a direct instance? Use:</p>
@@ -247,7 +247,7 @@ This is a good practice because it makes your code more readable and maintainabl
 <span class="line"></span></code></pre>
 <div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div></div></div><p>This is useful for passing service creators around without resolving them yet.</p>
 <h2 id="aliases" tabindex="-1"><a class="header-anchor" href="#aliases"><span>Aliases</span></a></h2>
-<p>In Stone.js, you can assign <strong>aliases</strong> to your services — alternate names used when resolving a service. This is more than just syntactic sugar. It’s a <strong>best practice</strong> that safeguards your app against name mangling (like minification during bundling), Facilitates destructuring DI, and improves long-term flexibility.</p>
+<p>In Stone.js, you can assign <strong>aliases</strong> to your services, alternate names used when resolving a service. This is more than just syntactic sugar. It’s a <strong>best practice</strong> that safeguards your app against name mangling (like minification during bundling), Facilitates destructuring DI, and improves long-term flexibility.</p>
 <h3 id="why-use-aliases" tabindex="-1"><a class="header-anchor" href="#why-use-aliases"><span>Why Use Aliases?</span></a></h3>
 <p>Class names can change. Builds can obfuscate. But <strong>aliases</strong> stay consistent.</p>
 <ul>
@@ -282,7 +282,7 @@ This is a good practice because it makes your code more readable and maintainabl
 <span class="line"></span></code></pre>
 <div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div></template>
 </Tabs>
-<h4 id="explicit-via-container-method-—-inside-a-service-provider-only" tabindex="-1"><a class="header-anchor" href="#explicit-via-container-method-—-inside-a-service-provider-only"><span>Explicit (via container method — inside a Service Provider only)</span></a></h4>
+<h4 id="explicit-via-container-method-inside-a-service-provider-only" tabindex="-1"><a class="header-anchor" href="#explicit-via-container-method-inside-a-service-provider-only"><span>Explicit (via container method, inside a Service Provider only)</span></a></h4>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line">container<span class="token punctuation">.</span><span class="token function">alias</span><span class="token punctuation">(</span>UserService<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'userService'</span><span class="token punctuation">,</span> <span class="token string">'usr'</span><span class="token punctuation">]</span><span class="token punctuation">)</span></span>
 <span class="line"></span></code></pre>
 <div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div></div></div><p>You can assign multiple aliases at once by passing an array.</p>
@@ -303,7 +303,7 @@ This is a good practice because it makes your code more readable and maintainabl
 <span class="line"></span></code></pre>
 <div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>Aliases are just keys mapped to real bindings. They’re lightweight, powerful, and totally worth using.</p>
 <h3 id="always-alias" tabindex="-1"><a class="header-anchor" href="#always-alias"><span>Always Alias</span></a></h3>
-<p>For every registered service, give it an alias. Whether it’s class-based, factory-based, or even just a plain object — an alias guarantees consistency.</p>
+<p>For every registered service, give it an alias. Whether it’s class-based, factory-based, or even just a plain object, an alias guarantees consistency.</p>
 <p>Especially important when:</p>
 <ul>
 <li>Doing destructuring DI</li>
@@ -319,8 +319,8 @@ This is a good practice because it makes your code more readable and maintainabl
 <span class="line"></span></code></pre>
 <div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="which-one-to-use" tabindex="-1"><a class="header-anchor" href="#which-one-to-use"><span>Which One to Use?</span></a></h3>
 <ul>
-<li><code v-pre>has</code> — Feels like you're querying a map or dictionary.</li>
-<li><code v-pre>bound</code> — Feels like you're asking “has this been bound already?”</li>
+<li><code v-pre>has</code>, Feels like you're querying a map or dictionary.</li>
+<li><code v-pre>bound</code>, Feels like you're asking “has this been bound already?”</li>
 </ul>
 <p>Choose whichever fits your mental model. Under the hood, they do the same thing.</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line"><span class="token keyword">if</span> <span class="token punctuation">(</span>container<span class="token punctuation">.</span><span class="token function">has</span><span class="token punctuation">(</span><span class="token string">'config'</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span></span>
@@ -343,7 +343,7 @@ This is a good practice because it makes your code more readable and maintainabl
 <p>Need to inspect everything? Use <code v-pre>container.getBindings()</code> and <code v-pre>container.getAliases()</code> to peek inside the internals.</p>
 </div>
 <h2 id="best-practices" tabindex="-1"><a class="header-anchor" href="#best-practices"><span>Best Practices</span></a></h2>
-<p>The Service Container in Stone.js is simple by design — but with great power comes great… opportunity for mistakes. Here are the best ways to use it effectively (and avoid common traps).</p>
+<p>The Service Container in Stone.js is simple by design, but with great power comes great… opportunity for mistakes. Here are the best ways to use it effectively (and avoid common traps).</p>
 <h4 id="_1-prefer-declarative-binding-when-possible" tabindex="-1"><a class="header-anchor" href="#_1-prefer-declarative-binding-when-possible"><span>1. <strong>Prefer Declarative Binding When Possible</strong></span></a></h4>
 <p>Use <code v-pre>@Service()</code> or <code v-pre>@Stone()</code> decorators for most use cases.</p>
 <ul>
@@ -368,7 +368,7 @@ This is a good practice because it makes your code more readable and maintainabl
 <li>During system bootstrapping or testing</li>
 <li>For edge cases like external libraries, raw values, or mocking</li>
 </ul>
-<p>Avoid using it <strong>inside event handlers or business logic</strong> — it breaks the dependency model and can lead to hidden side effects.</p>
+<p>Avoid using it <strong>inside event handlers or business logic</strong>, it breaks the dependency model and can lead to hidden side effects.</p>
 <h4 id="_4-alias-everything" tabindex="-1"><a class="header-anchor" href="#_4-alias-everything"><span>4. <strong>Alias Everything</strong></span></a></h4>
 <p>Always give your services an alias, even if you're registering them by class.</p>
 <ul>
@@ -408,26 +408,26 @@ This is a good practice because it makes your code more readable and maintainabl
 <p>Let’s recap what you’ve learned:</p>
 <ul>
 <li>The container lives in the <strong>Initialization Dimension</strong> as the <strong>ephemeral internal context</strong>.</li>
-<li>It supports <strong>class-based</strong> and <strong>factory-based</strong> services — but <strong>not</strong> raw function-based handlers.</li>
+<li>It supports <strong>class-based</strong> and <strong>factory-based</strong> services, but <strong>not</strong> raw function-based handlers.</li>
 <li>You can register services through:
 <ul>
 <li><strong>Declarative decorators</strong> (<code v-pre>@Stone</code>, <code v-pre>@Service</code>)</li>
 <li><strong>Blueprint configuration</strong> (<code v-pre>defineBlueprintConfig</code>)</li>
-<li><strong>Explicit bindings</strong> (<code v-pre>singleton</code>, <code v-pre>binding</code>, <code v-pre>instance</code>) — for power users</li>
+<li><strong>Explicit bindings</strong> (<code v-pre>singleton</code>, <code v-pre>binding</code>, <code v-pre>instance</code>), for power users</li>
 </ul>
 </li>
 <li>Services can be resolved using:
 <ul>
-<li><code v-pre>make()</code> — strict resolution</li>
-<li><code v-pre>resolve()</code> — with fallback auto-binding</li>
-<li><strong>Destructuring</strong> — elegant and type-safe</li>
-<li><strong>Proxy access</strong> — clean syntax, but only one level deep</li>
+<li><code v-pre>make()</code>, strict resolution</li>
+<li><code v-pre>resolve()</code>, with fallback auto-binding</li>
+<li><strong>Destructuring</strong>, elegant and type-safe</li>
+<li><strong>Proxy access</strong>, clean syntax, but only one level deep</li>
 </ul>
 </li>
 <li>Aliases are your friends. They protect your code from name changes and build processes.</li>
 <li>The container offers both <strong>flexibility</strong> and <strong>discipline</strong>. Follow the best practices and it will stay clean, efficient, and predictable.</li>
 </ul>
-<p>Stone.js doesn’t just inject dependencies — it injects clarity into your architecture.</p>
+<p>Stone.js doesn’t just inject dependencies, it injects clarity into your architecture.</p>
 </div></template>
 
 

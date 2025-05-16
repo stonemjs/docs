@@ -1,7 +1,7 @@
 <template><div><p>In Stone.js, a <strong>lifecycle hook</strong> is a listener function that is executed at a specific point in the evolution of the internal context. Hooks provide a structured way to observe what happens inside the system without altering its behavior. They are deeply integrated into the Continuum Architecture, where every application act is scoped within a dynamic, dimension-driven context.</p>
 <p>Lifecycle hooks are dimension-scoped: each dimension in the context has its own set of hook points corresponding to its responsibilities. This makes hooks highly predictable and composable. They allow you to instrument and monitor the system at various phases, whether at boot time, per request, or during teardown.</p>
 <p>However, hooks are strictly <strong>observational</strong>. They are not meant to intercept, control, or mutate context data. If you need to transform or intervene in the lifecycle of an intention or response, you must use middleware instead.</p>
-<p>This page focuses specifically on the <strong>initialization hooks</strong> — the hooks triggered during the lifecycle of each <strong>intention</strong> (e.g., request, event, CLI input). These hooks allow you to trace and instrument everything that happens from the moment a request is received to the moment the response is finalized and the ephemeral execution context is destroyed.</p>
+<p>This page focuses specifically on the <strong>initialization hooks</strong>, the hooks triggered during the lifecycle of each <strong>intention</strong> (e.g., request, event, CLI input). These hooks allow you to trace and instrument everything that happens from the moment a request is received to the moment the response is finalized and the ephemeral execution context is destroyed.</p>
 <p>Low-level lifecycle hooks related to <a href="./blueprint#setup-hooks"><strong>setup</strong></a> and <a href="./adapter#integration-hooks"><strong>integration</strong></a> dimensions will be documented separately.</p>
 <h2 id="initialization-hooks" tabindex="-1"><a class="header-anchor" href="#initialization-hooks"><span>Initialization Hooks</span></a></h2>
 <p>The following hooks are executed during the lifecycle of each intention (e.g. HTTP request, CLI call, event trigger). These hooks are scoped to the <strong>ephemeral execution context</strong> and allow you to observe its evolution from creation to teardown.</p>
@@ -105,7 +105,7 @@
 </template>
 <template #tab1="{ value, isActive }">
 <h3 id="imperative-registration" tabindex="-1"><a class="header-anchor" href="#imperative-registration"><span>Imperative Registration</span></a></h3>
-<p>Hooks can also be registered manually in the blueprint definition. This approach is useful when you want full control over listener setup — for example, when registering hooks conditionally, injecting them dynamically, or composing from external libraries.</p>
+<p>Hooks can also be registered manually in the blueprint definition. This approach is useful when you want full control over listener setup, for example, when registering hooks conditionally, injecting them dynamically, or composing from external libraries.</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line"><span class="token keyword">import</span> <span class="token punctuation">{</span> defineBlueprintConfig <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@stone-js/core'</span></span>
 <span class="line"></span>
 <span class="line"><span class="token keyword">const</span> <span class="token function-variable function">logInit</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'Init triggered'</span><span class="token punctuation">)</span></span>
@@ -128,7 +128,7 @@
 </template>
 </Tabs>
 <h2 id="hook-vs-middleware" tabindex="-1"><a class="header-anchor" href="#hook-vs-middleware"><span>Hook vs. Middleware</span></a></h2>
-<p>In Stone.js, both <strong>hooks</strong> and <a href="./middleware"><strong>middleware</strong></a> allow you to react to different stages of the context lifecycle — but they serve <strong>fundamentally different purposes</strong>.</p>
+<p>In Stone.js, both <strong>hooks</strong> and <a href="./middleware"><strong>middleware</strong></a> allow you to react to different stages of the context lifecycle, but they serve <strong>fundamentally different purposes</strong>.</p>
 <p>Understanding this distinction is key to writing clear, maintainable, and continuum-aligned systems.</p>
 <h3 id="hooks-observers" tabindex="-1"><a class="header-anchor" href="#hooks-observers"><span>Hooks: Observers</span></a></h3>
 <p>Hooks are passive. They are triggered automatically by the framework at well-defined execution points. They cannot interrupt the flow, short-circuit execution, or return alternative results. They exist <strong>outside the pipeline</strong>, and their purpose is to <strong>observe and instrument</strong> the context.</p>
@@ -150,7 +150,7 @@
 <li>Catch and transform errors</li>
 <li>Inject data into the context</li>
 </ul>
-<p>Middleware lives <strong>inside the dimensions</strong> — especially in the <a href="./blueprint"><strong>Setup</strong></a>, <a href="./adapter"><strong>Integration</strong></a>, and <strong>Initialization</strong> dimensions — and is responsible for shaping the behavior of the context.</p>
+<p>Middleware lives <strong>inside the dimensions</strong>, especially in the <a href="./blueprint"><strong>Setup</strong></a>, <a href="./adapter"><strong>Integration</strong></a>, and <strong>Initialization</strong> dimensions, and is responsible for shaping the behavior of the context.</p>
 <p>They define <strong>how</strong> intentions are interpreted, and <strong>what</strong> happens in response.</p>
 <h3 id="comparison-table" tabindex="-1"><a class="header-anchor" href="#comparison-table"><span>Comparison Table</span></a></h3>
 <table>
@@ -200,11 +200,11 @@
 </tbody>
 </table>
 <h2 id="summary" tabindex="-1"><a class="header-anchor" href="#summary"><span>Summary</span></a></h2>
-<p>Lifecycle hooks in Stone.js provide a structured, dimension-aware way to <strong>observe</strong> the internal evolution of the context — from system startup to per-intent execution and teardown.</p>
+<p>Lifecycle hooks in Stone.js provide a structured, dimension-aware way to <strong>observe</strong> the internal evolution of the context, from system startup to per-intent execution and teardown.</p>
 <p>They are:</p>
 <ul>
 <li><strong>Dimension-scoped</strong>: Each hook is bound to a specific phase of the continuum</li>
-<li><strong>Passive</strong>: Hooks cannot modify or interrupt the flow — they listen, they don’t act</li>
+<li><strong>Passive</strong>: Hooks cannot modify or interrupt the flow, they listen, they don’t act</li>
 <li><strong>Safe and isolated</strong>: Hook execution is side-effect-tolerant and does not depend on class instantiation</li>
 <li><strong>Crucial for instrumentation</strong>: Ideal for logging, tracing, performance measurement, debugging, and system introspection</li>
 </ul>

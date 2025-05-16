@@ -8,7 +8,7 @@ Lifecycle hooks are dimension-scoped: each dimension in the context has its own 
 
 However, hooks are strictly **observational**. They are not meant to intercept, control, or mutate context data. If you need to transform or intervene in the lifecycle of an intention or response, you must use middleware instead.
 
-This page focuses specifically on the **initialization hooks** — the hooks triggered during the lifecycle of each **intention** (e.g., request, event, CLI input). These hooks allow you to trace and instrument everything that happens from the moment a request is received to the moment the response is finalized and the ephemeral execution context is destroyed.
+This page focuses specifically on the **initialization hooks**, the hooks triggered during the lifecycle of each **intention** (e.g., request, event, CLI input). These hooks allow you to trace and instrument everything that happens from the moment a request is received to the moment the response is finalized and the ephemeral execution context is destroyed.
 
 Low-level lifecycle hooks related to [**setup**](./blueprint#setup-hooks) and [**integration**](./adapter#integration-hooks) dimensions will be documented separately.
 
@@ -124,7 +124,7 @@ This ensures that hooks remain introspectable, context-agnostic, and safe to exe
 
 ### Imperative Registration
 
-Hooks can also be registered manually in the blueprint definition. This approach is useful when you want full control over listener setup — for example, when registering hooks conditionally, injecting them dynamically, or composing from external libraries.
+Hooks can also be registered manually in the blueprint definition. This approach is useful when you want full control over listener setup, for example, when registering hooks conditionally, injecting them dynamically, or composing from external libraries.
 
 ```ts
 import { defineBlueprintConfig } from '@stone-js/core'
@@ -151,7 +151,7 @@ This method attaches the listener directly to the context lifecycle under the `s
 
 ## Hook vs. Middleware
 
-In Stone.js, both **hooks** and [**middleware**](./middleware) allow you to react to different stages of the context lifecycle — but they serve **fundamentally different purposes**.
+In Stone.js, both **hooks** and [**middleware**](./middleware) allow you to react to different stages of the context lifecycle, but they serve **fundamentally different purposes**.
 
 Understanding this distinction is key to writing clear, maintainable, and continuum-aligned systems.
 
@@ -178,7 +178,7 @@ Middleware are active. They are part of the execution pipeline and can:
 - Catch and transform errors
 - Inject data into the context
 
-Middleware lives **inside the dimensions** — especially in the [**Setup**](./blueprint), [**Integration**](./adapter), and **Initialization** dimensions — and is responsible for shaping the behavior of the context.
+Middleware lives **inside the dimensions**, especially in the [**Setup**](./blueprint), [**Integration**](./adapter), and **Initialization** dimensions, and is responsible for shaping the behavior of the context.
 
 They define **how** intentions are interpreted, and **what** happens in response.
 
@@ -196,12 +196,12 @@ They define **how** intentions are interpreted, and **what** happens in response
 
 ## Summary
 
-Lifecycle hooks in Stone.js provide a structured, dimension-aware way to **observe** the internal evolution of the context — from system startup to per-intent execution and teardown.
+Lifecycle hooks in Stone.js provide a structured, dimension-aware way to **observe** the internal evolution of the context, from system startup to per-intent execution and teardown.
 
 They are:
 
 - **Dimension-scoped**: Each hook is bound to a specific phase of the continuum
-- **Passive**: Hooks cannot modify or interrupt the flow — they listen, they don’t act
+- **Passive**: Hooks cannot modify or interrupt the flow, they listen, they don’t act
 - **Safe and isolated**: Hook execution is side-effect-tolerant and does not depend on class instantiation
 - **Crucial for instrumentation**: Ideal for logging, tracing, performance measurement, debugging, and system introspection
 

@@ -2,9 +2,9 @@
 title: Outgoing Responses
 ---
 
-In Stone.js, the `OutgoingResponse` represents the **effect** of your application — the answer to an incoming intention. Just as the `IncomingEvent` expresses what the user or system wants, the `OutgoingResponse` expresses what your domain wants to say back.
+In Stone.js, the `OutgoingResponse` represents the **effect** of your application, the answer to an incoming intention. Just as the `IncomingEvent` expresses what the user or system wants, the `OutgoingResponse` expresses what your domain wants to say back.
 
-It travels in the **reverse direction** of an `IncomingEvent`, moving from the functional domain, through the initialization layer, and finally into the integration layer — where it’s interpreted by an adapter (HTTP, Browser, CLI, etc.).
+It travels in the **reverse direction** of an `IncomingEvent`, moving from the functional domain, through the initialization layer, and finally into the integration layer, where it’s interpreted by an adapter (HTTP, Browser, CLI, etc.).
 
 Responses in Stone.js are fully **context-aware**. They support:
 
@@ -47,13 +47,13 @@ return OutgoingHttpResponse.create({ statusCode: 200 })
 While Stone.js automatically wraps primitive return values in an `OutgoingResponse` for event handlers, Initialization middleware must explicitly return an `OutgoingResponse` or one of its subclasses.
 :::
 
-This gives you a unified, declarative or programmatic way to represent everything from a JSON API payload to a file download, a browser redirect, or a CLI output — all part of the same continuum.
+This gives you a unified, declarative or programmatic way to represent everything from a JSON API payload to a file download, a browser redirect, or a CLI output, all part of the same continuum.
 
 In the Continuum, every intention deserves a meaningful effect.
 
 ## Using `OutgoingResponse`
 
-The `OutgoingResponse` is the base class for all response types in Stone.js. It’s a lightweight, dimension-neutral response that lets you set content, status codes, and preparation logic — all without tying your app to a specific adapter like HTTP or Browser.
+The `OutgoingResponse` is the base class for all response types in Stone.js. It’s a lightweight, dimension-neutral response that lets you set content, status codes, and preparation logic, all without tying your app to a specific adapter like HTTP or Browser.
 
 You can use it:
 - **explicitly**, via `OutgoingResponse.create(...)`,
@@ -91,9 +91,9 @@ Even if it’s not an HTTP response, you can still set a status code and message
 
 ## Using `OutgoingBrowserResponse`
 
-The `OutgoingBrowserResponse` is a frontend-only response type. It mimics the behavior of backend responses, but it’s meant strictly for the **browser environment** — whether you're in a full SPA or using client-side hydration in an SSR app.
+The `OutgoingBrowserResponse` is a frontend-only response type. It mimics the behavior of backend responses, but it’s meant strictly for the **browser environment**, whether you're in a full SPA or using client-side hydration in an SSR app.
 
-This class exists to preserve a **unified API experience** between frontend and backend responses in Stone.js. It allows you to return meaningful responses within a browser-based flow — including redirections — without dealing with transport-specific logic like headers or cookies.
+This class exists to preserve a **unified API experience** between frontend and backend responses in Stone.js. It allows you to return meaningful responses within a browser-based flow, including redirections, without dealing with transport-specific logic like headers or cookies.
 
 ### Example
 
@@ -106,11 +106,11 @@ return OutgoingBrowserResponse.create({
 })
 ```
 
-This response will be interpreted by the browser adapter — it’s never sent as an HTTP response.
+This response will be interpreted by the browser adapter, it’s never sent as an HTTP response.
 
 ### API Helpers
 
-`OutgoingBrowserResponse` provides status code helpers — useful for guards or logic conditions in middlewares:
+`OutgoingBrowserResponse` provides status code helpers, useful for guards or logic conditions in middlewares:
 
 ```ts
 response.is2xx()      // true if 2xx success
@@ -154,7 +154,7 @@ Instead, it signals the adapter to reroute using the frontend’s router (`windo
 
 ## Using `OutgoingHttpResponse`
 
-The `OutgoingHttpResponse` is the main response class for **HTTP server** environments in Stone.js — including REST APIs, SSR applications, and any backend dealing with HTTP transport.
+The `OutgoingHttpResponse` is the main response class for **HTTP server** environments in Stone.js, including REST APIs, SSR applications, and any backend dealing with HTTP transport.
 
 It extends the base `OutgoingResponse`, and brings full HTTP capabilities:
 - status codes and messages,
@@ -447,7 +447,7 @@ You can use:
 - **Factory Utilities** for **dynamic**, runtime-defined responses,
 - **Decorators** for **static**, declarative, handler-based responses.
 
-Each approach fits a different use case — use the right one depending on your context.
+Each approach fits a different use case, use the right one depending on your context.
 
 ### Factory Utilities
 
@@ -545,7 +545,7 @@ export class Application {
 | Want **maximum flexibility** in functions/middlewares | Use **factories**         |
 
 ::: important
-**Do not mix both approaches** for the same handler — it could lead to unexpected behavior.
+**Do not mix both approaches** for the same handler, it could lead to unexpected behavior.
 :::
 
 ## Built-in HTTP Middleware
@@ -562,7 +562,7 @@ These are powerful, highly customizable, and fully integrated with the Continuum
 
 #### CORS (Cross-Origin Resource Sharing)
 
-By default, **CORS is disabled** in Stone.js — keeping the system as strict and secure as possible out of the box.
+By default, **CORS is disabled** in Stone.js, keeping the system as strict and secure as possible out of the box.
 
 If your application needs CORS (e.g., APIs accessed by a frontend app from another domain), Stone.js provides the official `CORSHeadersMiddleware`.
 
@@ -638,7 +638,7 @@ The `CompressionMiddleware` is an **Initialization Middleware**.
 
 Stone.js will automatically compress responses when the client supports it (based on `Accept-Encoding` headers).
 
-You don’t need to manually compress responses — it happens transparently during the response lifecycle.
+You don’t need to manually compress responses, it happens transparently during the response lifecycle.
 
 #### Static Files
 
@@ -688,7 +688,7 @@ If a compressed version of a file exists, Stone.js can serve it directly to opti
 
 ## Best Practices
 
-Building responses in Stone.js is powerful — but to maximize **clarity**, **flexibility**, and **portability**, you should follow some important best practices.
+Building responses in Stone.js is powerful, but to maximize **clarity**, **flexibility**, and **portability**, you should follow some important best practices.
 
 #### Let Stone.js Infer Responses in Event Handlers
 
@@ -732,7 +732,7 @@ const authMiddleware = () => (event: IncomingHttpEvent, next: NextMiddleware) =>
 
 This ensures that the system knows exactly when the pipeline is short-circuited and how to format the outgoing response properly.
 
-#### Choose Declarative or Imperative — Not Both
+#### Choose Declarative or Imperative, Not Both
 
 - Use **Status Decorators** (`@JsonHttpResponse`, `@HtmlHttpResponse`, etc.) when your response shape (status code, headers) is **static and predictable**.
 - Use **Factory Utilities** (`jsonHttpResponse()`, `redirectHttpResponse()`, etc.) when your response depends on **runtime conditions** (e.g., different statuses, dynamic headers).
@@ -813,7 +813,7 @@ Stone.js wraps your domain output cleanly based on where you deploy.
 - Let Stone.js infer responses in **event handlers**.
 - Always return an **explicit response** in **middleware**.
 - Register CORS, Compression, Static Files **through Blueprint**.
-- Keep your **domain logic pure** — no HTTP pollution inside handlers.
+- Keep your **domain logic pure**, no HTTP pollution inside handlers.
 
-You now master how responses flow in Stone.js — from your domain back to the world.  
+You now master how responses flow in Stone.js, from your domain back to the world.  
 Simple, clean, and continuum-aligned.

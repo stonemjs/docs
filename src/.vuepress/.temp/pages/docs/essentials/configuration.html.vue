@@ -1,8 +1,8 @@
-<template><div><p>In Stone.js, configuration is context-aware — and the best place to store contextual settings is outside your code.
+<template><div><p>In Stone.js, configuration is context-aware, and the best place to store contextual settings is outside your code.
 While most logic-level configuration lives inside your application’s <a href="../architecture/blueprint"><strong>Blueprint</strong></a>,
-this page focuses on <strong>environment configuration</strong>: the values that change between development, staging, and production — like API keys, ports, feature flags, and secrets.
+this page focuses on <strong>environment configuration</strong>: the values that change between development, staging, and production, like API keys, ports, feature flags, and secrets.
 Environment variables are the recommended way to supply those values.</p>
-<p>Stone.js embraces externalized configuration as a first-class concept in the Continuum Architecture. Configuration is not something you “import” — it’s something you <strong>adapt</strong> from your environment.</p>
+<p>Stone.js embraces externalized configuration as a first-class concept in the Continuum Architecture. Configuration is not something you “import”, it’s something you <strong>adapt</strong> from your environment.</p>
 <p>To help you do that, Stone.js provides:</p>
 <ul>
 <li>Support for <code v-pre>.env</code> files (private and public)</li>
@@ -10,7 +10,7 @@ Environment variables are the recommended way to supply those values.</p>
 <li>Public env bundling for frontend deployment</li>
 <li>CI/CD-friendly design for artifact reuse</li>
 </ul>
-<p>In short: configuration belongs in your environment, not in your logic — and Stone.js makes that easy to manage.</p>
+<p>In short: configuration belongs in your environment, not in your logic, and Stone.js makes that easy to manage.</p>
 <p>In this page, we’ll cover:</p>
 <ul>
 <li>How <code v-pre>.env</code> and <code v-pre>.env.public</code> files work</li>
@@ -26,26 +26,26 @@ Environment variables are the recommended way to supply those values.</p>
 <div class="language-bash line-numbers-mode" data-highlighter="prismjs" data-ext="sh"><pre v-pre><code><span class="line"><span class="token function">npm</span> <span class="token function">install</span> @stone-js/env</span>
 <span class="line"></span></code></pre>
 <div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div></div></div><h2 id="the-role-of-env-in-the-continuum" tabindex="-1"><a class="header-anchor" href="#the-role-of-env-in-the-continuum"><span>The Role of Env in the Continuum</span></a></h2>
-<p>In the Continuum Architecture, configuration is part of the <strong>external context</strong> — it’s unpredictable, environment-specific, and often unknown until runtime.
+<p>In the Continuum Architecture, configuration is part of the <strong>external context</strong>, it’s unpredictable, environment-specific, and often unknown until runtime.
 That’s why Stone.js doesn’t treat configuration as just a static object, but as a <strong>relationship</strong> between your application and its deployment environment.</p>
-<p>Your application doesn’t <strong>own</strong> its configuration — it <strong>adapts</strong> to it.</p>
+<p>Your application doesn’t <strong>own</strong> its configuration, it <strong>adapts</strong> to it.</p>
 <p>This means:</p>
 <ul>
 <li>You should avoid hardcoding values directly into your application.</li>
 <li>Your application logic should ask the environment what it needs to know.</li>
 <li>The system should validate and normalize that input before using it.</li>
 </ul>
-<p>The <code v-pre>Env</code> module acts as the <strong>bridge</strong> between external configuration and internal behavior. It gives your application a reliable and type-safe way to retrieve environment variables, enforce defaults, and catch invalid input early — without leaking domain concerns into the environment.</p>
+<p>The <code v-pre>Env</code> module acts as the <strong>bridge</strong> between external configuration and internal behavior. It gives your application a reliable and type-safe way to retrieve environment variables, enforce defaults, and catch invalid input early, without leaking domain concerns into the environment.</p>
 <p>This aligns perfectly with the core principle of the Continuum:</p>
 <blockquote>
 <p><em>The domain must not depend directly on its context, but it must be aware that the context is uncertain.</em></p>
 </blockquote>
-<p>Environment configuration lets you <strong>embrace that uncertainty</strong> — with structure.</p>
+<p>Environment configuration lets you <strong>embrace that uncertainty</strong>, with structure.</p>
 <p>In serverless environments like <strong>AWS Lambda</strong>, environment variables are typically defined in the platform settings (e.g., Lambda console, deployment manifest).</p>
-<p>The <code v-pre>Env</code> module abstracts <em>where</em> they come from — whether from <code v-pre>.env</code> files, runtime process variables, or injected by your FaaS provider — so you can write universal configuration code that works <strong>anywhere</strong>.</p>
+<p>The <code v-pre>Env</code> module abstracts <em>where</em> they come from, whether from <code v-pre>.env</code> files, runtime process variables, or injected by your FaaS provider, so you can write universal configuration code that works <strong>anywhere</strong>.</p>
 <h2 id="working-with-environment-variables" tabindex="-1"><a class="header-anchor" href="#working-with-environment-variables"><span>Working with Environment Variables</span></a></h2>
 <p>Stone.js supports two kinds of environment variable files:</p>
-<h3 id="env-—-private-environment" tabindex="-1"><a class="header-anchor" href="#env-—-private-environment"><span><code v-pre>.env</code> — Private Environment</span></a></h3>
+<h3 id="env-private-environment" tabindex="-1"><a class="header-anchor" href="#env-private-environment"><span><code v-pre>.env</code>, Private Environment</span></a></h3>
 <p>Used for <strong>server-side only</strong> variables. These are sensitive values like database URLs, API keys, or internal feature flags.<br>
 They are <strong>never bundled</strong>, <strong>never exposed</strong>, and only available in the Node.js runtime.</p>
 <p>You can define variants like:</p>
@@ -56,7 +56,7 @@ They are <strong>never bundled</strong>, <strong>never exposed</strong>, and onl
 <li><code v-pre>.env.staging</code></li>
 </ul>
 <p>By default, <strong>only <code v-pre>.env</code> is loaded</strong>, but you can customize this in <code v-pre>stone.config.mjs</code>.</p>
-<h3 id="env-public-—-public-environment" tabindex="-1"><a class="header-anchor" href="#env-public-—-public-environment"><span><code v-pre>.env.public</code> — Public Environment</span></a></h3>
+<h3 id="env-public-public-environment" tabindex="-1"><a class="header-anchor" href="#env-public-public-environment"><span><code v-pre>.env.public</code>, Public Environment</span></a></h3>
 <p>Used for <strong>frontend-safe</strong> variables. These can be shipped to the client or included in your SPA/SSR bundle.</p>
 <p>You can define:</p>
 <ul>
@@ -71,7 +71,7 @@ They are <strong>never bundled</strong>, <strong>never exposed</strong>, and onl
 <span class="line">│   ├── enviroments.development.js</span>
 <span class="line">│   └── enviroments.production.js</span>
 <span class="line"></span></code></pre>
-<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>At runtime, <strong>only <code v-pre>enviroments.js</code> is loaded</strong>. This lets you create <strong>a single build artifact</strong> and override just that file during deployment — no rebuild required.</p>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>At runtime, <strong>only <code v-pre>enviroments.js</code> is loaded</strong>. This lets you create <strong>a single build artifact</strong> and override just that file during deployment, no rebuild required.</p>
 <p>This is perfect for CI/CD pipelines where you deploy the same code to multiple environments and just swap out configuration files.</p>
 <h3 id="example-one-artifact-many-environments" tabindex="-1"><a class="header-anchor" href="#example-one-artifact-many-environments"><span>Example: One Artifact, Many Environments</span></a></h3>
 <ol>
@@ -84,14 +84,14 @@ They are <strong>never bundled</strong>, <strong>never exposed</strong>, and onl
 </ul>
 </li>
 </ol>
-<p>Your frontend will behave accordingly — without touching your code or rebuilding.</p>
+<p>Your frontend will behave accordingly, without touching your code or rebuilding.</p>
 <div class="hint-container tip">
 <p class="hint-container-title">Tips</p>
-<p>Stone.js works seamlessly in FaaS environments like Lambda — you can define your variables in the function settings and access them via the <code v-pre>Env</code> module just like local <code v-pre>.env</code> files.</p>
+<p>Stone.js works seamlessly in FaaS environments like Lambda, you can define your variables in the function settings and access them via the <code v-pre>Env</code> module just like local <code v-pre>.env</code> files.</p>
 </div>
 <h2 id="using-the-env-api" tabindex="-1"><a class="header-anchor" href="#using-the-env-api"><span>Using the <code v-pre>Env</code> API</span></a></h2>
 <p>The <code v-pre>Env</code> module provides a rich set of utilities to retrieve and validate environment variables.<br>
-However — <strong>you should never call <code v-pre>Env</code> utilities directly inside your application logic.</strong></p>
+However, <strong>you should never call <code v-pre>Env</code> utilities directly inside your application logic.</strong></p>
 <Mermaid id="mermaid-239" code="eJyNjrFug0AMQHe+wrroNpBSNV0YKgWSTp2K1AUxXIIpVp07dDgNLeLfe7ks3Rovlt57sqz1TJYkh1lJjydUOaiDGVGlcAPvxpM5MI7BzAmA6pyVin5i+bAZJpVeKZPF0rHzV7xqH58267VKlmXROunYXY698QKvb6EF2Nb7SdBbw3AM13CSBrLsGYp6b7+amBQRlHWFch6gpRPakZy9yTLKXV3wGQdPVppEa6jkO3zxAZ3zYJjBuhbH2I/BIGzD9u4Tswu10ufh9bQj5nz1EudPWdxdlneXu3/KX9zJeP8="></Mermaid><p>Instead, you should use <code v-pre>Env</code> utilities <strong>only at configuration time</strong>, to pass validated values into the system via the <strong>Blueprint</strong>.</p>
 <p>This guarantees a clean separation of concerns:</p>
 <ul>
@@ -117,7 +117,7 @@ However — <strong>you should never call <code v-pre>Env</code> utilities direc
 <p>This is the <strong>only supported way</strong> to use environment variables in a Stone.js app.</p>
 </div>
 <h3 id="api-overview" tabindex="-1"><a class="header-anchor" href="#api-overview"><span>API Overview</span></a></h3>
-<p>The main function is <code v-pre>get()</code> — but Stone.js provides specialized helpers for many types:</p>
+<p>The main function is <code v-pre>get()</code>, but Stone.js provides specialized helpers for many types:</p>
 <table>
 <thead>
 <tr>
@@ -185,7 +185,7 @@ However — <strong>you should never call <code v-pre>Env</code> utilities direc
 <span class="line"><span class="token function">getString</span><span class="token punctuation">(</span><span class="token string">'APP_NAME'</span><span class="token punctuation">,</span> <span class="token string">'StoneApp'</span><span class="token punctuation">)</span>   <span class="token comment">// Safe: fallback provided</span></span>
 <span class="line"><span class="token function">getNumber</span><span class="token punctuation">(</span><span class="token string">'PORT'</span><span class="token punctuation">)</span>                   <span class="token comment">// Unsafe: throws if PORT is missing or invalid</span></span>
 <span class="line"></span></code></pre>
-<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>This fail-fast behavior helps catch misconfiguration <strong>before your app starts</strong> — which is exactly what you want.</p>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>This fail-fast behavior helps catch misconfiguration <strong>before your app starts</strong>, which is exactly what you want.</p>
 <h3 id="env-helpers" tabindex="-1"><a class="header-anchor" href="#env-helpers"><span>Env Helpers</span></a></h3>
 <p>Stone.js provides helper functions to inspect the current environment:</p>
 <table>
@@ -315,7 +315,7 @@ All configuration should go through the <code v-pre>Blueprint</code>:</p>
 <div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>This ensures a clean separation between external context and internal behavior, as encouraged by the Continuum Architecture.
 And a single source of truth for your configuration, the <code v-pre>Blueprint</code>.</p>
 <h4 id="validate-and-fail-fast" tabindex="-1"><a class="header-anchor" href="#validate-and-fail-fast"><span>Validate and Fail Fast</span></a></h4>
-<p>All <code v-pre>Env</code> functions throw an error when a required variable is missing or invalid — <strong>unless you provide a fallback</strong>.</p>
+<p>All <code v-pre>Env</code> functions throw an error when a required variable is missing or invalid, <strong>unless you provide a fallback</strong>.</p>
 <p>Always validate on startup:</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line"><span class="token function">getNumber</span><span class="token punctuation">(</span><span class="token string">'MAX_RETRIES'</span><span class="token punctuation">)</span>         <span class="token comment">// throws if invalid or missing</span></span>
 <span class="line"><span class="token function">getNumber</span><span class="token punctuation">(</span><span class="token string">'MAX_RETRIES'</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span>      <span class="token comment">// safe fallback</span></span>
@@ -347,18 +347,18 @@ Use <code v-pre>.env</code> or <code v-pre>.env.public</code> instead.</p>
 <span class="line"><span class="token function">beforeEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token function">clearCache</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span></span>
 <span class="line"></span></code></pre>
 <div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="summary" tabindex="-1"><a class="header-anchor" href="#summary"><span>Summary</span></a></h2>
-<p>Stone.js embraces configuration as an external, mutable part of the system — something that should be adapted, not hardcoded.</p>
+<p>Stone.js embraces configuration as an external, mutable part of the system, something that should be adapted, not hardcoded.</p>
 <p>Here’s what you need to remember:</p>
 <ul>
-<li>Use <strong><code v-pre>.env</code></strong> for private, backend-only variables — not bundled, not exposed</li>
-<li>Use <strong><code v-pre>.env.public</code></strong> for safe-to-share variables needed in the frontend — bundled into <code v-pre>enviroments.js</code></li>
-<li>Never access <code v-pre>Env</code> directly in your domain code — always inject values through the <strong>Blueprint</strong></li>
+<li>Use <strong><code v-pre>.env</code></strong> for private, backend-only variables, not bundled, not exposed</li>
+<li>Use <strong><code v-pre>.env.public</code></strong> for safe-to-share variables needed in the frontend, bundled into <code v-pre>enviroments.js</code></li>
+<li>Never access <code v-pre>Env</code> directly in your domain code, always inject values through the <strong>Blueprint</strong></li>
 <li>All <code v-pre>Env</code> functions validate and fail fast unless you provide a default</li>
 <li>You can customize how <code v-pre>.env</code> files are loaded via <code v-pre>stone.config.mjs</code></li>
 <li>Public env files enable <strong>single-artifact CI/CD</strong> by allowing runtime config replacement</li>
-<li>Works out-of-the-box in <strong>FaaS environments</strong> like AWS Lambda — no need for extra setup</li>
+<li>Works out-of-the-box in <strong>FaaS environments</strong> like AWS Lambda, no need for extra setup</li>
 </ul>
-<p>In the Continuum, configuration is just another expression of <strong>context</strong> —<br>
+<p>In the Continuum, configuration is just another expression of <strong>context</strong>,<br>
 and <code v-pre>Env</code> is the clean, structured way to bind that context into your application.</p>
 </div></template>
 

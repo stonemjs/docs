@@ -1,11 +1,11 @@
 <template><div><p>In software, a paradigm is a way of thinking about and organizing code. It’s like choosing between building LEGO models by following the instructions (<strong>declarative</strong>) or by creating your own design from scratch (<strong>imperative</strong>).</p>
 <p><strong>Why does Stone.js support both?</strong><br>
-Because developers are like Jedi: some prefer the light side (structured, opinionated), others the dark side (raw power and freedom). Stone.js embraces both — so you can build apps the way <em>you</em> want.</p>
+Because developers are like Jedi: some prefer the light side (structured, opinionated), others the dark side (raw power and freedom). Stone.js embraces both, so you can build apps the way <em>you</em> want.</p>
 <h2 id="declarative-api" tabindex="-1"><a class="header-anchor" href="#declarative-api"><span>Declarative API</span></a></h2>
 <p><strong>Short definition</strong><br>
 You <em>describe what</em> you want, not <em>how</em> to do it.</p>
 <p><strong>Philosophy</strong><br>
-Let the framework do the heavy lifting through annotations and metadata by introspecting your code. You declare your intent — Stone.js figures out the structure.</p>
+Let the framework do the heavy lifting through annotations and metadata by introspecting your code. You declare your intent, Stone.js figures out the structure.</p>
 <p><strong>Core idea</strong><br>
 Use <strong>decorators</strong> to tag your classes, methods, and properties.</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line"><span class="token keyword">import</span> <span class="token punctuation">{</span> Get <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@stone-js/router'</span></span>
@@ -20,7 +20,7 @@ Use <strong>decorators</strong> to tag your classes, methods, and properties.</p
 <span class="line">  <span class="token punctuation">}</span></span>
 <span class="line"><span class="token punctuation">}</span></span>
 <span class="line"></span></code></pre>
-<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>Feels like magic 🪄 — but it’s really just metadata and reflection behind the scenes.</p>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>Feels like magic 🪄, but it’s really just metadata and reflection behind the scenes.</p>
 <h2 id="imperative-api" tabindex="-1"><a class="header-anchor" href="#imperative-api"><span>Imperative API</span></a></h2>
 <p><strong>Short definition</strong><br>
 You <em>explicitly define</em> how to wire up the app, step by step.</p>
@@ -36,7 +36,7 @@ Use <strong>functions</strong> like <code v-pre>defineBlueprintConfig</code>, <c
 <span class="line">  blueprint<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token string">'stone.kernel.eventHandler'</span><span class="token punctuation">,</span> <span class="token function">defineFactoryEventHandler</span><span class="token punctuation">(</span>App<span class="token punctuation">)</span><span class="token punctuation">)</span></span>
 <span class="line"><span class="token punctuation">}</span><span class="token punctuation">)</span></span>
 <span class="line"></span></code></pre>
-<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>Feels like assembling an engine from scratch — but it's clean, testable, and no magic.</p>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>Feels like assembling an engine from scratch, but it's clean, testable, and no magic.</p>
 <h2 id="declarative-vs-imperative-comparison" tabindex="-1"><a class="header-anchor" href="#declarative-vs-imperative-comparison"><span>Declarative vs Imperative: Comparison</span></a></h2>
 <table>
 <thead>
@@ -80,7 +80,7 @@ Use <strong>functions</strong> like <code v-pre>defineBlueprintConfig</code>, <c
 </tbody>
 </table>
 <h2 id="when-to-use-which" tabindex="-1"><a class="header-anchor" href="#when-to-use-which"><span>When to Use Which?</span></a></h2>
-<p>Stone.js supports <strong>both declarative and imperative</strong> styles — and both work great for <strong>frontend</strong> and <strong>backend</strong> development.</p>
+<p>Stone.js supports <strong>both declarative and imperative</strong> styles, and both work great for <strong>frontend</strong> and <strong>backend</strong> development.</p>
 <p>So… which one should you pick?</p>
 <p><strong>Use <em>Declarative</em> when:</strong></p>
 <ul>
@@ -97,9 +97,9 @@ Use <strong>functions</strong> like <code v-pre>defineBlueprintConfig</code>, <c
 <li>You're building systems where explicit logic is key (like CLIs, or complex flows)</li>
 </ul>
 <h2 id="final-thoughts" tabindex="-1"><a class="header-anchor" href="#final-thoughts"><span>Final Thoughts</span></a></h2>
-<p>Stone.js gives you both power and flexibility — declarative for speed and elegance, imperative for control and composition.</p>
+<p>Stone.js gives you both power and flexibility, declarative for speed and elegance, imperative for control and composition.</p>
 <p>Use the paradigm that fits your brain <em>and</em> your context.<br>
-Stone.js doesn’t force your hand — it extends it. 🤝</p>
+Stone.js doesn’t force your hand, it extends it. 🤝</p>
 </div></template>
 
 

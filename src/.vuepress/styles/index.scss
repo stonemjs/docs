@@ -28,7 +28,7 @@
   }
 }
 
-.code-block-title-bar{
+.code-block-title-bar {
   color: #9f9faf
 }
 
@@ -53,49 +53,9 @@
   }
 }
 
-.app-navbar {
-  --vp-screen-max-width: 1376px;
-
-  z-index: 175;
-  position: fixed;
-  inset: 0 0 auto;
-  overflow: visible;
-  background: var(--navbar-bg-color);
-  line-height: var(--navbar-line-height);
-  backdrop-filter: saturate(150%) blur(12px);
-  padding: 0 var(--navbar-horizontal-padding);
-  border-bottom: 1px solid var(--border-color);
-  transition: transform ease-in-out 0.3s, background var(--color-transition), box-shadow var(--color-transition);
-
-
-  @media print {
-    display: none;
-  }
-
-  .app-container {
-    margin: 0 auto;
-    overflow: visible;
-    max-width: var(--vp-screen-max-width);
-  }
-
-  .vp-navbar {
-    inset: 0;
-    padding: 0;
-    transition: none;
-    box-shadow: none;
-    overflow: visible;
-    position: relative;
-    backdrop-filter: none;
-
-    .vp-site-name {
-      font-size: 1.5rem;
-      font-weight: bolder;
-    }
-
-    .nav-item {
-      margin: 0 0.75rem;
-    }
-  }
+.vp-site-name {
+  font-size: 1.5rem;
+  font-weight: bolder;
 }
 
 code {

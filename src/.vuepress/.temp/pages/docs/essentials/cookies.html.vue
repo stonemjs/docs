@@ -1,4 +1,4 @@
-<template><div><p>Stone.js provides a simple, universal API for managing cookies across all environments — Node.js servers and browsers alike.<br>
+<template><div><p>Stone.js provides a simple, universal API for managing cookies across all environments, Node.js servers and browsers alike.<br>
 In the spirit of the Continuum Architecture, cookie management is fully integrated into the platform layer, offering a <strong>single, context-aware API</strong> regardless of where your code runs.</p>
 <p>Cookies can be accessed from incoming events (such as <code v-pre>IncomingHttpEvent</code> and <code v-pre>IncomingBrowserEvent</code>) and attached to outgoing responses (<code v-pre>OutgoingHttpResponse</code>, <code v-pre>OutgoingBrowserResponse</code>).</p>
 <p>You can easily:</p>
@@ -7,7 +7,7 @@ In the spirit of the Continuum Architecture, cookie management is fully integrat
 <li><strong>Set</strong> cookies in outgoing responses.</li>
 <li><strong>Clear</strong> cookies when needed.</li>
 </ul>
-<p>Because the Stone.js Cookie API abstracts the underlying platform differences, you can use exactly the same code on the server and in the browser — no conditions, no special cases.</p>
+<p>Because the Stone.js Cookie API abstracts the underlying platform differences, you can use exactly the same code on the server and in the browser, no conditions, no special cases.</p>
 <p>Here’s a quick glimpse:</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line"><span class="token comment">// Reading a cookie from an incoming event</span></span>
 <span class="line"><span class="token keyword">const</span> authToken <span class="token operator">=</span> event<span class="token punctuation">.</span><span class="token function">getCookie</span><span class="token punctuation">(</span><span class="token string">'auth_token'</span><span class="token punctuation">)</span><span class="token operator">?.</span><span class="token function">getValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></span>
@@ -27,7 +27,7 @@ In the spirit of the Continuum Architecture, cookie management is fully integrat
 <p>Both are simple, powerful, and fully platform-agnostic.</p>
 <h3 id="cookie-class" tabindex="-1"><a class="header-anchor" href="#cookie-class"><span>Cookie Class</span></a></h3>
 <p>The <code v-pre>Cookie</code> class represents a single cookie instance.<br>
-You usually won’t need to create <code v-pre>Cookie</code> objects manually — Stone.js handles that for you — but it’s good to know how they behave.</p>
+You usually won’t need to create <code v-pre>Cookie</code> objects manually, Stone.js handles that for you, but it’s good to know how they behave.</p>
 <table>
 <thead>
 <tr>
@@ -125,7 +125,7 @@ When you use <code v-pre>event.cookies</code> or <code v-pre>response.cookies</c
 <span class="line"></span></code></pre>
 <div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><div class="hint-container important">
 <p class="hint-container-title">Important</p>
-<p>You almost never have to think about cookie parsing or formatting yourself — Stone.js does it automatically.</p>
+<p>You almost never have to think about cookie parsing or formatting yourself, Stone.js does it automatically.</p>
 </div>
 <h3 id="cookieoptions-type-quick-overview" tabindex="-1"><a class="header-anchor" href="#cookieoptions-type-quick-overview"><span>CookieOptions Type (Quick Overview)</span></a></h3>
 <p>When setting a cookie, you can pass standard options:</p>
@@ -176,10 +176,10 @@ When you use <code v-pre>event.cookies</code> or <code v-pre>response.cookies</c
 </tbody>
 </table>
 <p>These are passed when creating or setting cookies, just like in standard HTTP cookies.</p>
-<p>Stone.js ensures you interact with cookies in a <strong>typed, structured, and secure</strong> way — no brittle string parsing or manual cookie headers needed.</p>
+<p>Stone.js ensures you interact with cookies in a <strong>typed, structured, and secure</strong> way, no brittle string parsing or manual cookie headers needed.</p>
 <h2 id="using-cookies" tabindex="-1"><a class="header-anchor" href="#using-cookies"><span>Using Cookies</span></a></h2>
 <p>Stone.js abstracts away all cookie handling differences between Node.js and the browser, so you can write your code once and deploy it anywhere.<br>
-Behind the scenes, cookies behave slightly differently depending on the environment — but you almost never have to care.</p>
+Behind the scenes, cookies behave slightly differently depending on the environment, but you almost never have to care.</p>
 <h3 id="reading-cookies" tabindex="-1"><a class="header-anchor" href="#reading-cookies"><span>Reading Cookies</span></a></h3>
 <p>To access cookies from an incoming event, use the <code v-pre>cookies</code> collection exposed on the event object.</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line"><span class="token keyword">const</span> authToken <span class="token operator">=</span> event<span class="token punctuation">.</span><span class="token function">getCookie</span><span class="token punctuation">(</span><span class="token string">'auth_token'</span><span class="token punctuation">)</span><span class="token operator">?.</span><span class="token function">getValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></span>
@@ -289,14 +289,14 @@ Here are some best practices to follow when using Stone.js Cookie API:</p>
 <li><code v-pre>response.setCookie()</code></li>
 <li><code v-pre>response.clearCookie()</code></li>
 </ul>
-<p>Stone.js ensures that cookies are parsed, signed, serialized, and secured properly across environments — don't bypass this layer.</p>
+<p>Stone.js ensures that cookies are parsed, signed, serialized, and secured properly across environments, don't bypass this layer.</p>
 <h4 id="sign-sensitive-cookies-on-the-backend" tabindex="-1"><a class="header-anchor" href="#sign-sensitive-cookies-on-the-backend"><span>Sign Sensitive Cookies on the Backend</span></a></h4>
 <p>When dealing with authentication tokens, sessions, or other sensitive data:</p>
 <ul>
 <li>Always sign cookies by setting a <code v-pre>stone.http.cookie.secret</code> in the blueprint.</li>
 <li>Signed cookies prevent tampering: if someone tries to alter a cookie, Stone.js will detect it and reject the value.</li>
 </ul>
-<p><strong>Do not attempt to sign cookies in the browser</strong> — secrets must stay on the server side.</p>
+<p><strong>Do not attempt to sign cookies in the browser</strong>, secrets must stay on the server side.</p>
 <h4 id="secure-your-cookies" tabindex="-1"><a class="header-anchor" href="#secure-your-cookies"><span>Secure Your Cookies</span></a></h4>
 <p>For production environments:</p>
 <ul>
@@ -315,7 +315,7 @@ However, prefer using <strong>small, simple, JSON-serializable values</strong> t
 <p>Example:</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line">response<span class="token punctuation">.</span><span class="token function">setCookie</span><span class="token punctuation">(</span><span class="token string">'settings'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> theme<span class="token operator">:</span> <span class="token string">'dark'</span><span class="token punctuation">,</span> lang<span class="token operator">:</span> <span class="token string">'en'</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></span>
 <span class="line"></span></code></pre>
-<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div></div></div><p>No manual serialization needed — just pass your object, Stone.js handles it safely.</p>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div></div></div><p>No manual serialization needed, just pass your object, Stone.js handles it safely.</p>
 <h4 id="separate-backend-and-frontend-configurations" tabindex="-1"><a class="header-anchor" href="#separate-backend-and-frontend-configurations"><span>Separate Backend and Frontend Configurations</span></a></h4>
 <p>If you are building an SSR application:</p>
 <ul>
@@ -326,17 +326,17 @@ However, prefer using <strong>small, simple, JSON-serializable values</strong> t
 <p>This separation keeps your system flexible, secure, and continuum-compliant.</p>
 <p>By following these practices, you ensure your cookies are secure, portable, and work seamlessly across all Stone.js deployment targets.</p>
 <h2 id="summary" tabindex="-1"><a class="header-anchor" href="#summary"><span>Summary</span></a></h2>
-<p>The Stone.js Cookie API gives you a simple, structured, and secure way to work with cookies — across both Node.js servers and browsers — without ever worrying about platform differences.</p>
+<p>The Stone.js Cookie API gives you a simple, structured, and secure way to work with cookies, across both Node.js servers and browsers, without ever worrying about platform differences.</p>
 <p>In Stone.js:</p>
 <ul>
 <li>You <strong>read</strong> cookies from incoming events (<code v-pre>event.cookies</code>, <code v-pre>event.getCookie()</code>).</li>
 <li>You <strong>set</strong> cookies in outgoing responses (<code v-pre>response.cookies</code>, <code v-pre>response.setCookie()</code>).</li>
 <li>You <strong>clear</strong> cookies easily (<code v-pre>response.clearCookie()</code>).</li>
 <li>You <strong>configure</strong> cookie behavior globally via the blueprint (<code v-pre>stone.http.cookie</code>, <code v-pre>stone.browser.cookie</code>).</li>
-<li>You <strong>sign</strong> sensitive backend cookies safely — while keeping frontend cookies simple and clean.</li>
+<li>You <strong>sign</strong> sensitive backend cookies safely, while keeping frontend cookies simple and clean.</li>
 <li>You use the <strong>same code</strong> in both frontend and backend applications thanks to the Continuum Architecture.</li>
 </ul>
-<p>Stone.js handles all the heavy lifting behind the scenes: parsing, serializing, signing, securing — so you can focus on what really matters: building modern, cloud-native applications without friction.</p>
+<p>Stone.js handles all the heavy lifting behind the scenes: parsing, serializing, signing, securing, so you can focus on what really matters: building modern, cloud-native applications without friction.</p>
 <p><strong>One Cookie API to rule them all.</strong><br>
 <strong>Anywhere. Any platform. Any app.</strong></p>
 </div></template>

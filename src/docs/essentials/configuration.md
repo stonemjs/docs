@@ -2,12 +2,12 @@
 title: Environment Configuration
 ---
 
-In Stone.js, configuration is context-aware — and the best place to store contextual settings is outside your code.
+In Stone.js, configuration is context-aware, and the best place to store contextual settings is outside your code.
 While most logic-level configuration lives inside your application’s [**Blueprint**](../architecture/blueprint), 
-this page focuses on **environment configuration**: the values that change between development, staging, and production — like API keys, ports, feature flags, and secrets.
+this page focuses on **environment configuration**: the values that change between development, staging, and production, like API keys, ports, feature flags, and secrets.
 Environment variables are the recommended way to supply those values.
 
-Stone.js embraces externalized configuration as a first-class concept in the Continuum Architecture. Configuration is not something you “import” — it’s something you **adapt** from your environment.
+Stone.js embraces externalized configuration as a first-class concept in the Continuum Architecture. Configuration is not something you “import”, it’s something you **adapt** from your environment.
 
 To help you do that, Stone.js provides:
 
@@ -16,7 +16,7 @@ To help you do that, Stone.js provides:
 - Public env bundling for frontend deployment
 - CI/CD-friendly design for artifact reuse
 
-In short: configuration belongs in your environment, not in your logic — and Stone.js makes that easy to manage.
+In short: configuration belongs in your environment, not in your logic, and Stone.js makes that easy to manage.
 
 In this page, we’ll cover:
 
@@ -36,10 +36,10 @@ npm install @stone-js/env
 
 ## The Role of Env in the Continuum
 
-In the Continuum Architecture, configuration is part of the **external context** — it’s unpredictable, environment-specific, and often unknown until runtime. 
+In the Continuum Architecture, configuration is part of the **external context**, it’s unpredictable, environment-specific, and often unknown until runtime. 
 That’s why Stone.js doesn’t treat configuration as just a static object, but as a **relationship** between your application and its deployment environment.  
 
-Your application doesn’t **own** its configuration — it **adapts** to it.
+Your application doesn’t **own** its configuration, it **adapts** to it.
 
 This means:
 
@@ -47,22 +47,22 @@ This means:
 - Your application logic should ask the environment what it needs to know.
 - The system should validate and normalize that input before using it.
 
-The `Env` module acts as the **bridge** between external configuration and internal behavior. It gives your application a reliable and type-safe way to retrieve environment variables, enforce defaults, and catch invalid input early — without leaking domain concerns into the environment.
+The `Env` module acts as the **bridge** between external configuration and internal behavior. It gives your application a reliable and type-safe way to retrieve environment variables, enforce defaults, and catch invalid input early, without leaking domain concerns into the environment.
 
 This aligns perfectly with the core principle of the Continuum:  
 > *The domain must not depend directly on its context, but it must be aware that the context is uncertain.*
 
-Environment configuration lets you **embrace that uncertainty** — with structure.
+Environment configuration lets you **embrace that uncertainty**, with structure.
 
 In serverless environments like **AWS Lambda**, environment variables are typically defined in the platform settings (e.g., Lambda console, deployment manifest).  
 
-The `Env` module abstracts *where* they come from — whether from `.env` files, runtime process variables, or injected by your FaaS provider — so you can write universal configuration code that works **anywhere**.
+The `Env` module abstracts *where* they come from, whether from `.env` files, runtime process variables, or injected by your FaaS provider, so you can write universal configuration code that works **anywhere**.
 
 ## Working with Environment Variables
 
 Stone.js supports two kinds of environment variable files:
 
-### `.env` — Private Environment
+### `.env`, Private Environment
 Used for **server-side only** variables. These are sensitive values like database URLs, API keys, or internal feature flags.  
 They are **never bundled**, **never exposed**, and only available in the Node.js runtime.
 
@@ -74,7 +74,7 @@ You can define variants like:
 
 By default, **only `.env` is loaded**, but you can customize this in `stone.config.mjs`.
 
-### `.env.public` — Public Environment
+### `.env.public`, Public Environment
 Used for **frontend-safe** variables. These can be shipped to the client or included in your SPA/SSR bundle.  
 
 You can define:
@@ -92,7 +92,7 @@ dist/
 │   └── enviroments.production.js
 ```
 
-At runtime, **only `enviroments.js` is loaded**. This lets you create **a single build artifact** and override just that file during deployment — no rebuild required.
+At runtime, **only `enviroments.js` is loaded**. This lets you create **a single build artifact** and override just that file during deployment, no rebuild required.
 
 This is perfect for CI/CD pipelines where you deploy the same code to multiple environments and just swap out configuration files.
 
@@ -104,16 +104,16 @@ This is perfect for CI/CD pipelines where you deploy the same code to multiple e
    - `enviroments.development.js` on staging
    - `enviroments.production.js` in prod
 
-Your frontend will behave accordingly — without touching your code or rebuilding.
+Your frontend will behave accordingly, without touching your code or rebuilding.
 
 ::: tip
-Stone.js works seamlessly in FaaS environments like Lambda — you can define your variables in the function settings and access them via the `Env` module just like local `.env` files.
+Stone.js works seamlessly in FaaS environments like Lambda, you can define your variables in the function settings and access them via the `Env` module just like local `.env` files.
 :::
 
 ## Using the `Env` API
 
 The `Env` module provides a rich set of utilities to retrieve and validate environment variables.  
-However — **you should never call `Env` utilities directly inside your application logic.**
+However, **you should never call `Env` utilities directly inside your application logic.**
 
 ```mermaid
 %%{init: {"theme": "base", "themeVariables": {
@@ -160,7 +160,7 @@ This is the **only supported way** to use environment variables in a Stone.js ap
 
 ### API Overview
 
-The main function is `get()` — but Stone.js provides specialized helpers for many types:
+The main function is `get()`, but Stone.js provides specialized helpers for many types:
 
 | Function     | Description                                                 |
 | ------------ | ----------------------------------------------------------- |
@@ -193,7 +193,7 @@ getString('APP_NAME', 'StoneApp')   // Safe: fallback provided
 getNumber('PORT')                   // Unsafe: throws if PORT is missing or invalid
 ```
 
-This fail-fast behavior helps catch misconfiguration **before your app starts** — which is exactly what you want.
+This fail-fast behavior helps catch misconfiguration **before your app starts**, which is exactly what you want.
 
 ### Env Helpers
 
@@ -315,7 +315,7 @@ And a single source of truth for your configuration, the `Blueprint`.
 
 #### Validate and Fail Fast
 
-All `Env` functions throw an error when a required variable is missing or invalid — **unless you provide a fallback**.
+All `Env` functions throw an error when a required variable is missing or invalid, **unless you provide a fallback**.
 
 Always validate on startup:
 
@@ -363,18 +363,18 @@ beforeEach(() => clearCache())
 
 ## Summary
 
-Stone.js embraces configuration as an external, mutable part of the system — something that should be adapted, not hardcoded.
+Stone.js embraces configuration as an external, mutable part of the system, something that should be adapted, not hardcoded.
 
 Here’s what you need to remember:
 
-- Use **`.env`** for private, backend-only variables — not bundled, not exposed
-- Use **`.env.public`** for safe-to-share variables needed in the frontend — bundled into `enviroments.js`
-- Never access `Env` directly in your domain code — always inject values through the **Blueprint**
+- Use **`.env`** for private, backend-only variables, not bundled, not exposed
+- Use **`.env.public`** for safe-to-share variables needed in the frontend, bundled into `enviroments.js`
+- Never access `Env` directly in your domain code, always inject values through the **Blueprint**
 - All `Env` functions validate and fail fast unless you provide a default
 - You can customize how `.env` files are loaded via `stone.config.mjs`
 - Public env files enable **single-artifact CI/CD** by allowing runtime config replacement
-- Works out-of-the-box in **FaaS environments** like AWS Lambda — no need for extra setup
+- Works out-of-the-box in **FaaS environments** like AWS Lambda, no need for extra setup
 
-In the Continuum, configuration is just another expression of **context** —  
+In the Continuum, configuration is just another expression of **context**,  
 and `Env` is the clean, structured way to bind that context into your application.
 

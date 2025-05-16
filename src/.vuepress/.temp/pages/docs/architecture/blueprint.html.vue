@@ -1,24 +1,24 @@
 <template><div><p><strong>The Blueprint is the centralized place where all configuration lives.</strong><br>
-It is the output of the <strong>Setup Dimension</strong> — an object that defines the structure, components, and behaviors of your Stone.js system before it runs. It consolidates all declared modules, services, middleware, handlers, adapters, and more — and crucially, it is also where you register all configuration and settings your modules need to operate correctly.</p>
+It is the output of the <strong>Setup Dimension</strong>, an object that defines the structure, components, and behaviors of your Stone.js system before it runs. It consolidates all declared modules, services, middleware, handlers, adapters, and more, and crucially, it is also where you register all configuration and settings your modules need to operate correctly.</p>
 <p>This object is then passed along the rest of the system lifecycle. It’s available throughout the <strong>Integration</strong>, <strong>Initialization</strong>, and <strong>Functional</strong> dimensions, making it the cornerstone for building predictable, portable, and introspectable software across contexts.</p>
-<p>The <strong>Blueprint</strong> is not frozen by default — it remains mutable. However, <strong>mutating it at runtime is discouraged</strong> unless absolutely necessary. It should be treated as a stable artifact once setup is complete. Mutation is possible, but it must be deliberate and controlled; the developer must understand the risks involved and the impact on system coherence.</p>
+<p>The <strong>Blueprint</strong> is not frozen by default, it remains mutable. However, <strong>mutating it at runtime is discouraged</strong> unless absolutely necessary. It should be treated as a stable artifact once setup is complete. Mutation is possible, but it must be deliberate and controlled; the developer must understand the risks involved and the impact on system coherence.</p>
 <h3 id="why-it-exists" tabindex="-1"><a class="header-anchor" href="#why-it-exists"><span>Why It Exists</span></a></h3>
-<p>Complex, cross-platform systems need a place to define what they are made of — and how they should behave. The Blueprint provides exactly that: a <strong>declarative manifest</strong> and <strong>runtime instruction model</strong>, separated cleanly from execution logic.</p>
+<p>Complex, cross-platform systems need a place to define what they are made of, and how they should behave. The Blueprint provides exactly that: a <strong>declarative manifest</strong> and <strong>runtime instruction model</strong>, separated cleanly from execution logic.</p>
 <p>Without it, setup logic becomes fragmented across files, dimensions, and abstractions. With it, everything is unified:</p>
 <ul>
 <li>System configuration is centralized and introspectable</li>
 <li>Dependencies and features are organized and declared up-front</li>
 <li>Dynamic behavior remains possible through middleware and hooks</li>
 </ul>
-<p>Whether your system runs on Node.js, in the browser, or in a FaaS environment — the Blueprint ensures every component is composed consistently and logically.</p>
+<p>Whether your system runs on Node.js, in the browser, or in a FaaS environment, the Blueprint ensures every component is composed consistently and logically.</p>
 <h3 id="where-it-fits-in-the-continuum" tabindex="-1"><a class="header-anchor" href="#where-it-fits-in-the-continuum"><span>Where It Fits in the Continuum</span></a></h3>
-<p>In the Continuum Architecture, the Blueprint is built only once — in the <strong>Setup Dimension</strong> — and made <strong>accessible in all other dimensions</strong>. It does not <em>drive</em> those dimensions directly, but it provides the necessary context and configuration to operate within them.</p>
+<p>In the Continuum Architecture, the Blueprint is built only once, in the <strong>Setup Dimension</strong>, and made <strong>accessible in all other dimensions</strong>. It does not <em>drive</em> those dimensions directly, but it provides the necessary context and configuration to operate within them.</p>
 <Mermaid id="mermaid-44" code="eJyN0LFuwjAQBuCdpzilyhZUqtKFoRJJCKlEF5C6RAwmucAJY0e2UwqId+/FLJnaeLF0991v+cLwRorcDG6BO+AJgxkEO2ExiOBR+BKGxE6i5c5tBBDUWrkNXb18mTY/QdRVJSlMtNSmKz9Vr2/TySQY3e/3MBzVUp/LgzAOVmu2APNig65tIKUTKktabWE8foe4iGWLjSHltt7FvpwUH8rh3gjHsjfTIykTciQkXf9QiyJrVdn1hewLTxJPsmJeicahsRF8UlVJPAuDEeRaH+0jK/VwyV8w31Qiw1woht3IimosL6XEB114mhdxa3k91sJK76mEZ1i3yvH7MC85gHPDEDbuwjvcQ60NCClB6QqtT7HcYcq30Uccn6lyhxkvPqpJytlT5k9PxoNlMlimg+VisMwGy+Vgmf8jfwG/Depk"></Mermaid><ul>
 <li>It is passed into the <strong>Integration Dimension</strong>, enabling adapters, middleware, and hooks to introspect the system’s structure and settings.</li>
 <li>It is also passed into the <strong>Initialization Dimension</strong>, making it available inside services, handlers, lifecycle hooks, and modules.</li>
 <li>During runtime, any module can access the Blueprint to retrieve configurations or references established during setup.</li>
 </ul>
-<p>This cross-dimensional accessibility is what enables Stone.js to unify runtime behavior across platforms — all through a consistent, introspected, and purpose-driven configuration model.</p>
+<p>This cross-dimensional accessibility is what enables Stone.js to unify runtime behavior across platforms, all through a consistent, introspected, and purpose-driven configuration model.</p>
 <p>In short:</p>
 <ul>
 <li>The Setup Dimension builds the Blueprint.</li>
@@ -26,7 +26,7 @@ It is the output of the <strong>Setup Dimension</strong> — an object that defi
 <li>And every dimension can reach into it to understand what’s been configured.</li>
 </ul>
 <h2 id="blueprint-api" tabindex="-1"><a class="header-anchor" href="#blueprint-api"><span>Blueprint API</span></a></h2>
-<p>The <strong>Blueprint</strong> is an instance of the <code v-pre>Config</code> class — a configuration registry built by the Setup Dimension and shared across all others.</p>
+<p>The <strong>Blueprint</strong> is an instance of the <code v-pre>Config</code> class, a configuration registry built by the Setup Dimension and shared across all others.</p>
 <h3 id="working-with-configuration" tabindex="-1"><a class="header-anchor" href="#working-with-configuration"><span>Working with Configuration</span></a></h3>
 <p>The Blueprint provides a set of methods to manage configuration values. These methods are designed to be simple and intuitive, allowing you to easily <strong>retrieve</strong>, <strong>set</strong>, and <strong>manipulate configuration data</strong>.</p>
 <h4 id="get-key-default" tabindex="-1"><a class="header-anchor" href="#get-key-default"><span><code v-pre>get(key, default?)</code></span></a></h4>
@@ -93,7 +93,7 @@ It is the output of the <strong>Setup Dimension</strong> — an object that defi
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line">blueprint<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'stone.kernel.middleware'</span><span class="token punctuation">)</span></span>
 <span class="line"></span></code></pre>
 <div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div></div></div><h3 id="core-namespaces" tabindex="-1"><a class="header-anchor" href="#core-namespaces"><span>Core Namespaces</span></a></h3>
-<p>Here’s a list of common built-in namespaces under <code v-pre>stone.*</code>. This list is <strong>not exhaustive</strong> — each module can define its own.</p>
+<p>Here’s a list of common built-in namespaces under <code v-pre>stone.*</code>. This list is <strong>not exhaustive</strong>, each module can define its own.</p>
 <table>
 <thead>
 <tr>
@@ -206,9 +206,9 @@ It is the output of the <strong>Setup Dimension</strong> — an object that defi
 </tbody>
 </table>
 <h2 id="blueprint-configuration" tabindex="-1"><a class="header-anchor" href="#blueprint-configuration"><span>Blueprint Configuration</span></a></h2>
-<p>Once your system starts, the <strong>Setup Dimension</strong> builds the <strong>Blueprint</strong> — and this is your chance to define exactly what your system should look like. You can configure the Blueprint <a href="#static-configuration"><strong>statically</strong></a> (without control over timing)
+<p>Once your system starts, the <strong>Setup Dimension</strong> builds the <strong>Blueprint</strong>, and this is your chance to define exactly what your system should look like. You can configure the Blueprint <a href="#static-configuration"><strong>statically</strong></a> (without control over timing)
 or <a href="#dynamic-configuration-with-middleware"><strong>dynamically</strong></a> (using setup middleware, with full control over execution order and logic).</p>
-<p>This section explains how to register values, modules, services, middleware, and anything else your system needs — either <strong>declaratively</strong> or <strong>imperatively</strong>.</p>
+<p>This section explains how to register values, modules, services, middleware, and anything else your system needs, either <strong>declaratively</strong> or <strong>imperatively</strong>.</p>
 <h3 id="static-configuration" tabindex="-1"><a class="header-anchor" href="#static-configuration"><span>Static Configuration</span></a></h3>
 <p>Static configuration is the simplest way to <strong>configure the Blueprint</strong>. It allows you to define values and register modules during the setup phase, without controlling the execution order. This method is ideal for straightforward or constant configuration logic that doesn’t require introspection or conditional behavior.</p>
 <Tabs id="459" :data='[{"id":"Declarative"},{"id":"Imperative"}]' :active="0" tab-id="declarative-imperative">
@@ -216,7 +216,7 @@ or <a href="#dynamic-configuration-with-middleware"><strong>dynamically</strong>
 <template #title1="{ value, isActive }">Imperative</template>
 <template #tab0="{ value, isActive }">
 <h4 id="declarative" tabindex="-1"><a class="header-anchor" href="#declarative"><span>Declarative</span></a></h4>
-<p>To configure the Blueprint declaratively, use the <code v-pre>@Configuration()</code> decorator. This decorator marks a class that exposes a <code v-pre>configure(blueprint)</code> method — called automatically during the setup process.</p>
+<p>To configure the Blueprint declaratively, use the <code v-pre>@Configuration()</code> decorator. This decorator marks a class that exposes a <code v-pre>configure(blueprint)</code> method, called automatically during the setup process.</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line"><span class="token keyword">import</span> <span class="token punctuation">{</span> Configuration<span class="token punctuation">,</span> IConfiguration<span class="token punctuation">,</span> IBlueprint <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@stone-js/core'</span></span>
 <span class="line"></span>
 <span class="line"><span class="token decorator"><span class="token at operator">@</span><span class="token function">Configuration</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span></span>
@@ -239,7 +239,7 @@ or <a href="#dynamic-configuration-with-middleware"><strong>dynamically</strong>
 <span class="line"><span class="token punctuation">}</span></span>
 <span class="line"></span></code></pre>
 <div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h5 id="built-in-decorators" tabindex="-1"><a class="header-anchor" href="#built-in-decorators"><span>Built-in Decorators</span></a></h5>
-<p>Many features in Stone.js offer their own decorators. For example, <code v-pre>@Service()</code>, <code v-pre>@Hook()</code>, <code v-pre>@Middleware()</code>, etc. — these often register themselves into the Blueprint automatically. Use <code v-pre>@Configuration()</code> only when no feature-specific decorator exists, or when you need to customize the configuration values.</p>
+<p>Many features in Stone.js offer their own decorators. For example, <code v-pre>@Service()</code>, <code v-pre>@Hook()</code>, <code v-pre>@Middleware()</code>, etc., these often register themselves into the Blueprint automatically. Use <code v-pre>@Configuration()</code> only when no feature-specific decorator exists, or when you need to customize the configuration values.</p>
 <p><strong><code v-pre>@StoneApp()</code></strong></p>
 <p>The special decorator <code v-pre>@StoneApp()</code> used to define the main entry point of your application, can also initialize the system directly:</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line"><span class="token decorator"><span class="token at operator">@</span><span class="token function">StoneApp</span></span><span class="token punctuation">(</span><span class="token punctuation">{</span> name<span class="token operator">:</span> <span class="token string">'myapp'</span> <span class="token punctuation">}</span><span class="token punctuation">)</span></span>
@@ -271,7 +271,7 @@ or <a href="#dynamic-configuration-with-middleware"><strong>dynamically</strong>
 <p><strong>Setup middleware</strong> (also called <strong>Blueprint middleware</strong>) allows you to configure the <strong>Blueprint</strong> dynamically. This gives you full control over the execution flow and lets you introspect modules, apply conditional logic, or modify structure based on other config.</p>
 <div class="hint-container important">
 <p class="hint-container-title">Important</p>
-<p>Setup middleware runs once during the Setup Phase — before any request is received.</p>
+<p>Setup middleware runs once during the Setup Phase, before any request is received.</p>
 </div>
 <p>Setup middleware receives a <code v-pre>BlueprintContext</code>:</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line"><span class="token keyword">interface</span> <span class="token class-name">BlueprintContext</span> <span class="token punctuation">{</span></span>
@@ -303,7 +303,7 @@ or <a href="#dynamic-configuration-with-middleware"><strong>dynamically</strong>
 <span class="line">  <span class="token punctuation">}</span></span>
 <span class="line"><span class="token punctuation">}</span></span>
 <span class="line"></span></code></pre>
-<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>This example adds an integration middleware <em>only if</em> the selected platform is the browser — perfect for cross-platform configurations.</p>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>This example adds an integration middleware <em>only if</em> the selected platform is the browser, perfect for cross-platform configurations.</p>
 </template>
 <template #tab1="{ value, isActive }">
 <h4 id="imperative-1" tabindex="-1"><a class="header-anchor" href="#imperative-1"><span>Imperative</span></a></h4>
@@ -329,12 +329,12 @@ or <a href="#dynamic-configuration-with-middleware"><strong>dynamically</strong>
 <span class="line">  blueprint<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token string">'stone.blueprint.middleware'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">{</span> module<span class="token operator">:</span> MySetupMiddleware <span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">)</span></span>
 <span class="line"><span class="token punctuation">}</span><span class="token punctuation">)</span></span>
 <span class="line"></span></code></pre>
-<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>This example adds an integration middleware <em>only if</em> the selected platform is the browser — perfect for cross-platform configurations.</p>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>This example adds an integration middleware <em>only if</em> the selected platform is the browser, perfect for cross-platform configurations.</p>
 </template>
 </Tabs>
 <h3 id="live-configuration" tabindex="-1"><a class="header-anchor" href="#live-configuration"><span>Live Configuration</span></a></h3>
 <p>By default, all Blueprint configuration is loaded <strong>once</strong> at application startup and remains static for the lifetime of the system.</p>
-<p><strong>Live configuration</strong> allows you to define logic that re-runs and updates the blueprint <strong>at every request</strong>. This is useful when settings change dynamically (e.g., database-driven config, tenant-specific options) and must take effect immediately — without restarting the system.</p>
+<p><strong>Live configuration</strong> allows you to define logic that re-runs and updates the blueprint <strong>at every request</strong>. This is useful when settings change dynamically (e.g., database-driven config, tenant-specific options) and must take effect immediately, without restarting the system.</p>
 <p>You can define live configuration both <strong>declaratively</strong> and <strong>imperatively</strong>.</p>
 <Tabs id="556" :data='[{"id":"Declarative"},{"id":"Imperative"}]' :active="0" tab-id="declarative-imperative">
 <template #title0="{ value, isActive }">Declarative</template>
@@ -374,7 +374,7 @@ or <a href="#dynamic-configuration-with-middleware"><strong>dynamically</strong>
 </template>
 </Tabs>
 <h3 id="meta-modules-and-imperative-utilities" tabindex="-1"><a class="header-anchor" href="#meta-modules-and-imperative-utilities"><span>Meta Modules and Imperative Utilities</span></a></h3>
-<p>When working with the <strong>imperative API</strong>, you interact directly with Stone.js’s meta module system — a low-level, flexible system based on <strong>metaprogramming</strong>. This system is transparent in the declarative API (via decorators), but in the imperative world, <strong>you build and register meta modules yourself</strong>.</p>
+<p>When working with the <strong>imperative API</strong>, you interact directly with Stone.js’s meta module system, a low-level, flexible system based on <strong>metaprogramming</strong>. This system is transparent in the declarative API (via decorators), but in the imperative world, <strong>you build and register meta modules yourself</strong>.</p>
 <h4 id="meta-modules" tabindex="-1"><a class="header-anchor" href="#meta-modules"><span>Meta Modules</span></a></h4>
 <p>A meta module is a small descriptor object that tells the system what type of module you're registering.</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line"><span class="token keyword">interface</span> <span class="token class-name">MetaModule</span> <span class="token punctuation">{</span></span>
@@ -482,8 +482,8 @@ or <a href="#dynamic-configuration-with-middleware"><strong>dynamically</strong>
 <span class="line">  <span class="token function">defineFactoryMiddleware</span><span class="token punctuation">(</span>MyInitMiddleware<span class="token punctuation">)</span></span>
 <span class="line"><span class="token punctuation">]</span><span class="token punctuation">)</span></span>
 <span class="line"></span></code></pre>
-<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>If a utility function exists for your module type, prefer using it — it ensures consistency and reduces the chance of misconfigured metadata. When no utility is available yet, you can fall back to using <code v-pre>add()</code> with a properly formed meta module.</p>
-<p>This low-level power is what makes the imperative API flexible and expressive. It lets you build your application exactly how you want — from scratch — while staying aligned with the Continuum Architecture.</p>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>If a utility function exists for your module type, prefer using it, it ensures consistency and reduces the chance of misconfigured metadata. When no utility is available yet, you can fall back to using <code v-pre>add()</code> with a properly formed meta module.</p>
+<p>This low-level power is what makes the imperative API flexible and expressive. It lets you build your application exactly how you want, from scratch, while staying aligned with the Continuum Architecture.</p>
 <h3 id="let-s-recap" tabindex="-1"><a class="header-anchor" href="#let-s-recap"><span>Let's Recap</span></a></h3>
 <p>You can configure the Blueprint in three ways:</p>
 <ul>
@@ -495,8 +495,8 @@ or <a href="#dynamic-configuration-with-middleware"><strong>dynamically</strong>
 Use dynamic middleware when setup logic depends on discovered modules or runtime conditions.<br>
 Use live configuration when values must reflect external changes without restarting the system.</p>
 <h2 id="setup-hooks" tabindex="-1"><a class="header-anchor" href="#setup-hooks"><span>Setup Hooks</span></a></h2>
-<p>Setup hooks are lifecycle events triggered <strong>only during the Setup Phase</strong>. Their purpose is to give you visibility into the blueprint construction process — whether for logging, debugging, analytics, or performance tracking.</p>
-<Mermaid id="mermaid-807" code="eJyV0T1vgzAQBuCdX3FyxJZISUgXhkrhI1MrRUrVBWUg4QCrjo1sI9Ii/nuNoS1DpVIW0Pnxe+bsui3lVPvQEl3iDYkP5JIqJEsYCq+ppOmFoTIrrQNAcsH1iX5YudlVd7Lsq4xyDAUTsi8vMu9ht14Tp+s613VyJpprmUoNL5GxAPvkhLquIMCCcnWG1eoRgkTwo8TKtONFwGqszIc+Wx9YESZHKa6olAHwTLOMYZNKhCchqrNjYWhhtLFZX/Y77GfPEBttBr5N4jtea42T1FFsB+GZwF9ixh6Yje0j738Hjaexw8/3WT2ILTiMgwrFrWKozakc14WTfjfjLiAXElLGgIsMld2lzArC3ryleMNVQzNd+uaOljllzF8c7DORwWwZzpZmqrPpdj71ZtN4tjz8IT8BENf5vw=="></Mermaid><p>These hooks do <strong>not</strong> participate in modifying the system — they exist purely for <strong>observability</strong>.</p>
+<p>Setup hooks are lifecycle events triggered <strong>only during the Setup Phase</strong>. Their purpose is to give you visibility into the blueprint construction process, whether for logging, debugging, analytics, or performance tracking.</p>
+<Mermaid id="mermaid-807" code="eJyV0T1vgzAQBuCdX3FyxJZISUgXhkrhI1MrRUrVBWUg4QCrjo1sI9Ii/nuNoS1DpVIW0Pnxe+bsui3lVPvQEl3iDYkP5JIqJEsYCq+ppOmFoTIrrQNAcsH1iX5YudlVd7Lsq4xyDAUTsi8vMu9ht14Tp+s613VyJpprmUoNL5GxAPvkhLquIMCCcnWG1eoRgkTwo8TKtONFwGqszIc+Wx9YESZHKa6olAHwTLOMYZNKhCchqrNjYWhhtLFZX/Y77GfPEBttBr5N4jtea42T1FFsB+GZwF9ixh6Yje0j738Hjaexw8/3WT2ILTiMgwrFrWKozakc14WTfjfjLiAXElLGgIsMld2lzArC3ryleMNVQzNd+uaOljllzF8c7DORwWwZzpZmqrPpdj71ZtN4tjz8IT8BENf5vw=="></Mermaid><p>These hooks do <strong>not</strong> participate in modifying the system, they exist purely for <strong>observability</strong>.</p>
 <div class="hint-container important">
 <p class="hint-container-title">Important</p>
 <p>If you need to modify the blueprint dynamically, use <strong>setup middleware</strong> instead.<br>
@@ -559,7 +559,7 @@ Hooks are for <strong>observation only</strong>.</p>
 <template #title1="{ value, isActive }">Imperative</template>
 <template #tab0="{ value, isActive }">
 <h4 id="declarative-api" tabindex="-1"><a class="header-anchor" href="#declarative-api"><span>Declarative API</span></a></h4>
-<p>Use the <code v-pre>@Hook('&lt;hookName&gt;')</code> method decorator to register a hook. Hook methods can live in any class — but for clarity and separation of concerns, it's best to place them in a dedicated observer class or service provider.</p>
+<p>Use the <code v-pre>@Hook('&lt;hookName&gt;')</code> method decorator to register a hook. Hook methods can live in any class, but for clarity and separation of concerns, it's best to place them in a dedicated observer class or service provider.</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line"><span class="token keyword">import</span> <span class="token punctuation">{</span></span>
 <span class="line">  Hook<span class="token punctuation">,</span> BlueprintContext<span class="token punctuation">,</span> BlueprintMiddlewareHookContext</span>
 <span class="line"><span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@stone-js/core'</span></span>
@@ -576,7 +576,7 @@ Hooks are for <strong>observation only</strong>.</p>
 <span class="line">  <span class="token punctuation">}</span></span>
 <span class="line"><span class="token punctuation">}</span></span>
 <span class="line"></span></code></pre>
-<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>Hook methods are executed via reflection. They are <strong>not</strong> tied to class lifecycle — avoid using <code v-pre>this</code>.</p>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>Hook methods are executed via reflection. They are <strong>not</strong> tied to class lifecycle, avoid using <code v-pre>this</code>.</p>
 </template>
 <template #tab1="{ value, isActive }">
 <h4 id="imperative-api" tabindex="-1"><a class="header-anchor" href="#imperative-api"><span>Imperative API</span></a></h4>
@@ -601,7 +601,7 @@ Hooks are for <strong>observation only</strong>.</p>
 <span class="line"></span></code></pre>
 <div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div></template>
 </Tabs>
-<p>That’s it. Setup hooks give you powerful insight into how your system is assembled — without affecting behavior. Use them to instrument your system early and catch issues before runtime.</p>
+<p>That’s it. Setup hooks give you powerful insight into how your system is assembled, without affecting behavior. Use them to instrument your system early and catch issues before runtime.</p>
 <h2 id="best-practices" tabindex="-1"><a class="header-anchor" href="#best-practices"><span>Best Practices</span></a></h2>
 <p>Working with the Blueprint gives you full control over your system's configuration. The following practices will help you keep it clean, consistent, and maintainable:</p>
 <h4 id="use-namespaced-keys" tabindex="-1"><a class="header-anchor" href="#use-namespaced-keys"><span>Use Namespaced Keys</span></a></h4>
@@ -631,7 +631,7 @@ Hooks are for <strong>observation only</strong>.</p>
 <p>While the Blueprint is mutable, it is designed to be constructed once and used across dimensions. Avoid modifying it at runtime unless absolutely necessary.</p>
 <p>If you must mutate it, document the reasoning clearly and isolate the change.</p>
 <h4 id="avoid-this-in-hooks" tabindex="-1"><a class="header-anchor" href="#avoid-this-in-hooks"><span>Avoid <code v-pre>this</code> in Hooks</span></a></h4>
-<p>Hook methods are called via reflection, independently of any class lifecycle. Do not rely on <code v-pre>this</code> in hook methods — prefer static logic or external utilities.</p>
+<p>Hook methods are called via reflection, independently of any class lifecycle. Do not rely on <code v-pre>this</code> in hook methods, prefer static logic or external utilities.</p>
 <h4 id="use-utility-functions-for-clarity" tabindex="-1"><a class="header-anchor" href="#use-utility-functions-for-clarity"><span>Use Utility Functions for Clarity</span></a></h4>
 <p>Use blueprint utility functions like <code v-pre>defineFactoryMiddleware()</code> or <code v-pre>defineFactoryService()</code> to register meta modules cleanly.</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line">blueprint<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token string">'stone.kernel.middleware'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span></span>
@@ -650,9 +650,9 @@ Hooks are for <strong>observation only</strong>.</p>
 </ul>
 <h4 id="document-your-custom-namespaces" tabindex="-1"><a class="header-anchor" href="#document-your-custom-namespaces"><span>Document Your Custom Namespaces</span></a></h4>
 <p>If you define your own configuration structure, document it clearly for future contributors. This ensures consistent usage and easier onboarding.</p>
-<p>Following these practices ensures your blueprint remains structured, predictable, and introspectable — keeping your Stone.js system aligned with the Continuum Architecture.</p>
+<p>Following these practices ensures your blueprint remains structured, predictable, and introspectable, keeping your Stone.js system aligned with the Continuum Architecture.</p>
 <h2 id="summary" tabindex="-1"><a class="header-anchor" href="#summary"><span>Summary</span></a></h2>
-<p>The Blueprint is the foundation of your Stone.js system. It defines all configurations, registered modules, middleware, lifecycle hooks, and services — built once during setup, then accessed across all dimensions.</p>
+<p>The Blueprint is the foundation of your Stone.js system. It defines all configurations, registered modules, middleware, lifecycle hooks, and services, built once during setup, then accessed across all dimensions.</p>
 <p>You can populate the Blueprint in three primary ways:</p>
 <ul>
 <li><strong>Statically</strong>, using <code v-pre>@Configuration()</code> or <code v-pre>defineBlueprintConfig()</code> to set values during setup</li>
@@ -668,7 +668,7 @@ Hooks are for <strong>observation only</strong>.</p>
 <span class="line">  blueprint<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>stoneBlueprint<span class="token punctuation">)</span></span>
 <span class="line"><span class="token punctuation">}</span><span class="token punctuation">)</span></span>
 <span class="line"></span></code></pre>
-<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>Once defined, the Blueprint becomes your system’s introspectable, shareable configuration — powering every adapter, every request, and every dimension.</p>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>Once defined, the Blueprint becomes your system’s introspectable, shareable configuration, powering every adapter, every request, and every dimension.</p>
 </div></template>
 
 

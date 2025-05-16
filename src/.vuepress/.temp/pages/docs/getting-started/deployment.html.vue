@@ -1,10 +1,10 @@
-<template><div><p>Stone.js apps are built for freedom — deployable anywhere JavaScript runs: Node.js, the browser, serverless, edge networks, and even that smart toaster with a JS engine (well, almost). Thanks to its Continuum Architecture, Stone.js doesn’t care about your runtime — because everything is context. And deployment? It's just the final form of your app's intention.</p>
+<template><div><p>Stone.js apps are built for freedom, deployable anywhere JavaScript runs: Node.js, the browser, serverless, edge networks, and even that smart toaster with a JS engine (well, almost). Thanks to its Continuum Architecture, Stone.js doesn’t care about your runtime, because everything is context. And deployment? It's just the final form of your app's intention.</p>
 <blockquote>
 <p><strong>Requirements:</strong><br>
 You'll need Node.js <code v-pre>&gt;= 20</code>. That’s where the magic starts.</p>
 </blockquote>
 <h2 id="building-for-production" tabindex="-1"><a class="header-anchor" href="#building-for-production"><span>Building for Production</span></a></h2>
-<p>Stone.js uses the latest JS features, some still too hot for regular engines. That’s why we bundle your app into a <strong>single deployable artifact</strong> — no <code v-pre>node_modules</code>, no clutter, just pure power.</p>
+<p>Stone.js uses the latest JS features, some still too hot for regular engines. That’s why we bundle your app into a <strong>single deployable artifact</strong>, no <code v-pre>node_modules</code>, no clutter, just pure power.</p>
 <p>Run:</p>
 <div class="language-bash line-numbers-mode" data-highlighter="prismjs" data-ext="sh"><pre v-pre><code><span class="line"><span class="token function">npm</span> run build</span>
 <span class="line"></span></code></pre>
@@ -32,7 +32,7 @@ You'll need Node.js <code v-pre>&gt;= 20</code>. That’s where the magic starts
 <li>
 <p>Upload the contents of <code v-pre>dist/</code> to your favorite static host:</p>
 <ul>
-<li>Vercel, Netlify, S3, GitHub Pages, Cloudflare Pages — pick your poison.</li>
+<li>Vercel, Netlify, S3, GitHub Pages, Cloudflare Pages, pick your poison.</li>
 </ul>
 </li>
 <li>
@@ -47,7 +47,7 @@ You'll need Node.js <code v-pre>&gt;= 20</code>. That’s where the magic starts
 </ol>
 <div class="hint-container tip">
 <p class="hint-container-title">Tip</p>
-<p>You can even deploy the frontend on a CDN and the backend on Lambda — continuum, baby!</p>
+<p>You can even deploy the frontend on a CDN and the backend on Lambda, continuum, baby!</p>
 </div>
 <h2 id="serverless-deployment" tabindex="-1"><a class="header-anchor" href="#serverless-deployment"><span>Serverless Deployment</span></a></h2>
 <p>Stone.js was made for the cloud-native era. That means it plays nicely with serverless platforms like AWS Lambda. You just need to connect the right adapter, build your artifact, and let the platform handle the scaling and infrastructure.</p>
@@ -186,7 +186,7 @@ You'll need Node.js <code v-pre>&gt;= 20</code>. That’s where the magic starts
 <div class="language-bash line-numbers-mode" data-highlighter="prismjs" data-ext="sh"><pre v-pre><code><span class="line"><span class="token function">docker</span> build <span class="token parameter variable">-t</span> stone-app <span class="token builtin class-name">.</span></span>
 <span class="line"><span class="token function">docker</span> run <span class="token parameter variable">-p</span> <span class="token number">8080</span>:8080 stone-app</span>
 <span class="line"></span></code></pre>
-<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div></div></div><p>You now have a deployable, containerized Stone.js app — no <code v-pre>node_modules</code>, no junk, just your logic.</p>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div></div></div><p>You now have a deployable, containerized Stone.js app, no <code v-pre>node_modules</code>, no junk, just your logic.</p>
 <h2 id="github-actions-ci-cd" tabindex="-1"><a class="header-anchor" href="#github-actions-ci-cd"><span>GitHub Actions (CI/CD)</span></a></h2>
 <p>To automate your build and deployment, you can use <strong>GitHub Actions</strong>. Here's a basic workflow that builds your Stone.js system and can be extended for deployment to any platform.</p>
 <h3 id="example-build-deploy-workflow" tabindex="-1"><a class="header-anchor" href="#example-build-deploy-workflow"><span>Example: Build &amp; Deploy Workflow</span></a></h3>
@@ -272,7 +272,7 @@ You'll need Node.js <code v-pre>&gt;= 20</code>. That’s where the magic starts
 </table>
 <div class="hint-container info">
 <p class="hint-container-title">Info</p>
-<p>Don’t see your platform here? Don’t worry — Stone.js was designed to be adaptable. Write your own adapter or let us know what you need!</p>
+<p>Don’t see your platform here? Don’t worry, Stone.js was designed to be adaptable. Write your own adapter or let us know what you need!</p>
 </div>
 </div></template>
 

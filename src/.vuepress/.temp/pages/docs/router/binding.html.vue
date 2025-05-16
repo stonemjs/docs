@@ -126,7 +126,7 @@ Stone Router supports <strong>global bindings</strong> to automatically resolve 
 <li>Just like local bindings, the resolver methods must accept <code v-pre>(key: string, value: any)</code> and return the model (or <code v-pre>undefined</code>).</li>
 </ul>
 <h2 id="best-practices" tabindex="-1"><a class="header-anchor" href="#best-practices"><span>Best Practices</span></a></h2>
-<p>Stone Router’s binding system is powerful — but with great power comes great responsibility. Here’s how to get the most out of it:</p>
+<p>Stone Router’s binding system is powerful, but with great power comes great responsibility. Here’s how to get the most out of it:</p>
 <h4 id="use-binding-for-models-not-logic" tabindex="-1"><a class="header-anchor" href="#use-binding-for-models-not-logic"><span>Use Binding for Models, Not Logic</span></a></h4>
 <p>Bindings are ideal for fetching entities like users, posts, products, etc.
 Avoid using them to perform business logic or side effects. Keep it clean and predictable.</p>
@@ -175,7 +175,7 @@ Instead of receiving an ID, your handler can receive the actual object, cleaner,
 <li>Consistent injection via <code v-pre>event.params</code></li>
 </ul>
 <p>Handle <code v-pre>undefined</code> when needed, throw smart errors, and keep your resolution logic minimal.</p>
-<p>Stone Router takes care of the boilerplate — so you can focus on your domain logic, not your plumbing.<br>
+<p>Stone Router takes care of the boilerplate, so you can focus on your domain logic, not your plumbing.<br>
 Feel the power of the Continuum! 😎</p>
 </div></template>
 

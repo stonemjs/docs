@@ -1,5 +1,5 @@
 <template><div><p>Adapters in Stone.js are the official bridge between your application and the outside world. Whether you’re running in a Node.js server,
-a FaaS like AWS Lambda, a browser, or a CLI — adapters make it all feel the same from your application’s perspective.</p>
+a FaaS like AWS Lambda, a browser, or a CLI, adapters make it all feel the same from your application’s perspective.</p>
 <h3 id="what-is-an-adapter" tabindex="-1"><a class="header-anchor" href="#what-is-an-adapter"><span>What is an adapter?</span></a></h3>
 <p>An adapter is a module that translates an external request into a normalized internal event (<code v-pre>IncomingEvent</code>) and transforms your system's response (<code v-pre>OutgoingResponse</code>) back into a format that the underlying platform understands.</p>
 <p>Think of it as a platform-specific translator. It wraps the unpredictable, environment-specific inputs and outputs into the standardized flow that your Stone.js system expects.</p>
@@ -8,7 +8,7 @@ a FaaS like AWS Lambda, a browser, or a CLI — adapters make it all feel the sa
 <ul>
 <li><strong>Runtime independence</strong>: The same logic works in the browser, on a server, or in a FaaS.</li>
 <li><strong>Seamless event handling</strong>: Every platform ends up producing the same kind of internal event.</li>
-<li><strong>Unified development model</strong>: You don't need to worry about how requests arrive — just what they mean.</li>
+<li><strong>Unified development model</strong>: You don't need to worry about how requests arrive, just what they mean.</li>
 </ul>
 <p>Adapters are central to Stone.js's mission: <strong>build once, deploy anywhere</strong>.</p>
 <h3 id="where-adapters-fit-in-the-continuum-architecture" tabindex="-1"><a class="header-anchor" href="#where-adapters-fit-in-the-continuum-architecture"><span>Where adapters fit in the Continuum Architecture</span></a></h3>
@@ -18,7 +18,7 @@ a FaaS like AWS Lambda, a browser, or a CLI — adapters make it all feel the sa
 <li>The <strong>external context</strong> (HTTP server, CLI input, browser events, FaaS triggers...)</li>
 <li>And the <strong>internal system</strong> (your application logic and domain)</li>
 </ul>
-<p>Adapters <strong>transform context</strong>, letting your business logic ignore where requests come from — and still respond correctly.</p>
+<p>Adapters <strong>transform context</strong>, letting your business logic ignore where requests come from, and still respond correctly.</p>
 <p>They're the gatekeepers of your application. Every event starts with them.</p>
 <h3 id="how-adapters-work-at-runtime" tabindex="-1"><a class="header-anchor" href="#how-adapters-work-at-runtime"><span>How adapters work at runtime</span></a></h3>
 <p>At runtime and after the Setup Phase, an adapter is the first thing executed. It:</p>
@@ -29,15 +29,15 @@ a FaaS like AWS Lambda, a browser, or a CLI — adapters make it all feel the sa
 <li>Receives the <code v-pre>OutgoingResponse</code>.</li>
 <li>Uses an <strong>output builder</strong> to convert it back into a format the platform understands.</li>
 </ol>
-<p>The entire journey — from real-world input to platform-specific output — is encapsulated within the adapter.</p>
+<p>The entire journey, from real-world input to platform-specific output, is encapsulated within the adapter.</p>
 <h2 id="using-adapters" tabindex="-1"><a class="header-anchor" href="#using-adapters"><span>Using Adapters</span></a></h2>
 <p>Stone.js adapters are the entry points into your system.
-They let you connect your code to any execution context — Node.js, FaaS, the browser, or the CLI — without changing your internal logic.</p>
+They let you connect your code to any execution context, Node.js, FaaS, the browser, or the CLI, without changing your internal logic.</p>
 <p>This section explains how to <strong>install</strong>, <strong>activate</strong>, <strong>configure</strong>, and <strong>orchestrate</strong> multiple adapters, using both the declarative and imperative APIs. We'll use the Node.js HTTP adapter in examples, but the same concepts apply to any other adapter.</p>
 <h3 id="registering-adapters" tabindex="-1"><a class="header-anchor" href="#registering-adapters"><span>Registering Adapters</span></a></h3>
 <p>Before using any adapter, you must install and register it.</p>
 <h4 id="install" tabindex="-1"><a class="header-anchor" href="#install"><span>Install</span></a></h4>
-<p>Stone.js is framework-agnostic by design — no adapter is bundled by default. You choose what to install:</p>
+<p>Stone.js is framework-agnostic by design, no adapter is bundled by default. You choose what to install:</p>
 <div class="hint-container tip">
 <p class="hint-container-title">Tips</p>
 <p>The Node HTTP adapter is installed and activated by default when you create a new Stone.js project using the CLI.</p>
@@ -165,7 +165,7 @@ They let you connect your code to any execution context — Node.js, FaaS, the b
 <p>Stone.js lets you register multiple adapters at once. This allows your app to run in different environments (e.g., Node + Browser) from a single system definition.</p>
 <div class="language-bash line-numbers-mode" data-highlighter="prismjs" data-ext="sh"><pre v-pre><code><span class="line"><span class="token function">npm</span> <span class="token function">install</span> @stone-js/node-http-adapter @stone-js/browser-adapter</span>
 <span class="line"></span></code></pre>
-<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div></div></div><p>Then register them either declaratively or imperatively — they can coexist without conflict.</p>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div></div></div><p>Then register them either declaratively or imperatively, they can coexist without conflict.</p>
 <Tabs id="336" :data='[{"id":"Declarative"},{"id":"Imperative"}]' :active="0" tab-id="declarative-imperative">
 <template #title0="{ value, isActive }">Declarative</template>
 <template #title1="{ value, isActive }">Imperative</template>
@@ -197,7 +197,7 @@ They let you connect your code to any execution context — Node.js, FaaS, the b
 </Tabs>
 <h3 id="implicit-activation-contextual-decoherence" tabindex="-1"><a class="header-anchor" href="#implicit-activation-contextual-decoherence"><span>Implicit Activation (Contextual Decoherence)</span></a></h3>
 <p>When multiple adapters are installed, Stone.js keeps them in a <strong>superposition</strong> state.
-At runtime, it infers the appropriate adapter based on the external context — this is called <strong>contextual decoherence</strong> in the Continuum.</p>
+At runtime, it infers the appropriate adapter based on the external context, this is called <strong>contextual decoherence</strong> in the Continuum.</p>
 <p>You don’t need to decide; the system does it for you. This makes Stone.js feel magically universal.</p>
 <h3 id="explicit-activation" tabindex="-1"><a class="header-anchor" href="#explicit-activation"><span>Explicit Activation</span></a></h3>
 <p>For full control, you can explicitly define which adapter should be used at runtime.</p>
@@ -420,7 +420,7 @@ If it is, we add our custom middleware to the <code v-pre>stone.adapter.middlewa
 </tbody>
 </table>
 <h2 id="adapter-middleware" tabindex="-1"><a class="header-anchor" href="#adapter-middleware"><span>Adapter Middleware</span></a></h2>
-<p>Adapter middleware in Stone.js are not general-purpose middlewares. They don’t handle authentication, logging, or cross-cutting concerns. Instead, they serve a very specific purpose: they are <strong>builders</strong> that translate raw external inputs into normalized system events — and convert system responses back into platform-native outputs.</p>
+<p>Adapter middleware in Stone.js are not general-purpose middlewares. They don’t handle authentication, logging, or cross-cutting concerns. Instead, they serve a very specific purpose: they are <strong>builders</strong> that translate raw external inputs into normalized system events, and convert system responses back into platform-native outputs.</p>
 <p>These middlewares operate at the <strong>adapter level</strong>, and are executed <strong>before</strong> your system logic runs. They allow you to participate in the construction of:</p>
 <ul>
 <li><code v-pre>IncomingEvent</code>: the standardized event passed to your system</li>
@@ -431,7 +431,7 @@ If it is, we add our custom middleware to the <code v-pre>stone.adapter.middlewa
 <li><code v-pre>incomingEventBuilder</code>: used to assemble the <code v-pre>IncomingEvent</code></li>
 <li><code v-pre>rawResponseBuilder</code>: used to generate the final platform response from the <code v-pre>OutgoingResponse</code></li>
 </ul>
-<p>Adapter middleware are a critical part of the <strong>Integration Dimension</strong>, responsible for transforming raw, unpredictable context into clean, normalized system flow — before your application logic even sees it.</p>
+<p>Adapter middleware are a critical part of the <strong>Integration Dimension</strong>, responsible for transforming raw, unpredictable context into clean, normalized system flow, before your application logic even sees it.</p>
 <h3 id="context-and-builders" tabindex="-1"><a class="header-anchor" href="#context-and-builders"><span>Context and Builders</span></a></h3>
 <p>Each adapter middleware receives an <code v-pre>AdapterContext</code>, a structured object that provides access to both the raw platform data and the tools needed to build normalized system events and responses.</p>
 <p>This context varies slightly depending on the adapter (Node.js, Lambda, Browser, etc.), but always follows the same structure:</p>
@@ -455,7 +455,7 @@ The original request or trigger received from the platform. This could be an HTT
 <li>
 <p><strong><code v-pre>rawResponse</code></strong> <em>(optional)</em><br>
 The raw platform-specific response object (e.g., Node.js response stream).<br>
-→ <em>Never modify this directly — always use <code v-pre>rawResponseBuilder</code> to shape the response.</em></p>
+→ <em>Never modify this directly, always use <code v-pre>rawResponseBuilder</code> to shape the response.</em></p>
 </li>
 <li>
 <p><strong><code v-pre>executionContext</code></strong><br>
@@ -630,7 +630,7 @@ A builder for producing the final platform-native response from the system’s <
 <span class="line">  <span class="token keyword">return</span> blueprint</span>
 <span class="line"><span class="token punctuation">}</span></span>
 <span class="line"></span></code></pre>
-<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>This approach offers complete flexibility — especially useful when adapter selection depends on runtime context.</p>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>This approach offers complete flexibility, especially useful when adapter selection depends on runtime context.</p>
 </template>
 </Tabs>
 <h3 id="notes" tabindex="-1"><a class="header-anchor" href="#notes"><span>Notes</span></a></h3>
@@ -639,12 +639,12 @@ A builder for producing the final platform-native response from the system’s <
 <li>To understand what values are accessible from <code v-pre>OutgoingResponse</code>, check the <a href="../essentials/outgoing-response"><strong>Outgoing Response</strong></a> documentation.</li>
 </ul>
 <h2 id="integration-hooks" tabindex="-1"><a class="header-anchor" href="#integration-hooks"><span>Integration Hooks</span></a></h2>
-<p>Integration hooks in Stone.js allow you to observe and react to the platform-specific phases of your system — including adapter startup, event transformation, middleware execution, and shutdown.</p>
-<Mermaid id="mermaid-889" code="eJyV0jtvwjAQB/CdT3EKygYSULowVOIRXmqlCqouUQcTX4pVY6e2aaCI717HDgKpQ10WlPv/7s55xPGJCWYGcIrMFncYDSDaEI1RC3zhlShGNhy1TU4NgCiXwqzZt5PdfnGIWlWVM4FjyaWqyk16d9/vdKLG+XyO40bOZZltiTLwMrEWYJiuj9rgDrSx1Tdotx9glEqxdpee+GL3KmXhk1HXRz3XcKl6P06Tg0ElCAeFn3vU9bSxSye2Y7RnnDLxvhCZ3Nn/5AtFjSYOJemzkhlqbUN4YpRyLIlCeJTVKgcTB6d22pUOKSns5muDnzl1dGaPhdne4M1An89cPrejfg2oZyOtt87/d7zFzc2uSLlCXUih67WeLC2ZE0Htu7ucP1FKKjsnjmFtjlUAuVRAOAchKWrXrW2C9olro+QHtktGzXZgv4RWzjgfNKfudyNH4bIbTnvBdBwsJ8EyCZbTYDkLlvNguQiWyz/kD8NvTLc="></Mermaid><p>These hooks belong to the <strong>Integration Dimension</strong> of the Continuum Architecture. They do not affect your application logic directly, but instead provide a clean mechanism to tap into low-level system behavior. They're useful for logging, metrics, debugging, diagnostics, and graceful shutdowns — all without polluting your core system logic.</p>
+<p>Integration hooks in Stone.js allow you to observe and react to the platform-specific phases of your system, including adapter startup, event transformation, middleware execution, and shutdown.</p>
+<Mermaid id="mermaid-889" code="eJyV0jtvwjAQB/CdT3EKygYSULowVOIRXmqlCqouUQcTX4pVY6e2aaCI717HDgKpQ10WlPv/7s55xPGJCWYGcIrMFncYDSDaEI1RC3zhlShGNhy1TU4NgCiXwqzZt5PdfnGIWlWVM4FjyaWqyk16d9/vdKLG+XyO40bOZZltiTLwMrEWYJiuj9rgDrSx1Tdotx9glEqxdpee+GL3KmXhk1HXRz3XcKl6P06Tg0ElCAeFn3vU9bSxSye2Y7RnnDLxvhCZ3Nn/5AtFjSYOJemzkhlqbUN4YpRyLIlCeJTVKgcTB6d22pUOKSns5muDnzl1dGaPhdne4M1An89cPrejfg2oZyOtt87/d7zFzc2uSLlCXUih67WeLC2ZE0Htu7ucP1FKKjsnjmFtjlUAuVRAOAchKWrXrW2C9olro+QHtktGzXZgv4RWzjgfNKfudyNH4bIbTnvBdBwsJ8EyCZbTYDkLlvNguQiWyz/kD8NvTLc="></Mermaid><p>These hooks belong to the <strong>Integration Dimension</strong> of the Continuum Architecture. They do not affect your application logic directly, but instead provide a clean mechanism to tap into low-level system behavior. They're useful for logging, metrics, debugging, diagnostics, and graceful shutdowns, all without polluting your core system logic.</p>
 <p>There are two types of integration hooks:</p>
 <ul>
-<li><strong>Global hooks</strong> — triggered during lifecycle events like startup or shutdown.</li>
-<li><strong>Per-intention hooks</strong> — triggered during adapter-level processing, such as when building events, running middleware, or handling adapter-level errors.</li>
+<li><strong>Global hooks</strong>, triggered during lifecycle events like startup or shutdown.</li>
+<li><strong>Per-intention hooks</strong>, triggered during adapter-level processing, such as when building events, running middleware, or handling adapter-level errors.</li>
 </ul>
 <h3 id="available-integration-hooks" tabindex="-1"><a class="header-anchor" href="#available-integration-hooks"><span>Available Integration Hooks</span></a></h3>
 <p>Here’s a list of all built-in integration hooks available in Stone.js:</p>
@@ -745,7 +745,7 @@ A builder for producing the final platform-native response from the system’s <
 <template #title1="{ value, isActive }">Imperative</template>
 <template #tab0="{ value, isActive }">
 <h4 id="declarative-hook-registration" tabindex="-1"><a class="header-anchor" href="#declarative-hook-registration"><span>Declarative Hook Registration</span></a></h4>
-<p>Use the <code v-pre>@Hook('&lt;hookName&gt;')</code> method decorator to register a hook. Hook methods can live in any class — but for clarity and separation of concerns, it's best to place them in a dedicated observer class or service provider.</p>
+<p>Use the <code v-pre>@Hook('&lt;hookName&gt;')</code> method decorator to register a hook. Hook methods can live in any class, but for clarity and separation of concerns, it's best to place them in a dedicated observer class or service provider.</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line"><span class="token keyword">import</span> <span class="token punctuation">{</span></span>
 <span class="line">  Hook<span class="token punctuation">,</span> MiddlewareHookContext<span class="token punctuation">,</span> AdapterHookListenerContext</span>
 <span class="line"><span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@stone-js/core'</span></span>
@@ -768,7 +768,7 @@ A builder for producing the final platform-native response from the system’s <
 <span class="line"><span class="token punctuation">}</span></span>
 <span class="line"></span></code></pre>
 <div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>Hooks are automatically registered and matched based on their names. All parameters are injected automatically.</p>
-<p>Hook methods are executed via reflection. They are <strong>not</strong> tied to class lifecycle — avoid using <code v-pre>this</code>.</p>
+<p>Hook methods are executed via reflection. They are <strong>not</strong> tied to class lifecycle, avoid using <code v-pre>this</code>.</p>
 </template>
 <template #tab1="{ value, isActive }">
 <h4 id="imperative-hook-registration" tabindex="-1"><a class="header-anchor" href="#imperative-hook-registration"><span>Imperative Hook Registration</span></a></h4>
@@ -803,7 +803,7 @@ A builder for producing the final platform-native response from the system’s <
 </Tabs>
 <h2 id="best-practices" tabindex="-1"><a class="header-anchor" href="#best-practices"><span>Best Practices</span></a></h2>
 <p>Using adapters effectively in Stone.js means understanding the execution context while keeping your system logic pure and portable. Here are the recommended patterns to follow when working with adapters and their supporting features.</p>
-<h4 id="don-t-mutate-events-directly-—-use-builders" tabindex="-1"><a class="header-anchor" href="#don-t-mutate-events-directly-—-use-builders"><span>Don’t Mutate Events Directly — Use Builders</span></a></h4>
+<h4 id="don-t-mutate-events-directly-use-builders" tabindex="-1"><a class="header-anchor" href="#don-t-mutate-events-directly-use-builders"><span>Don’t Mutate Events Directly, Use Builders</span></a></h4>
 <p>Inside adapter middleware, always use <code v-pre>incomingEventBuilder</code> and <code v-pre>rawResponseBuilder</code>:</p>
 <p>✅ Good:</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line">context<span class="token punctuation">.</span>incomingEventBuilder<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token string">'headers'</span><span class="token punctuation">,</span> context<span class="token punctuation">.</span>rawEvent<span class="token punctuation">.</span>headers<span class="token punctuation">)</span></span>
@@ -848,17 +848,17 @@ And any mutation will be overwritten when the event is built.</p>
 <p>Keep your adapter layer <strong>thin and testable</strong>.</p>
 </div>
 <h2 id="summary" tabindex="-1"><a class="header-anchor" href="#summary"><span>Summary</span></a></h2>
-<p>Adapters are the entry point of every Stone.js application. They translate platform-specific inputs into standardized <code v-pre>IncomingEvent</code> objects and convert your system's <code v-pre>OutgoingResponse</code> into native output — no matter where your app runs.</p>
+<p>Adapters are the entry point of every Stone.js application. They translate platform-specific inputs into standardized <code v-pre>IncomingEvent</code> objects and convert your system's <code v-pre>OutgoingResponse</code> into native output, no matter where your app runs.</p>
 <p>Stone.js offers built-in adapters for:</p>
 <ul>
 <li>Node.js (HTTP, CLI)</li>
 <li>AWS Lambda (event or HTTP)</li>
 <li>Browser (SPA, SSR)</li>
 </ul>
-<p>You can register adapters <strong>declaratively</strong> using decorators or <strong>imperatively</strong> using blueprints — giving you flexibility based on the level of control you need.</p>
+<p>You can register adapters <strong>declaratively</strong> using decorators or <strong>imperatively</strong> using blueprints, giving you flexibility based on the level of control you need.</p>
 <p>Adapter middleware lets you participate in the construction of events and responses, using builder objects instead of direct mutation. Scoped middleware ensures clean multi-platform behavior.</p>
-<p>Integration hooks provide a powerful observability layer. Whether you want to log startup, trace middleware execution, or debug event transformations, hooks give you visibility — without coupling to your app logic.</p>
-<p>Adapters live in the <strong>Integration Dimension</strong> of the Continuum Architecture. They form the boundary between the external world and your internal logic. You don’t have to think in platforms — just intentions.</p>
+<p>Integration hooks provide a powerful observability layer. Whether you want to log startup, trace middleware execution, or debug event transformations, hooks give you visibility, without coupling to your app logic.</p>
+<p>Adapters live in the <strong>Integration Dimension</strong> of the Continuum Architecture. They form the boundary between the external world and your internal logic. You don’t have to think in platforms, just intentions.</p>
 </div></template>
 
 

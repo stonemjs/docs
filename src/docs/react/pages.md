@@ -242,7 +242,7 @@ In **multi-route apps**, you must register your routes using the Stone.js Router
 * **Multi-route apps** require you to define each route explicitly, using either API style.
 * Routes in Stone.js support advanced features: parameter validation, bindings, aliases, protocols, and more.
 
-See the [Routing documentation](./Routing.md) for the full routing API available to your pages.
+See the [Routing documentation](./routing) for the full routing API available to your pages.
 
 ## Page Lifecycle
 

@@ -11,8 +11,8 @@ These are universal libraries, not bound to Stone.js. They provide general-purpo
 These are deeply integrated into the Stone ecosystem. They speak the language of blueprints, adapters, providers, and the Continuum. Examples include the official <code v-pre>@stone-js/router</code> or <code v-pre>@stone-js/use-react</code>.</p>
 </li>
 </ul>
-<p>This documentation will guide you through building both types — from creating a reusable, framework-agnostic module, to turning it into a fully integrated, declarative-first Stone.js package.</p>
-<p>Whether you're crafting new utilities, wrapping external services, or formalizing your team’s internal logic into reusable features — you're in the right place.</p>
+<p>This documentation will guide you through building both types, from creating a reusable, framework-agnostic module, to turning it into a fully integrated, declarative-first Stone.js package.</p>
+<p>Whether you're crafting new utilities, wrapping external services, or formalizing your team’s internal logic into reusable features, you're in the right place.</p>
 <p><strong>By the end of this guide, you'll know how to:</strong></p>
 <ul>
 <li>Structure and build modern ESM packages.</li>
@@ -24,7 +24,7 @@ These are deeply integrated into the Stone ecosystem. They speak the language of
 </ul>
 <p>Welcome to the power of modular, continuum-native package development.</p>
 <h2 id="authoring-a-package" tabindex="-1"><a class="header-anchor" href="#authoring-a-package"><span>Authoring a Package</span></a></h2>
-<p>Stone.js encourages you to think modular. Each package is its own universe, encapsulating functionality in a clean, reusable, and portable way — whether it’s a CLI utility, a middleware suite, or a full-blown service layer.</p>
+<p>Stone.js encourages you to think modular. Each package is its own universe, encapsulating functionality in a clean, reusable, and portable way, whether it’s a CLI utility, a middleware suite, or a full-blown service layer.</p>
 <p>Here’s how to build that universe properly.</p>
 <h3 id="language-and-format" tabindex="-1"><a class="header-anchor" href="#language-and-format"><span>Language and Format</span></a></h3>
 <p>Stone.js is built for the modern JavaScript ecosystem. That means:</p>
@@ -35,7 +35,7 @@ All packages must be shipped as <a href="https://developer.mozilla.org/en-US/doc
 </li>
 <li>
 <p><strong>TypeScript or JavaScript? Both.</strong>
-You’re free to use either language to write your package — but <strong>you must expose typings</strong>. Stone.js is strongly typed under the hood, and consumers of your package (especially TypeScript users) rely on your types to benefit from autocomplete, validation, and context awareness.</p>
+You’re free to use either language to write your package, but <strong>you must expose typings</strong>. Stone.js is strongly typed under the hood, and consumers of your package (especially TypeScript users) rely on your types to benefit from autocomplete, validation, and context awareness.</p>
 </li>
 </ul>
 <p>If you write in JavaScript, use <a href="https://jsdoc.app/" target="_blank" rel="noopener noreferrer">JSDoc</a> to generate typings. If you write in TypeScript, just emit the <code v-pre>.d.ts</code> files during build.</p>
@@ -54,14 +54,14 @@ You’re free to use either language to write your package — but <strong>you m
 <p>Key principles:</p>
 <ul>
 <li>Don’t minify. Stone.js handles optimization and minification during deployment.</li>
-<li>Externalize dependencies. Don’t bundle them — let the application resolve them.</li>
+<li>Externalize dependencies. Don’t bundle them, let the application resolve them.</li>
 <li>Transpile to ESM. Use <code v-pre>tsc</code>, <code v-pre>rollup</code>, <code v-pre>esbuild</code>, or your tool of choice.</li>
-<li>Optionally bundle your code (e.g. into <code v-pre>dist/index.js</code>) for convenience — but it’s not required.</li>
+<li>Optionally bundle your code (e.g. into <code v-pre>dist/index.js</code>) for convenience, but it’s not required.</li>
 </ul>
 <p>Stone.js core packages use <a href="https://rollupjs.org/" target="_blank" rel="noopener noreferrer">Rollup</a> for bundling and tree-shaking. You’re free to use the same setup for consistency and performance.</p>
 <h3 id="exporting-modules" tabindex="-1"><a class="header-anchor" href="#exporting-modules"><span>Exporting Modules</span></a></h3>
 <p>Stone.js expects your <code v-pre>package.json</code> to declare exports cleanly.</p>
-<p>Use the modern <a href="https://nodejs.org/api/packages.html#exports" target="_blank" rel="noopener noreferrer">Node.js exports field</a> — not <code v-pre>main</code>.</p>
+<p>Use the modern <a href="https://nodejs.org/api/packages.html#exports" target="_blank" rel="noopener noreferrer">Node.js exports field</a>, not <code v-pre>main</code>.</p>
 <div class="language-json line-numbers-mode" data-highlighter="prismjs" data-ext="json"><pre v-pre><code><span class="line"><span class="token punctuation">{</span></span>
 <span class="line">  <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"module"</span><span class="token punctuation">,</span></span>
 <span class="line">  <span class="token property">"types"</span><span class="token operator">:</span> <span class="token string">"./dist/index.d.ts"</span><span class="token punctuation">,</span></span>
@@ -100,7 +100,7 @@ You’re free to use either language to write your package — but <strong>you m
 </ul>
 <p>This structure isn't mandatory, but it’s battle-tested and scales well.</p>
 <h2 id="api-paradigms-for-consumers" tabindex="-1"><a class="header-anchor" href="#api-paradigms-for-consumers"><span>API Paradigms for Consumers</span></a></h2>
-<p>Stone.js supports both <strong>imperative</strong> and <strong>declarative</strong> programming styles — and your package should too.</p>
+<p>Stone.js supports both <strong>imperative</strong> and <strong>declarative</strong> programming styles, and your package should too.</p>
 <p>Internally, you’re free to build your logic however you want (hint: imperative is required). But when exposing your API to developers, <strong>you must support both paradigms</strong> so users can choose what fits their flow.</p>
 <Tabs id="210" :data='[{"id":"Imperative"},{"id":"Declarative"}]' :active="0" tab-id="declarative-imperative">
 <template #title0="{ value, isActive }">Imperative</template>
@@ -108,7 +108,7 @@ You’re free to use either language to write your package — but <strong>you m
 <template #tab0="{ value, isActive }">
 <h3 id="imperative-usage" tabindex="-1"><a class="header-anchor" href="#imperative-usage"><span>Imperative Usage</span></a></h3>
 <p>This is the <em>foundational</em> way Stone.js packages are consumed.</p>
-<p>You <strong>must expose a blueprint</strong> — a static object that tells Stone.js what your package provides and how to configure it. Think of it as the package's contract with the framework.</p>
+<p>You <strong>must expose a blueprint</strong>, a static object that tells Stone.js what your package provides and how to configure it. Think of it as the package's contract with the framework.</p>
 <p>Example:</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line"><span class="token keyword">export</span> <span class="token keyword">const</span> myLibBlueprint <span class="token operator">=</span> <span class="token punctuation">{</span></span>
 <span class="line">  stone<span class="token operator">:</span> <span class="token punctuation">{</span></span>
@@ -130,7 +130,7 @@ You’re free to use either language to write your package — but <strong>you m
 </template>
 <template #tab1="{ value, isActive }">
 <h3 id="declarative-usage" tabindex="-1"><a class="header-anchor" href="#declarative-usage"><span>Declarative Usage</span></a></h3>
-<p>This is the sugar on top — a clean and elegant way for developers to enable your package through decorators.</p>
+<p>This is the sugar on top, a clean and elegant way for developers to enable your package through decorators.</p>
 <p>Stone.js uses the Stage 3 <a href="https://github.com/tc39/proposal-decorators" target="_blank" rel="noopener noreferrer">decorators proposal</a>, but also provides utility wrappers to maintain compatibility with existing decorator syntax.</p>
 <p>To expose declarative usage:</p>
 <ol>
@@ -155,14 +155,14 @@ You’re free to use either language to write your package — but <strong>you m
 <span class="line"><span class="token decorator"><span class="token at operator">@</span><span class="token function">MyLib</span></span><span class="token punctuation">(</span><span class="token punctuation">{</span> maxServices<span class="token operator">:</span> <span class="token number">2</span> <span class="token punctuation">}</span><span class="token punctuation">)</span></span>
 <span class="line"><span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">Application</span> <span class="token punctuation">{</span><span class="token punctuation">}</span></span>
 <span class="line"></span></code></pre>
-<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>This approach makes it easy for users to plug in your package with minimal friction — no manual blueprint juggling required.</p>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>This approach makes it easy for users to plug in your package with minimal friction, no manual blueprint juggling required.</p>
 </template>
 </Tabs>
 <div class="hint-container important">
 <p class="hint-container-title">Important</p>
 <p>Even in declarative mode, you're still injecting a blueprint under the hood. It's just hidden behind a nice decorator wrapper.</p>
 </div>
-<p>Declarative for elegance, imperative for control — your package should offer both.</p>
+<p>Declarative for elegance, imperative for control, your package should offer both.</p>
 <h2 id="blueprint-service-integration" tabindex="-1"><a class="header-anchor" href="#blueprint-service-integration"><span>Blueprint &amp; Service Integration</span></a></h2>
 <p>Stone.js uses the <strong>blueprint</strong> as the universal setup interface. It’s how your package introduces itself to the framework, and how users configure it in a predictable, declarative or imperative way.</p>
 <p>This section covers all the integration points your package may expose: setup (blueprint), integration (adapters), and initialization (providers).</p>
@@ -349,7 +349,7 @@ You’re free to use either language to write your package — but <strong>you m
 <h2 id="documentation" tabindex="-1"><a class="header-anchor" href="#documentation"><span>Documentation</span></a></h2>
 <p>Documentation is your package’s handshake with the outside world.
 It’s how users know what it does, how to use it, and why they should care.</p>
-<p>In the Stone.js ecosystem, a good package isn’t just one that works — it’s one that’s <strong>well-documented, well-typed, and easy to onboard</strong>.</p>
+<p>In the Stone.js ecosystem, a good package isn’t just one that works, it’s one that’s <strong>well-documented, well-typed, and easy to onboard</strong>.</p>
 <h3 id="what-to-document" tabindex="-1"><a class="header-anchor" href="#what-to-document"><span>What to Document</span></a></h3>
 <table>
 <thead>
@@ -622,7 +622,7 @@ You can write portable logic, then expose it with a Stone.js wrapper, just like 
 <li>Even if your package is simple, offering both improves developer experience.</li>
 </ul>
 <h4 id="use-named-exports-only" tabindex="-1"><a class="header-anchor" href="#use-named-exports-only"><span>Use Named Exports Only</span></a></h4>
-<p>Stone.js does not support default exports — <strong>anywhere</strong>.</p>
+<p>Stone.js does not support default exports, <strong>anywhere</strong>.</p>
 <p>Good:</p>
 <div class="language-typescript line-numbers-mode" data-highlighter="prismjs" data-ext="ts"><pre v-pre><code><span class="line"><span class="token keyword">export</span> <span class="token keyword">const</span> myLibBlueprint <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token operator">...</span> <span class="token punctuation">}</span></span>
 <span class="line"><span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">MyService</span> <span class="token punctuation">{</span> <span class="token operator">...</span> <span class="token punctuation">}</span></span>
@@ -799,7 +799,7 @@ Patterns are consistent for a reason, decorators, blueprint structure, service p
 <span class="line">  <span class="token punctuation">{</span> alias<span class="token operator">:</span> <span class="token string">'myService'</span> <span class="token punctuation">}</span></span>
 <span class="line"><span class="token punctuation">)</span></span>
 <span class="line"></span></code></pre>
-<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>That’s it — you now have an <code v-pre>axios</code> instance injected into the Stone.js service container, fully configurable via <code v-pre>blueprint.set('app.api.baseURL', ...)</code>.</p>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>That’s it, you now have an <code v-pre>axios</code> instance injected into the Stone.js service container, fully configurable via <code v-pre>blueprint.set('app.api.baseURL', ...)</code>.</p>
 <p>This structure can be reused for any third-party SDK or integration. It’s clean, clear, and continuum-aligned.</p>
 <h3 id="bonus-template-repo" tabindex="-1"><a class="header-anchor" href="#bonus-template-repo"><span>Bonus: Template Repo</span></a></h3>
 <p>If you want to get going fast, you can fork this starter (create this in your GitHub org or community):</p>

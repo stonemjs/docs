@@ -2,7 +2,7 @@
 title: Error handlers
 ---
 
-In Stone.js, an **Error Handler** is your domain’s safety net. It’s where uncertainty becomes clarity — where thrown errors meet intentional handling. Just like an event handler responds to intentions, an error handler responds to disruptions. It’s not an afterthought — it’s a first-class citizen of the framework.
+In Stone.js, an **Error Handler** is your domain’s safety net. It’s where uncertainty becomes clarity, where thrown errors meet intentional handling. Just like an event handler responds to intentions, an error handler responds to disruptions. It’s not an afterthought, it’s a first-class citizen of the framework.
 
 Stone.js encourages you to throw errors freely when something goes wrong. You don’t need to wrap everything in try/catch. Instead, trust the system: **throw first, handle later**. That’s the philosophy. And error handlers are the mechanism that makes it work.
 
@@ -14,18 +14,18 @@ No matter where the error happens, Stone.js provides a clean, structured way to:
 - Log it (if needed)
 - Return a proper response (or not)
 
-This clean separation of concerns makes your application more robust, testable, and expressive — fully aligned with the **Continuum Architecture**. Because in a continuum, **the context can fail too** — and your system must respond accordingly.
+This clean separation of concerns makes your application more robust, testable, and expressive, fully aligned with the **Continuum Architecture**. Because in a continuum, **the context can fail too**, and your system must respond accordingly.
 
 ## Error Handler Fundamentals
 
-Stone.js treats errors as first-class context events. Errors can occur at any point in the system — during setup, initialization, middleware execution, event handling, adapter processing, or even within a user-defined service. That’s expected. What matters is **how you react**.
+Stone.js treats errors as first-class context events. Errors can occur at any point in the system, during setup, initialization, middleware execution, event handling, adapter processing, or even within a user-defined service. That’s expected. What matters is **how you react**.
 
 ### Throw Early, Handle Later
 
-In Stone.js, you’re encouraged to **throw errors freely** — wherever something invalid, unexpected, or critical happens. Don't second-guess yourself. If it's an error, `throw`.  
-Stone.js will intercept it and route it to the appropriate error handler — based on the **error’s class name** and the **current dimension** (initialization or integration).
+In Stone.js, you’re encouraged to **throw errors freely**, wherever something invalid, unexpected, or critical happens. Don't second-guess yourself. If it's an error, `throw`.  
+Stone.js will intercept it and route it to the appropriate error handler, based on the **error’s class name** and the **current dimension** (initialization or integration).
 
-This leads to cleaner domain code: you don't litter your logic with try/catch blocks. You express intent through exceptions — and handle them **declaratively** or **imperatively** elsewhere.
+This leads to cleaner domain code: you don't litter your logic with try/catch blocks. You express intent through exceptions, and handle them **declaratively** or **imperatively** elsewhere.
 
 ### Custom Error Classes: Your Best Friends
 
@@ -64,11 +64,11 @@ This resolution is **dimension-specific**, meaning different handlers apply in:
 - The **Initialization Dimension** (runtime request, event processing, services)
 - The **Integration Dimension** (adapter level: raw input/output handling)
 
-By modeling errors as first-class events, Stone.js turns failure into an opportunity to **observe, adapt, and respond** — all without entangling your business logic.
+By modeling errors as first-class events, Stone.js turns failure into an opportunity to **observe, adapt, and respond**, all without entangling your business logic.
 
 ## Defining an Error Handler
 
-Stone.js supports **three shapes** of error handlers: **class-based**, **function-based**, and **factory-based**. They all share the same goal — to react to a thrown error — but offer flexibility depending on how much context and dependency injection you need.
+Stone.js supports **three shapes** of error handlers: **class-based**, **function-based**, and **factory-based**. They all share the same goal, to react to a thrown error, but offer flexibility depending on how much context and dependency injection you need.
 
 ::: tabs#class-factory-function
 @tab:active Class-based
@@ -85,12 +85,12 @@ export class MyErrorHandler {
 }
 ```
 
-The `handle` method will be automatically invoked when the matched error is thrown. If you need services from the container (like a logger), just inject them via the constructor — Stone.js will take care of wiring.
+The `handle` method will be automatically invoked when the matched error is thrown. If you need services from the container (like a logger), just inject them via the constructor, Stone.js will take care of wiring.
 
 @tab Function-based
 ### Function-based Error Handler
 
-This is the simplest form — just a plain function. Great for quick logic or when DI isn’t needed.
+This is the simplest form, just a plain function. Great for quick logic or when DI isn’t needed.
 
 ```ts
 export function myErrorHandler(error: Error, context: IncomingEvent): unknown {
@@ -99,7 +99,7 @@ export function myErrorHandler(error: Error, context: IncomingEvent): unknown {
 }
 ```
 
-Use this when you don’t need state, services, or complexity — just direct reaction to an exception.
+Use this when you don’t need state, services, or complexity, just direct reaction to an exception.
 
 @tab Factory-based
 ### Factory-based Error Handler
@@ -136,22 +136,22 @@ This pattern gives you the full flexibility of dependency injection *and* functi
 
 ## Dimension-specific Behavior
 
-Stone.js separates error handling concerns between the **initialization** and **integration** dimensions — each with its own context shape and return expectations.
+Stone.js separates error handling concerns between the **initialization** and **integration** dimensions, each with its own context shape and return expectations.
 
 ::: tabs#dimensions
 @tab:active Initialization
 ### Initialization Dimension
 
-This is where most error handling occurs — at runtime, while processing requests, executing services, or running handlers. Here, the error handler receives:
+This is where most error handling occurs, at runtime, while processing requests, executing services, or running handlers. Here, the error handler receives:
 
 - The `error`: any thrown object (ideally a subclass of `Error`)
 - The `context`: always an `IncomingEvent`
 
 You can return:
 
-- `undefined` — if you just want to log or swallow the error
-- A plain object — to be auto-wrapped as a response
-- An `OutgoingResponse` — if you want full control over status code, headers, etc.
+- `undefined`, if you just want to log or swallow the error
+- A plain object, to be auto-wrapped as a response
+- An `OutgoingResponse`, if you want full control over status code, headers, etc.
 
 Example:
 
@@ -166,12 +166,12 @@ export class UnauthorizedErrorHandler {
 }
 ```
 
-This dimension is perfect for expressing domain-level meaning — treating errors as part of your application's intentional flow.
+This dimension is perfect for expressing domain-level meaning, treating errors as part of your application's intentional flow.
 
 @tab Integration
 ### Integration Dimension
 
-This is lower-level — inside the adapter layer. You’ll only need this if you’re customizing how the system interacts with external runtimes (e.g., AWS Lambda, HTTP server, CLI).
+This is lower-level, inside the adapter layer. You’ll only need this if you’re customizing how the system interacts with external runtimes (e.g., AWS Lambda, HTTP server, CLI).
 
 The error handler receives:
 
@@ -195,7 +195,7 @@ export class DefaultAdapterErrorHandler {
 }
 ```
 
-You don’t need this in most apps — but it’s essential for adapter authors or advanced customization.
+You don’t need this in most apps, but it’s essential for adapter authors or advanced customization.
 :::
 
 ::: tip
@@ -204,7 +204,7 @@ Remember: **the integration dimension speaks the language of the platform**, whi
 
 ## Registering Error Handlers
 
-Stone.js gives you two clean ways to register your error handlers — **declaratively** via decorators, or **imperatively** via the blueprint API. Both approaches let you specify which error(s) the handler should respond to.
+Stone.js gives you two clean ways to register your error handlers, **declaratively** via decorators, or **imperatively** via the blueprint API. Both approaches let you specify which error(s) the handler should respond to.
 
 ::: tabs#declarative-imperative
 @tab:active Declarative
@@ -242,7 +242,7 @@ This makes error handler resolution predictable and easy to trace.
 @tab Imperative
 ### Imperative Registration
 
-Use this when working with function-based or factory-based handlers — or when you prefer full control over setup.
+Use this when working with function-based or factory-based handlers, or when you prefer full control over setup.
 
 In the **initialization dimension**, register under:
 
@@ -289,7 +289,7 @@ Remember, the current adapter is resolved dynamically at runtime. To ensure your
 
 ## Best Practices
 
-Error handling isn’t just about catching problems — it’s about responding to them meaningfully, without coupling your domain to every possible failure. Here’s how to get it right in Stone.js:
+Error handling isn’t just about catching problems, it’s about responding to them meaningfully, without coupling your domain to every possible failure. Here’s how to get it right in Stone.js:
 
 #### Create a Custom Error Class for Every Meaningful Error
 
@@ -317,7 +317,7 @@ And always set the class name explicitly (`this.name = 'UserNotFoundError'`) to 
 #### Avoid Manual try/catch (Except in Specific Use Cases)
 
 Unless you’re doing something low-level (like a retry wrapper), don’t wrap your services or handlers in `try/catch`.  
-Just `throw` — and let Stone.js route the error to the right handler, based on dimension and class.
+Just `throw`, and let Stone.js route the error to the right handler, based on dimension and class.
 
 #### Prefer Class or Factory-Based Handlers in Apps With Dependency Injection
 
@@ -360,11 +360,11 @@ For everything else, stick with the initialization dimension.
 
 #### Never Silently Swallow Errors (Unless You Know Why)
 
-You can return `undefined` from an error handler — but only if you really mean to. Otherwise, make sure the handler logs or transforms the error meaningfully.
+You can return `undefined` from an error handler, but only if you really mean to. Otherwise, make sure the handler logs or transforms the error meaningfully.
 
 #### Never Return Raw Error Messages to the User
 
-Returning `error.message` directly in a response can expose sensitive implementation details — like internal logic, validation secrets, or even stack traces in some cases. This is a **security leak** and should always be avoided in production.
+Returning `error.message` directly in a response can expose sensitive implementation details, like internal logic, validation secrets, or even stack traces in some cases. This is a **security leak** and should always be avoided in production.
 
 Instead:
 
@@ -382,11 +382,11 @@ handle(error: Error, context: IncomingEvent) {
 }
 ```
 
-This keeps your system secure, your logs useful, and your users informed — without oversharing.
+This keeps your system secure, your logs useful, and your users informed, without oversharing.
 
 ## Summary
 
-Error handlers in Stone.js are more than catch blocks — they’re part of your system’s architecture. They allow you to separate failure handling from business logic, keeping your domain expressive and clean.
+Error handlers in Stone.js are more than catch blocks, they’re part of your system’s architecture. They allow you to separate failure handling from business logic, keeping your domain expressive and clean.
 
 - Use **class**, **function**, or **factory** shapes depending on your needs.
 - Register them **declaratively** with decorators or **imperatively** using the blueprint.
@@ -396,4 +396,4 @@ Error handlers in Stone.js are more than catch blocks — they’re part of your
   - Integration → low-level adapter errors
 - Always **log the real error**, and **never expose internal messages** to users.
 
-In a continuum-aware system, errors are not an exception — they’re expected. And now, you’ve got everything you need to handle them like a pro.
+In a continuum-aware system, errors are not an exception, they’re expected. And now, you’ve got everything you need to handle them like a pro.

@@ -14,8 +14,8 @@ Stone Router gives you flexible syntax choices, sensible defaults, and powerful 
 
 Dynamic parameters allow you to define flexible routes that match variable values in the path or domain. Stone Router supports two syntaxes:
 
-* `/users/:id` — **Colon-based** (preferred in this documentation)
-* `/users/{id}` — **Brace-based**
+* `/users/:id`, **Colon-based** (preferred in this documentation)
+* `/users/{id}`, **Brace-based**
 
 Both are supported and behave identically, but **you should stick to one style for consistency**. We'll use the colon syntax throughout.
 
@@ -323,9 +323,9 @@ This lets you enforce format constraints directly in your route definitions.
 
 There are three levels of validation:
 
-* **Implicit Rules** — inline regex in the path or domain
-* **Explicit Rules** — using the `rules` option
-* **Global Rules** — applied to all routes
+* **Implicit Rules**, inline regex in the path or domain
+* **Explicit Rules**, using the `rules` option
+* **Global Rules**, applied to all routes
 
 ### Implicit Rules
 
@@ -409,7 +409,7 @@ Here are some practical tips to master parameter usage with Stone Router:
 #### Keep Optional Parameters at the End
 
 * Always define optional parameters (`:slug?`) **after** required ones
-* Avoid ambiguous routes like `/users/:slug?/edit/:id` — they lead to confusion and bugs
+* Avoid ambiguous routes like `/users/:slug?/edit/:id`, they lead to confusion and bugs
 
 #### Use Defaults Strategically
 

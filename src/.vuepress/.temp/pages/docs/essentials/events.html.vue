@@ -4,7 +4,7 @@ However, it is important to understand that <strong>not all events are the same<
 <ul>
 <li>
 <p><strong>Incoming Events</strong>:<br>
-These events come from the external world — such as HTTP requests, WebSocket messages, or CLI commands.<br>
+These events come from the external world, such as HTTP requests, WebSocket messages, or CLI commands.<br>
 They represent <em>intentions</em> from outside the system and are handled using <strong>Event Handlers</strong>, not listeners or subscribers.<br>
 To learn more about handling external events, refer to the <a href="./incoming-event"><code v-pre>IncomingEvent</code></a> and <a href="./event-handler"><code v-pre>Event Handlers</code></a> documentations.</p>
 </li>
@@ -27,7 +27,7 @@ their structure, their behavior, and how you can listen, subscribe, and dispatch
 <p>In the next sections, you’ll learn how to define listeners, group subscriptions, and create your own custom events to build modular and powerful Stone.js applications.</p>
 <h2 id="listeners" tabindex="-1"><a class="header-anchor" href="#listeners"><span>Listeners</span></a></h2>
 <p>Listeners are the primary way to react to <strong>internal events</strong> in Stone.js. A listener waits for a specific event to occur and then executes its associated logic.</p>
-<p>Listeners promote <strong>low coupling</strong> between parts of your system, the module that emits the event doesn't need to know who will react to it — it simply emits the event into the system.</p>
+<p>Listeners promote <strong>low coupling</strong> between parts of your system, the module that emits the event doesn't need to know who will react to it, it simply emits the event into the system.</p>
 <p>Stone.js supports multiple ways to define listeners, giving you full flexibility depending on your needs.</p>
 <h3 id="variants" tabindex="-1"><a class="header-anchor" href="#variants"><span>Variants</span></a></h3>
 <p>You can define a listener using one of three shapes:</p>
@@ -99,8 +99,8 @@ This pattern allows you to inject dependencies manually, while keeping flexibili
 <p>Once your listener is defined, you must <strong>register</strong> it so that Stone.js knows it should react to a specific event.</p>
 <p>Stone.js offers two ways to register listeners:</p>
 <ul>
-<li><strong>Declarative API</strong> — using decorators (recommended for class-based modules)</li>
-<li><strong>Imperative API</strong> — using blueprint utilities for manual control</li>
+<li><strong>Declarative API</strong>, using decorators (recommended for class-based modules)</li>
+<li><strong>Imperative API</strong>, using blueprint utilities for manual control</li>
 </ul>
 <p>No matter which variant you choose (class, function, or factory), the registration process ensures your listeners are properly integrated at runtime.</p>
 <Tabs id="179" :data='[{"id":"Declarative"},{"id":"Imperative"}]' :active="0" tab-id="declarative-imperative">
@@ -205,7 +205,7 @@ This pattern is especially useful when you need to manage several related events
 <span class="line"></span></code></pre>
 <div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><ul>
 <li>Lightweight and quick to implement.</li>
-<li>No dependency injection — perfect for small tasks or nano apps.</li>
+<li>No dependency injection, perfect for small tasks or nano apps.</li>
 </ul>
 </template>
 <template #tab2="{ value, isActive }">
@@ -228,8 +228,8 @@ This pattern is especially useful when you need to manage several related events
 <p>After defining your subscriber, you need to <strong>register</strong> it so that Stone.js can activate it during the initialization process.</p>
 <p>Stone.js provides two ways to register subscribers:</p>
 <ul>
-<li><strong>Declarative API</strong> — using decorators (recommended for class-based modules)</li>
-<li><strong>Imperative API</strong> — using blueprint utilities for manual control</li>
+<li><strong>Declarative API</strong>, using decorators (recommended for class-based modules)</li>
+<li><strong>Imperative API</strong>, using blueprint utilities for manual control</li>
 </ul>
 <p>Subscribers behave similarly to listeners during registration but are attached to the system at the subscription level rather than the individual event level.</p>
 <Tabs id="374" :data='[{"id":"Declarative"},{"id":"Imperative"}]' :active="0" tab-id="declarative-imperative">
@@ -309,7 +309,7 @@ You can define your own <strong>custom events</strong> to propagate domain-speci
 </ul>
 <h4 id="why-use-a-static-getter-for-the-event-type" tabindex="-1"><a class="header-anchor" href="#why-use-a-static-getter-for-the-event-type"><span>Why use a static getter for the event type?</span></a></h4>
 <p>In frontend builds (or aggressive bundling scenarios), class names can be mangled or renamed.<br>
-Using a static string getter ensures that your event names remain <strong>stable</strong>, <strong>predictable</strong>, and <strong>safe</strong> — even after minification.</p>
+Using a static string getter ensures that your event names remain <strong>stable</strong>, <strong>predictable</strong>, and <strong>safe</strong>, even after minification.</p>
 <h3 id="listener" tabindex="-1"><a class="header-anchor" href="#listener"><span>Listener</span></a></h3>
 <p>Listening to custom events works exactly the same way as for built-in internal events.<br>
 You simply define a listener and associate it with your custom event type.</p>
@@ -451,7 +451,7 @@ Always prefer injecting services via <code v-pre>construct</code>, even in subsc
 <ul>
 <li>
 <p><strong>Always define your event type as a static getter</strong>.<br>
-Never rely on class names directly — use constants to guarantee stability after bundling and minification.</p>
+Never rely on class names directly, use constants to guarantee stability after bundling and minification.</p>
 </li>
 <li>
 <p><strong>Design metadata explicitly</strong>.<br>
@@ -482,7 +482,7 @@ They allow different parts of your system to <strong>react to changes</strong> w
 <li><strong>Subscribers</strong> allow you to organize multiple related event reactions inside one module.</li>
 <li><strong>Custom Events</strong> enable you to define your own domain-specific events and propagate structured data across your system.</li>
 </ul>
-<p>Listeners and subscribers can be defined using classes, functions, or factories — giving you full flexibility depending on your application's size and needs.<br>
+<p>Listeners and subscribers can be defined using classes, functions, or factories, giving you full flexibility depending on your application's size and needs.<br>
 Class-based (declarative) patterns are preferred for introspection, clarity, and maintainability.</p>
 <p>Every internal event is an instance of the <code v-pre>Event</code> class, ensuring a consistent API for accessing metadata, event type, and origin.</p>
 <p>By following Stone.js’s event system best practices, you can create applications that are highly modular, adaptable, and aligned with the <strong>Continuum Architecture</strong> philosophy:<br>

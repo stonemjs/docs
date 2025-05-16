@@ -3,7 +3,7 @@ title: Adapter
 ---
 
 Adapters in Stone.js are the official bridge between your application and the outside world. Whether you’re running in a Node.js server, 
-a FaaS like AWS Lambda, a browser, or a CLI — adapters make it all feel the same from your application’s perspective.
+a FaaS like AWS Lambda, a browser, or a CLI, adapters make it all feel the same from your application’s perspective.
 
 ### What is an adapter?
 
@@ -17,7 +17,7 @@ Adapters let you write one system that runs everywhere. They abstract away the p
 
 - **Runtime independence**: The same logic works in the browser, on a server, or in a FaaS.
 - **Seamless event handling**: Every platform ends up producing the same kind of internal event.
-- **Unified development model**: You don't need to worry about how requests arrive — just what they mean.
+- **Unified development model**: You don't need to worry about how requests arrive, just what they mean.
 
 Adapters are central to Stone.js's mission: **build once, deploy anywhere**.
 
@@ -44,7 +44,7 @@ This is the layer that mediates between:
 - The **external context** (HTTP server, CLI input, browser events, FaaS triggers...)
 - And the **internal system** (your application logic and domain)
 
-Adapters **transform context**, letting your business logic ignore where requests come from — and still respond correctly.
+Adapters **transform context**, letting your business logic ignore where requests come from, and still respond correctly.
 
 They're the gatekeepers of your application. Every event starts with them.
 
@@ -58,13 +58,13 @@ At runtime and after the Setup Phase, an adapter is the first thing executed. It
 4. Receives the `OutgoingResponse`.
 5. Uses an **output builder** to convert it back into a format the platform understands.
 
-The entire journey — from real-world input to platform-specific output — is encapsulated within the adapter.
+The entire journey, from real-world input to platform-specific output, is encapsulated within the adapter.
 
 
 ## Using Adapters
 
 Stone.js adapters are the entry points into your system. 
-They let you connect your code to any execution context — Node.js, FaaS, the browser, or the CLI — without changing your internal logic.
+They let you connect your code to any execution context, Node.js, FaaS, the browser, or the CLI, without changing your internal logic.
 
 This section explains how to **install**, **activate**, **configure**, and **orchestrate** multiple adapters, using both the declarative and imperative APIs. We'll use the Node.js HTTP adapter in examples, but the same concepts apply to any other adapter.
 
@@ -74,7 +74,7 @@ Before using any adapter, you must install and register it.
 
 #### Install
 
-Stone.js is framework-agnostic by design — no adapter is bundled by default. You choose what to install:
+Stone.js is framework-agnostic by design, no adapter is bundled by default. You choose what to install:
 
 ::: tip
 The Node HTTP adapter is installed and activated by default when you create a new Stone.js project using the CLI.
@@ -167,7 +167,7 @@ Stone.js lets you register multiple adapters at once. This allows your app to ru
 npm install @stone-js/node-http-adapter @stone-js/browser-adapter
 ```
 
-Then register them either declaratively or imperatively — they can coexist without conflict.
+Then register them either declaratively or imperatively, they can coexist without conflict.
 
 ::: tabs#declarative-imperative
 @tab:active Declarative
@@ -203,7 +203,7 @@ export const mainBlueprint = defineBlueprintConfig((blueprint) => {
 ### Implicit Activation (Contextual Decoherence)
 
 When multiple adapters are installed, Stone.js keeps them in a **superposition** state. 
-At runtime, it infers the appropriate adapter based on the external context — this is called **contextual decoherence** in the Continuum.
+At runtime, it infers the appropriate adapter based on the external context, this is called **contextual decoherence** in the Continuum.
 
 You don’t need to decide; the system does it for you. This makes Stone.js feel magically universal.
 
@@ -377,7 +377,7 @@ Each adapter exposes custom options to fine-tune its behavior. Here are some exa
 
 ## Adapter Middleware
 
-Adapter middleware in Stone.js are not general-purpose middlewares. They don’t handle authentication, logging, or cross-cutting concerns. Instead, they serve a very specific purpose: they are **builders** that translate raw external inputs into normalized system events — and convert system responses back into platform-native outputs.
+Adapter middleware in Stone.js are not general-purpose middlewares. They don’t handle authentication, logging, or cross-cutting concerns. Instead, they serve a very specific purpose: they are **builders** that translate raw external inputs into normalized system events, and convert system responses back into platform-native outputs.
 
 These middlewares operate at the **adapter level**, and are executed **before** your system logic runs. They allow you to participate in the construction of:
 
@@ -389,7 +389,7 @@ To do this, they expose two builder objects:
 - `incomingEventBuilder`: used to assemble the `IncomingEvent`
 - `rawResponseBuilder`: used to generate the final platform response from the `OutgoingResponse`
 
-Adapter middleware are a critical part of the **Integration Dimension**, responsible for transforming raw, unpredictable context into clean, normalized system flow — before your application logic even sees it.
+Adapter middleware are a critical part of the **Integration Dimension**, responsible for transforming raw, unpredictable context into clean, normalized system flow, before your application logic even sees it.
 
 ### Context and Builders
 
@@ -417,7 +417,7 @@ Here’s what each property represents:
 
 - **`rawResponse`** *(optional)*  
   The raw platform-specific response object (e.g., Node.js response stream).  
-  → *Never modify this directly — always use `rawResponseBuilder` to shape the response.*
+  → *Never modify this directly, always use `rawResponseBuilder` to shape the response.*
 
 - **`executionContext`**  
   A platform-specific object related to the environment in which the adapter is running. For example, this could be the Node HTTP server or AWS Lambda context object.  
@@ -612,7 +612,7 @@ const MySetupMiddleware = async (context, next) => {
 }
 ```
 
-This approach offers complete flexibility — especially useful when adapter selection depends on runtime context.
+This approach offers complete flexibility, especially useful when adapter selection depends on runtime context.
 :::
 
 ### Notes
@@ -622,7 +622,7 @@ This approach offers complete flexibility — especially useful when adapter sel
 
 ## Integration Hooks
 
-Integration hooks in Stone.js allow you to observe and react to the platform-specific phases of your system — including adapter startup, event transformation, middleware execution, and shutdown.
+Integration hooks in Stone.js allow you to observe and react to the platform-specific phases of your system, including adapter startup, event transformation, middleware execution, and shutdown.
 
 ```mermaid
 %%{init: {"theme": "base", "themeVariables": {
@@ -661,11 +661,11 @@ flowchart TD
     style J stroke-width:4px,fill:#FFFFFF
 ```
 
-These hooks belong to the **Integration Dimension** of the Continuum Architecture. They do not affect your application logic directly, but instead provide a clean mechanism to tap into low-level system behavior. They're useful for logging, metrics, debugging, diagnostics, and graceful shutdowns — all without polluting your core system logic.
+These hooks belong to the **Integration Dimension** of the Continuum Architecture. They do not affect your application logic directly, but instead provide a clean mechanism to tap into low-level system behavior. They're useful for logging, metrics, debugging, diagnostics, and graceful shutdowns, all without polluting your core system logic.
 
 There are two types of integration hooks:
-- **Global hooks** — triggered during lifecycle events like startup or shutdown.
-- **Per-intention hooks** — triggered during adapter-level processing, such as when building events, running middleware, or handling adapter-level errors.
+- **Global hooks**, triggered during lifecycle events like startup or shutdown.
+- **Per-intention hooks**, triggered during adapter-level processing, such as when building events, running middleware, or handling adapter-level errors.
 
 ### Available Integration Hooks
 
@@ -748,7 +748,7 @@ Hooks can be registered using either the **declarative** or **imperative** API.
 
 #### Declarative Hook Registration
 
-Use the `@Hook('<hookName>')` method decorator to register a hook. Hook methods can live in any class — but for clarity and separation of concerns, it's best to place them in a dedicated observer class or service provider.
+Use the `@Hook('<hookName>')` method decorator to register a hook. Hook methods can live in any class, but for clarity and separation of concerns, it's best to place them in a dedicated observer class or service provider.
 
 ```ts
 import {
@@ -775,7 +775,7 @@ export class AdapterObserver {
 
 Hooks are automatically registered and matched based on their names. All parameters are injected automatically.
 
-Hook methods are executed via reflection. They are **not** tied to class lifecycle — avoid using `this`.
+Hook methods are executed via reflection. They are **not** tied to class lifecycle, avoid using `this`.
 
 @tab Imperative
 #### Imperative Hook Registration
@@ -816,7 +816,7 @@ The hook names follow the namespace format: `stone.lifecycleHooks.<hookName>`. Y
 
 Using adapters effectively in Stone.js means understanding the execution context while keeping your system logic pure and portable. Here are the recommended patterns to follow when working with adapters and their supporting features.
 
-#### Don’t Mutate Events Directly — Use Builders
+#### Don’t Mutate Events Directly, Use Builders
 
 Inside adapter middleware, always use `incomingEventBuilder` and `rawResponseBuilder`:
 
@@ -874,7 +874,7 @@ Keep your adapter layer **thin and testable**.
 
 ## Summary
 
-Adapters are the entry point of every Stone.js application. They translate platform-specific inputs into standardized `IncomingEvent` objects and convert your system's `OutgoingResponse` into native output — no matter where your app runs.
+Adapters are the entry point of every Stone.js application. They translate platform-specific inputs into standardized `IncomingEvent` objects and convert your system's `OutgoingResponse` into native output, no matter where your app runs.
 
 Stone.js offers built-in adapters for:
 
@@ -882,10 +882,10 @@ Stone.js offers built-in adapters for:
 - AWS Lambda (event or HTTP)
 - Browser (SPA, SSR)
 
-You can register adapters **declaratively** using decorators or **imperatively** using blueprints — giving you flexibility based on the level of control you need.
+You can register adapters **declaratively** using decorators or **imperatively** using blueprints, giving you flexibility based on the level of control you need.
 
 Adapter middleware lets you participate in the construction of events and responses, using builder objects instead of direct mutation. Scoped middleware ensures clean multi-platform behavior.
 
-Integration hooks provide a powerful observability layer. Whether you want to log startup, trace middleware execution, or debug event transformations, hooks give you visibility — without coupling to your app logic.
+Integration hooks provide a powerful observability layer. Whether you want to log startup, trace middleware execution, or debug event transformations, hooks give you visibility, without coupling to your app logic.
 
-Adapters live in the **Integration Dimension** of the Continuum Architecture. They form the boundary between the external world and your internal logic. You don’t have to think in platforms — just intentions.
+Adapters live in the **Integration Dimension** of the Continuum Architecture. They form the boundary between the external world and your internal logic. You don’t have to think in platforms, just intentions.

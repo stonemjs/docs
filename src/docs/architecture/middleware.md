@@ -6,9 +6,9 @@ In Stone.js, middleware is how you **act on the internal context**.
 
 Unlike [Hooks](./lifecycle), which observe and react, middleware **participates directly** in the flow. It can **intercept, transform, short-circuit**, or fully redirect the system’s behavior as it unfolds across dimensions.
 
-Middleware is always **dimension-specific**, but its structure remains consistent. It gives you the power to shape both the **creation** and the **execution** of context — making it one of the most expressive tools in the framework.
+Middleware is always **dimension-specific**, but its structure remains consistent. It gives you the power to shape both the **creation** and the **execution** of context, making it one of the most expressive tools in the framework.
 
-This page focuses on **Initialization middleware**, which operates at the kernel or route level — where intentions are fully formed and ready to meet the domain. It’s where most user-level logic lives, and where middleware becomes your primary tool to **control the interaction between context and domain logic**.
+This page focuses on **Initialization middleware**, which operates at the kernel or route level, where intentions are fully formed and ready to meet the domain. It’s where most user-level logic lives, and where middleware becomes your primary tool to **control the interaction between context and domain logic**.
 
 ::: tip
 The principles described here apply to **all middleware**, regardless of dimension.  
@@ -16,21 +16,21 @@ Even if you’re working with Integration or Setup middleware, this page lays th
 For dimension-specific details, refer to the [Blueprint](../blueprint) and [Adapter](../adapter) documentation.
 :::
 
-Middleware is how you shape the continuum **from within**. Use it intentionally — and use it often.
+Middleware is how you shape the continuum **from within**. Use it intentionally, and use it often.
 
 ## Using Middleware
 
 In Stone.js, all middleware follow a **shared structure**, no matter which dimension they belong to. This structural consistency is a core part of the Continuum Architecture: **only the context and return type change**, the shape remains the same.
 
-Whether you're enriching a blueprint, transforming an adapter’s raw input, or intercepting a request before it reaches the domain — middleware always receives a **context**, a `next()` function, and must return a result.
+Whether you're enriching a blueprint, transforming an adapter’s raw input, or intercepting a request before it reaches the domain, middleware always receives a **context**, a `next()` function, and must return a result.
 
 Stone.js supports three interchangeable middleware variants:
 
-- **Class-based** — required when using the Declarative API with decorators
-- **Function-based** — simple, flexible, ideal for functional or imperative registration
-- **Factory-based** — dynamic and dependency-aware, used when function-based middleware needs to be parameterized or contextualized
+- **Class-based**, required when using the Declarative API with decorators
+- **Function-based**, simple, flexible, ideal for functional or imperative registration
+- **Factory-based**, dynamic and dependency-aware, used when function-based middleware needs to be parameterized or contextualized
 
-You can use any of these shapes in **any dimension**. The continuum doesn’t restrict you — it empowers you to choose what fits best.
+You can use any of these shapes in **any dimension**. The continuum doesn’t restrict you, it empowers you to choose what fits best.
 
 ### Middleware Signature
 
@@ -54,12 +54,12 @@ The middleware can:
 - **Short-circuit** the flow by returning early (e.g. an error response)
 - **Break the chain** entirely by throwing an exception
 
-This structure makes middleware expressive, composable, and highly controllable — regardless of where it runs in the continuum.
+This structure makes middleware expressive, composable, and highly controllable, regardless of where it runs in the continuum.
 
 ### Middleware Variants
 
 Stone.js middleware can be written in three interchangeable forms: **class**, **function**, or **factory**.  
-Each variant provides the same capabilities and can be used in any dimension — choose the shape that best fits your design or context.
+Each variant provides the same capabilities and can be used in any dimension, choose the shape that best fits your design or context.
 
 ::: tabs#class-factory-function
 @tab:active Class-based
@@ -155,13 +155,13 @@ export const createUserResolverMiddleware = ({ userService }: { userService: Use
 }
 ```
 
-This shape is useful when you need dynamic logic based on runtime conditions, environment, or resolved services — without using a class.
+This shape is useful when you need dynamic logic based on runtime conditions, environment, or resolved services, without using a class.
 
 :::
 
 ### Why call `next()`
 
-Calling `next()` signals that your middleware has finished its work and the context should proceed to the next middleware in the chain — or to the final handler if none remain.  
+Calling `next()` signals that your middleware has finished its work and the context should proceed to the next middleware in the chain, or to the final handler if none remain.  
 Every middleware **must return a value**, either by returning early, forwarding the result of `next()`, or throwing an error.
 
 This mechanism gives you full control over the execution flow:
@@ -219,7 +219,7 @@ This simple yet powerful pattern is what makes middleware composable, interrupti
 ### Sync or Async? Both.
 
 Middleware can be **synchronous** or **asynchronous**, as long as it returns the appropriate value.  
-Stone.js handles middleware flow seamlessly — so you're free to mix sync and async styles without friction.
+Stone.js handles middleware flow seamlessly, so you're free to mix sync and async styles without friction.
 
 ### Use Any Variant, in Any Dimension
 
@@ -237,7 +237,7 @@ You can use:
 
 The only difference is the **context and return type**, which are defined by the dimension itself.
 
-**Continuum means flexibility** — choose the shape that suits your logic, and let the system adapt to it.
+**Continuum means flexibility**, choose the shape that suits your logic, and let the system adapt to it.
 
 ## Middleware Registration
 
@@ -245,8 +245,8 @@ Once your middleware is defined, it needs to be **registered** so Stone.js can d
 
 There are two ways to register middleware:
 
-- **Declarative API** — via decorators on class-based middleware
-- **Imperative API** — via the blueprint, using namespace keys and metadata
+- **Declarative API**, via decorators on class-based middleware
+- **Imperative API**, via the blueprint, using namespace keys and metadata
 
 ::: code-tabs#declarative-imperative
 @tab:active Declarative
@@ -279,12 +279,12 @@ export const mainBlueprint = defineBlueprintConfig((blueprint) => {
 })
 ```
 
-This approach gives you full flexibility and supports **function-based**, **factory-based**, and **class-based** middleware — with shape metadata.
+This approach gives you full flexibility and supports **function-based**, **factory-based**, and **class-based** middleware, with shape metadata.
 :::
 
 ### Priority and Execution Order
 
-Stone.js executes middleware in the order they are defined — unless you specify a `priority`.
+Stone.js executes middleware in the order they are defined, unless you specify a `priority`.
 
 - Lower values run first (`priority: 0` runs before `priority: 10`)
 - If no priority is defined, middleware are executed in registration order
@@ -338,7 +338,7 @@ blueprint.set('stone.kernel.middleware', [
 :::
 
 #### `alias`
-A named identifier you can use to reference the middleware later — for example, in route definitions:
+A named identifier you can use to reference the middleware later, for example, in route definitions:
 ```ts
 @Get({ middleware: ['auth'] })
 ```
@@ -349,7 +349,7 @@ If omitted or `false`, the middleware is considered **route-specific** and must 
 
 ## Best Practices
 
-Middleware is one of the most flexible and expressive features in Stone.js — but with great power comes great opportunity for chaos. Follow these guidelines to get the most out of your middleware design while keeping your system clean, scalable, and continuum-aligned.
+Middleware is one of the most flexible and expressive features in Stone.js, but with great power comes great opportunity for chaos. Follow these guidelines to get the most out of your middleware design while keeping your system clean, scalable, and continuum-aligned.
 
 #### Keep Middleware Single-Purpose
 
@@ -364,7 +364,7 @@ Avoid building "mega-middleware" that tries to handle multiple unrelated concern
 
 #### Don’t Skip the Return
 
-Every middleware **must return a value** — either:
+Every middleware **must return a value**, either:
 - A custom response
 - The result of `next(context)`
 - Or throw an error
@@ -374,7 +374,7 @@ Returning `undefined` will break the chain and can result in runtime errors.
 #### Use `next()` with Intention
 
 Call `next()` only when you're ready to pass control forward.  
-Modify the context before it, and the result after it — but avoid calling it conditionally or in multiple branches unless absolutely necessary.
+Modify the context before it, and the result after it, but avoid calling it conditionally or in multiple branches unless absolutely necessary.
 
 #### Use Aliases for Reusability
 
@@ -405,7 +405,7 @@ Avoid `global: true` for logic that only applies to a subset of routes or domain
 - Use **function-based middleware** for quick, clear logic
 - Use **factory-based middleware** for dynamic, parameterized logic or need DI
 
-All shapes are valid — choose based on context, not preference.
+All shapes are valid, choose based on context, not preference.
 
 #### Avoid Cross-Dimensional Confusion
 
@@ -416,23 +416,23 @@ Keep dimension-specific logic in its place:
 - Use [**Hooks**](./lifecycle) for passive observation
 - Use **Middleware** for active transformation
 - Use **Blueprint** for system-wide configuration
-- Follow the lifecycle — middleware is powerful because it's scoped
+- Follow the lifecycle, middleware is powerful because it's scoped
 
 ## Summary
 
-Middleware in Stone.js gives you the power to **actively shape the flow of your system** — from the moment an intention is created to the point a response is returned.
+Middleware in Stone.js gives you the power to **actively shape the flow of your system**, from the moment an intention is created to the point a response is returned.
 
-In this document, we focused on **initialization middleware** — the most common type used to handle per-intention logic like authentication, validation, and context enrichment. But the same principles apply across all dimensions.
+In this document, we focused on **initialization middleware**, the most common type used to handle per-intention logic like authentication, validation, and context enrichment. But the same principles apply across all dimensions.
 
 **Key takeaways:**
 - Middleware always receives a `context`, a `next()` function, and must return a value
 - You can write middleware as a **class**, **function**, or **factory**
 - Stone.js supports both **Declarative** (via decorators) and **Imperative** (via blueprint) registration
-- Middleware can mutate, intercept, short-circuit, or wrap the execution — giving you full control
+- Middleware can mutate, intercept, short-circuit, or wrap the execution, giving you full control
 - Always return a result and keep middleware **single-responsibility and focused**
 - Use `alias` and `global` for composability and reuse
 
-When you need to **transform** the system — use middleware.  
-When you only need to **observe** — use [Hooks](./lifecycle).  
+When you need to **transform** the system, use middleware.  
+When you only need to **observe**, use [Hooks](./lifecycle).  
 The dimension defines the context. The shape is your choice.  
 That’s the continuum.

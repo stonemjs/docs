@@ -14,9 +14,9 @@ There are **two kinds of packages** you can build:
 * **Stone.js-specific Packages**
   These are deeply integrated into the Stone ecosystem. They speak the language of blueprints, adapters, providers, and the Continuum. Examples include the official `@stone-js/router` or `@stone-js/use-react`.
 
-This documentation will guide you through building both types — from creating a reusable, framework-agnostic module, to turning it into a fully integrated, declarative-first Stone.js package.
+This documentation will guide you through building both types, from creating a reusable, framework-agnostic module, to turning it into a fully integrated, declarative-first Stone.js package.
 
-Whether you're crafting new utilities, wrapping external services, or formalizing your team’s internal logic into reusable features — you're in the right place.
+Whether you're crafting new utilities, wrapping external services, or formalizing your team’s internal logic into reusable features, you're in the right place.
 
 **By the end of this guide, you'll know how to:**
 
@@ -31,7 +31,7 @@ Welcome to the power of modular, continuum-native package development.
 
 ## Authoring a Package
 
-Stone.js encourages you to think modular. Each package is its own universe, encapsulating functionality in a clean, reusable, and portable way — whether it’s a CLI utility, a middleware suite, or a full-blown service layer.
+Stone.js encourages you to think modular. Each package is its own universe, encapsulating functionality in a clean, reusable, and portable way, whether it’s a CLI utility, a middleware suite, or a full-blown service layer.
 
 Here’s how to build that universe properly.
 
@@ -43,7 +43,7 @@ Stone.js is built for the modern JavaScript ecosystem. That means:
   All packages must be shipped as [ES Modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules). No CommonJS, no `require()`, no `module.exports`. This ensures compatibility across browsers, runtimes, and serverless environments.
 
 * **TypeScript or JavaScript? Both.**
-  You’re free to use either language to write your package — but **you must expose typings**. Stone.js is strongly typed under the hood, and consumers of your package (especially TypeScript users) rely on your types to benefit from autocomplete, validation, and context awareness.
+  You’re free to use either language to write your package, but **you must expose typings**. Stone.js is strongly typed under the hood, and consumers of your package (especially TypeScript users) rely on your types to benefit from autocomplete, validation, and context awareness.
 
 If you write in JavaScript, use [JSDoc](https://jsdoc.app/) to generate typings. If you write in TypeScript, just emit the `.d.ts` files during build.
 
@@ -67,9 +67,9 @@ Even if you develop in TypeScript, your package must be **transpiled to ESM Java
 Key principles:
 
 * Don’t minify. Stone.js handles optimization and minification during deployment.
-* Externalize dependencies. Don’t bundle them — let the application resolve them.
+* Externalize dependencies. Don’t bundle them, let the application resolve them.
 * Transpile to ESM. Use `tsc`, `rollup`, `esbuild`, or your tool of choice.
-* Optionally bundle your code (e.g. into `dist/index.js`) for convenience — but it’s not required.
+* Optionally bundle your code (e.g. into `dist/index.js`) for convenience, but it’s not required.
 
 Stone.js core packages use [Rollup](https://rollupjs.org/) for bundling and tree-shaking. You’re free to use the same setup for consistency and performance.
 
@@ -77,7 +77,7 @@ Stone.js core packages use [Rollup](https://rollupjs.org/) for bundling and tree
 
 Stone.js expects your `package.json` to declare exports cleanly.
 
-Use the modern [Node.js exports field](https://nodejs.org/api/packages.html#exports) — not `main`.
+Use the modern [Node.js exports field](https://nodejs.org/api/packages.html#exports), not `main`.
 
 ```json
 {
@@ -126,7 +126,7 @@ This structure isn't mandatory, but it’s battle-tested and scales well.
 
 ## API Paradigms for Consumers
 
-Stone.js supports both **imperative** and **declarative** programming styles — and your package should too.
+Stone.js supports both **imperative** and **declarative** programming styles, and your package should too.
 
 Internally, you’re free to build your logic however you want (hint: imperative is required). But when exposing your API to developers, **you must support both paradigms** so users can choose what fits their flow.
 
@@ -136,7 +136,7 @@ Internally, you’re free to build your logic however you want (hint: imperative
 
 This is the *foundational* way Stone.js packages are consumed.
 
-You **must expose a blueprint** — a static object that tells Stone.js what your package provides and how to configure it. Think of it as the package's contract with the framework.
+You **must expose a blueprint**, a static object that tells Stone.js what your package provides and how to configure it. Think of it as the package's contract with the framework.
 
 Example:
 
@@ -166,7 +166,7 @@ You can also expose helper functions like `defineMyFeature()` to allow more gran
 @tab Declarative
 ### Declarative Usage
 
-This is the sugar on top — a clean and elegant way for developers to enable your package through decorators.
+This is the sugar on top, a clean and elegant way for developers to enable your package through decorators.
 
 Stone.js uses the Stage 3 [decorators proposal](https://github.com/tc39/proposal-decorators), but also provides utility wrappers to maintain compatibility with existing decorator syntax.
 
@@ -199,14 +199,14 @@ import { StoneApp } from '@stone-js/core'
 export class Application {}
 ```
 
-This approach makes it easy for users to plug in your package with minimal friction — no manual blueprint juggling required.
+This approach makes it easy for users to plug in your package with minimal friction, no manual blueprint juggling required.
 :::
 
 ::: important
 Even in declarative mode, you're still injecting a blueprint under the hood. It's just hidden behind a nice decorator wrapper.
 :::
 
-Declarative for elegance, imperative for control — your package should offer both.
+Declarative for elegance, imperative for control, your package should offer both.
 
 ## Blueprint & Service Integration
 
@@ -426,7 +426,7 @@ Stone.js believes in confidence through coverage, when your tests pass, your blu
 Documentation is your package’s handshake with the outside world.
 It’s how users know what it does, how to use it, and why they should care.
 
-In the Stone.js ecosystem, a good package isn’t just one that works — it’s one that’s **well-documented, well-typed, and easy to onboard**.
+In the Stone.js ecosystem, a good package isn’t just one that works, it’s one that’s **well-documented, well-typed, and easy to onboard**.
 
 ### What to Document
 
@@ -701,7 +701,7 @@ These guidelines apply across the board, to structure, naming, design, and API e
 
 #### Use Named Exports Only
 
-Stone.js does not support default exports — **anywhere**.
+Stone.js does not support default exports, **anywhere**.
 
 Good:
 
@@ -937,7 +937,7 @@ export const MyServiceBlueprint = defineService(
 )
 ```
 
-That’s it — you now have an `axios` instance injected into the Stone.js service container, fully configurable via `blueprint.set('app.api.baseURL', ...)`.
+That’s it, you now have an `axios` instance injected into the Stone.js service container, fully configurable via `blueprint.set('app.api.baseURL', ...)`.
 
 This structure can be reused for any third-party SDK or integration. It’s clean, clear, and continuum-aligned.
 

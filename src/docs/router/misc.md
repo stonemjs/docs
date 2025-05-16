@@ -292,9 +292,9 @@ For more advanced use cases, you can use a function to determine the redirect dy
 ```
 
 Your function can return either a string or a `{ statusCode: path }` object.
-This allows total flexibility — for instance, redirecting based on time, headers, or custom logic.
+This allows total flexibility, for instance, redirecting based on time, headers, or custom logic.
 
-Redirection works consistently across platforms — and like everything in Stone.js, it’s context-aware.
+Redirection works consistently across platforms, and like everything in Stone.js, it’s context-aware.
 
 ## Inspections
 
@@ -437,7 +437,7 @@ This view makes it easy to:
 
 ## Best Practices
 
-The Stone Router is powerful and flexible — but with great power comes great... routing responsibility.
+The Stone Router is powerful and flexible, but with great power comes great... routing responsibility.
 Here are some practical tips to help you keep your routing clean, maintainable, and continuum-aligned:
 
 #### Prefer Named Routes
@@ -480,7 +480,7 @@ It keeps your handler logic focused on domain behavior, not plumbing.
 
 #### Avoid Deep Route Nesting
 
-Stone Router supports deep group nesting — but that doesn’t mean you should abuse it.
+Stone Router supports deep group nesting, but that doesn’t mean you should abuse it.
 Set a reasonable `maxDepth` and keep routes flat when possible:
 
 ```ts
@@ -492,7 +492,7 @@ This improves readability and debuggability.
 #### Use `excludeMiddleware` Sparingly
 
 It's better to be precise with your `middleware` configuration than to globally apply then exclude.
-Use `excludeMiddleware` only when you have an edge case — not as your primary strategy.
+Use `excludeMiddleware` only when you have an edge case, not as your primary strategy.
 
 #### Avoid Optional Parameters in the Middle of Paths
 
@@ -503,7 +503,7 @@ Optional segments should always go at the end to avoid ambiguity:
 
 #### Don't Over-Rely on Aliased Paths
 
-Defining multiple paths for the same route (`path: ['/users', '/people']`) is powerful but should be used with moderation — or your routing can quickly become hard to reason about.
+Defining multiple paths for the same route (`path: ['/users', '/people']`) is powerful but should be used with moderation, or your routing can quickly become hard to reason about.
 
 #### Dump and Print Routes in Development
 
@@ -511,7 +511,7 @@ Use `router.dumpRoutes()` or `npx stone router list` frequently during developme
 
 ## Summary
 
-Stone Router goes beyond just defining and resolving routes — it empowers you with tools to introspect, adapt, and navigate with precision.
+Stone Router goes beyond just defining and resolving routes, it empowers you with tools to introspect, adapt, and navigate with precision.
 The miscellaneous features complete the routing experience by offering:
 
 * **Middleware support** for fine-grained control at the route level
@@ -523,7 +523,7 @@ The miscellaneous features complete the routing experience by offering:
 * **Inspection methods** to audit, debug, and validate route behavior
 * **CLI printing** for an instant view of your route map
 
-These capabilities make Stone Router not just a router, but a **routing platform** — deeply integrated into the Continuum, fully aware of its context, and ready to operate seamlessly in both backend and frontend applications.
+These capabilities make Stone Router not just a router, but a **routing platform**, deeply integrated into the Continuum, fully aware of its context, and ready to operate seamlessly in both backend and frontend applications.
 
 When in doubt, inspect.
 When working at scale, name and group.
