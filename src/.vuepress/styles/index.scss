@@ -1,0 +1,74 @@
+.vp-hero-info-wrapper {
+  padding: 2rem!important;
+}
+
+.api-page {
+  .vp-feature-header {
+    margin-top: 1rem;
+  }
+  .vp-feature-header, 
+  .vp-feature-description {
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+  .vp-feature-item {
+    border: 1px solid var(--border-color);
+  }
+  .font-icon {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  @media (min-width: 1440px) {
+    .vp-feature-item {
+      flex-basis: calc(25% - 3.2rem);
+    }
+  }
+  .vp-feature-details {
+    line-height: 1.5rem;
+  }
+}
+
+.vp-page {
+  #markdown-content {
+    & > h1,
+    & > p:first-child,
+    & > p:first-child + hr, 
+    & > p:first-child + hr + p {
+      display: none;
+    }
+  }
+}
+
+.code-block-title-bar {
+  color: #9f9faf
+}
+
+.mermaid-wrapper {
+  border-radius: 8px;
+  border: 1px dashed var(--vp-c-gutter, #e2e2e3);
+}
+
+.mermaid-actions {
+  display: none;
+}
+
+.vp-sidebar {
+  border-right: 1px solid var(--border-color);
+  .vp-sidebar-heading .vp-sidebar-title {
+    font-size: 0.875rem;
+    font-weight: bolder;
+  }
+  .vp-sidebar-link {
+    font-weight: 500;
+    opacity: 0.8;
+  }
+}
+
+.vp-site-name {
+  font-size: 1.5rem;
+  font-weight: bolder;
+}
+
+code {
+  color: #ca473f;
+}
