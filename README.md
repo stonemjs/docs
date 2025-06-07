@@ -1,5 +1,11 @@
 # Stone.js Documentation
 
+![Maintenance](https://img.shields.io/maintenance/yes/2025)
+[![Build Status](https://github.com/stonemjs/docs/actions/workflows/main.yml/badge.svg)](https://github.com/stonemjs/docs/actions/workflows/main.yml)
+[![Deploy Status](https://github.com/stonemjs/docs/actions/workflows/release.yml/badge.svg)](https://github.com/stonemjs/docs/actions/workflows/release.yml)
+[![Dependabot Status](https://img.shields.io/badge/Dependabot-enabled-brightgreen.svg)](https://github.com/stonemjs/docs/network/updates)
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
+
 Welcome to the official documentation source for [Stone.js](https://stonejs.com), the universal JavaScript/TypeScript framework built on the **Continuum Architecture**.
 
 This repository powers the [documentation site](https://stonejs.com), built with [VuePress](https://vuepress.vuejs.org/), and serves as the single source of truth for all developer guides, API references, core concepts, and advanced features of Stone.js.

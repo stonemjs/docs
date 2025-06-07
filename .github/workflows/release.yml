@@ -22,7 +22,7 @@ jobs:
         with:
           node-version: 20
       - name: Setup pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v4
         with:
           version: 8
       - name: Install dependencies
@@ -30,8 +30,8 @@ jobs:
       - name: Build VuePress site
         run: pnpm run docs:build
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: docs/.vuepress/dist
           cname: stonejs.com
+          publish_dir: src/.vuepress/dist
+          github_token: ${{ secrets.GITHUB_TOKEN }}
