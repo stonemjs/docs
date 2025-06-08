@@ -1,4 +1,4 @@
-# Stone.js Documentation
+# Stone.js - Documentation
 
 ![Maintenance](https://img.shields.io/maintenance/yes/2025)
 [![Build Status](https://github.com/stonemjs/docs/actions/workflows/main.yml/badge.svg)](https://github.com/stonemjs/docs/actions/workflows/main.yml)
@@ -10,6 +10,8 @@ Welcome to the official documentation source for [Stone.js](https://stonejs.com)
 
 This repository powers the [documentation site](https://stonejs.com), built with [VuePress](https://vuepress.vuejs.org/), and serves as the single source of truth for all developer guides, API references, core concepts, and advanced features of Stone.js.
 
+---
+
 ## What Is Stone.js?
 
 Stone.js is a **next-generation framework** that lets you build:
@@ -20,7 +22,7 @@ Stone.js is a **next-generation framework** that lets you build:
 
 All using **one architecture**, **one mental model**, and **one toolchain**.
 
-At the heart of Stone.js is the **Continuum Architecture**, where everything is a context, and the same knowledge applies across dimensions, backend, frontend, serverless, browser, anywhere.
+At the heart of Stone.js is the **Continuum Architecture**, where Context defines everything, and the same knowledge applies across dimensions, backend, frontend, serverless, browser, anywhere.
 
 ## Project Structure
 
@@ -66,7 +68,7 @@ To build the static site:
 pnpm run docs:build
 ```
 
-Output will be in `docs/.vuepress/dist`.
+Output will be in `src/.vuepress/dist`.
 
 ## Contributing
 
@@ -108,7 +110,7 @@ At the core of Stone.js is a radical but practical idea:
 
 > **“Context defines everything.”**
 
-You can learn more in the [Core Concepts → Continuum Architecture](./docs/core-concepts/continuum-architecture.md) section.
+You can learn more in the [Core Concepts → Continuum Architecture](./src/docs/architecture/continuum.md) section.
 
 ## Questions or Feedback?
 

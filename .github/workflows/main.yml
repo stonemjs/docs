@@ -1,4 +1,4 @@
-name: Merge to Main – Docs Validation
+name: Merge to Main
 
 on:
   push:
