@@ -24,8 +24,14 @@
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue'
+
 const rows = 6
-const cols = Math.floor(document.documentElement.clientWidth / 96) // Assuming each tile is 96px wide
+const cols = ref(8) // Default value for SSR
+
+onMounted(() => {
+  cols.value = Math.floor(document.documentElement.clientWidth / 96)
+})
 </script>
 
 <style scoped lang="scss">
