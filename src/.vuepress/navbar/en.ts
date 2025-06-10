@@ -13,16 +13,8 @@ export const enNavbar = navbar([
     text: "API",
     link: "/api/",
   },
-  // {
-  //   text: "F.A.Q",
-  //   link: "/faq/",
-  // },
-  // {
-  //   text: "Changelog",
-  //   link: "/changelog/",
-  // },
-  // {
-  //   text: "Community",
-  //   link: "/community/",
-  // },
+  {
+    text: "Community",
+    link: "/community/",
+  },
 ]);

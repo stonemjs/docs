@@ -1,6 +1,6 @@
 ---
 title: React
-description: Integrating React with Stone.js
+prev: ../router/misc
 ---
 
 React is one of the most popular libraries for building user interfaces. It focuses entirely on the view layer, leaving the rest of the application structure up to you.

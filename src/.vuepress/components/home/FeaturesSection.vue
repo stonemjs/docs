@@ -38,12 +38,12 @@ import {
 } from 'lucide-vue-next'
 
 const features = [
-  { icon: InfinityIcon, title: 'Continuum Architecture', desc: 'One architecture from backend to frontend to cloud — fully aligned.' },
+  { icon: InfinityIcon, title: 'Continuum Architecture', desc: 'One architecture from backend to frontend to cloud, fully aligned.' },
   { icon: ServerIcon, title: 'Deploy Anywhere', desc: 'Node.js, browser, FaaS, Edge… you choose. One artifact runs everywhere.' },
   { icon: TerminalIcon, title: 'Powerful CLI', desc: 'Bootstrap, build, test, and deploy with zero config.' },
   { icon: LayersIcon, title: 'Unified API', desc: 'Same knowledge across frontend and backend. Universal routing, services, config.' },
   { icon: CloudIcon, title: 'Cloud Native', desc: 'Designed for serverless and edge-native deployments from the ground up.' },
-  { icon: SettingsIcon, title: 'Adaptive Configuration', desc: 'Declarative or imperative, dynamic or static — configure your way.' },
+  { icon: SettingsIcon, title: 'Adaptive Configuration', desc: 'Declarative or imperative, dynamic or static, configure your way.' },
   { icon: ZapIcon, title: 'Lightning Fast', desc: 'Small, tree-shaken, lazy-loaded. Zero runtime overhead.' },
   { icon: PuzzleIcon, title: 'Composable Middleware', desc: 'Define, register, and compose behavior easily and transparently.' },
   { icon: FolderIcon, title: 'No Node Modules', desc: 'Just one portable artifact. No baggage. No pollution.' },

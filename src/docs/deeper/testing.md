@@ -1,5 +1,6 @@
 ---
 title: Testing
+prev: ../react/misc
 ---
 
 Testing in Stone.js is a first-class concern, but like everything in the Continuum, **context defines how**.

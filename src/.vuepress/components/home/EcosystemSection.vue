@@ -1,9 +1,9 @@
 <template>
   <section class="ecosystem-tooling">
     <div class="ecosystem-bg" aria-hidden="true">
-      <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+      <svg viewBox="0 0 1440 700" preserveAspectRatio="none">
         <path
-          d="M0,160 C360,280 1080,40 1440,160 L1440,320 L0,320 Z"
+          d="M0,160 C360,280 1080,40 1440,160 L1440,700 L0,700 Z"
           fill="#d35400"
           fill-opacity="0.05"
         />
@@ -45,20 +45,20 @@ const tools = [
 
 <style scoped>
 .ecosystem-tooling {
+  overflow: hidden;
   position: relative;
   padding: 6rem 2rem;
   background-color: #fdfdfd;
-  overflow: hidden;
 }
 
 .ecosystem-bg {
-  position: absolute;
   top: 0;
   left: 0;
+  z-index: 0;
   width: 100%;
   height: 100%;
+  position: absolute;
   pointer-events: none;
-  z-index: 0;
 }
 
 .container {

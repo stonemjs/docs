@@ -1,5 +1,6 @@
 ---
 title: Core Concepts
+prev: ../getting-started/deployment
 ---
 
 To master Stone.js, you need more than syntax, you need to understand the engine.  

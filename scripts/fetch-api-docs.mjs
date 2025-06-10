@@ -55,8 +55,8 @@ if (!TARGET_MAJOR_VERSION) {
   console.warn(`⚠️ Falling back to default version: v${TARGET_MAJOR_VERSION}.x.x`);
 }
 
-const TMP_DIR = path.join(__dirname, 'tmp-clone');
-const DEST_ROOT = path.join(__dirname, 'src/api');
+const TMP_DIR = path.join(__dirname, '../tmp-clone');
+const DEST_ROOT = path.join(__dirname, '../src/api');
 
 console.log(`\n🔄 Fetching API docs for major version v${TARGET_MAJOR_VERSION}.x.x...`);
 

@@ -26,6 +26,7 @@
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
     "@vuepress/bundler-vite": "2.0.0-rc.23",
+    "@vuepress/plugin-docsearch": "2.0.0-rc.108",
     "@vuepress/plugin-prismjs": "2.0.0-rc.108",
     "husky": "^9.1.7",
     "mermaid": "^11.6.0",

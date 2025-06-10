@@ -1,5 +1,6 @@
 ---
 title: Miscellaneous
+next: ../react/
 ---
 
 This page gathers all the essential router features that don’t belong to a single category, but are still crucial to real-world applications. These include advanced configuration, event hooks, route generation, redirection, navigation, middleware usage, and even runtime inspection of your routing system.
