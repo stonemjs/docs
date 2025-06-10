@@ -1,5 +1,6 @@
 ---
 title: Deployment
+next: ../architecture/
 ---
 
 Stone.js apps are built for freedom, deployable anywhere JavaScript runs: Node.js, the browser, serverless, edge networks, and even that smart toaster with a JS engine (well, almost). Thanks to its Continuum Architecture, Stone.js doesn’t care about your runtime, because everything is context. And deployment? It's just the final form of your app's intention.

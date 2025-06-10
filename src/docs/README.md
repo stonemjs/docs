@@ -1,6 +1,7 @@
 ---
 title: Introduction
 shortTitle: Documentation
+next: ./getting-started/
 ---
 
 **Stone.js** is a bold, next-generation **JavaScript** and **TypeScript** framework, fully modern, proudly **cloud-native friendly**, and designed to help you build scalable systems that run smoothly across environments like local machines, containers, edge networks, serverless platforms, and the browser.
@@ -169,4 +170,4 @@ TypeScript is used throughout the documentation for clarity and type safety.
 If you prefer JavaScript, just remove the types and keep the logic.
 :::
 
-Welcome to **Stone.js**, a place where dreams come true: [Installation](./getting-started/installation.md).
+Welcome to **Stone.js**, a place where dreams come true.

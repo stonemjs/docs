@@ -1,42 +1,14 @@
-.vp-hero-info-wrapper {
-  padding: 2rem!important;
+a, a:hover {
+  text-decoration: none !important;
 }
 
-.api-page {
-  .vp-feature-header {
-    margin-top: 1rem;
-  }
-  .vp-feature-header, 
-  .vp-feature-description {
-    margin-left: 10%;
-    margin-right: 10%;
-  }
-  .vp-feature-item {
-    border: 1px solid var(--border-color);
-  }
-  .font-icon {
-    display: block;
-    margin-bottom: 0.5rem;
-  }
-  @media (min-width: 1440px) {
-    .vp-feature-item {
-      flex-basis: calc(25% - 3.2rem);
-    }
-  }
-  .vp-feature-details {
-    line-height: 1.5rem;
-  }
+code {
+  color: #ca473f;
 }
 
-.vp-page {
-  #markdown-content {
-    & > h1,
-    & > p:first-child,
-    & > p:first-child + hr, 
-    & > p:first-child + hr + p {
-      display: none;
-    }
-  }
+.vp-site-name {
+  font-size: 1.5rem;
+  font-weight: bolder;
 }
 
 .code-block-title-bar {
@@ -64,11 +36,87 @@
   }
 }
 
-.vp-site-name {
-  font-size: 1.5rem;
-  font-weight: bolder;
-}
+.stone-home-page {
+  [vp-content] {
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+  }
 
-code {
-  color: #ca473f;
+  .vp-page {
+    padding-bottom: 0;
+  }
+
+  .vp-footer-wrapper {
+    border: 0 none;
+    padding-top: 2rem;
+    padding-bottom: 1rem;
+    background: rgba($color: #d35400, $alpha: 0.05);
+  }
+
+  .section-container {
+    z-index: 1;
+    margin: 0 auto;
+    position: relative;
+    padding: 1.5rem 1rem;
+    max-width: var(--home-page-width);
+    color: var(--vp-c-text-mute);
+  }
+
+  .section-title {
+    font-size: 3.5rem;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+    text-align: center;
+    border: 0 none;
+  }
+
+  .section-subtitle {
+    font-size: 1.25rem;
+    color: #7f8c8d;
+    font-weight: 400;
+    margin-bottom: 3rem;
+    text-align: center;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .card-grid {
+    gap: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+
+  .feature-card {
+    padding: 2rem;
+    text-align: center;
+    background: #ffffff;
+    border-radius: 1rem;
+    transition: transform 0.2s ease-in-out;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+
+    &:hover {
+      transform: translateY(-5px);
+    }
+
+    .icon {
+      width: 2rem;
+      height: 2rem;
+      color: #d35400;
+      margin-bottom: 1rem;
+    }
+
+    h3 {
+      font-size: 1.2rem;
+      color: #2c3e50;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      color: #7f8c8d;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+  }
 }

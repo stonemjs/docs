@@ -7,7 +7,7 @@ export const enSidebar = sidebar({
       collapsible: false,
       prefix: "getting-started/",
       children: [
-        'installation',
+        { text: 'Installation', link: 'README.md' },
         'structure',
         'deployment',
       ],
@@ -83,116 +83,29 @@ export const enSidebar = sidebar({
       ],
     },
   ],
-  "/packages/": [
-    {
-      text: "Synopsis",
-      icon: "rocket",
-      link: 'README.md',
-    },
-    {
-      text: "Pipeline",
-      icon: "timeline",
-      collapsible: true,
-      prefix: "pipeline/",
-      children: [
-        { text: 'Synopsis', link: 'README.md' },
-        'installation',
-        'getting-started',
-        'usage',
-      ]
-    },
-    {
-      text: "Service Container",
-      icon: "cube",
-      collapsible: true,
-      prefix: "service-container/",
-      children: [
-        { text: 'Synopsis', link: 'README.md' },
-        'installation',
-        'getting-started',
-        'usage',
-      ]
-    },
-    {
-      text: "Config",
-      icon: "sliders",
-      collapsible: true,
-      prefix: "config/",
-      children: [
-        { text: 'Synopsis', link: 'README.md' },
-        'installation',
-        'getting-started',
-        'usage',
-      ]
-    },
-    {
-      text: "Node Adapter",
-      icon: "plug",
-      collapsible: true,
-      prefix: "node-adapter/",
-      children: [
-        { text: 'Synopsis', link: 'README.md' },
-        'installation',
-        'getting-started',
-        'usage',
-      ]
-    },
-    {
-      text: "HTTP",
-      icon: "network-wired",
-      collapsible: true,
-      prefix: "http/",
-      children: [
-        { text: 'Synopsis', link: 'README.md' },
-        'installation',
-        'getting-started',
-        'usage',
-      ]
-    },
-    {
-      text: "Router",
-      icon: "sitemap",
-      collapsible: true,
-      prefix: "router/",
-      children: [
-        { text: 'Synopsis', link: 'README.md' },
-        'installation',
-        'getting-started',
-        {
-          text: 'Les bases',
-          children: [
-            'definitions',
-            'parameters',
-            'middleware',
-            'redirection',
-            'generator',
-            'events',
-            'request-context'
-          ]
-        },
-        {
-          text: 'Avancées',
-          children: [
-            'meta',
-            'binding',
-            'matchers',
-            'dispatchers',
-            'options'
-          ]
-        }
-      ],
-    },
-    {
-      text: "Env",
-      icon: "leaf",
-      collapsible: true,
-      prefix: "env/",
-      children: [
-        { text: 'Synopsis', link: 'README.md' },
-        'installation',
-        'getting-started',
-        'usage',
-      ]
-    },
+  '/packages/': [
+    { text: "Browser Adapter", link: '/browser-adapter/README.md' },
+    { text: "Node HTTP Adapter", link: '/node-http-adapter/README.md' },
+    { text: "AWS Lambda HTTP Adapter", link: '/aws-lambda-http-adapter/README.md' },
+    { text: "AWS Lambda Adapter", link: '/aws-lambda-adapter/README.md' },
+    { text: "Node CLI Adapter", link: '/node-cli-adapter/README.md' }
+  ],
+  '/api/': [
+    { text: "Core", link: '/core/README.md' },
+    { text: "Pipeline", link: '/pipeline/README.md' },
+    { text: "Service Container", link: '/service-container/README.md' },
+    { text: "Config", link: '/config/README.md' },
+    { text: "Env", link: '/env/README.md' },
+    { text: "Filesystem", link: '/filesystem/README.md' },
+    { text: "HTTP Core", link: '/http-core/README.md' },
+    { text: "Browser Core", link: '/browser-core/README.md' },
+    { text: "Node HTTP Adapter", link: '/node-http-adapter/README.md' },
+    { text: "AWS Lambda HTTP Adapter", link: '/aws-lambda-http-adapter/README.md' },
+    { text: "AWS Lambda Adapter", link: '/aws-lambda-adapter/README.md' },
+    { text: "Browser Adapter", link: '/browser-adapter/README.md' },
+    { text: "Node CLI Adapter", link: '/node-cli-adapter/README.md' },
+    { text: "Router", link: '/router/README.md' },
+    { text: "React Integration", link: '/use-react/README.md' },
+    { text: "CLI", link: '/cli/README.md' }
   ],
 });

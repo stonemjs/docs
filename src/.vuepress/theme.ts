@@ -1,6 +1,7 @@
 import { enNavbar } from "./navbar/index.js";
 import { enSidebar } from "./sidebar/index.js";
 import { hopeTheme } from "vuepress-theme-hope";
+import { ALGOLIA_API_KEY, ALGOLIA_APP_ID, ALGOLIA_INDEX_NAME } from "./options.js";
 
 export default hopeTheme({
   pure: true,
@@ -24,7 +25,7 @@ export default hopeTheme({
       displayFooter: true,
       copyright: false,
       // copyright: 'Stone.js is a Trademark of Stonesify LLC.',
-      footer: "Copyright © 2025 Noowow LLC. MIT License",
+      footer: 'Licensed under the MIT License. <br> <br> Copyright © 2025 Stone Foundation. All rights reserved.',
       metaLocales: {
         editLink: "Edit this page on GitHub",
       },
@@ -118,6 +119,13 @@ export default hopeTheme({
   plugins: {
     icon: {
       assets: "fontawesome-with-brands",
+    },
+
+    // https://theme-hope.vuejs.press/guide/feature/search.html#use-vuepress-plugin-docsearch
+    docsearch: {
+      appId: ALGOLIA_APP_ID,
+      apiKey: ALGOLIA_API_KEY,
+      indexName: ALGOLIA_INDEX_NAME,
     },
 
     // uncomment these if you want a pwa

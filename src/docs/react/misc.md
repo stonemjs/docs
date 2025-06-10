@@ -1,5 +1,6 @@
 ---
 title: Miscellaneous
+next: ../deeper/testing
 ---
 
 Not everything fits in a tidy box, and that’s okay.

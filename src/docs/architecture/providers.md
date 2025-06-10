@@ -1,5 +1,6 @@
 ---
 title: Service Providers
+next: ../essentials/event-handler
 ---
 
 In Stone.js, **Service Providers** are the official mechanism for plugging functionality into the **initialization dimension**, the moment when the system constructs its internal execution context and binds all core services before handling any request, command, or event.

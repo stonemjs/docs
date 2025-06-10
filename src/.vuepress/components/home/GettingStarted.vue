@@ -7,24 +7,16 @@
       </div>
 
       <div class="content">
-        <div class="terminal-box">
-          <div class="terminal-header">
-            <span class="dot red"></span>
-            <span class="dot yellow"></span>
-            <span class="dot green"></span>
-          </div>
-          <pre><code>
-$ npm create stone@latest
-✔ Choose project type: Fullstack
-✔ Choose frontend: React
-✔ Choose deployment: AWS Lambda
-✔ Choose deployment: AWS Lambda
-✔ Choose deployment: AWS Lambda
-
-✨ Your project is ready.
-▶ Run `npm run dev`
-</code></pre>
-        </div>
+        <CodeTabs :tabs="['Micro', 'Macro']">
+          <template v-slot:default="slotProps">
+            <div v-bind="slotProps.attrs" :class="slotProps.value === 'Micro' ? 'active' : ''">
+              <CodeBlock language="javascript" :code="code" ext="ts" />
+            </div>
+            <div v-bind="slotProps.attrs" :class="slotProps.value === 'Macro' ? 'active' : ''">
+              <CodeBlock language="javascript" :code="macroCode" ext="ts" />
+            </div>
+          </template>
+        </CodeTabs>
 
         <ul class="steps">
           <li>
@@ -46,10 +38,17 @@ $ npm create stone@latest
 </template>
 
 <script setup>
-// Nothing needed here for now
+import { computed } from 'vue'
+import CodeTabs from '@CodeTabs'
+import CodeBlock from '@CodeBlock'
+import { nanoApp, macroApp } from '../../examples/home-apps.js';
+
+const code = computed(() => nanoApp)
+const macroCode = computed(() => macroApp)
+
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .getting-started {
   padding: 6rem 2rem;
   background: linear-gradient(to bottom right, #ffffff, #fdf9f5);
@@ -81,9 +80,14 @@ $ npm create stone@latest
 .content {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   gap: 3rem;
+
+  .vp-code-tab > div {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
 }
 
 .terminal-box {

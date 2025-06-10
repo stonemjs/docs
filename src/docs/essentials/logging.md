@@ -1,5 +1,6 @@
 ---
 title: Logging
+next: ../router/
 ---
 
 Logging is effortless and extensible in Stone.js.

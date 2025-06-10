@@ -1,9 +1,9 @@
 <template>
   <section class="call-to-action">
     <div class="cta-container">
-      <h2 class="cta-title">Start building with Stone.js today</h2>
+      <h2 class="cta-title">Start building <br> with Stone.js today</h2>
       <p class="cta-subtitle">
-        One mindset. One framework. Infinite possibilities. Embrace the continuum — and deploy everywhere with confidence.
+        One mindset. One framework. Infinite possibilities. <br> Embrace the continuum, and deploy everywhere with confidence.
       </p>
       <div class="cta-buttons">
         <RouterLink to="/guide/" class="btn btn-primary">Get Started</RouterLink>

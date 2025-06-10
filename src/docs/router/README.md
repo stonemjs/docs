@@ -1,5 +1,6 @@
 ---
 title: Router
+prev: ../essentials/logging
 ---
 
 The Stone Router is a simple yet powerful routing library for both backend and frontend applications. It allows you to define routes, match incoming events, and manage middleware in a clean, context-aware, and efficient way.

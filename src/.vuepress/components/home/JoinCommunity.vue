@@ -7,7 +7,7 @@
           Stone.js is more than a framework. It's a movement built around clean architecture, cloud-native principles, and a radically simplified developer experience.
         </p>
         <p>
-          Whether you're building apps, libraries, plugins, or frameworks on top of Stone.js, you're not alone. Meet developers, ask questions, share ideas — and shape the future.
+          Whether you're building apps, libraries, plugins, or frameworks on top of Stone.js, you're not alone. Meet developers, ask questions, share ideas, and shape the future.
         </p>
         <div class="cta-buttons">
           <a href="https://github.com/stonemjs/" target="_blank" rel="noopener" class="btn primary">GitHub</a>
@@ -16,15 +16,15 @@
       </div>
 
       <div class="visual-content" aria-hidden="true">
-        <img src="/assets/image/moai_img_5.png" alt="Stone.js community graphic" />
+        <img src="/assets/image/moai_community.png" alt="Stone.js community graphic" />
       </div>
     </div>
   </section>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .join-community {
-  background: linear-gradient(180deg, #fefefe 0%, #f6f8fb 100%);
+  background: #f9f9f9;
   padding: 6rem 2rem;
   position: relative;
 }
@@ -43,16 +43,16 @@
 }
 
 .visual-content {
-  flex: 1 1 400px;
   display: flex;
-  justify-content: center;
+  flex: 1 1 400px;
   align-items: center;
+  justify-content: center;
 }
 
 .visual-content img {
-  max-width: 100%;
   height: auto;
-  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.05));
+  max-width: 100%;
+  // filter: drop-shadow(-4px -4px 10px rgba(0, 0, 0, 0.3));
 }
 
 h2 {

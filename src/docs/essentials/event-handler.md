@@ -1,5 +1,6 @@
 ---
 title: Event Handlers
+prev: ../architecture/providers
 ---
 
 The **Event handler** is the core execution unit of every Stone.js application.  

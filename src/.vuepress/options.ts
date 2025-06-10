@@ -1,0 +1,4 @@
+export const GOOGLE_TAG_ID = 'G-F368Y4JRZR'
+export const ALGOLIA_APP_ID = 'YOUR_APP_ID'
+export const ALGOLIA_API_KEY = 'YOUR_API_KEY'
+export const ALGOLIA_INDEX_NAME = 'YOUR_INDEX_NAME'

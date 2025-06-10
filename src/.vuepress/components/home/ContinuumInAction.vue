@@ -3,7 +3,7 @@
     <div class="container">
       <h2 class="section-title">Continuum in Action</h2>
       <p class="section-subtitle">
-        Stone.js isn't built on layers, it's built on a flow — from raw events to rendered experiences. That flow is called the Continuum.
+        Stone.js isn't built on layers, it's built on a flow, from raw events to rendered experiences. That flow is called the Continuum.
       </p>
 
       <div class="flow-line">
@@ -33,7 +33,7 @@ const steps = [
   },
   {
     title: 'Initialization',
-    description: 'Register configs, services, plugins — prepare your app for logic.',
+    description: 'Register configs, services, plugins, prepare your app for logic.',
     icon: Settings
   },
   {
@@ -43,7 +43,7 @@ const steps = [
   },
   {
     title: 'View',
-    description: 'Render your response in React or Vue — same logic, different surface.',
+    description: 'Render your response in React or Vue, same logic, different surface.',
     icon: MonitorPlay
   }
 ]
