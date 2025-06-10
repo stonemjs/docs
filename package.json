@@ -1,6 +1,6 @@
 {
   "name": "@stone-js/docs",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "StoneJS official documentation",
   "license": "MIT",
   "type": "module",
