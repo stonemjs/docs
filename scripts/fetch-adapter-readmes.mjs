@@ -42,8 +42,8 @@ if (!TARGET_MAJOR_VERSION) {
 
 console.log(`\n🔌 Fetching adapter READMEs for: v${TARGET_MAJOR_VERSION}.x.x\n`);
 
-const TMP_DIR = path.join(__dirname, 'tmp-adapter-clone');
-const DEST_ROOT = path.join(__dirname, 'src/packages');
+const TMP_DIR = path.join(__dirname, '../tmp-adapter-clone');
+const DEST_ROOT = path.join(__dirname, '../src/packages');
 
 // Ensure destination root exists
 mkdirSync(DEST_ROOT, { recursive: true });
