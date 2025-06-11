@@ -1,35 +1,47 @@
 <template>
   <section class="getting-started">
-    <div class="container">
-      <div class="intro">
-        <h2>Get Started with Stone.js</h2>
-        <p class="subtitle">From zero to cloud-native in under a minute. Stone.js was built for this.</p>
+    <div class="section-container">
+      <div>
+        <h2 class="section-title">Start Small <br> Scale Everywhere</h2>
+        <p class="section-subtitle">
+          From microservices to monoliths, from local to cloud, Stone.js lets you scaffold, shape, and ship your app in minutes.
+          Choose your paradigm, pick your platform, and let Stone.js handle the rest.
+        </p>
       </div>
 
       <div class="content">
-        <CodeTabs :tabs="['Micro', 'Macro']">
-          <template v-slot:default="slotProps">
-            <div v-bind="slotProps.attrs" :class="slotProps.value === 'Micro' ? 'active' : ''">
-              <CodeBlock language="javascript" :code="code" ext="ts" />
-            </div>
-            <div v-bind="slotProps.attrs" :class="slotProps.value === 'Macro' ? 'active' : ''">
-              <CodeBlock language="javascript" :code="macroCode" ext="ts" />
-            </div>
-          </template>
-        </CodeTabs>
+        <div class="code-blocks">
+          <CodeTabs :tabs="['Declarative', 'Imperative']" class="code-tabs">
+            <template v-slot:default="slotProps">
+              <div v-bind="slotProps.attrs" :class="slotProps.value === 'Declarative' ? 'active' : ''">
+                <CodeBlock language="javascript" :code="code" ext="ts" />
+              </div>
+              <div v-bind="slotProps.attrs" :class="slotProps.value === 'Imperative' ? 'active' : ''">
+                <CodeBlock language="javascript" :code="macroCode" ext="ts" />
+              </div>
+            </template>
+          </CodeTabs>
+        </div>
 
         <ul class="steps">
           <li>
             <h3>1. Scaffold in seconds</h3>
-            <p>Use the CLI to spin up backend, frontend, or fullstack apps instantly.</p>
+            <p>
+              Run <code>npm create stone</code> and pick your flavor: mono-routed or multi-routed, backend or frontend, React or Vue(soon). No templates, just choices.
+            </p>
           </li>
           <li>
-            <h3>2. Customize with Blueprint</h3>
-            <p>Configure anything, imperatively or declaratively. Stone.js adapts to your style.</p>
+            <h3>2. Choose your paradigm</h3>
+            <p>
+              Prefer functions? Use the imperative API. Love decorators? Go declarative.  
+              Stone.js supports both, equally powerful, equally simple.
+            </p>
           </li>
           <li>
-            <h3>3. Deploy anywhere</h3>
-            <p>From Node.js to Lambda to the browser. One artifact. Zero friction.</p>
+            <h3>3. Run locally. Deploy globally.</h3>
+            <p>
+              Whether it’s Node.js, Lambda, or the browser, your app becomes one artifact ready to deploy anywhere. No config hell. Just build and run.
+            </p>
           </li>
         </ul>
       </div>
@@ -52,107 +64,44 @@ const macroCode = computed(() => macroApp)
 .getting-started {
   padding: 6rem 2rem;
   background: linear-gradient(to bottom right, #ffffff, #fdf9f5);
-}
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.intro {
-  text-align: center;
-  margin-bottom: 3rem;
-}
-
-.intro h2 {
-  font-size: 3.5rem;
-  color: #2c3e50;
-  border: 0 none;
-}
-
-.subtitle {
-  font-size: 1.25rem;
-  color: #7f8c8d;
-  max-width: 700px;
-  margin: 1rem auto 0;
-}
-
-.content {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 3rem;
-
-  .vp-code-tab > div {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
+  @media (max-width: hope-config.$tablet) {
+    padding: 3rem 0;
   }
-}
 
-.terminal-box {
-  background: #1e1e1e;
-  color: #f1f1f1;
-  padding: 1.5rem;
-  border-radius: 0.75rem;
-  width: 100%;
-  max-width: 500px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  font-family: 'Courier New', monospace;
-  position: relative;
-}
+  @media (min-width: hope-config.$tablet) {
+    .content {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
 
-.terminal-header {
-  display: flex;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-.dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  display: inline-block;
-}
-
-.red { background: #e74c3c; }
-.yellow { background: #f1c40f; }
-.green { background: #2ecc71; }
-
-.steps {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  max-width: 480px;
-}
-
-.steps li {
-  margin-bottom: 2rem;
-}
-
-.steps h3 {
-  font-size: 1.2rem;
-  color: #d35400;
-  margin-bottom: 0.5rem;
-}
-
-.steps p {
-  font-size: 1rem;
-  color: #555;
-  line-height: 1.6;
-}
-
-@media (max-width: 768px) {
-  .content {
-    flex-direction: column;
-    align-items: center;
+      .code-blocks {
+        max-width: 60%;
+      }
+    }
   }
-  .terminal-box, .steps {
-    width: 100%;
-    max-width: 100%;
+
+  .steps {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    max-width: 480px;
   }
-  .terminal-box {
-    font-size: 0.85rem;
+
+  .steps li {
+    margin-bottom: 2rem;
+  }
+
+  .steps h3 {
+    font-size: 1.2rem;
+    color: #d35400;
+    margin-bottom: 0.5rem;
+  }
+
+  .steps p {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.6;
   }
 }
 </style>

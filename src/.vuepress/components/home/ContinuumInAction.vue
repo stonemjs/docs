@@ -1,16 +1,16 @@
 <template>
   <section class="continuum-section">
-    <div class="container">
+    <div class="section-container">
       <h2 class="section-title">Continuum in Action</h2>
       <p class="section-subtitle">
         Stone.js isn't built on layers, it's built on a flow, from raw events to rendered experiences. That flow is called the Continuum.
       </p>
 
-      <div class="flow-line">
+      <div class="card-grid">
         <div
           v-for="(step, index) in steps"
           :key="index"
-          class="flow-step"
+          class="feature-card"
         >
           <component :is="step.icon" class="icon" />
           <h3>{{ step.title }}</h3>
@@ -18,89 +18,63 @@
           <div v-if="index < steps.length - 1" class="arrow">→</div>
         </div>
       </div>
+      <p class="continuum-cta">
+        <a href="/docs/architecture/continuum" class="route-link auto-link vp-hero-action primary no-external-link-icon" aria-label="Learn the Continuum">
+          Learn the Continuum
+        </a>
+      </p>
     </div>
   </section>
 </template>
 
 <script setup>
-import { Server, Settings, Share2, MonitorPlay } from 'lucide-vue-next'
+import { Server, Settings, Share2, Zap } from 'lucide-vue-next'
 
 const steps = [
   {
+    title: 'Setup',
+    description: 'Produce your app’s blueprint by configuring services, features, and plugins, declaratively or imperatively.',
+    icon: Settings
+  },
+  {
     title: 'Integration',
-    description: 'Convert external requests into contextual events (from Lambda, Node, or browser).',
+    description: 'Adapt external stimuli (HTTP, CLI, Lambda, browser) into contextual events Stone.js understands.',
     icon: Server
   },
   {
     title: 'Initialization',
-    description: 'Register configs, services, plugins, prepare your app for logic.',
-    icon: Settings
+    description: 'Populate the app context, register lifecycle hooks, and prepare for execution.',
+    icon: Zap
   },
   {
     title: 'Functional',
-    description: 'Handle intentions using event handlers and return responses.',
+    description: 'Handle intentions using event handlers to produce responses, domain logic, clean and portable.',
     icon: Share2
-  },
-  {
-    title: 'View',
-    description: 'Render your response in React or Vue, same logic, different surface.',
-    icon: MonitorPlay
   }
 ]
+
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .continuum-section {
   padding: 6rem 2rem;
+  text-align: center;
   background: linear-gradient(to right, #fefefe, #f8f8f8);
-  text-align: center;
-}
 
-.section-title {
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
-  color: #2c3e50;
-}
+  @media (max-width: hope-config.$tablet) {
+    padding: 3rem 0;
+  }
 
-.section-subtitle {
-  font-size: 1.1rem;
-  color: #7f8c8d;
-  margin-bottom: 4rem;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-}
+  .continuum-cta {
+    margin: 0;
+    padding: 4rem 0 0;
+  }
 
-.flow-line {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 2rem;
-  position: relative;
-}
-
-.flow-step {
-  max-width: 240px;
-  text-align: center;
-  padding: 1.5rem;
-  background: white;
-  border-radius: 1rem;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  position: relative;
-}
-
-.flow-step .icon {
-  width: 40px;
-  height: 40px;
-  margin-bottom: 1rem;
-  color: #d35400;
-}
-
-.arrow {
-  font-size: 2rem;
-  color: #ccc;
-  margin: 0 1rem;
-  font-weight: bold;
+  .arrow {
+    font-size: 2rem;
+    color: #ccc;
+    margin: 0 1rem;
+    font-weight: bold;
+  }
 }
 </style>

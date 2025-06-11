@@ -1,7 +1,7 @@
 <template>
   <section class="what-is-stone">
     <div class="continuum-bg" aria-hidden="true">
-      <svg ref="svgRef" class="line" viewBox="0 0 1440 420" preserveAspectRatio="none" width="100%" height="100%">
+      <svg ref="svgRef" class="line" viewBox="0 0 1440 450" preserveAspectRatio="none" width="100%" height="100%">
           <path
             v-for="(curve, index) in animatedCurves"
             fill="none"
@@ -38,22 +38,21 @@
 
 <script setup>
 import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue'
-import { Infinity, Cog, Plug, Terminal, CloudLightning, Layers, ShieldCheck } from 'lucide-vue-next'
+import { Infinity, Cog, Plug, Terminal, Share2, LayoutTemplate, Puzzle } from 'lucide-vue-next'
 
 const features = [
   { icon: Infinity, title: 'Continuum Architecture', desc: 'One mindset across backend, frontend, serverless, and browser. Learn once, build anything.' },
-  { icon: Cog, title: 'Universal by Design', desc: 'Run on Node.js, AWS Lambda, Browser, or anywhere, with zero friction.' },
-  { icon: Cog, title: 'Modular & Compact', desc: 'No node_modules. One artifact. Pure ESM. Built for performance and portability.' },
-  { icon: Plug, title: 'Adaptive Blueprint API', desc: 'Configure apps declaratively or imperatively. No boilerplate. Full control.' },
+  { icon: Cog, title: 'Universal by Design', desc: 'Designed for the next generation of web development. Run on Node.js, AWS Lambda, Browser, or anywhere, adapt to any platform.' },
+  { icon: Cog, title: 'Modular & Compact', desc: 'No <code>node_modules</code>. One artifact. Pure ESM. Built for performance and portability. Ship your app as a single file, with zero install-time dependencies.' },
+  { icon: Plug, title: 'Declarative & Functional API', desc: 'Choose your style: class-based declarative or function-first programming, Stone.js supports both, natively.' },
+  { icon: Share2, title: 'Universal Routing', desc: 'Define routes once, use them everywhere. Same routing logic for backend and frontend.' },
+  { icon: LayoutTemplate, title: 'Frontend-Ready Plugins', desc: 'Use built-in support for React and Vue(soon) with full SSR and hydration, or plug in your own view engine.' },
+  { icon: Puzzle, title: 'Pluggable & Extensible', desc: 'Add features through composable plugins. Build microservices, CLI apps, or SPAs without friction.' },
   { icon: Terminal, title: 'First-Class CLI', desc: 'Create, build, test and deploy with one simple and powerful command line.' },
-  { icon: CloudLightning, title: 'Cloud Native Ready', desc: 'Built with modern development in mind: SSR, FaaS, edge computing, HMR, lazy loading, and more.' },
-  { icon: Layers, title: 'Multi-Dimensional Runtime', desc: 'Stone.js executes across multiple dimensions, functional, integration, and view, while preserving internal logic.' },
-  { icon: ShieldCheck, title: 'Zero Context Leakage', desc: 'Strict separation of domain and context using adapters and blueprints. Your app stays clean, testable, and portable.' }
 ]
 
 const colors = [
-  '#d35400', '#f39c12', '#2980b9', '#fff', '#16a085', '#d35400', '#f39c12'
-  // '#d35400', '#f39c12', '#2980b9', '#8e44ad', '#16a085', '#d35400', '#f39c12'
+  '#d35400', '#f39c12', '#2980b9', '#8e44ad', '#16a085', '#d35400', '#f39c12'
 ]
 
 const lineCount = 7
@@ -83,7 +82,7 @@ let t = 0
 function animate() {
   t += 0.012
   animatedCurves.value = Array.from({ length: lineCount }).map((_, i) => {
-    const baseY = 60 + i * 40
+    const baseY = 60 + i * 45
     const amp = 24 + Math.sin(t + i) * 8
     const phase = t * (0.7 + i * 0.13)
     return {
@@ -115,15 +114,24 @@ onBeforeUnmount(() => {
   padding: 0rem 0 6rem;
   background-color: #fff;
 
+  @media (max-width: hope-config.$tablet) {
+    padding: 0rem 0 3rem;
+  }
+
   .continuum-bg {
-    position: absolute;
-    top: 32%;
     left: 0;
+    bottom: 10%;
+    z-index: 0;
+    display: none;
     width: 100vw;
     height: auto;
-    z-index: 0;
-    pointer-events: none;
     overflow: hidden;
+    position: absolute;
+    pointer-events: none;
+
+    @media (min-width: hope-config.$pc) {
+      display: block;
+    }
 
     .line {
       width: 100%;

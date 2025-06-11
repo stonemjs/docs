@@ -1,16 +1,16 @@
 <template>
   <section class="ecosystem-tooling">
     <div class="ecosystem-bg" aria-hidden="true">
-      <svg viewBox="0 0 1440 700" preserveAspectRatio="none">
+      <svg viewBox="0 0 1440 900" preserveAspectRatio="none">
         <path
-          d="M0,160 C360,280 1080,40 1440,160 L1440,700 L0,700 Z"
+          d="M0,160 C360,280 1080,40 1440,160 L1440,900 L0,900 Z"
           fill="#d35400"
           fill-opacity="0.05"
         />
       </svg>
     </div>
 
-    <div class="container">
+    <div class="section-container">
       <h2 class="section-title">Ecosystem & Tooling</h2>
       <p class="section-subtitle">
         Everything you need to build modern, scalable, and flexible applications.
@@ -30,100 +30,124 @@
 </template>
 
 <script setup>
-import { Terminal, Wrench, Plug, Cloud, FileText, Rocket, Package } from 'lucide-vue-next';
+import { Terminal, Wrench, Plug, Zap, FileText, Monitor, Share2, Database, Layers } from 'lucide-vue-next';
 
 const tools = [
-  { icon: Terminal, title: 'Stone CLI', desc: 'Generate, build, and test with ease using the built-in CLI.' },
-  { icon: Wrench, title: 'Plugin System', desc: 'Extend core functionalities without rewriting code.' },
-  { icon: Plug, title: 'Adapters', desc: 'Run your app in the browser, Node, AWS Lambda, and more.' },
-  { icon: Cloud, title: 'Cloud Native Ready', desc: 'Optimized for serverless, edge, and container platforms.' },
-  { icon: FileText, title: 'Typed Config & Env', desc: 'Manage configuration using blueprint and typed env helpers.' },
-  { icon: Rocket, title: 'Zero-config Dev Experience', desc: 'Start coding right away. No config files required.' },
-  { icon: Package, title: 'Single Artifact Builds', desc: 'Build compact deployable bundles without node_modules.' }
+  {
+    icon: Terminal,
+    title: 'Stone CLI',
+    desc: 'Generate, build, run, and deploy apps with a unified, developer-first command line.'
+  },
+  {
+    icon: Wrench,
+    title: 'Plugin System',
+    desc: 'Extend or override core behaviors using reusable, modular plugins.'
+  },
+  {
+    icon: Plug,
+    title: 'Adapters',
+    desc: 'Abstract platform differences and run your app seamlessly on Node, browser, Lambda, or the unknown.'
+  },
+  {
+    icon: Share2,
+    title: 'Stone Router',
+    desc: 'Universal router for frontend and backend. One routing system. Every dimension.'
+  },
+  {
+    icon: Monitor,
+    title: 'Use React',
+    desc: 'Enable SSR, hydration, and rendering in React, with full head and layout control.'
+  },
+  {
+    icon: FileText,
+    title: 'Typed Config & Env',
+    desc: 'Manage environment and config variables safely with powerful helpers.'
+  },
+  {
+    icon: Zap,
+    title: 'Blueprint System',
+    desc: 'Configure everything through a unified context-aware API, declarative or imperative.'
+  },
+  {
+    icon: Database,
+    title: 'Dependency Injection',
+    desc: 'Destructure your services with ease using a fast, extensible, zero-boilerplate DI container.'
+  },
+  {
+    icon: Layers,
+    title: 'Starter Project Scaffolding',
+    desc: 'Kick off with “basic”, “standard”, or “full” blueprints, pick your entry point into the Continuum.'
+  }
 ]
+
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .ecosystem-tooling {
   overflow: hidden;
   position: relative;
   padding: 6rem 2rem;
   background-color: #fdfdfd;
-}
 
-.ecosystem-bg {
-  top: 0;
-  left: 0;
-  z-index: 0;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  pointer-events: none;
-}
+  @media (max-width: hope-config.$tablet) {
+    padding: 3rem 0;
+  }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  position: relative;
-  z-index: 1;
-}
+  .ecosystem-bg {
+    top: 0;
+    left: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    position: absolute;
+    pointer-events: none;
 
-.section-title {
-  font-size: 2.5rem;
-  color: #2c3e50;
-  margin-bottom: 0.5rem;
-  text-align: center;
-}
+    @media (min-width: hope-config.$pc) {
+      display: block;
+    }
+  }
 
-.section-subtitle {
-  font-size: 1.25rem;
-  color: #7f8c8d;
-  margin-bottom: 3rem;
-  text-align: center;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-}
+  .tooling-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    align-items: start;
+  }
 
-.tooling-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
-  align-items: start;
-}
+  .tool {
+    display: flex;
+    gap: 1rem;
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    padding: 1.5rem;
+    transition: all 0.2s ease-in-out;
+    align-items: center;
+  }
 
-.tool {
-  display: flex;
-  gap: 1rem;
-  background: white;
-  border-radius: 1rem;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-  padding: 1.5rem;
-  transition: all 0.2s ease-in-out;
-  align-items: center;
-}
+  .tool:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  }
 
-.tool:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-}
+  .tool-icon {
+    width: 2rem;
+    height: 2rem;
+    color: #d35400;
+    flex-shrink: 0;
+  }
 
-.tool-icon {
-  width: 2rem;
-  height: 2rem;
-  color: #d35400;
-  flex-shrink: 0;
-}
+  .tool h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #2c3e50;
+  }
 
-.tool h3 {
-  margin: 0;
-  font-size: 1.1rem;
-  color: #2c3e50;
-}
-
-.tool p {
-  margin: 0.25rem 0 0;
-  color: #7f8c8d;
-  font-size: 0.9rem;
+  .tool p {
+    margin: 0.25rem 0 0;
+    color: #7f8c8d;
+    font-size: 0.9rem;
+  }
 }
 </style>
