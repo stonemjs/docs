@@ -4,6 +4,13 @@ All notable changes to the "Stone.js documentation" extension will be documented
 
 ## Unreleased
 
+## [0.0.4](https://github.com/stonemjs/docs/compare/v0.0.3...v0.0.4) (2025-06-11)
+
+
+### Miscellaneous Chores
+
+* finish the implementation of the home page ([#6](https://github.com/stonemjs/docs/issues/6)) ([7efff2c](https://github.com/stonemjs/docs/commit/7efff2c557ddb0f6c420e3a4e3e988abd1aaee48))
+
 ## [0.0.3](https://github.com/stonemjs/docs/compare/v0.0.2...v0.0.3) (2025-06-10)
 
 
