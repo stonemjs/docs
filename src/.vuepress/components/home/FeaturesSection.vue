@@ -1,6 +1,6 @@
 <template>
   <section class="features-section">
-    <div class="container">
+    <div class="section-container">
       <h2 class="section-title">Why Choose Stone.js?</h2>
       <p class="section-subtitle">
         A modern, full-context JavaScript framework designed for speed, portability, and architectural clarity, from edge to core.
@@ -53,69 +53,52 @@ const features = [
 ]
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .features-section {
   padding: 6rem 2rem;
   background-color: #fdfdfd;
-}
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  text-align: center;
-}
+  @media (max-width: hope-config.$tablet) {
+    padding: 3rem 0;
+  }
 
-.section-title {
-  font-size: 3.5rem;
-  color: #2c3e50;
-  border: 0 none;
-  margin-bottom: 0.5rem;
-}
 
-.section-subtitle {
-  font-size: 1.2rem;
-  color: #7f8c8d;
-  margin-bottom: 3rem;
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
-}
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 2rem;
+    justify-items: center;
+  }
 
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 2rem;
-  justify-items: center;
-}
+  .feature-item {
+    background: #fff;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease-in-out;
+  }
 
-.feature-item {
-  background: #fff;
-  border-radius: 1rem;
-  padding: 2rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease-in-out;
-}
+  .feature-item:hover {
+    transform: translateY(-6px);
+  }
 
-.feature-item:hover {
-  transform: translateY(-6px);
-}
+  .feature-item .icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    color: #d35400;
+    margin-bottom: 1rem;
+  }
 
-.feature-item .icon {
-  width: 2.5rem;
-  height: 2.5rem;
-  color: #d35400;
-  margin-bottom: 1rem;
-}
+  .feature-item h3 {
+    font-size: 1.2rem;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+  }
 
-.feature-item h3 {
-  font-size: 1.2rem;
-  color: #2c3e50;
-  margin-bottom: 0.5rem;
-}
-
-.feature-item p {
-  color: #7f8c8d;
-  font-size: 0.95rem;
-  line-height: 1.5;
+  .feature-item p {
+    color: #7f8c8d;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
 }
 </style>

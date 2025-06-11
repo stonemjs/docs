@@ -36,7 +36,16 @@ code {
   }
 }
 
+.vp-code-tab > div {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
 .stone-home-page {
+  #color-mode-switch {
+    display: none;
+  }
+
   [vp-content] {
     max-width: 100%;
     margin: 0;
@@ -48,10 +57,13 @@ code {
   }
 
   .vp-footer-wrapper {
-    border: 0 none;
+    opacity: 1;
+    filter: none;
+    color: #fff;
+    border-top: 1px solid rgba($color: #fff, $alpha: 0.1);
     padding-top: 2rem;
-    padding-bottom: 1rem;
-    background: rgba($color: #d35400, $alpha: 0.05);
+    padding-bottom: 2rem;
+    background: linear-gradient(to right, #d35400, #f39c12);
   }
 
   .section-container {

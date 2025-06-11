@@ -24,96 +24,109 @@
 
 <style scoped lang="scss">
 .join-community {
-  background: #f9f9f9;
   padding: 6rem 2rem;
   position: relative;
-}
+  background: #f9f9f9;
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 3rem;
-}
+  @media (max-width: hope-config.$tablet) {
+    padding: 3rem 2rem;
+  }
 
-.text-content {
-  flex: 1 1 400px;
-}
-
-.visual-content {
-  display: flex;
-  flex: 1 1 400px;
-  align-items: center;
-  justify-content: center;
-}
-
-.visual-content img {
-  height: auto;
-  max-width: 100%;
-  // filter: drop-shadow(-4px -4px 10px rgba(0, 0, 0, 0.3));
-}
-
-h2 {
-  font-size: 3.5rem;
-  color: #2c3e50;
-  border: 0 none;
-  margin-bottom: 1rem;
-}
-
-p {
-  font-size: 1.125rem;
-  color: #7f8c8d;
-  line-height: 1.7;
-  margin-bottom: 1.25rem;
-}
-
-.cta-buttons {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.btn {
-  text-decoration: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 999px;
-  font-weight: 600;
-  font-size: 1rem;
-  transition: all 0.2s ease-in-out;
-}
-
-.btn.primary {
-  background-color: #d35400;
-  color: #fff;
-}
-
-.btn.primary:hover {
-  background-color: #c0392b;
-}
-
-.btn.outline {
-  border: 2px solid #d35400;
-  color: #d35400;
-}
-
-.btn.outline:hover {
-  background-color: #fbeee0;
-}
-
-@media (max-width: 768px) {
   .container {
-    flex-direction: column;
-    text-align: center;
+    gap: 3rem;
+    display: flex;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    align-items: center;
+
+    @media (max-width: hope-config.$tablet) {
+      gap: 0;
+    }
+  }
+
+  .text-content {
+    flex: 1 1 400px;
   }
 
   .visual-content {
-    order: -1;
+    display: flex;
+    flex: 1 1 400px;
+    align-items: center;
+    justify-content: center;
+
+    @media (max-width: hope-config.$tablet) {
+      max-height: 200px;
+      flex: 1 1 290px;
+    }
+
+    img {
+      height: auto;
+      max-width: 100%;
+    }
+  }
+
+  h2 {
+    font-size: 3.5rem;
+    color: #2c3e50;
+    border: 0 none;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    font-size: 1.125rem;
+    color: #7f8c8d;
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
   }
 
   .cta-buttons {
-    justify-content: center;
+    gap: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .btn.primary {
+    background-color: #d35400;
+    color: #fff;
+  }
+
+  .btn.primary:hover {
+    background-color: #c0392b;
+  }
+
+  .btn.outline {
+    border: 2px solid #d35400;
+    color: #d35400;
+  }
+
+  .btn.outline:hover {
+    background-color: #fbeee0;
+  }
+
+  @media (max-width: hope-config.$tablet) {
+    .container {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .visual-content {
+      order: -1;
+    }
+
+    .cta-buttons {
+      margin-top: 4rem;
+      justify-content: center;
+    }
   }
 }
 </style>
