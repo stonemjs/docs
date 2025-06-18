@@ -1,12 +1,4 @@
-[**HTTP Core Documentation**](../../README.md)
-
-***
-
-[HTTP Core Documentation](../../README.md) / [BinaryFileResponse](../README.md) / BinaryFileResponseOptions
-
 # Interface: BinaryFileResponseOptions
-
-Defined in: [src/BinaryFileResponse.ts:12](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/BinaryFileResponse.ts#L12)
 
 Options for creating a BinaryFile HTTP Response.
 
@@ -16,55 +8,57 @@ Options for creating a BinaryFile HTTP Response.
 
 ## Indexable
 
-\[`key`: `string`\]: `unknown`
+```ts
+[key: string]: unknown
+```
 
 ## Properties
 
 ### autoEncoding?
 
-> `optional` **autoEncoding**: `boolean`
-
-Defined in: [src/BinaryFileResponse.ts:15](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/BinaryFileResponse.ts#L15)
+```ts
+optional autoEncoding: boolean;
+```
 
 ***
 
 ### autoEtag?
 
-> `optional` **autoEtag**: `boolean`
-
-Defined in: [src/BinaryFileResponse.ts:13](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/BinaryFileResponse.ts#L13)
+```ts
+optional autoEtag: boolean;
+```
 
 ***
 
 ### autoLastModified?
 
-> `optional` **autoLastModified**: `boolean`
-
-Defined in: [src/BinaryFileResponse.ts:16](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/BinaryFileResponse.ts#L16)
+```ts
+optional autoLastModified: boolean;
+```
 
 ***
 
 ### contentDispositionType?
 
-> `optional` **contentDispositionType**: `string`
-
-Defined in: [src/BinaryFileResponse.ts:17](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/BinaryFileResponse.ts#L17)
+```ts
+optional contentDispositionType: string;
+```
 
 ***
 
 ### file
 
-> **file**: `string` \| `File`
-
-Defined in: [src/BinaryFileResponse.ts:14](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/BinaryFileResponse.ts#L14)
+```ts
+file: string | File;
+```
 
 ***
 
 ### headers?
 
-> `optional` **headers**: [`HeadersType`](../../declarations/type-aliases/HeadersType.md)
-
-Defined in: [src/OutgoingHttpResponse.ts:20](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L20)
+```ts
+optional headers: HeadersType;
+```
 
 #### Inherited from
 

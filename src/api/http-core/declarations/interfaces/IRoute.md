@@ -1,12 +1,4 @@
-[**HTTP Core Documentation**](../../README.md)
-
-***
-
-[HTTP Core Documentation](../../README.md) / [declarations](../README.md) / IRoute
-
 # Interface: IRoute
-
-Defined in: [src/declarations.ts:55](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/declarations.ts#L55)
 
 Describes a route definition, including its URI, method, and parameters.
 
@@ -14,9 +6,9 @@ Describes a route definition, including its URI, method, and parameters.
 
 ### getOptions()
 
-> **getOptions**: \<`TReturn`\>(`keys`) => `Record`\<`string`, `TReturn`\>
-
-Defined in: [src/declarations.ts:59](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/declarations.ts#L59)
+```ts
+getOptions: <TReturn>(keys) => Record<string, TReturn>;
+```
 
 #### Type Parameters
 
@@ -38,9 +30,9 @@ Defined in: [src/declarations.ts:59](https://github.com/stonemjs/http-core/blob/
 
 ### getParam()
 
-> **getParam**: \<`TReturn`\>(`name`, `fallback?`) => `undefined` \| `TReturn`
-
-Defined in: [src/declarations.ts:60](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/declarations.ts#L60)
+```ts
+getParam: <TReturn>(name, fallback?) => undefined | TReturn;
+```
 
 #### Type Parameters
 
@@ -66,22 +58,22 @@ Defined in: [src/declarations.ts:60](https://github.com/stonemjs/http-core/blob/
 
 ### method
 
-> **method**: [`HttpMethod`](../type-aliases/HttpMethod.md)
-
-Defined in: [src/declarations.ts:57](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/declarations.ts#L57)
+```ts
+method: HttpMethod;
+```
 
 ***
 
 ### params
 
-> **params**: `Record`\<`string`, `unknown`\>
-
-Defined in: [src/declarations.ts:58](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/declarations.ts#L58)
+```ts
+params: Record<string, unknown>;
+```
 
 ***
 
 ### uri
 
-> **uri**: `string`
-
-Defined in: [src/declarations.ts:56](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/declarations.ts#L56)
+```ts
+uri: string;
+```

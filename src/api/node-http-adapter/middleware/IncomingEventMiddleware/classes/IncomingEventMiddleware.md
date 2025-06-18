@@ -1,12 +1,4 @@
-[**Node Adapter Documentation v0.0.21**](../../../README.md)
-
-***
-
-[Node Adapter Documentation](../../../modules.md) / [middleware/IncomingEventMiddleware](../README.md) / IncomingEventMiddleware
-
 # Class: IncomingEventMiddleware
-
-Defined in: [src/middleware/IncomingEventMiddleware.ts:44](https://github.com/stonemjs/node-http-adapter/blob/b3024c4319ed00f9eb0215cf9f549bf3e7da590d/src/middleware/IncomingEventMiddleware.ts#L44)
 
 Middleware for handling incoming events and transforming them into Stone.js events.
 
@@ -15,11 +7,11 @@ headers, cookies, and more, and forwards them to the next middleware in the pipe
 
 ## Constructors
 
-### new IncomingEventMiddleware()
+### Constructor
 
-> **new IncomingEventMiddleware**(`options`): [`IncomingEventMiddleware`](IncomingEventMiddleware.md)
-
-Defined in: [src/middleware/IncomingEventMiddleware.ts:55](https://github.com/stonemjs/node-http-adapter/blob/b3024c4319ed00f9eb0215cf9f549bf3e7da590d/src/middleware/IncomingEventMiddleware.ts#L55)
+```ts
+new IncomingEventMiddleware(options): IncomingEventMiddleware;
+```
 
 Create an IncomingEventMiddleware instance.
 
@@ -35,15 +27,15 @@ Options containing the blueprint for resolving configuration and dependencies.
 
 #### Returns
 
-[`IncomingEventMiddleware`](IncomingEventMiddleware.md)
+`IncomingEventMiddleware`
 
 ## Methods
 
 ### handle()
 
-> **handle**(`context`, `next`): `Promise`\<[`NodeHttpAdapterResponseBuilder`](../../../declarations/type-aliases/NodeHttpAdapterResponseBuilder.md)\>
-
-Defined in: [src/middleware/IncomingEventMiddleware.ts:67](https://github.com/stonemjs/node-http-adapter/blob/b3024c4319ed00f9eb0215cf9f549bf3e7da590d/src/middleware/IncomingEventMiddleware.ts#L67)
+```ts
+handle(context, next): Promise<NodeHttpAdapterResponseBuilder>;
+```
 
 Handles the incoming event, processes it, and invokes the next middleware in the pipeline.
 
@@ -57,7 +49,7 @@ The adapter context containing the raw event, execution context, and other data.
 
 ##### next
 
-`NextPipe`\<[`NodeHttpAdapterContext`](../../../declarations/interfaces/NodeHttpAdapterContext.md), [`NodeHttpAdapterResponseBuilder`](../../../declarations/type-aliases/NodeHttpAdapterResponseBuilder.md)\>
+`NextMiddleware`\<[`NodeHttpAdapterContext`](../../../declarations/interfaces/NodeHttpAdapterContext.md), [`NodeHttpAdapterResponseBuilder`](../../../declarations/type-aliases/NodeHttpAdapterResponseBuilder.md)\>
 
 The next middleware to be invoked in the pipeline.
 

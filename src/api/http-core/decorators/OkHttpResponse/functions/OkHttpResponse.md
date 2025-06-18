@@ -1,14 +1,8 @@
-[**HTTP Core Documentation**](../../../README.md)
-
-***
-
-[HTTP Core Documentation](../../../README.md) / [decorators/OkHttpResponse](../README.md) / OkHttpResponse
-
 # Function: OkHttpResponse()
 
-> **OkHttpResponse**\<`T`\>(`headers`): `MethodDecorator`
-
-Defined in: [src/decorators/OkHttpResponse.ts:24](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/decorators/OkHttpResponse.ts#L24)
+```ts
+function OkHttpResponse<T>(headers): MethodDecorator;
+```
 
 Decorator to mark a class method as a 200 outgoing http response.
 

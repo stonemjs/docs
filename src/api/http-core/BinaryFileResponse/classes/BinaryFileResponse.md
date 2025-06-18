@@ -1,12 +1,4 @@
-[**HTTP Core Documentation**](../../README.md)
-
-***
-
-[HTTP Core Documentation](../../README.md) / [BinaryFileResponse](../README.md) / BinaryFileResponse
-
 # Class: BinaryFileResponse
-
-Defined in: [src/BinaryFileResponse.ts:25](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/BinaryFileResponse.ts#L25)
 
 Class representing a BinaryFileResponse.
 
@@ -22,9 +14,9 @@ Mr. Stone <evensstone@gmail.com>
 
 ### Constructor
 
-> **new BinaryFileResponse**(`options`): `BinaryFileResponse`
-
-Defined in: [src/BinaryFileResponse.ts:55](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/BinaryFileResponse.ts#L55)
+```ts
+new BinaryFileResponse(options): BinaryFileResponse;
+```
 
 Create a BinaryFileResponse.
 
@@ -48,9 +40,9 @@ Options for creating the BinaryFileResponse.
 
 ### \_blueprintResolver()?
 
-> `protected` `optional` **\_blueprintResolver**: () => `undefined` \| `IBlueprint`
-
-Defined in: [src/OutgoingHttpResponse.ts:34](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L34)
+```ts
+protected optional _blueprintResolver: () => undefined | IBlueprint;
+```
 
 #### Returns
 
@@ -64,9 +56,9 @@ Defined in: [src/OutgoingHttpResponse.ts:34](https://github.com/stonemjs/http-co
 
 ### \_charset?
 
-> `protected` `optional` **\_charset**: `Encoding`
-
-Defined in: [src/OutgoingHttpResponse.ts:31](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L31)
+```ts
+protected optional _charset: Encoding;
+```
 
 #### Inherited from
 
@@ -76,9 +68,9 @@ Defined in: [src/OutgoingHttpResponse.ts:31](https://github.com/stonemjs/http-co
 
 ### \_cookieCollection
 
-> `protected` `readonly` **\_cookieCollection**: [`CookieCollection`](../../cookies/CookieCollection/classes/CookieCollection.md)
-
-Defined in: [src/OutgoingHttpResponse.ts:37](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L37)
+```ts
+protected readonly _cookieCollection: CookieCollection;
+```
 
 #### Inherited from
 
@@ -88,9 +80,9 @@ Defined in: [src/OutgoingHttpResponse.ts:37](https://github.com/stonemjs/http-co
 
 ### \_formats?
 
-> `protected` `optional` **\_formats**: `Record`\<`string`, () => `unknown`\>
-
-Defined in: [src/OutgoingHttpResponse.ts:32](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L32)
+```ts
+protected optional _formats: Record<string, () => unknown>;
+```
 
 #### Inherited from
 
@@ -100,9 +92,9 @@ Defined in: [src/OutgoingHttpResponse.ts:32](https://github.com/stonemjs/http-co
 
 ### \_headers
 
-> `protected` `readonly` **\_headers**: `Headers`
-
-Defined in: [src/OutgoingHttpResponse.ts:36](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L36)
+```ts
+protected readonly _headers: Headers;
+```
 
 #### Inherited from
 
@@ -112,9 +104,9 @@ Defined in: [src/OutgoingHttpResponse.ts:36](https://github.com/stonemjs/http-co
 
 ### \_incomingEventResolver()?
 
-> `protected` `optional` **\_incomingEventResolver**: () => [`IncomingHttpEvent`](../../IncomingHttpEvent/classes/IncomingHttpEvent.md)
-
-Defined in: [src/OutgoingHttpResponse.ts:33](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L33)
+```ts
+protected optional _incomingEventResolver: () => IncomingHttpEvent;
+```
 
 #### Returns
 
@@ -128,17 +120,17 @@ Defined in: [src/OutgoingHttpResponse.ts:33](https://github.com/stonemjs/http-co
 
 ### file
 
-> `readonly` **file**: `File`
-
-Defined in: [src/BinaryFileResponse.ts:27](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/BinaryFileResponse.ts#L27)
+```ts
+readonly file: File;
+```
 
 ***
 
 ### OUTGOING\_HTTP\_RESPONSE
 
-> `readonly` `static` **OUTGOING\_HTTP\_RESPONSE**: `"stonejs@outgoing_http_binary_file_response"` = `'stonejs@outgoing_http_binary_file_response'`
-
-Defined in: [src/BinaryFileResponse.ts:26](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/BinaryFileResponse.ts#L26)
+```ts
+readonly static OUTGOING_HTTP_RESPONSE: "stonejs@outgoing_http_binary_file_response" = 'stonejs@outgoing_http_binary_file_response';
+```
 
 #### Overrides
 
@@ -150,9 +142,9 @@ Defined in: [src/BinaryFileResponse.ts:26](https://github.com/stonemjs/http-core
 
 #### Get Signature
 
-> **get** **blueprint**(): `undefined` \| `IBlueprint`
-
-Defined in: [src/OutgoingHttpResponse.ts:138](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L138)
+```ts
+get blueprint(): undefined | IBlueprint;
+```
 
 Get the blueprint associated with the response.
 
@@ -172,9 +164,9 @@ The blueprint or undefined if not set.
 
 #### Get Signature
 
-> **get** **charset**(): `Encoding`
-
-Defined in: [src/OutgoingHttpResponse.ts:89](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L89)
+```ts
+get charset(): Encoding;
+```
 
 Get the character set encoding.
 Defaults to 'utf-8' if not explicitly set.
@@ -195,9 +187,9 @@ The character set encoding.
 
 #### Get Signature
 
-> **get** `protected` **charsetRegExp**(): `RegExp`
-
-Defined in: [src/OutgoingHttpResponse.ts:148](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L148)
+```ts
+get protected charsetRegExp(): RegExp;
+```
 
 Get the regular expression for matching charset in content type.
 
@@ -217,9 +209,9 @@ The regular expression for matching charset in content type.
 
 #### Get Signature
 
-> **get** **deleteFileAfterSentStatus**(): `boolean`
-
-Defined in: [src/BinaryFileResponse.ts:71](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/BinaryFileResponse.ts#L71)
+```ts
+get deleteFileAfterSentStatus(): boolean;
+```
 
 Get deleteFileAfterSent.
 
@@ -235,9 +227,9 @@ Whether the file should be deleted after being sent.
 
 #### Get Signature
 
-> **get** **etag**(): `undefined` \| `string`
-
-Defined in: [src/OutgoingHttpResponse.ts:98](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L98)
+```ts
+get etag(): undefined | string;
+```
 
 Get the ETag of the response.
 
@@ -257,9 +249,9 @@ The value of the ETag header, if present.
 
 #### Get Signature
 
-> **get** **headers**(): `Headers`
-
-Defined in: [src/OutgoingHttpResponse.ts:79](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L79)
+```ts
+get headers(): Headers;
+```
 
 Get the headers of the response.
 
@@ -279,9 +271,9 @@ The headers of the response as a Headers object.
 
 #### Get Signature
 
-> **get** **incomingEvent**(): [`IncomingHttpEvent`](../../IncomingHttpEvent/classes/IncomingHttpEvent.md)
-
-Defined in: [src/OutgoingHttpResponse.ts:126](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L126)
+```ts
+get incomingEvent(): IncomingHttpEvent;
+```
 
 Get the associated IncomingHttpEvent.
 
@@ -305,9 +297,9 @@ The associated IncomingHttpEvent.
 
 #### Get Signature
 
-> **get** **lastModified**(): `undefined` \| `string`
-
-Defined in: [src/OutgoingHttpResponse.ts:116](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L116)
+```ts
+get lastModified(): undefined | string;
+```
 
 Get the Last-Modified date of the response.
 
@@ -327,9 +319,9 @@ The value of the Last-Modified header, if present.
 
 #### Get Signature
 
-> **get** **status**(): `undefined` \| `number`
-
-Defined in: [src/OutgoingHttpResponse.ts:70](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L70)
+```ts
+get status(): undefined | number;
+```
 
 Get the HTTP status code.
 
@@ -349,9 +341,9 @@ The HTTP status code.
 
 #### Get Signature
 
-> **get** **vary**(): `undefined` \| `string`[]
-
-Defined in: [src/OutgoingHttpResponse.ts:107](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L107)
+```ts
+get vary(): undefined | string[];
+```
 
 Get the Vary header as an array of values.
 
@@ -369,9 +361,9 @@ The Vary header values split by comma, or undefined if not present.
 
 ### addVary()
 
-> **addVary**(`field`): `this`
-
-Defined in: [src/OutgoingHttpResponse.ts:406](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L406)
+```ts
+addVary(field): this;
+```
 
 Add a field to the Vary header.
 
@@ -397,9 +389,9 @@ The current instance of OutgoingHttpResponse for chaining.
 
 ### appendHeader()
 
-> **appendHeader**(`key`, `value`): `this`
-
-Defined in: [src/OutgoingHttpResponse.ts:190](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L190)
+```ts
+appendHeader(key, value): this;
+```
 
 Append a value to an existing header or create a new header.
 
@@ -431,9 +423,9 @@ The current instance of OutgoingHttpResponse for chaining.
 
 ### autoEncoding()
 
-> **autoEncoding**(): `this`
-
-Defined in: [src/BinaryFileResponse.ts:107](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/BinaryFileResponse.ts#L107)
+```ts
+autoEncoding(): this;
+```
 
 Automatically set the Content-Encoding header based on the file's extension.
 
@@ -447,9 +439,9 @@ The current instance for method chaining.
 
 ### autoEtag()
 
-> **autoEtag**(): `this`
-
-Defined in: [src/BinaryFileResponse.ts:89](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/BinaryFileResponse.ts#L89)
+```ts
+autoEtag(): this;
+```
 
 Automatically set the ETag header based on the file's content.
 
@@ -463,9 +455,9 @@ The current instance for method chaining.
 
 ### autoLastModified()
 
-> **autoLastModified**(): `this`
-
-Defined in: [src/BinaryFileResponse.ts:98](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/BinaryFileResponse.ts#L98)
+```ts
+autoLastModified(): this;
+```
 
 Automatically set the Last-Modified header based on the file's modification time.
 
@@ -479,9 +471,9 @@ The current instance for method chaining.
 
 ### calculateContentLength()
 
-> `protected` **calculateContentLength**(`generateETag`): `number`
-
-Defined in: [src/OutgoingHttpResponse.ts:769](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L769)
+```ts
+protected calculateContentLength(generateETag): number;
+```
 
 Calculate the content length.
 
@@ -507,9 +499,12 @@ The content length.
 
 ### clearCookie()
 
-> **clearCookie**(`name`, `options`, `force`): `this`
-
-Defined in: [src/OutgoingHttpResponse.ts:311](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L311)
+```ts
+clearCookie(
+   name, 
+   options, 
+   force): this;
+```
 
 Clear a specific cookie from the response.
 
@@ -547,9 +542,9 @@ The current instance of OutgoingHttpResponse for chaining.
 
 ### clearCookies()
 
-> **clearCookies**(`force`): `this`
-
-Defined in: [src/OutgoingHttpResponse.ts:323](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L323)
+```ts
+clearCookies(force): this;
+```
 
 Clear all cookies from the response.
 
@@ -575,9 +570,9 @@ The current instance of OutgoingHttpResponse for chaining.
 
 ### defaultEtagFn()
 
-> `protected` **defaultEtagFn**(`content`, `encoding`): `string`
-
-Defined in: [src/OutgoingHttpResponse.ts:854](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L854)
+```ts
+protected defaultEtagFn(content, encoding): string;
+```
 
 Generate a default ETag for the given content.
 
@@ -609,9 +604,9 @@ The generated ETag as a base64 string.
 
 ### ensureCharset()
 
-> `protected` **ensureCharset**(`value`): `this`
-
-Defined in: [src/OutgoingHttpResponse.ts:787](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L787)
+```ts
+protected ensureCharset(value): this;
+```
 
 Ensure that the "Content-Type" header has a charset specified.
 
@@ -637,9 +632,9 @@ The current instance of OutgoingHttpResponse for chaining.
 
 ### format()
 
-> **format**(`formats`): `this`
-
-Defined in: [src/OutgoingHttpResponse.ts:395](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L395)
+```ts
+format(formats): this;
+```
 
 Handles content negotiation based on the `Accept` header of the incoming request.
 
@@ -665,9 +660,9 @@ The current instance of OutgoingHttpResponse for chaining.
 
 ### getContent()
 
-> **getContent**(): `false`
-
-Defined in: [src/BinaryFileResponse.ts:149](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/BinaryFileResponse.ts#L149)
+```ts
+getContent(): false;
+```
 
 Get the content of the response.
 
@@ -681,9 +676,9 @@ False, as content cannot be set for BinaryFileResponse.
 
 ### getEncodedFilePath()
 
-> **getEncodedFilePath**(): `string`
-
-Defined in: [src/BinaryFileResponse.ts:80](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/BinaryFileResponse.ts#L80)
+```ts
+getEncodedFilePath(): string;
+```
 
 Get the encoded file path.
 
@@ -697,9 +692,9 @@ The encoded file path.
 
 ### getHashedContent()
 
-> `protected` **getHashedContent**(`content`, `encoding`): `string`
-
-Defined in: [src/OutgoingHttpResponse.ts:865](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L865)
+```ts
+protected getHashedContent(content, encoding): string;
+```
 
 Get the hashed content using the specified encoding.
 
@@ -743,9 +738,9 @@ A fallback value if the header is not found.
 
 #### Call Signature
 
-> **getHeader**\<`TReturn`\>(`name`): `undefined` \| `TReturn`
-
-Defined in: [src/OutgoingHttpResponse.ts:206](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L206)
+```ts
+getHeader<TReturn>(name): undefined | TReturn;
+```
 
 Get a header value.
 
@@ -783,9 +778,9 @@ A fallback value if the header is not found.
 
 #### Call Signature
 
-> **getHeader**\<`TReturn`\>(`name`, `fallback`): `TReturn`
-
-Defined in: [src/OutgoingHttpResponse.ts:215](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L215)
+```ts
+getHeader<TReturn>(name, fallback): TReturn;
+```
 
 Get a header value.
 
@@ -831,9 +826,9 @@ A fallback value if the header is not found.
 
 ### getHeaderNames()
 
-> **getHeaderNames**(): `string`[]
-
-Defined in: [src/OutgoingHttpResponse.ts:233](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L233)
+```ts
+getHeaderNames(): string[];
+```
 
 Get all header names.
 
@@ -851,9 +846,9 @@ An array of all header names.
 
 ### handleCacheHeaders()
 
-> `protected` **handleCacheHeaders**(): `this`
-
-Defined in: [src/OutgoingHttpResponse.ts:705](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L705)
+```ts
+protected handleCacheHeaders(): this;
+```
 
 Handle cache headers like ETag and Last-Modified.
 
@@ -871,9 +866,9 @@ The current instance of the response for chaining.
 
 ### handleContentNegotiation()
 
-> `protected` **handleContentNegotiation**(): `this`
-
-Defined in: [src/OutgoingHttpResponse.ts:657](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L657)
+```ts
+protected handleContentNegotiation(): this;
+```
 
 Handles content negotiation based on the `Accept` header of the incoming request.
 
@@ -891,9 +886,9 @@ The current instance of OutgoingHttpResponse for chaining.
 
 ### hasHeader()
 
-> **hasHeader**(`key`): `boolean`
-
-Defined in: [src/OutgoingHttpResponse.ts:243](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L243)
+```ts
+hasHeader(key): boolean;
+```
 
 Check if a specific header exists.
 
@@ -919,9 +914,9 @@ True if the header exists, false otherwise.
 
 ### is1xx()
 
-> **is1xx**(): `boolean`
-
-Defined in: [src/OutgoingHttpResponse.ts:492](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L492)
+```ts
+is1xx(): boolean;
+```
 
 Check if the status code represents an informational response (1xx).
 
@@ -939,9 +934,9 @@ True if the status code is informational, otherwise false.
 
 ### is2xx()
 
-> **is2xx**(): `boolean`
-
-Defined in: [src/OutgoingHttpResponse.ts:501](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L501)
+```ts
+is2xx(): boolean;
+```
 
 Check if the status code represents a successful response (2xx).
 
@@ -959,9 +954,9 @@ True if the status code is successful, otherwise false.
 
 ### is3xx()
 
-> **is3xx**(): `boolean`
-
-Defined in: [src/OutgoingHttpResponse.ts:510](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L510)
+```ts
+is3xx(): boolean;
+```
 
 Check if the status code represents a redirection response (3xx).
 
@@ -979,9 +974,9 @@ True if the status code is a redirection, otherwise false.
 
 ### is4xx()
 
-> **is4xx**(): `boolean`
-
-Defined in: [src/OutgoingHttpResponse.ts:519](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L519)
+```ts
+is4xx(): boolean;
+```
 
 Check if the status code represents a client error response (4xx).
 
@@ -999,9 +994,9 @@ True if the status code is a client error, otherwise false.
 
 ### is5xx()
 
-> **is5xx**(): `boolean`
-
-Defined in: [src/OutgoingHttpResponse.ts:528](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L528)
+```ts
+is5xx(): boolean;
+```
 
 Check if the status code represents a server error response (5xx).
 
@@ -1019,9 +1014,9 @@ True if the status code is a server error, otherwise false.
 
 ### isEmpty()
 
-> **isEmpty**(): `boolean`
-
-Defined in: [src/OutgoingHttpResponse.ts:573](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L573)
+```ts
+isEmpty(): boolean;
+```
 
 Check if the response is empty.
 
@@ -1039,9 +1034,9 @@ True if the status code indicates an empty response, otherwise false.
 
 ### isError()
 
-> **isError**(): `boolean`
-
-Defined in: [src/OutgoingHttpResponse.ts:546](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L546)
+```ts
+isError(): boolean;
+```
 
 Check if the status code is an error (i.e., 4xx or 5xx).
 
@@ -1059,9 +1054,9 @@ True if the status code is an error, otherwise false.
 
 ### isForbidden()
 
-> **isForbidden**(): `boolean`
-
-Defined in: [src/OutgoingHttpResponse.ts:611](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L611)
+```ts
+isForbidden(): boolean;
+```
 
 Check if the status code is 403 (Forbidden).
 
@@ -1079,9 +1074,9 @@ True if the status code is 403, otherwise false.
 
 ### isInStatusRange()
 
-> **isInStatusRange**(`start`, `end`): `boolean`
-
-Defined in: [src/OutgoingHttpResponse.ts:472](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L472)
+```ts
+isInStatusRange(start, end): boolean;
+```
 
 Check if the status code falls within the specified range.
 
@@ -1113,9 +1108,9 @@ True if the status code is within the specified range, otherwise false.
 
 ### isInvalid()
 
-> **isInvalid**(): `boolean`
-
-Defined in: [src/OutgoingHttpResponse.ts:482](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L482)
+```ts
+isInvalid(): boolean;
+```
 
 Check if the status code is invalid.
 
@@ -1133,9 +1128,9 @@ True if the status code is invalid, otherwise false.
 
 ### isMovedPermanently()
 
-> **isMovedPermanently**(): `boolean`
-
-Defined in: [src/OutgoingHttpResponse.ts:593](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L593)
+```ts
+isMovedPermanently(): boolean;
+```
 
 Check if the status code is 301 (Moved Permanently).
 
@@ -1153,9 +1148,9 @@ True if the status code is 301, otherwise false.
 
 ### isNotError()
 
-> **isNotError**(): `boolean`
-
-Defined in: [src/OutgoingHttpResponse.ts:537](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L537)
+```ts
+isNotError(): boolean;
+```
 
 Check if the status code is not an error (i.e., not 4xx or 5xx).
 
@@ -1173,9 +1168,9 @@ True if the status code is not an error, otherwise false.
 
 ### isNotFound()
 
-> **isNotFound**(): `boolean`
-
-Defined in: [src/OutgoingHttpResponse.ts:620](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L620)
+```ts
+isNotFound(): boolean;
+```
 
 Check if the status code is 404 (Not Found).
 
@@ -1193,9 +1188,9 @@ True if the status code is 404, otherwise false.
 
 ### isOk()
 
-> **isOk**(): `boolean`
-
-Defined in: [src/OutgoingHttpResponse.ts:555](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L555)
+```ts
+isOk(): boolean;
+```
 
 Check if the status code is 200 (OK).
 
@@ -1213,9 +1208,9 @@ True if the status code is 200, otherwise false.
 
 ### isRedirect()
 
-> **isRedirect**(`location?`): `boolean`
-
-Defined in: [src/OutgoingHttpResponse.ts:583](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L583)
+```ts
+isRedirect(location?): boolean;
+```
 
 Check if the response is a redirect.
 
@@ -1241,9 +1236,9 @@ True if the status code indicates a redirect, otherwise false.
 
 ### isResetContent()
 
-> **isResetContent**(): `boolean`
-
-Defined in: [src/OutgoingHttpResponse.ts:564](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L564)
+```ts
+isResetContent(): boolean;
+```
 
 Check if the status code is 205 (Reset Content).
 
@@ -1261,9 +1256,9 @@ True if the status code is 205, otherwise false.
 
 ### isUnauthorized()
 
-> **isUnauthorized**(): `boolean`
-
-Defined in: [src/OutgoingHttpResponse.ts:602](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L602)
+```ts
+isUnauthorized(): boolean;
+```
 
 Check if the status code is 401 (Unauthorized).
 
@@ -1281,9 +1276,9 @@ True if the status code is 401, otherwise false.
 
 ### isValidateable()
 
-> **isValidateable**(): `boolean`
-
-Defined in: [src/OutgoingHttpResponse.ts:629](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L629)
+```ts
+isValidateable(): boolean;
+```
 
 Check if the response is validateable.
 
@@ -1301,9 +1296,9 @@ True if the response has Last-Modified or ETag headers, otherwise false.
 
 ### morphToJson()
 
-> `protected` **morphToJson**(`content`, `options`): `string`
-
-Defined in: [src/OutgoingHttpResponse.ts:818](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L818)
+```ts
+protected morphToJson(content, options): string;
+```
 
 Convert the given content to a JSON string.
 
@@ -1339,9 +1334,9 @@ InternalServerError if the content cannot be converted to JSON.
 
 ### prepare()
 
-> **prepare**(`event`, `container?`): `BinaryFileResponse` \| `Promise`\<`BinaryFileResponse`\>
-
-Defined in: [src/BinaryFileResponse.ts:171](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/BinaryFileResponse.ts#L171)
+```ts
+prepare(event, container?): BinaryFileResponse | Promise<BinaryFileResponse>;
+```
 
 Prepare the response before sending.
 
@@ -1373,9 +1368,9 @@ The current instance of the response for chaining.
 
 ### prepareContentHeaders()
 
-> `protected` **prepareContentHeaders**(): `this`
-
-Defined in: [src/BinaryFileResponse.ts:195](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/BinaryFileResponse.ts#L195)
+```ts
+protected prepareContentHeaders(): this;
+```
 
 Prepare content-related headers.
 
@@ -1393,9 +1388,9 @@ The current instance for method chaining.
 
 ### prepareCookies()
 
-> `protected` **prepareCookies**(): `this`
-
-Defined in: [src/OutgoingHttpResponse.ts:831](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L831)
+```ts
+protected prepareCookies(): this;
+```
 
 Prepare cookies by setting the appropriate headers.
 
@@ -1413,9 +1408,9 @@ The current instance of the response for chaining.
 
 ### removeHeader()
 
-> **removeHeader**(`key`): `this`
-
-Defined in: [src/OutgoingHttpResponse.ts:253](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L253)
+```ts
+removeHeader(key): this;
+```
 
 Remove headers from the response.
 
@@ -1441,9 +1436,9 @@ The current instance of OutgoingHttpResponse for chaining.
 
 ### secureCookies()
 
-> **secureCookies**(`value`): `this`
-
-Defined in: [src/OutgoingHttpResponse.ts:334](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L334)
+```ts
+secureCookies(value): this;
+```
 
 Secure all cookies by setting the "Secure" attribute.
 
@@ -1469,9 +1464,9 @@ The current instance of OutgoingHttpResponse for chaining.
 
 ### setBlueprintResolver()
 
-> **setBlueprintResolver**(`resolver`): `this`
-
-Defined in: [src/OutgoingHttpResponse.ts:460](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L460)
+```ts
+setBlueprintResolver(resolver): this;
+```
 
 Set the resolver for the blueprint.
 
@@ -1497,9 +1492,9 @@ The current instance of OutgoingHttpResponse for chaining.
 
 ### setCharset()
 
-> **setCharset**(`value`): `this`
-
-Defined in: [src/OutgoingHttpResponse.ts:345](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L345)
+```ts
+setCharset(value): this;
+```
 
 Set the character set for the response.
 
@@ -1525,9 +1520,9 @@ The current instance of OutgoingHttpResponse for chaining.
 
 ### setContent()
 
-> **setContent**(`content`): `this`
-
-Defined in: [src/BinaryFileResponse.ts:136](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/BinaryFileResponse.ts#L136)
+```ts
+setContent(content): this;
+```
 
 Set the content of the response.
 
@@ -1557,9 +1552,9 @@ TypeError if content is provided.
 
 ### setContentDisposition()
 
-> **setContentDisposition**(`type?`): `this`
-
-Defined in: [src/BinaryFileResponse.ts:123](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/BinaryFileResponse.ts#L123)
+```ts
+setContentDisposition(type?): this;
+```
 
 Set the content disposition header.
 
@@ -1581,9 +1576,9 @@ The current instance for method chaining.
 
 ### setContentHeaders()
 
-> `protected` **setContentHeaders**(): `this`
-
-Defined in: [src/OutgoingHttpResponse.ts:733](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L733)
+```ts
+protected setContentHeaders(): this;
+```
 
 Set content headers such as Content-Length and ETag.
 
@@ -1601,9 +1596,9 @@ The current instance of the response for chaining.
 
 ### setContentType()
 
-> **setContentType**(`value`): `this`
-
-Defined in: [src/OutgoingHttpResponse.ts:357](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L357)
+```ts
+setContentType(value): this;
+```
 
 Set the content type of the response.
 
@@ -1633,9 +1628,9 @@ InternalServerError if the provided MIME type is invalid.
 
 ### setContentTypeIfNeeded()
 
-> `protected` **setContentTypeIfNeeded**(): `this`
-
-Defined in: [src/OutgoingHttpResponse.ts:679](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L679)
+```ts
+protected setContentTypeIfNeeded(): this;
+```
 
 Set the content type if it's not already set.
 
@@ -1653,9 +1648,12 @@ The current instance of the response for chaining.
 
 ### setCookie()
 
-> **setCookie**(`name`, `value`, `options`): `this`
-
-Defined in: [src/OutgoingHttpResponse.ts:297](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L297)
+```ts
+setCookie(
+   name, 
+   value, 
+   options): this;
+```
 
 Set a cookie for the response.
 
@@ -1693,9 +1691,9 @@ The current instance of OutgoingHttpResponse for chaining.
 
 ### setDeleteFileAfterSent()
 
-> **setDeleteFileAfterSent**(`shouldDelete`): `this`
-
-Defined in: [src/BinaryFileResponse.ts:159](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/BinaryFileResponse.ts#L159)
+```ts
+setDeleteFileAfterSent(shouldDelete): this;
+```
 
 Set whether the file should be deleted after being sent.
 
@@ -1717,9 +1715,9 @@ The current instance for method chaining.
 
 ### setEtag()
 
-> **setEtag**(`etag?`, `weak?`): `this`
-
-Defined in: [src/OutgoingHttpResponse.ts:418](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L418)
+```ts
+setEtag(etag?, weak?): this;
+```
 
 Set the ETag for the response.
 
@@ -1751,9 +1749,9 @@ The current instance of OutgoingHttpResponse for chaining.
 
 ### setHeader()
 
-> **setHeader**(`key`, `value`): `this`
-
-Defined in: [src/OutgoingHttpResponse.ts:172](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L172)
+```ts
+setHeader(key, value): this;
+```
 
 Set a single header for the response.
 If the header is "Content-Type," ensures charset is set appropriately.
@@ -1786,9 +1784,9 @@ The current instance of OutgoingHttpResponse for chaining.
 
 ### setHeaders()
 
-> **setHeaders**(`values`): `this`
-
-Defined in: [src/OutgoingHttpResponse.ts:158](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L158)
+```ts
+setHeaders(values): this;
+```
 
 Set multiple headers for the response.
 
@@ -1814,9 +1812,9 @@ The current instance of OutgoingHttpResponse for chaining.
 
 ### setIncomingEventResolver()
 
-> **setIncomingEventResolver**(`resolver`): `this`
-
-Defined in: [src/OutgoingHttpResponse.ts:449](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L449)
+```ts
+setIncomingEventResolver(resolver): this;
+```
 
 Set the resolver for the incoming HTTP event.
 
@@ -1842,9 +1840,9 @@ The current instance of OutgoingHttpResponse for chaining.
 
 ### setLastModified()
 
-> **setLastModified**(`date?`): `this`
-
-Defined in: [src/OutgoingHttpResponse.ts:434](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L434)
+```ts
+setLastModified(date?): this;
+```
 
 Set the Last-Modified header for the response.
 
@@ -1870,9 +1868,9 @@ The current instance of OutgoingHttpResponse for chaining.
 
 ### setLinks()
 
-> **setLinks**(`links`): `this`
-
-Defined in: [src/OutgoingHttpResponse.ts:382](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L382)
+```ts
+setLinks(links): this;
+```
 
 Set link headers for the response.
 
@@ -1898,9 +1896,9 @@ The current instance of OutgoingHttpResponse for chaining.
 
 ### setStatus()
 
-> **setStatus**(`code`, `text?`): `this`
-
-Defined in: [src/OutgoingHttpResponse.ts:267](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L267)
+```ts
+setStatus(code, text?): this;
+```
 
 Set the HTTP status code of the response.
 Also sets a default status message if none is provided.
@@ -1937,9 +1935,9 @@ InternalServerError if the status code is invalid.
 
 ### setType()
 
-> **setType**(`value`): `this`
-
-Defined in: [src/OutgoingHttpResponse.ts:372](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L372)
+```ts
+setType(value): this;
+```
 
 Set the content type by file extension.
 
@@ -1965,9 +1963,9 @@ The current instance of OutgoingHttpResponse for chaining.
 
 ### shouldBeJson()
 
-> `protected` **shouldBeJson**(`content`): `boolean`
-
-Defined in: [src/OutgoingHttpResponse.ts:806](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L806)
+```ts
+protected shouldBeJson(content): boolean;
+```
 
 Determine if the content should be serialized as JSON.
 
@@ -1993,9 +1991,13 @@ True if the content should be serialized as JSON, otherwise false.
 
 ### stringify()
 
-> `protected` **stringify**(`value`, `replacer?`, `spaces?`, `escape?`): `string`
-
-Defined in: [src/OutgoingHttpResponse.ts:878](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L878)
+```ts
+protected stringify(
+   value, 
+   replacer?, 
+   spaces?, 
+   escape?): string;
+```
 
 Convert the given value to a JSON string with optional escaping.
 
@@ -2039,9 +2041,9 @@ The JSON string representation of the value.
 
 ### create()
 
-> `static` **create**\<`T`\>(`options`): `T`
-
-Defined in: [src/OutgoingHttpResponse.ts:45](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/OutgoingHttpResponse.ts#L45)
+```ts
+static create<T>(options): T;
+```
 
 Create an instance of OutgoingHttpResponse.
 
@@ -2073,9 +2075,9 @@ A new instance of OutgoingHttpResponse.
 
 ### download()
 
-> `static` **download**(`options`): `BinaryFileResponse`
-
-Defined in: [src/BinaryFileResponse.ts:46](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/BinaryFileResponse.ts#L46)
+```ts
+static download(options): BinaryFileResponse;
+```
 
 Create a BinaryFileResponse with attachment content disposition.
 
@@ -2097,9 +2099,9 @@ A new instance of BinaryFileResponse.
 
 ### file()
 
-> `static` **file**(`options`): `BinaryFileResponse`
-
-Defined in: [src/BinaryFileResponse.ts:36](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/BinaryFileResponse.ts#L36)
+```ts
+static file(options): BinaryFileResponse;
+```
 
 Create a BinaryFileResponse with inline content disposition.
 

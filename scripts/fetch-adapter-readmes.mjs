@@ -10,11 +10,11 @@ let TARGET_MAJOR_VERSION = null;
 
 // --- Adapters only ---
 const adapters = [
-  { name: "node-http-adapter", url: "https://github.com/stonemjs/node-http-adapter" },
-  { name: "aws-lambda-http-adapter", url: "https://github.com/stonemjs/aws-lambda-http-adapter" },
-  { name: "aws-lambda-adapter", url: "https://github.com/stonemjs/aws-lambda-adapter" },
-  { name: "browser-adapter", url: "https://github.com/stonemjs/browser-adapter" },
-  { name: "node-cli-adapter", url: "https://github.com/stonemjs/node-cli-adapter" }
+  { name: "node-http-adapter", url: "https://github.com/stone-foundation/stone-js-node-http-adapter" },
+  { name: "aws-lambda-http-adapter", url: "https://github.com/stone-foundation/stone-js-aws-lambda-http-adapter" },
+  { name: "aws-lambda-adapter", url: "https://github.com/stone-foundation/stone-js-aws-lambda-adapter" },
+  { name: "browser-adapter", url: "https://github.com/stone-foundation/stone-js-browser-adapter" },
+  { name: "node-cli-adapter", url: "https://github.com/stone-foundation/stone-js-node-cli-adapter" }
 ];
 
 try {

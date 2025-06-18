@@ -1,11 +1,5 @@
-[**HTTP Core Documentation**](../../README.md)
-
-***
-
-[HTTP Core Documentation](../../README.md) / [constants](../README.md) / HTTP\_NOT\_EXTENDED
-
 # Variable: HTTP\_NOT\_EXTENDED
 
-> `const` **HTTP\_NOT\_EXTENDED**: `510` = `510`
-
-Defined in: [src/constants.ts:76](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/constants.ts#L76)
+```ts
+const HTTP_NOT_EXTENDED: 510 = 510;
+```

@@ -108,7 +108,7 @@ function getContext(row, col) {
 
 <style scoped lang="scss">
 .context-aware {
-  padding-top: 3rem;
+  padding-top: 2rem;
   padding-bottom: 3rem;
   position: relative;
 

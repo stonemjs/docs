@@ -1,12 +1,4 @@
-[**HTTP Core Documentation**](../../README.md)
-
-***
-
-[HTTP Core Documentation](../../README.md) / [declarations](../README.md) / CookieOptions
-
 # Interface: CookieOptions
-
-Defined in: [src/declarations.ts:24](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/declarations.ts#L24)
 
 Options for configuring a cookie.
 
@@ -14,54 +6,54 @@ Options for configuring a cookie.
 
 ### domain?
 
-> `optional` **domain**: `string`
-
-Defined in: [src/declarations.ts:27](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/declarations.ts#L27)
+```ts
+optional domain: string;
+```
 
 ***
 
 ### expires?
 
-> `optional` **expires**: `Date`
-
-Defined in: [src/declarations.ts:26](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/declarations.ts#L26)
+```ts
+optional expires: Date;
+```
 
 ***
 
 ### httpOnly?
 
-> `optional` **httpOnly**: `boolean`
-
-Defined in: [src/declarations.ts:30](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/declarations.ts#L30)
+```ts
+optional httpOnly: boolean;
+```
 
 ***
 
 ### maxAge?
 
-> `optional` **maxAge**: `number`
-
-Defined in: [src/declarations.ts:28](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/declarations.ts#L28)
+```ts
+optional maxAge: number;
+```
 
 ***
 
 ### path?
 
-> `optional` **path**: `string`
-
-Defined in: [src/declarations.ts:25](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/declarations.ts#L25)
+```ts
+optional path: string;
+```
 
 ***
 
 ### sameSite?
 
-> `optional` **sameSite**: [`CookieSameSite`](../enumerations/CookieSameSite.md)
-
-Defined in: [src/declarations.ts:31](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/declarations.ts#L31)
+```ts
+optional sameSite: CookieSameSite;
+```
 
 ***
 
 ### secure?
 
-> `optional` **secure**: `boolean`
-
-Defined in: [src/declarations.ts:29](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/declarations.ts#L29)
+```ts
+optional secure: boolean;
+```

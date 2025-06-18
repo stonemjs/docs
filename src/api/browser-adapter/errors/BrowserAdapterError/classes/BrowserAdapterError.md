@@ -1,14 +1,6 @@
-[**AWS Lambda Adapter Documentation v0.0.2**](../../../README.md)
-
-***
-
-[AWS Lambda Adapter Documentation](../../../modules.md) / [errors/BrowserAdapterError](../README.md) / BrowserAdapterError
-
 # Class: BrowserAdapterError
 
-Defined in: [src/errors/BrowserAdapterError.ts:6](https://github.com/stonemjs/browser-adapter/blob/2a6ec5410a97b6bc45328cca33b607b5a6b7ed84/src/errors/BrowserAdapterError.ts#L6)
-
-Custom error for AWS Lambda adapter operations.
+Custom error for Browser adapter operations.
 
 ## Extends
 
@@ -16,11 +8,11 @@ Custom error for AWS Lambda adapter operations.
 
 ## Constructors
 
-### new BrowserAdapterError()
+### Constructor
 
-> **new BrowserAdapterError**(`message`, `options`?): [`BrowserAdapterError`](BrowserAdapterError.md)
-
-Defined in: [src/errors/BrowserAdapterError.ts:7](https://github.com/stonemjs/browser-adapter/blob/2a6ec5410a97b6bc45328cca33b607b5a6b7ed84/src/errors/BrowserAdapterError.ts#L7)
+```ts
+new BrowserAdapterError(message, options?): BrowserAdapterError;
+```
 
 #### Parameters
 
@@ -34,8 +26,10 @@ Defined in: [src/errors/BrowserAdapterError.ts:7](https://github.com/stonemjs/br
 
 #### Returns
 
-[`BrowserAdapterError`](BrowserAdapterError.md)
+`BrowserAdapterError`
 
 #### Overrides
 
-`IntegrationError.constructor`
+```ts
+IntegrationError.constructor
+```

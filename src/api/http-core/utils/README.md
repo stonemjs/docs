@@ -1,9 +1,3 @@
-[**HTTP Core Documentation**](../README.md)
-
-***
-
-[HTTP Core Documentation](../README.md) / utils
-
 # utils
 
 ## Functions

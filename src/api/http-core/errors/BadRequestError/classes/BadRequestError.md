@@ -1,12 +1,4 @@
-[**HTTP Core Documentation**](../../../README.md)
-
-***
-
-[HTTP Core Documentation](../../../README.md) / [errors/BadRequestError](../README.md) / BadRequestError
-
 # Class: BadRequestError
-
-Defined in: [src/errors/BadRequestError.ts:6](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/errors/BadRequestError.ts#L6)
 
 BadRequestError http error.
 
@@ -18,9 +10,9 @@ BadRequestError http error.
 
 ### Constructor
 
-> **new BadRequestError**(`message`, `options`): `BadRequestError`
-
-Defined in: [src/errors/BadRequestError.ts:7](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/errors/BadRequestError.ts#L7)
+```ts
+new BadRequestError(message, options): BadRequestError;
+```
 
 #### Parameters
 
@@ -38,4 +30,6 @@ Defined in: [src/errors/BadRequestError.ts:7](https://github.com/stonemjs/http-c
 
 #### Overrides
 
-`RuntimeError.constructor`
+```ts
+RuntimeError.constructor
+```
