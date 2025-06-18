@@ -4,7 +4,7 @@ This is the documentation repository for [Stone.js](https://stonejs.dev). It doe
 
 If you believe you have found a security vulnerability in Stone.js itself (not just the docs), please report it responsibly by emailing:
 
-**security@stonejs.com**
+**security@stonejs.dev**
 
 We take security seriously and will respond promptly to any valid report.
 

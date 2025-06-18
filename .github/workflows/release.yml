@@ -32,6 +32,6 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
-          cname: stonejs.com
+          cname: stonejs.dev
           publish_dir: src/.vuepress/dist
           github_token: ${{ secrets.GITHUB_TOKEN }}
