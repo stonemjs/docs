@@ -4,6 +4,13 @@ All notable changes to the "Stone.js documentation" extension will be documented
 
 ## Unreleased
 
+## [0.1.0](https://github.com/stone-foundation/stone-js-docs/compare/v0.0.4...v0.1.0) (2025-06-18)
+
+
+### Miscellaneous Chores
+
+* change domain name and improve the home page ([#9](https://github.com/stone-foundation/stone-js-docs/issues/9)) ([7ef5804](https://github.com/stone-foundation/stone-js-docs/commit/7ef580411885e11154e51ee99cb571c225feb3f3))
+
 ## [0.0.4](https://github.com/stonemjs/docs/compare/v0.0.3...v0.0.4) (2025-06-11)
 
 
