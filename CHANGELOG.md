@@ -5,6 +5,13 @@ All notable changes to the "Stone.js documentation" extension will be documented
 ## Unreleased
 
 
+## [0.1.1](https://github.com/stone-foundation/stone-js-docs/compare/v0.1.0...v0.1.1) (2025-06-18)
+
+
+### Bug Fixes
+
+* change repo name and stonejs .com to .dev ([#11](https://github.com/stone-foundation/stone-js-docs/issues/11)) ([bd85de1](https://github.com/stone-foundation/stone-js-docs/commit/bd85de12a883a70110e9e1dcec79e0cf033c4f91))
+
 ## [0.1.0](https://github.com/stone-foundation/stone-js-docs/compare/v0.0.4...v0.1.0) (2025-06-18)
 
 
