@@ -41,7 +41,7 @@ You can contribute by:
 Before opening an issue or PR:
 
 - Check if the issue or improvement already exists.
-- Review the [Documentation Master Plan](https://github.com/stonemjs/docs) to understand the structure and tone.
+- Review the [Documentation Master Plan](https://github.com/stone-foundation/stone-js-docs) to understand the structure and tone.
 - Make sure your contribution fits into the existing structure (Intro → Feature → Registration → Best Practices → Summary).
 
 ## Writing Guidelines

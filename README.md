@@ -1,14 +1,14 @@
 # Stone.js - Documentation
 
 ![Maintenance](https://img.shields.io/maintenance/yes/2025)
-[![Build Status](https://github.com/stonemjs/docs/actions/workflows/main.yml/badge.svg)](https://github.com/stonemjs/docs/actions/workflows/main.yml)
-[![Deploy Status](https://github.com/stonemjs/docs/actions/workflows/release.yml/badge.svg)](https://github.com/stonemjs/docs/actions/workflows/release.yml)
-[![Dependabot Status](https://img.shields.io/badge/Dependabot-enabled-brightgreen.svg)](https://github.com/stonemjs/docs/network/updates)
+[![Build Status](https://github.com/stone-foundation/stone-js-docs/actions/workflows/main.yml/badge.svg)](https://github.com/stone-foundation/stone-js-docs/actions/workflows/main.yml)
+[![Deploy Status](https://github.com/stone-foundation/stone-js-docs/actions/workflows/release.yml/badge.svg)](https://github.com/stone-foundation/stone-js-docs/actions/workflows/release.yml)
+[![Dependabot Status](https://img.shields.io/badge/Dependabot-enabled-brightgreen.svg)](https://github.com/stone-foundation/stone-js-docs/network/updates)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
 
-Welcome to the official documentation source for [Stone.js](https://stonejs.com), the universal JavaScript/TypeScript framework built on the **Continuum Architecture**.
+Welcome to the official documentation source for [Stone.js](https://stonejs.dev), the universal JavaScript/TypeScript framework built on the **Continuum Architecture**.
 
-This repository powers the [documentation site](https://stonejs.com), built with [VuePress](https://vuepress.vuejs.org/), and serves as the single source of truth for all developer guides, API references, core concepts, and advanced features of Stone.js.
+This repository powers the [documentation site](https://stonejs.dev), built with [VuePress](https://vuepress.vuejs.org/), and serves as the single source of truth for all developer guides, API references, core concepts, and advanced features of Stone.js.
 
 ---
 
@@ -26,7 +26,7 @@ At the heart of Stone.js is the **Continuum Architecture**, where Context define
 
 ## Project Structure
 
-This documentation is organized using the [Stone.js Documentation Master Plan](https://github.com/stonemjs/docs), which defines a consistent structure for all pages.
+This documentation is organized using the [Stone.js Documentation Master Plan](https://github.com/stone-foundation/stone-js-docs), which defines a consistent structure for all pages.
 
 ```txt
 src/
@@ -83,7 +83,7 @@ Whether it’s:
 
 Please read our [Contributing Guide](./CONTRIBUTING.md) before submitting your changes.
 
-All pull requests should follow the [Documentation Master Plan](https://github.com/stonemjs/docs) and use [Conventional Commit messages](https://www.conventionalcommits.org/).
+All pull requests should follow the [Documentation Master Plan](https://github.com/stone-foundation/stone-js-docs) and use [Conventional Commit messages](https://www.conventionalcommits.org/).
 
 ## Code of Conduct
 
@@ -99,7 +99,7 @@ Please be kind and respectful in all interactions.
 ## Custom Domain
 
 The documentation is hosted on GitHub Pages at
-🔗 **[https://stonejs.com](https://stonejs.com)**
+🔗 **[https://stonejs.dev](https://stonejs.dev)**
 with automatic HTTPS via GitHub's free SSL.
 
 ## About the Continuum Architecture
@@ -114,7 +114,7 @@ You can learn more in the [Core Concepts → Continuum Architecture](./src/docs/
 
 ## Questions or Feedback?
 
-If something is unclear, wrong, or could be better, [open an issue](https://github.com/stonemjs/docs/issues) or start a discussion.
+If something is unclear, wrong, or could be better, [open an issue](https://github.com/stone-foundation/stone-js-docs/issues) or start a discussion.
 
 We're all about continuous improvement, in code and in documentation.
 

@@ -32,7 +32,7 @@ Please check all that apply:
 Please confirm the following before requesting a review:
 
 - [ ] My content follows the structure and tone of the existing documentation.
-- [ ] I respected the [Stone.js Documentation Master Plan](https://github.com/stonemjs/docs#readme) structure (Introduction, Feature Shape, Registration, Best Practices, etc.).
+- [ ] I respected the [Stone.js Documentation Master Plan](https://github.com/stone-foundation/stone-js-docs#readme) structure (Introduction, Feature Shape, Registration, Best Practices, etc.).
 - [ ] I preserved the **Continuum Architecture vocabulary** and conceptual clarity.
 - [ ] I did **not** include or modify any application code or tests (this is a docs-only repository).
 - [ ] Headings, spacing, and markdown are clean and consistent.
