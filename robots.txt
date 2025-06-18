@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://stonejs.com/sitemap.xml
+Sitemap: https://stonejs.dev/sitemap.xml
 
 
 User-agent:*
