@@ -8,8 +8,8 @@ export default hopeTheme({
   docsDir: "src",
   pageInfo: false,
   logo: "/logo.png",
-  hostname: "https://stonejs.com",
-  repo: "https://github.com/stonemjs/docs",
+  hostname: "https://stonejs.dev",
+  repo: "https://github.com/stone-foundation/stone-js-docs",
   
   author: {
     name: "Mr. Stone",

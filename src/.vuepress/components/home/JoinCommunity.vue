@@ -10,7 +10,7 @@
           Whether you're building apps, libraries, plugins, or frameworks on top of Stone.js, you're not alone. Meet developers, ask questions, share ideas, and shape the future.
         </p>
         <div class="cta-buttons">
-          <a href="https://github.com/stonemjs/" target="_blank" rel="noopener" class="btn primary">GitHub</a>
+          <a href="https://github.com/stone-foundation/" target="_blank" rel="noopener" class="btn primary">GitHub</a>
           <a href="https://discord.gg/stonejs" target="_blank" rel="noopener" class="btn outline">Join Discord</a>
         </div>
       </div>

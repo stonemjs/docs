@@ -7,7 +7,7 @@
       </p>
       <div class="cta-buttons">
         <RouterLink to="/docs/" class="btn btn-primary">Get Started</RouterLink>
-        <a href="https://github.com/stonemjs/" target="_blank" rel="noopener" class="btn btn-secondary">View on GitHub</a>
+        <a href="https://github.com/stone-foundation/" target="_blank" rel="noopener" class="btn btn-secondary">View on GitHub</a>
       </div>
     </div>
   </section>

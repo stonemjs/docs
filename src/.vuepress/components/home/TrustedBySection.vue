@@ -28,7 +28,7 @@
       </div>
 
       <div class="actions">
-        <a class="btn" href="https://github.com/stonemjs/stone" target="_blank" rel="noopener">View on GitHub</a>
+        <a class="btn" href="https://github.com/stone-foundation/" target="_blank" rel="noopener">View on GitHub</a>
         <a class="btn secondary" href="/guide/contributing.html">Become a Contributor</a>
       </div>
     </div>
