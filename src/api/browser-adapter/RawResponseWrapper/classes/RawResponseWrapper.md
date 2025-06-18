@@ -1,12 +1,4 @@
-[**AWS Lambda Adapter Documentation v0.0.2**](../../README.md)
-
-***
-
-[AWS Lambda Adapter Documentation](../../modules.md) / [RawResponseWrapper](../README.md) / RawResponseWrapper
-
 # Class: RawResponseWrapper
-
-Defined in: [src/RawResponseWrapper.ts:11](https://github.com/stonemjs/browser-adapter/blob/2a6ec5410a97b6bc45328cca33b607b5a6b7ed84/src/RawResponseWrapper.ts#L11)
 
 Wrapper for generic raw responses.
 
@@ -22,9 +14,9 @@ It implements the `IRawResponseWrapper` interface, ensuring compatibility with t
 
 ### respond()
 
-> **respond**(): [`BrowserResponse`](../../declarations/type-aliases/BrowserResponse.md)
-
-Defined in: [src/RawResponseWrapper.ts:61](https://github.com/stonemjs/browser-adapter/blob/2a6ec5410a97b6bc45328cca33b607b5a6b7ed84/src/RawResponseWrapper.ts#L61)
+```ts
+respond(): Promise<unknown>;
+```
 
 Constructs and returns the raw response.
 
@@ -34,7 +26,7 @@ maximum flexibility in defining its structure.
 
 #### Returns
 
-[`BrowserResponse`](../../declarations/type-aliases/BrowserResponse.md)
+`Promise`\<`unknown`\>
 
 A `RawResponse` object containing the response options.
 
@@ -48,15 +40,17 @@ console.log(response); // { body: 'Hello, world!' }
 
 #### Implementation of
 
-`IRawResponseWrapper.respond`
+```ts
+IRawResponseWrapper.respond
+```
 
 ***
 
 ### create()
 
-> `static` **create**(`options`): [`RawResponseWrapper`](RawResponseWrapper.md)
-
-Defined in: [src/RawResponseWrapper.ts:31](https://github.com/stonemjs/browser-adapter/blob/2a6ec5410a97b6bc45328cca33b607b5a6b7ed84/src/RawResponseWrapper.ts#L31)
+```ts
+static create(options): RawResponseWrapper;
+```
 
 Factory method to create an instance of `RawResponseWrapper`.
 
@@ -66,13 +60,13 @@ This method initializes the wrapper with a set of partial response options.
 
 ##### options
 
-`Partial`\<`RawResponseOptions`\>
+[`RawBrowserResponseOptions`](../../declarations/interfaces/RawBrowserResponseOptions.md)
 
 Partial options to configure the raw response.
 
 #### Returns
 
-[`RawResponseWrapper`](RawResponseWrapper.md)
+`RawResponseWrapper`
 
 A new instance of `RawResponseWrapper`.
 

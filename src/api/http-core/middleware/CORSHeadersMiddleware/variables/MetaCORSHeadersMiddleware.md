@@ -1,14 +1,8 @@
-[**HTTP Core Documentation**](../../../README.md)
-
-***
-
-[HTTP Core Documentation](../../../README.md) / [middleware/CORSHeadersMiddleware](../README.md) / MetaCORSHeadersMiddleware
-
 # Variable: MetaCORSHeadersMiddleware
 
-> `const` **MetaCORSHeadersMiddleware**: `object`
-
-Defined in: [src/middleware/CORSHeadersMiddleware.ts:37](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/middleware/CORSHeadersMiddleware.ts#L37)
+```ts
+const MetaCORSHeadersMiddleware: object;
+```
 
 Represents the metadata for the CORSHeadersMiddleware.
 
@@ -16,7 +10,9 @@ Represents the metadata for the CORSHeadersMiddleware.
 
 ### module()
 
-> **module**: (`context`, `next`) => `Promise`\<`IBlueprint`\> = `CORSHeadersMiddleware`
+```ts
+module: (context, next) => Promise<IBlueprint> = CORSHeadersMiddleware;
+```
 
 Blueprint Middleware for setting Cross-Origin Resource Sharing (CORS) headers in the HTTP response.
 
@@ -53,4 +49,6 @@ CORSHeadersMiddleware({ modules, blueprint }, next);
 
 ### priority
 
-> **priority**: `number` = `5`
+```ts
+priority: number = 5;
+```

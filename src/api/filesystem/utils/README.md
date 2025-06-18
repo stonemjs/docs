@@ -1,9 +1,3 @@
-[**Filesystem Documentation**](../README.md)
-
-***
-
-[Filesystem Documentation](../README.md) / utils
-
 # utils
 
 ## Functions

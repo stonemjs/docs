@@ -1,14 +1,11 @@
-[**HTTP Core Documentation**](../../README.md)
-
-***
-
-[HTTP Core Documentation](../../README.md) / [HttpResponse](../README.md) / jsonHttpResponse
-
 # Function: jsonHttpResponse()
 
-> **jsonHttpResponse**(`content`, `statusCode`, `headers`): [`JsonResponse`](../../JsonResponse/classes/JsonResponse.md)
-
-Defined in: [src/HttpResponse.ts:150](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/HttpResponse.ts#L150)
+```ts
+function jsonHttpResponse(
+   content, 
+   statusCode, 
+   headers): JsonResponse;
+```
 
 Create a 200(OK) JSON OutgoingHttpResponse.
 

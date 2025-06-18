@@ -1,13 +1,7 @@
-[**HTTP Core Documentation**](../../README.md)
-
-***
-
-[HTTP Core Documentation](../../README.md) / [declarations](../README.md) / HttpMethod
-
 # Type Alias: HttpMethod
 
-> **HttpMethod** = `"GET"` \| `"POST"` \| `"PUT"` \| `"PATCH"` \| `"DELETE"` \| `"OPTIONS"` \| `"HEAD"`
-
-Defined in: [src/declarations.ts:50](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/declarations.ts#L50)
+```ts
+type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE" | "OPTIONS" | "HEAD";
+```
 
 Represents valid HTTP methods as string literals.

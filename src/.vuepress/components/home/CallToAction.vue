@@ -6,7 +6,7 @@
         One mindset. One framework. Infinite possibilities. <br> Embrace the continuum, and deploy everywhere with confidence.
       </p>
       <div class="cta-buttons">
-        <RouterLink to="/guide/" class="btn btn-primary">Get Started</RouterLink>
+        <RouterLink to="/docs/" class="btn btn-primary">Get Started</RouterLink>
         <a href="https://github.com/stonemjs/" target="_blank" rel="noopener" class="btn btn-secondary">View on GitHub</a>
       </div>
     </div>

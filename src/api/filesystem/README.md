@@ -1,8 +1,4 @@
-**Filesystem Documentation**
-
-***
-
-# Filesystem Documentation
+# Filesystem
 
 ## Modules
 

@@ -1,14 +1,12 @@
-[**HTTP Core Documentation**](../../README.md)
-
-***
-
-[HTTP Core Documentation](../../README.md) / [utils](../README.md) / getProtocol
-
 # Function: getProtocol()
 
-> **getProtocol**(`ip`, `headers`, `encrypted`, `options`): `string`
-
-Defined in: [src/utils.ts:105](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/utils.ts#L105)
+```ts
+function getProtocol(
+   ip, 
+   headers, 
+   encrypted, 
+   options): string;
+```
 
 Get protocol.
 

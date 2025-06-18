@@ -1,12 +1,4 @@
-[**Node Adapter Documentation v0.0.21**](../../../README.md)
-
-***
-
-[Node Adapter Documentation](../../../modules.md) / [middleware/FilesEventMiddleware](../README.md) / FilesEventMiddleware
-
 # Class: FilesEventMiddleware
-
-Defined in: [src/middleware/FilesEventMiddleware.ts:12](https://github.com/stonemjs/node-http-adapter/blob/b3024c4319ed00f9eb0215cf9f549bf3e7da590d/src/middleware/FilesEventMiddleware.ts#L12)
 
 Class representing a FilesEventMiddleware.
 
@@ -16,11 +8,11 @@ Mr. Stone <evensstone@gmail.com>
 
 ## Constructors
 
-### new FilesEventMiddleware()
+### Constructor
 
-> **new FilesEventMiddleware**(`options`): [`FilesEventMiddleware`](FilesEventMiddleware.md)
-
-Defined in: [src/middleware/FilesEventMiddleware.ts:23](https://github.com/stonemjs/node-http-adapter/blob/b3024c4319ed00f9eb0215cf9f549bf3e7da590d/src/middleware/FilesEventMiddleware.ts#L23)
+```ts
+new FilesEventMiddleware(options): FilesEventMiddleware;
+```
 
 Create a FilesEventMiddleware.
 
@@ -36,15 +28,15 @@ Options for creating the FilesEventMiddleware.
 
 #### Returns
 
-[`FilesEventMiddleware`](FilesEventMiddleware.md)
+`FilesEventMiddleware`
 
 ## Methods
 
 ### handle()
 
-> **handle**(`context`, `next`): `Promise`\<[`NodeHttpAdapterResponseBuilder`](../../../declarations/type-aliases/NodeHttpAdapterResponseBuilder.md)\>
-
-Defined in: [src/middleware/FilesEventMiddleware.ts:36](https://github.com/stonemjs/node-http-adapter/blob/b3024c4319ed00f9eb0215cf9f549bf3e7da590d/src/middleware/FilesEventMiddleware.ts#L36)
+```ts
+handle(context, next): Promise<NodeHttpAdapterResponseBuilder>;
+```
 
 Handles the incoming event, processes it, and invokes the next middleware in the pipeline.
 
@@ -58,7 +50,7 @@ The adapter context containing the raw event, execution context, and other data.
 
 ##### next
 
-`NextPipe`\<[`NodeHttpAdapterContext`](../../../declarations/interfaces/NodeHttpAdapterContext.md), [`NodeHttpAdapterResponseBuilder`](../../../declarations/type-aliases/NodeHttpAdapterResponseBuilder.md)\>
+`NextMiddleware`\<[`NodeHttpAdapterContext`](../../../declarations/interfaces/NodeHttpAdapterContext.md), [`NodeHttpAdapterResponseBuilder`](../../../declarations/type-aliases/NodeHttpAdapterResponseBuilder.md)\>
 
 The next middleware to be invoked in the pipeline.
 

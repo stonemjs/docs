@@ -1,12 +1,4 @@
-[**HTTP Core Documentation**](../../../README.md)
-
-***
-
-[HTTP Core Documentation](../../../README.md) / [middleware/HandleCorsMiddleware](../README.md) / HandleCorsMiddleware
-
 # Class: HandleCorsMiddleware
-
-Defined in: [src/middleware/HandleCorsMiddleware.ts:14](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/middleware/HandleCorsMiddleware.ts#L14)
 
 Kernel Middleware for adding Cross-Origin Resource Sharing (CORS) headers to HTTP responses.
 It allows controlling how clients from different origins can access the server's resources.
@@ -27,9 +19,9 @@ Mr. Stone <evensstone@gmail.com>
 
 ### Constructor
 
-> **new HandleCorsMiddleware**(`blueprint`): `HandleCorsMiddleware`
-
-Defined in: [src/middleware/HandleCorsMiddleware.ts:24](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/middleware/HandleCorsMiddleware.ts#L24)
+```ts
+new HandleCorsMiddleware(blueprint): HandleCorsMiddleware;
+```
 
 Construct an instance of HandleCorsMiddleware.
 
@@ -51,9 +43,9 @@ The configuration blueprint used for managing CORS settings.
 
 ### handle()
 
-> **handle**(`event`, `next`): `Promise`\<[`OutgoingHttpResponse`](../../../OutgoingHttpResponse/classes/OutgoingHttpResponse.md)\>
-
-Defined in: [src/middleware/HandleCorsMiddleware.ts:37](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/middleware/HandleCorsMiddleware.ts#L37)
+```ts
+handle(event, next): Promise<OutgoingHttpResponse>;
+```
 
 Handle CORS by modifying the response headers based on the configuration.
 

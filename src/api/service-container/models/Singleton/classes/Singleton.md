@@ -1,12 +1,4 @@
-[**Service Container Documentation v0.0.44**](../../../README.md)
-
-***
-
-[Service Container Documentation](../../../modules.md) / [models/Singleton](../README.md) / Singleton
-
 # Class: Singleton\<V\>
-
-Defined in: [models/Singleton.ts:15](https://github.com/stonemjs/service-container/blob/249b060f7936ebb0ea1e26fa167dc5f8fc0b9bc3/src/models/Singleton.ts#L15)
 
 Class representing a Singleton.
 
@@ -23,17 +15,19 @@ Mr. Stone <evensstone@gmail.com>
 
 ## Type Parameters
 
-• **V** *extends* [`BindingValue`](../../../declarations/type-aliases/BindingValue.md)
+### V
+
+`V` *extends* [`BindingValue`](../../../declarations/type-aliases/BindingValue.md)
 
 The type of value that this binding holds.
 
 ## Constructors
 
-### new Singleton()
+### Constructor
 
-> **new Singleton**\<`V`\>(`resolver`): [`Singleton`](Singleton.md)\<`V`\>
-
-Defined in: [models/ResolverBinding.ts:28](https://github.com/stonemjs/service-container/blob/249b060f7936ebb0ea1e26fa167dc5f8fc0b9bc3/src/models/ResolverBinding.ts#L28)
+```ts
+new Singleton<V>(resolver): Singleton<V>;
+```
 
 Create a new instance of ResolverBinding.
 
@@ -47,7 +41,7 @@ The resolver function to provide the binding value.
 
 #### Returns
 
-[`Singleton`](Singleton.md)\<`V`\>
+`Singleton`\<`V`\>
 
 #### Throws
 
@@ -55,15 +49,15 @@ ContainerError if the resolver is not a function.
 
 #### Inherited from
 
-[`ResolverBinding`](../../ResolverBinding/classes/ResolverBinding.md).[`constructor`](../../ResolverBinding/classes/ResolverBinding.md#constructors)
+[`ResolverBinding`](../../ResolverBinding/classes/ResolverBinding.md).[`constructor`](../../ResolverBinding/classes/ResolverBinding.md#constructor)
 
 ## Properties
 
 ### resolver
 
-> `protected` `readonly` **resolver**: [`Resolver`](../../../declarations/type-aliases/Resolver.md)\<`V`\>
-
-Defined in: [models/ResolverBinding.ts:20](https://github.com/stonemjs/service-container/blob/249b060f7936ebb0ea1e26fa167dc5f8fc0b9bc3/src/models/ResolverBinding.ts#L20)
+```ts
+protected readonly resolver: Resolver<V>;
+```
 
 The resolver function used to provide the binding value.
 
@@ -72,15 +66,15 @@ and dependency resolution. It should return an instance of type `V`.
 
 #### Inherited from
 
-[`ResolverBinding`](../../ResolverBinding/classes/ResolverBinding.md).[`resolver`](../../ResolverBinding/classes/ResolverBinding.md#resolver-1)
+[`ResolverBinding`](../../ResolverBinding/classes/ResolverBinding.md).[`resolver`](../../ResolverBinding/classes/ResolverBinding.md#resolver)
 
 ***
 
 ### value?
 
-> `protected` `optional` **value**: `V`
-
-Defined in: [models/Binding.ts:20](https://github.com/stonemjs/service-container/blob/249b060f7936ebb0ea1e26fa167dc5f8fc0b9bc3/src/models/Binding.ts#L20)
+```ts
+protected optional value: V;
+```
 
 The value held by the binding.
 
@@ -94,9 +88,9 @@ This value is resolved at runtime, either directly or through a resolver functio
 
 ### isResolved()
 
-> `protected` **isResolved**(): `boolean`
-
-Defined in: [models/Binding.ts:36](https://github.com/stonemjs/service-container/blob/249b060f7936ebb0ea1e26fa167dc5f8fc0b9bc3/src/models/Binding.ts#L36)
+```ts
+protected isResolved(): boolean;
+```
 
 Check if the value has been resolved.
 
@@ -114,9 +108,9 @@ A boolean indicating whether the value has been resolved.
 
 ### resolve()
 
-> **resolve**(`container`): `undefined` \| `V`
-
-Defined in: [models/Singleton.ts:26](https://github.com/stonemjs/service-container/blob/249b060f7936ebb0ea1e26fa167dc5f8fc0b9bc3/src/models/Singleton.ts#L26)
+```ts
+resolve(container): undefined | V;
+```
 
 Resolve and return the value of the binding.
 

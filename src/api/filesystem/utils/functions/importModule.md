@@ -1,14 +1,8 @@
-[**Filesystem Documentation**](../../README.md)
-
-***
-
-[Filesystem Documentation](../../README.md) / [utils](../README.md) / importModule
-
 # Function: importModule()
 
-> **importModule**\<`R`\>(`relativePath`): `Promise`\<`undefined` \| `R`\>
-
-Defined in: [utils.ts:95](https://github.com/stonemjs/filesystem/blob/064ba29e1d5559c367f9a7471b75a6d308ebe158/src/utils.ts#L95)
+```ts
+function importModule<R>(relativePath): Promise<undefined | R>;
+```
 
 Asynchronously imports a module given its relative path.
 

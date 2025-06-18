@@ -1,12 +1,4 @@
-[**Service Container Documentation v0.0.44**](../../../README.md)
-
-***
-
-[Service Container Documentation](../../../modules.md) / [models/ResolverBinding](../README.md) / ResolverBinding
-
 # Class: `abstract` ResolverBinding\<V\>
-
-Defined in: [models/ResolverBinding.ts:13](https://github.com/stonemjs/service-container/blob/249b060f7936ebb0ea1e26fa167dc5f8fc0b9bc3/src/models/ResolverBinding.ts#L13)
 
 Class representing a ResolverBinding.
 
@@ -27,17 +19,19 @@ Mr. Stone <evensstone@gmail.com>
 
 ## Type Parameters
 
-• **V** *extends* [`BindingValue`](../../../declarations/type-aliases/BindingValue.md)
+### V
+
+`V` *extends* [`BindingValue`](../../../declarations/type-aliases/BindingValue.md)
 
 The type of value that this binding holds.
 
 ## Constructors
 
-### new ResolverBinding()
+### Constructor
 
-> **new ResolverBinding**\<`V`\>(`resolver`): [`ResolverBinding`](ResolverBinding.md)\<`V`\>
-
-Defined in: [models/ResolverBinding.ts:28](https://github.com/stonemjs/service-container/blob/249b060f7936ebb0ea1e26fa167dc5f8fc0b9bc3/src/models/ResolverBinding.ts#L28)
+```ts
+new ResolverBinding<V>(resolver): ResolverBinding<V>;
+```
 
 Create a new instance of ResolverBinding.
 
@@ -51,7 +45,7 @@ The resolver function to provide the binding value.
 
 #### Returns
 
-[`ResolverBinding`](ResolverBinding.md)\<`V`\>
+`ResolverBinding`\<`V`\>
 
 #### Throws
 
@@ -59,15 +53,15 @@ ContainerError if the resolver is not a function.
 
 #### Overrides
 
-[`Binding`](../../Binding/classes/Binding.md).[`constructor`](../../Binding/classes/Binding.md#constructors)
+[`Binding`](../../Binding/classes/Binding.md).[`constructor`](../../Binding/classes/Binding.md#constructor)
 
 ## Properties
 
 ### resolver
 
-> `protected` `readonly` **resolver**: [`Resolver`](../../../declarations/type-aliases/Resolver.md)\<`V`\>
-
-Defined in: [models/ResolverBinding.ts:20](https://github.com/stonemjs/service-container/blob/249b060f7936ebb0ea1e26fa167dc5f8fc0b9bc3/src/models/ResolverBinding.ts#L20)
+```ts
+protected readonly resolver: Resolver<V>;
+```
 
 The resolver function used to provide the binding value.
 
@@ -78,9 +72,9 @@ and dependency resolution. It should return an instance of type `V`.
 
 ### value?
 
-> `protected` `optional` **value**: `V`
-
-Defined in: [models/Binding.ts:20](https://github.com/stonemjs/service-container/blob/249b060f7936ebb0ea1e26fa167dc5f8fc0b9bc3/src/models/Binding.ts#L20)
+```ts
+protected optional value: V;
+```
 
 The value held by the binding.
 
@@ -88,15 +82,15 @@ This value is resolved at runtime, either directly or through a resolver functio
 
 #### Inherited from
 
-[`Binding`](../../Binding/classes/Binding.md).[`value`](../../Binding/classes/Binding.md#value-1)
+[`Binding`](../../Binding/classes/Binding.md).[`value`](../../Binding/classes/Binding.md#value)
 
 ## Methods
 
 ### isResolved()
 
-> `protected` **isResolved**(): `boolean`
-
-Defined in: [models/Binding.ts:36](https://github.com/stonemjs/service-container/blob/249b060f7936ebb0ea1e26fa167dc5f8fc0b9bc3/src/models/Binding.ts#L36)
+```ts
+protected isResolved(): boolean;
+```
 
 Check if the value has been resolved.
 
@@ -114,9 +108,9 @@ A boolean indicating whether the value has been resolved.
 
 ### resolve()
 
-> `abstract` **resolve**(`container`): `undefined` \| `V`
-
-Defined in: [models/Binding.ts:48](https://github.com/stonemjs/service-container/blob/249b060f7936ebb0ea1e26fa167dc5f8fc0b9bc3/src/models/Binding.ts#L48)
+```ts
+abstract resolve(container): undefined | V;
+```
 
 Resolve and return the value of the binding.
 

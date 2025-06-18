@@ -11,22 +11,22 @@ let TARGET_MAJOR_VERSION = null;
 
 // --- 🔗 Repo list ---
 const repositories = [
-  { name: "core", url: "https://github.com/stonemjs/core" },
-  { name: "pipeline", url: "https://github.com/stonemjs/pipeline" },
-  { name: "service-container", url: "https://github.com/stonemjs/service-container" },
-  { name: "config", url: "https://github.com/stonemjs/config" },
-  { name: "env", url: "https://github.com/stonemjs/env" },
-  { name: "filesystem", url: "https://github.com/stonemjs/filesystem" },
-  { name: "http-core", url: "https://github.com/stonemjs/http-core" },
-  { name: "browser-core", url: "https://github.com/stonemjs/browser-core" },
-  { name: "node-http-adapter", url: "https://github.com/stonemjs/node-http-adapter" },
-  { name: "aws-lambda-http-adapter", url: "https://github.com/stonemjs/aws-lambda-http-adapter" },
-  { name: "aws-lambda-adapter", url: "https://github.com/stonemjs/aws-lambda-adapter" },
-  { name: "browser-adapter", url: "https://github.com/stonemjs/browser-adapter" },
-  { name: "node-cli-adapter", url: "https://github.com/stonemjs/node-cli-adapter" },
-  { name: "router", url: "https://github.com/stonemjs/router" },
-  { name: "use-react", url: "https://github.com/stonemjs/use-react" },
-  { name: "cli", url: "https://github.com/stonemjs/cli" }
+  { name: "core", url: "https://github.com/stone-foundation/stone-js-core" },
+  { name: "pipeline", url: "https://github.com/stone-foundation/stone-js-pipeline" },
+  { name: "service-container", url: "https://github.com/stone-foundation/stone-js-service-container" },
+  { name: "config", url: "https://github.com/stone-foundation/stone-js-config" },
+  { name: "env", url: "https://github.com/stone-foundation/stone-js-env" },
+  { name: "filesystem", url: "https://github.com/stone-foundation/stone-js-filesystem" },
+  { name: "http-core", url: "https://github.com/stone-foundation/stone-js-http-core" },
+  { name: "browser-core", url: "https://github.com/stone-foundation/stone-js-browser-core" },
+  { name: "node-http-adapter", url: "https://github.com/stone-foundation/stone-js-node-http-adapter" },
+  { name: "aws-lambda-http-adapter", url: "https://github.com/stone-foundation/stone-js-aws-lambda-http-adapter" },
+  { name: "aws-lambda-adapter", url: "https://github.com/stone-foundation/stone-js-aws-lambda-adapter" },
+  { name: "browser-adapter", url: "https://github.com/stone-foundation/stone-js-browser-adapter" },
+  { name: "node-cli-adapter", url: "https://github.com/stone-foundation/stone-js-node-cli-adapter" },
+  { name: "router", url: "https://github.com/stone-foundation/stone-js-router" },
+  { name: "use-react", url: "https://github.com/stone-foundation/stone-js-use-react" },
+  { name: "cli", url: "https://github.com/stone-foundation/stone-js-cli" }
 ];
 
 try {

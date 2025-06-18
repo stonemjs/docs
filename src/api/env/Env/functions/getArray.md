@@ -1,9 +1,3 @@
-[**Env Documentation**](../../README.md)
-
-***
-
-[Env Documentation](../../README.md) / [Env](../README.md) / getArray
-
 # Function: getArray()
 
 Get the specified env variable value as an array.
@@ -18,9 +12,9 @@ Options for retrieving the value.
 
 ## Call Signature
 
-> **getArray**(`key`): `undefined` \| `string`[]
-
-Defined in: [Env.ts:181](https://github.com/stonemjs/env/blob/23fb7680a09f87fe5357fe99ea6eb16187d6b1f8/src/Env.ts#L181)
+```ts
+function getArray(key): undefined | string[];
+```
 
 Get the specified env variable value as an array.
 
@@ -48,9 +42,9 @@ Options for retrieving the value.
 
 ## Call Signature
 
-> **getArray**(`key`, `options`): `string`[]
-
-Defined in: [Env.ts:190](https://github.com/stonemjs/env/blob/23fb7680a09f87fe5357fe99ea6eb16187d6b1f8/src/Env.ts#L190)
+```ts
+function getArray(key, options): string[];
+```
 
 Get the specified env variable value as an array.
 

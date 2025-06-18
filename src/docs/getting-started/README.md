@@ -7,7 +7,7 @@ Stone.js is a Node.js framework requiring **JavaScript** or **TypeScript** skill
 Oh! I forgot! First of all, you need a computer.
 
 Ensure you have:
-- At least the latest version of [Node.js v20](https://nodejs.org/download/release/v18.19.0/)
+- At least the latest version of [Node.js v18](https://nodejs.org/download/release/v18.19.0/)
 - A package manager like `npm`, `yarn` or `pnpm`
 
 Verify Node.js installation:
@@ -32,7 +32,7 @@ Execute from the console:
 @tab:active npm
 
 ```bash
-npm create @stone-js@latest hello-world
+npm create @stone-js hello-world
 ```
 
 @tab yarn
@@ -55,7 +55,7 @@ You can create a Stone.js project with default configurations by skipping the in
 @tab:active npm
 
 ```bash
-npm create @stone-js@latest hello-world -- -y
+npm create @stone-js hello-world -- -y
 ```
 
 @tab yarn
@@ -87,7 +87,7 @@ Alternatively, run the command in the current directory:
 @tab:active npm
 
 ```bash
-npm create @stone-js@latest .
+npm create @stone-js .
 ```
 
 @tab yarn
@@ -222,8 +222,6 @@ node server.mjs
 
 Or deploy it on any serverless platform using an appropriate adapter, which we will discuss later.
 
-Sure! Based on everything we’ve discussed about Stone.js and its philosophy—like **the Continuum Architecture**, deployment flexibility, decorator-based or imperative APIs, and keeping things fun and clear—here’s a polished, professional, and easy-to-follow English version of the **Manual Installation** section for the Stone.js documentation:
-
 ## Manual installation
 
 Wanna start your Stone.js app from scratch, like a true master of the continuum? No problem. Here's how to go fully manual and configure everything yourself, step by step.
@@ -268,7 +266,7 @@ Stone.js uses decorators (yes, the fancy JS feature), so you'll need Babel plugi
 npm i -D @babel/plugin-proposal-decorators @babel/preset-env
 ```
 
-Using TypeScript? Of course you are—you’re classy.
+Using TypeScript? Of course you are, you’re classy.
 
 ```bash
 npm i -D @babel/preset-typescript @types/node @types/react @types/react-dom
@@ -322,21 +320,19 @@ export class Application implements IEventHandler<IncomingEvent> {
 }
 ```
 
-#### Example: React Frontend App
+#### Example: React App
 
 ```tsx
 // app/Application.tsx
 import { ReactNode } from "react"
 import { StoneApp } from "@stone-js/core"
 import { Browser } from "@stone-js/browser-adapter"
-import {
-  UseReact, IComponentEventHandler, ReactIncomingEvent, RenderContext
-} from "@stone-js/use-react"
+import { UseReact, IPage, ReactIncomingEvent, RenderContext } from "@stone-js/use-react"
 
 @Browser()
 @UseReact()
 @StoneApp()
-export class Application implements IComponentEventHandler<ReactIncomingEvent> {
+export class Application implements IPage<ReactIncomingEvent> {
   handle(event: ReactIncomingEvent): { message: string } {
     return { message: "Hello world!" }
   }
@@ -347,7 +343,9 @@ export class Application implements IComponentEventHandler<ReactIncomingEvent> {
 }
 ```
 
-> You can use regular JavaScript too—just remove the types and keep the logic!
+::: tip
+You can use regular JavaScript too, just remove the types and keep the logic!
+:::
 
 
 ### Option 2: Imperative API (Full Control)
@@ -374,7 +372,7 @@ export const AppBlueprint = defineBlueprintConfig(nodeHttpAdapterBlueprint, {
 })
 ```
 
-#### Example: React Frontend App
+#### Example: React App
 
 ```tsx
 // app/Application.tsx
@@ -407,7 +405,7 @@ export const AppBlueprint = defineBlueprintConfig<UseReactBlueprint>(
 
 ### Optional: TypeScript Config
 
-If you're using TypeScript, create a `tsconfig.json` file and configure it to support decorators and JSX (for frontend apps). You can look at [Stone.js starter templates](https://github.com/stonemjs/starters) for inspiration.
+If you're using TypeScript, create a `tsconfig.json` file and configure it to support decorators and JSX (for frontend apps). You can look at [Stone.js starter templates](https://github.com/stone-foundation/stone-js-starters) for inspiration.
 
 ---
 
@@ -427,4 +425,4 @@ npm run preview   # Preview the build output
 
 You’re now fully set up to build a **modern**, **cloud-native**, and **context-aware** system with Stone.js.
 
-Start small, think big, and deploy anywhere—because in Stone.js, **everything is a continuum**.
+Start small, think big, and deploy anywhere, because in Stone.js, **everything is a continuum**.

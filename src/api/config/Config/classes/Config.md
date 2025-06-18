@@ -1,12 +1,4 @@
-[**Config Documentation**](../../README.md)
-
-***
-
-[Config Documentation](../../README.md) / [Config](../README.md) / Config
-
 # Class: Config\<TObject\>
-
-Defined in: [Config.ts:12](https://github.com/stonemjs/config/blob/ade524096d0b7ceacdb60a4149ff30c957103be1/src/Config.ts#L12)
 
 Class representing a Config.
 
@@ -28,9 +20,9 @@ Mr. Stone <evensstone@gmail.com>
 
 ### Constructor
 
-> `protected` **new Config**\<`TObject`\>(`items?`): `Config`\<`TObject`\>
-
-Defined in: [Config.ts:40](https://github.com/stonemjs/config/blob/ade524096d0b7ceacdb60a4149ff30c957103be1/src/Config.ts#L40)
+```ts
+protected new Config<TObject>(items?): Config<TObject>;
+```
 
 Create a Config.
 
@@ -54,9 +46,9 @@ Initial configuration items.
 
 ### add()
 
-> **add**\<`TValue`\>(`key`, `value`): `this`
-
-Defined in: [Config.ts:186](https://github.com/stonemjs/config/blob/ade524096d0b7ceacdb60a4149ff30c957103be1/src/Config.ts#L186)
+```ts
+add<TValue>(key, value): this;
+```
 
 Add a value to an existing configuration key.
 
@@ -90,9 +82,9 @@ The current Config instance.
 
 ### all()
 
-> **all**(): `TObject`
-
-Defined in: [Config.ts:214](https://github.com/stonemjs/config/blob/ade524096d0b7ceacdb60a4149ff30c957103be1/src/Config.ts#L214)
+```ts
+all(): TObject;
+```
 
 Get all of the configuration items as a literal object.
 
@@ -106,9 +98,9 @@ All configuration items.
 
 ### clear()
 
-> **clear**(): `this`
-
-Defined in: [Config.ts:232](https://github.com/stonemjs/config/blob/ade524096d0b7ceacdb60a4149ff30c957103be1/src/Config.ts#L232)
+```ts
+clear(): this;
+```
 
 Clear all of the configuration items.
 
@@ -134,9 +126,9 @@ The fallback value if no key matches.
 
 #### Call Signature
 
-> **firstMatch**\<`TReturn`\>(`keys`): `undefined` \| `TReturn`
-
-Defined in: [Config.ts:88](https://github.com/stonemjs/config/blob/ade524096d0b7ceacdb60a4149ff30c957103be1/src/Config.ts#L88)
+```ts
+firstMatch<TReturn>(keys): undefined | TReturn;
+```
 
 Get the first match configuration value.
 
@@ -170,9 +162,9 @@ The fallback value if no key matches.
 
 #### Call Signature
 
-> **firstMatch**\<`TReturn`\>(`keys`, `fallback`): `TReturn`
-
-Defined in: [Config.ts:97](https://github.com/stonemjs/config/blob/ade524096d0b7ceacdb60a4149ff30c957103be1/src/Config.ts#L97)
+```ts
+firstMatch<TReturn>(keys, fallback): TReturn;
+```
 
 Get the first match configuration value.
 
@@ -226,9 +218,9 @@ The fallback value if the key does not exist.
 
 #### Call Signature
 
-> **get**\<`TReturn`\>(`key`): `undefined` \| `TReturn`
-
-Defined in: [Config.ts:60](https://github.com/stonemjs/config/blob/ade524096d0b7ceacdb60a4149ff30c957103be1/src/Config.ts#L60)
+```ts
+get<TReturn>(key): undefined | TReturn;
+```
 
 Get the specified configuration value.
 
@@ -262,9 +254,9 @@ The fallback value if the key does not exist.
 
 #### Call Signature
 
-> **get**\<`TReturn`\>(`key`, `fallback`): `TReturn`
-
-Defined in: [Config.ts:69](https://github.com/stonemjs/config/blob/ade524096d0b7ceacdb60a4149ff30c957103be1/src/Config.ts#L69)
+```ts
+get<TReturn>(key, fallback): TReturn;
+```
 
 Get the specified configuration value.
 
@@ -306,9 +298,9 @@ The fallback value if the key does not exist.
 
 ### getMany()
 
-> **getMany**\<`TReturn`\>(`keys`): `TReturn`
-
-Defined in: [Config.ts:117](https://github.com/stonemjs/config/blob/ade524096d0b7ceacdb60a4149ff30c957103be1/src/Config.ts#L117)
+```ts
+getMany<TReturn>(keys): TReturn;
+```
 
 Get many configuration values.
 
@@ -336,9 +328,9 @@ An object containing the requested configuration values.
 
 ### has()
 
-> **has**(`key`): `boolean`
-
-Defined in: [Config.ts:129](https://github.com/stonemjs/config/blob/ade524096d0b7ceacdb60a4149ff30c957103be1/src/Config.ts#L129)
+```ts
+has(key): boolean;
+```
 
 Determine if the given configuration value exists.
 
@@ -360,9 +352,9 @@ True if the key exists, false otherwise.
 
 ### is()
 
-> **is**(`key`, `value`): `boolean`
-
-Defined in: [Config.ts:140](https://github.com/stonemjs/config/blob/ade524096d0b7ceacdb60a4149ff30c957103be1/src/Config.ts#L140)
+```ts
+is(key, value): boolean;
+```
 
 Check if the given configuration value is equal to the specified value.
 
@@ -390,9 +382,9 @@ True if the key's value is equal to the specified value, false otherwise.
 
 ### set()
 
-> **set**\<`TValue`\>(`key`, `value?`): `this`
-
-Defined in: [Config.ts:151](https://github.com/stonemjs/config/blob/ade524096d0b7ceacdb60a4149ff30c957103be1/src/Config.ts#L151)
+```ts
+set<TValue>(key, value?): this;
+```
 
 Set a given configuration value.
 
@@ -426,9 +418,9 @@ The current Config instance.
 
 ### setIf()
 
-> **setIf**\<`TValue`\>(`key`, `value?`): `this`
-
-Defined in: [Config.ts:175](https://github.com/stonemjs/config/blob/ade524096d0b7ceacdb60a4149ff30c957103be1/src/Config.ts#L175)
+```ts
+setIf<TValue>(key, value?): this;
+```
 
 Set a given configuration value if it does not exist.
 
@@ -462,9 +454,9 @@ The current Config instance.
 
 ### setItems()
 
-> **setItems**(`items`): `this`
-
-Defined in: [Config.ts:204](https://github.com/stonemjs/config/blob/ade524096d0b7ceacdb60a4149ff30c957103be1/src/Config.ts#L204)
+```ts
+setItems(items): this;
+```
 
 Set all of the configuration items.
 
@@ -486,9 +478,9 @@ The current Config instance.
 
 ### toJson()
 
-> **toJson**(): `string`
-
-Defined in: [Config.ts:223](https://github.com/stonemjs/config/blob/ade524096d0b7ceacdb60a4149ff30c957103be1/src/Config.ts#L223)
+```ts
+toJson(): string;
+```
 
 Get all of the configuration items as a JSON string.
 
@@ -502,9 +494,9 @@ All configuration items as a JSON string.
 
 ### create()
 
-> `static` **create**\<`TObject`\>(`items?`): `Config`\<`TObject`\>
-
-Defined in: [Config.ts:21](https://github.com/stonemjs/config/blob/ade524096d0b7ceacdb60a4149ff30c957103be1/src/Config.ts#L21)
+```ts
+static create<TObject>(items?): Config<TObject>;
+```
 
 Create a Config.
 
@@ -532,9 +524,9 @@ A new Config instance.
 
 ### fromJson()
 
-> `static` **fromJson**\<`TObject`\>(`items`): `Config`\<`TObject`\>
-
-Defined in: [Config.ts:31](https://github.com/stonemjs/config/blob/ade524096d0b7ceacdb60a4149ff30c957103be1/src/Config.ts#L31)
+```ts
+static fromJson<TObject>(items): Config<TObject>;
+```
 
 Create a Config from a JSON string.
 

@@ -1,12 +1,4 @@
-[**AWS Lambda Adapter Documentation v0.0.2**](../../README.md)
-
-***
-
-[AWS Lambda Adapter Documentation](../../modules.md) / [BrowserAdapter](../README.md) / BrowserAdapter
-
 # Class: BrowserAdapter
-
-Defined in: [src/BrowserAdapter.ts:40](https://github.com/stonemjs/browser-adapter/blob/2a6ec5410a97b6bc45328cca33b607b5a6b7ed84/src/BrowserAdapter.ts#L40)
 
 Browser Adapter for Stone.js.
 
@@ -61,41 +53,54 @@ await adapter.run();
 
 ## Extends
 
-- `Adapter`\<[`BrowserEvent`](../../declarations/type-aliases/BrowserEvent.md), [`BrowserResponse`](../../declarations/type-aliases/BrowserResponse.md), [`BrowserContext`](../../declarations/type-aliases/BrowserContext.md), [`IncomingBrowserEvent`](../../events/IncomingBrowserEvent/classes/IncomingBrowserEvent.md), [`IncomingBrowserEventOptions`](../../events/IncomingBrowserEvent/interfaces/IncomingBrowserEventOptions.md), [`OutgoingBrowserResponse`](../../events/OutgoingBrowserResponse/classes/OutgoingBrowserResponse.md), [`BrowserAdapterContext`](../../declarations/type-aliases/BrowserAdapterContext.md)\>
+- `Adapter`\<[`BrowserEvent`](../../declarations/type-aliases/BrowserEvent.md), [`BrowserResponse`](../../declarations/type-aliases/BrowserResponse.md), [`BrowserContext`](../../declarations/type-aliases/BrowserContext.md), `IncomingBrowserEvent`, `IncomingBrowserEventOptions`, `OutgoingBrowserResponse`, [`BrowserAdapterContext`](../../declarations/type-aliases/BrowserAdapterContext.md)\>
 
 ## Constructors
 
-### new BrowserAdapter()
+### Constructor
 
-> `protected` **new BrowserAdapter**(`options`): [`BrowserAdapter`](BrowserAdapter.md)
-
-Defined in: node\_modules/@stone-js/core/dist/index.d.ts:1876
+```ts
+protected new BrowserAdapter(blueprint): BrowserAdapter;
+```
 
 Create an Adapter.
 
 #### Parameters
 
-##### options
+##### blueprint
 
-`AdapterOptions`\<[`IncomingBrowserEvent`](../../events/IncomingBrowserEvent/classes/IncomingBrowserEvent.md), [`OutgoingBrowserResponse`](../../events/OutgoingBrowserResponse/classes/OutgoingBrowserResponse.md)\>
+`IBlueprint`
 
-Adapter options.
+The blueprint to create the adapter.
 
 #### Returns
 
-[`BrowserAdapter`](BrowserAdapter.md)
+`BrowserAdapter`
 
 #### Inherited from
 
-`Adapter< BrowserEvent, BrowserResponse, BrowserContext, IncomingBrowserEvent, IncomingBrowserEventOptions, OutgoingBrowserResponse, BrowserAdapterContext >.constructor`
+```ts
+Adapter<
+BrowserEvent,
+BrowserResponse,
+BrowserContext,
+IncomingBrowserEvent,
+IncomingBrowserEventOptions,
+OutgoingBrowserResponse,
+BrowserAdapterContext
+>.constructor
+```
 
 ## Methods
 
 ### eventListener()
 
-> `protected` **eventListener**(`eventHandler`, `rawEvent`, `executionContext`): `Promise`\<[`BrowserResponse`](../../declarations/type-aliases/BrowserResponse.md)\>
-
-Defined in: [src/BrowserAdapter.ts:115](https://github.com/stonemjs/browser-adapter/blob/2a6ec5410a97b6bc45328cca33b607b5a6b7ed84/src/BrowserAdapter.ts#L115)
+```ts
+protected eventListener(
+   eventHandler, 
+   rawEvent, 
+executionContext): Promise<unknown>;
+```
 
 Processes an incoming Browser event.
 
@@ -106,7 +111,7 @@ processes it through the pipeline, and generates a `RawResponse` to send back.
 
 ##### eventHandler
 
-`EventHandler`\<[`IncomingBrowserEvent`](../../events/IncomingBrowserEvent/classes/IncomingBrowserEvent.md), [`OutgoingBrowserResponse`](../../events/OutgoingBrowserResponse/classes/OutgoingBrowserResponse.md)\>
+`AdapterEventHandlerType`\<`IncomingBrowserEvent`, `OutgoingBrowserResponse`\>
 
 ##### rawEvent
 
@@ -122,17 +127,17 @@ The Browser execution context for the event.
 
 #### Returns
 
-`Promise`\<[`BrowserResponse`](../../declarations/type-aliases/BrowserResponse.md)\>
+`Promise`\<`unknown`\>
 
 A promise resolving to the processed `RawResponse`.
 
 ***
 
-### onInit()
+### onStart()
 
-> `protected` **onInit**(): `Promise`\<`void`\>
-
-Defined in: [src/BrowserAdapter.ts:97](https://github.com/stonemjs/browser-adapter/blob/2a6ec5410a97b6bc45328cca33b607b5a6b7ed84/src/BrowserAdapter.ts#L97)
+```ts
+protected onStart(): Promise<void>;
+```
 
 Initializes the adapter and validates its execution context.
 
@@ -147,17 +152,13 @@ throws an error to prevent misuse.
 
 If executed outside a Browser context (e.g., node).
 
-#### Overrides
-
-`Adapter.onInit`
-
 ***
 
 ### run()
 
-> **run**\<`ExecutionResultType`\>(): `Promise`\<`ExecutionResultType`\>
-
-Defined in: [src/BrowserAdapter.ts:72](https://github.com/stonemjs/browser-adapter/blob/2a6ec5410a97b6bc45328cca33b607b5a6b7ed84/src/BrowserAdapter.ts#L72)
+```ts
+run<ExecutionResultType>(): Promise<ExecutionResultType>;
+```
 
 Executes the adapter and provides an Browser-compatible handler function.
 
@@ -166,7 +167,9 @@ It processes these events, generates a response, and sends it back to the Browse
 
 #### Type Parameters
 
-• **ExecutionResultType** = `undefined`
+##### ExecutionResultType
+
+`ExecutionResultType` = `undefined`
 
 #### Returns
 
@@ -178,33 +181,37 @@ If used outside the Browser environment.
 
 #### Overrides
 
-`Adapter.run`
+```ts
+Adapter.run
+```
 
 ***
 
 ### create()
 
-> `static` **create**(`options`): [`BrowserAdapter`](BrowserAdapter.md)
-
-Defined in: [src/BrowserAdapter.ts:60](https://github.com/stonemjs/browser-adapter/blob/2a6ec5410a97b6bc45328cca33b607b5a6b7ed84/src/BrowserAdapter.ts#L60)
+```ts
+static create(blueprint): BrowserAdapter;
+```
 
 Creates an instance of the `BrowserAdapter`.
 
-This factory method allows developers to instantiate the adapter with
-the necessary configuration options, ensuring it is correctly set up for
-Browser usage.
-
 #### Parameters
 
-##### options
+##### blueprint
 
-`AdapterOptions`\<[`IncomingBrowserEvent`](../../events/IncomingBrowserEvent/classes/IncomingBrowserEvent.md), [`OutgoingBrowserResponse`](../../events/OutgoingBrowserResponse/classes/OutgoingBrowserResponse.md)\>
+`IBlueprint`
 
-The configuration options for the adapter, including
-                 handler resolver, error handling, and other settings.
+The application blueprint.
 
 #### Returns
 
-[`BrowserAdapter`](BrowserAdapter.md)
+`BrowserAdapter`
 
-A fully initialized `BrowserAdapter` instance.
+A new instance of `BrowserAdapter`.
+
+#### Example
+
+```typescript
+const adapter = BrowserAdapter.create(blueprint);
+await adapter.run();
+```
