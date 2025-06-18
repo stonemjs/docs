@@ -1,12 +1,4 @@
-[**Config Documentation**](../../README.md)
-
-***
-
-[Config Documentation](../../README.md) / [Proxiable](../README.md) / Proxiable
-
 # Class: `abstract` Proxiable
-
-Defined in: [Proxiable.ts:9](https://github.com/stonemjs/config/blob/ade524096d0b7ceacdb60a4149ff30c957103be1/src/Proxiable.ts#L9)
 
 Class representing a Proxiable.
 
@@ -24,9 +16,9 @@ Mr. Stone <evensstone@gmail.com>
 
 ### Constructor
 
-> **new Proxiable**(`handler`): `Proxiable`
-
-Defined in: [Proxiable.ts:16](https://github.com/stonemjs/config/blob/ade524096d0b7ceacdb60a4149ff30c957103be1/src/Proxiable.ts#L16)
+```ts
+new Proxiable(handler): Proxiable;
+```
 
 Creates a Proxiable instance wrapped in a Proxy.
 

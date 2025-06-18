@@ -1,11 +1,5 @@
-[**HTTP Core Documentation**](../../README.md)
-
-***
-
-[HTTP Core Documentation](../../README.md) / [constants](../README.md) / HTTP\_REQUEST\_ENTITY\_TOO\_LARGE
-
 # Variable: HTTP\_REQUEST\_ENTITY\_TOO\_LARGE
 
-> `const` **HTTP\_REQUEST\_ENTITY\_TOO\_LARGE**: `413` = `413`
-
-Defined in: [src/constants.ts:51](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/constants.ts#L51)
+```ts
+const HTTP_REQUEST_ENTITY_TOO_LARGE: 413 = 413;
+```

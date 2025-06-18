@@ -1,14 +1,8 @@
-[**HTTP Core Documentation**](../../../README.md)
-
-***
-
-[HTTP Core Documentation](../../../README.md) / [decorators/JsonHttpResponse](../README.md) / JsonHttpResponse
-
 # Function: JsonHttpResponse()
 
-> **JsonHttpResponse**\<`T`\>(`statusCode`, `headers`): `MethodDecorator`
-
-Defined in: [src/decorators/JsonHttpResponse.ts:26](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/decorators/JsonHttpResponse.ts#L26)
+```ts
+function JsonHttpResponse<T>(statusCode, headers): MethodDecorator;
+```
 
 Decorator to mark a class method as a JSON outgoing http response.
 

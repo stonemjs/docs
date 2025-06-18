@@ -1,9 +1,3 @@
-[**Node Adapter Documentation v0.0.21**](../README.md)
-
-***
-
-[Node Adapter Documentation](../modules.md) / declarations
-
 # declarations
 
 ## Interfaces
@@ -18,3 +12,4 @@
 - [NodeHttpServerOptions](type-aliases/NodeHttpServerOptions.md)
 - [NodeHttpsServerOptions](type-aliases/NodeHttpsServerOptions.md)
 - [NodeServerOptions](type-aliases/NodeServerOptions.md)
+- [ServerMiddleware](type-aliases/ServerMiddleware.md)

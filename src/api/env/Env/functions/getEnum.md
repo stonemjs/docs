@@ -1,9 +1,3 @@
-[**Env Documentation**](../../README.md)
-
-***
-
-[Env Documentation](../../README.md) / [Env](../README.md) / getEnum
-
 # Function: getEnum()
 
 Get the specified env variable value as an enum.
@@ -26,9 +20,9 @@ Options for retrieving the value.
 
 ## Call Signature
 
-> **getEnum**(`key`, `enums`): `undefined` \| `string`
-
-Defined in: [Env.ts:312](https://github.com/stonemjs/env/blob/23fb7680a09f87fe5357fe99ea6eb16187d6b1f8/src/Env.ts#L312)
+```ts
+function getEnum(key, enums): undefined | string;
+```
 
 Get the specified env variable value as an enum.
 
@@ -70,9 +64,13 @@ Options for retrieving the value.
 
 ## Call Signature
 
-> **getEnum**(`key`, `enums`, `defaultValue`, `options?`): `string`
-
-Defined in: [Env.ts:323](https://github.com/stonemjs/env/blob/23fb7680a09f87fe5357fe99ea6eb16187d6b1f8/src/Env.ts#L323)
+```ts
+function getEnum(
+   key, 
+   enums, 
+   defaultValue, 
+   options?): string;
+```
 
 Get the specified env variable value as an enum.
 

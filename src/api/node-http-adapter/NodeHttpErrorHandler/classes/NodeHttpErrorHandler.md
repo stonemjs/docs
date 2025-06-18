@@ -1,12 +1,4 @@
-[**Node Adapter Documentation v0.0.21**](../../README.md)
-
-***
-
-[Node Adapter Documentation](../../modules.md) / [NodeHttpErrorHandler](../README.md) / NodeHttpErrorHandler
-
 # Class: NodeHttpErrorHandler
-
-Defined in: src/NodeHttpErrorHandler.ts:19
 
 Class representing an NodeHttpErrorHandler.
 
@@ -16,11 +8,11 @@ Class representing an NodeHttpErrorHandler.
 
 ## Constructors
 
-### new NodeHttpErrorHandler()
+### Constructor
 
-> **new NodeHttpErrorHandler**(`options`): [`NodeHttpErrorHandler`](NodeHttpErrorHandler.md)
-
-Defined in: src/NodeHttpErrorHandler.ts:27
+```ts
+new NodeHttpErrorHandler(options): NodeHttpErrorHandler;
+```
 
 Create an NodeHttpErrorHandler.
 
@@ -34,15 +26,15 @@ NodeHttpErrorHandler options.
 
 #### Returns
 
-[`NodeHttpErrorHandler`](NodeHttpErrorHandler.md)
+`NodeHttpErrorHandler`
 
 ## Methods
 
 ### handle()
 
-> **handle**(`error`, `context`): `Promise`\<`ServerResponse`\>
-
-Defined in: src/NodeHttpErrorHandler.ts:42
+```ts
+handle(error, context): AdapterEventBuilderType<ServerResponse<IncomingMessage>>;
+```
 
 Handle an error.
 
@@ -56,16 +48,18 @@ The error to handle.
 
 ##### context
 
-`AdapterErrorContext`\<`IncomingMessage`, `ServerResponse`, [`NodeHttpServer`](../../declarations/type-aliases/NodeHttpServer.md)\>
+`AdapterErrorContext`\<`IncomingMessage`, `ServerResponse`\<`IncomingMessage`\>, [`NodeHttpServer`](../../declarations/type-aliases/NodeHttpServer.md)\>
 
 The context of the adapter.
 
 #### Returns
 
-`Promise`\<`ServerResponse`\>
+`AdapterEventBuilderType`\<`ServerResponse`\<`IncomingMessage`\>\>
 
-The raw response.
+The raw response builder.
 
 #### Implementation of
 
-`IAdapterErrorHandler.handle`
+```ts
+IAdapterErrorHandler.handle
+```

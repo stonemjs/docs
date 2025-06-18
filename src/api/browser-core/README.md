@@ -1,8 +1,4 @@
-**Browser Core Documentation**
-
-***
-
-# Browser Core Documentation
+# Browser Core
 
 ## Modules
 

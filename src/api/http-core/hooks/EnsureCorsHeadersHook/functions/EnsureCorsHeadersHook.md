@@ -1,14 +1,8 @@
-[**HTTP Core Documentation**](../../../README.md)
-
-***
-
-[HTTP Core Documentation](../../../README.md) / [hooks/EnsureCorsHeadersHook](../README.md) / EnsureCorsHeadersHook
-
 # Function: EnsureCorsHeadersHook()
 
-> **EnsureCorsHeadersHook**(`options`): `Promise`\<`void`\>
-
-Defined in: [src/hooks/EnsureCorsHeadersHook.ts:27](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/hooks/EnsureCorsHeadersHook.ts#L27)
+```ts
+function EnsureCorsHeadersHook(options): Promise<void>;
+```
 
 Ensure CORS headers at the "onBuildingRawResponse" stage.
 

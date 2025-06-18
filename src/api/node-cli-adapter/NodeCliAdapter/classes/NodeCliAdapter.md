@@ -1,9 +1,3 @@
-[**Node CLI Adapter Documentation v0.0.0**](../../README.md)
-
-***
-
-[Node CLI Adapter Documentation](../../modules.md) / [NodeCliAdapter](../README.md) / NodeCliAdapter
-
 # Class: NodeCliAdapter
 
 Node Cli Adapter for Stone.js.
@@ -65,27 +59,30 @@ export { handler };
 
 ## Constructors
 
-### new NodeCliAdapter()
+### Constructor
 
-> `protected` **new NodeCliAdapter**(`options`): [`NodeCliAdapter`](NodeCliAdapter.md)
+```ts
+protected new NodeCliAdapter(blueprint): NodeCliAdapter;
+```
 
 Create an Adapter.
 
 #### Parameters
 
-##### options
+##### blueprint
 
-`AdapterOptions`\<`number`, `IncomingEvent`, `OutgoingResponse`\>
+`IBlueprint`
 
-Adapter options.
+The blueprint to create the adapter.
 
 #### Returns
 
-[`NodeCliAdapter`](NodeCliAdapter.md)
+`NodeCliAdapter`
 
 #### Inherited from
 
-`Adapter<
+```ts
+Adapter<
 NodeCliEvent,
 RawResponse,
 NodeCliExecutionContext,
@@ -93,17 +90,16 @@ IncomingEvent,
 IncomingEventOptions,
 OutgoingResponse,
 NodeCliAdapterContext
->.constructor`
-
-#### Defined in
-
-node\_modules/@stone-js/core/dist/index.d.ts:1772
+>.constructor
+```
 
 ## Methods
 
 ### eventListener()
 
-> `protected` **eventListener**(`rawEvent`, `executionContext`): `Promise`\<`number`\>
+```ts
+protected eventListener(rawEvent, executionContext): Promise<number>;
+```
 
 Processes an incoming Node Cli event.
 
@@ -130,15 +126,13 @@ The Node Cli execution context for the event.
 
 A promise resolving to the processed `RawResponse`.
 
-#### Defined in
-
-[src/NodeCliAdapter.ts:130](https://github.com/stonemjs/node-cli-adapter/blob/30743f7aaaae46db17826e810be4549d56406b6f/src/NodeCliAdapter.ts#L130)
-
 ***
 
-### onInit()
+### onStart()
 
-> `protected` **onInit**(): `Promise`\<`void`\>
+```ts
+protected onStart(): Promise<void>;
+```
 
 Initializes the adapter and validates its execution context.
 
@@ -153,19 +147,13 @@ throws an error to prevent misuse.
 
 If executed outside an Node Cli context (e.g., browser).
 
-#### Overrides
-
-`Adapter.onInit`
-
-#### Defined in
-
-[src/NodeCliAdapter.ts:110](https://github.com/stonemjs/node-cli-adapter/blob/30743f7aaaae46db17826e810be4549d56406b6f/src/NodeCliAdapter.ts#L110)
-
 ***
 
 ### run()
 
-> **run**\<`ExecutionResultType`\>(): `Promise`\<`ExecutionResultType`\>
+```ts
+run<ExecutionResultType>(): Promise<ExecutionResultType>;
+```
 
 Executes the adapter and provides an Node Cli-compatible handler function.
 
@@ -173,7 +161,9 @@ The `run` method processes events, manages context, and returns the appropriate 
 
 #### Type Parameters
 
-• **ExecutionResultType** = `number`
+##### ExecutionResultType
+
+`ExecutionResultType` = `number`
 
 The type representing the Node Cli event handler function.
 
@@ -189,39 +179,37 @@ If used outside the Node Cli environment.
 
 #### Overrides
 
-`Adapter.run`
-
-#### Defined in
-
-[src/NodeCliAdapter.ts:90](https://github.com/stonemjs/node-cli-adapter/blob/30743f7aaaae46db17826e810be4549d56406b6f/src/NodeCliAdapter.ts#L90)
+```ts
+Adapter.run
+```
 
 ***
 
 ### create()
 
-> `static` **create**(`options`): [`NodeCliAdapter`](NodeCliAdapter.md)
+```ts
+static create(blueprint): NodeCliAdapter;
+```
 
 Creates an instance of the `NodeCliAdapter`.
 
-This factory method allows developers to instantiate the adapter with
-the necessary configuration options, ensuring it is correctly set up for
-Node Cli usage.
-
 #### Parameters
 
-##### options
+##### blueprint
 
-`AdapterOptions`\<`number`, `IncomingEvent`, `OutgoingResponse`\>
+`IBlueprint`
 
-The configuration options for the adapter, including
-                 handler resolver, error handling, and other settings.
+The application blueprint.
 
 #### Returns
 
-[`NodeCliAdapter`](NodeCliAdapter.md)
+`NodeCliAdapter`
 
-A fully initialized `NodeCliAdapter` instance.
+A new instance of `NodeCliAdapter`.
 
-#### Defined in
+#### Example
 
-[src/NodeCliAdapter.ts:66](https://github.com/stonemjs/node-cli-adapter/blob/30743f7aaaae46db17826e810be4549d56406b6f/src/NodeCliAdapter.ts#L66)
+```typescript
+const adapter = NodeCliAdapter.create(blueprint);
+await adapter.run();
+```

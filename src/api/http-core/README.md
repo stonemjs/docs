@@ -1,8 +1,4 @@
-**HTTP Core Documentation**
-
-***
-
-# HTTP Core Documentation
+# HTTP Core
 
 ## Modules
 

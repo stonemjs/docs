@@ -49,6 +49,10 @@
     padding: 0;
   }
 
+  .vp-hero-infos {
+    padding-bottom: 3rem;
+  }
+
   .vp-hero-title {
     line-height: 1.2;
   }

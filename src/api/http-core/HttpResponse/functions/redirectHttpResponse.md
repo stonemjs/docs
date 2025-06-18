@@ -1,14 +1,11 @@
-[**HTTP Core Documentation**](../../README.md)
-
-***
-
-[HTTP Core Documentation](../../README.md) / [HttpResponse](../README.md) / redirectHttpResponse
-
 # Function: redirectHttpResponse()
 
-> **redirectHttpResponse**(`url`, `statusCode`, `headers`): [`RedirectResponse`](../../RedirectResponse/classes/RedirectResponse.md)
-
-Defined in: [src/HttpResponse.ts:196](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/HttpResponse.ts#L196)
+```ts
+function redirectHttpResponse(
+   url, 
+   statusCode, 
+   headers): RedirectResponse;
+```
 
 Create a 302(Redirect) OutgoingHttpResponse.
 

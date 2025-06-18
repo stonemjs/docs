@@ -1,9 +1,3 @@
-[**Env Documentation**](../../README.md)
-
-***
-
-[Env Documentation](../../README.md) / [Env](../README.md) / getUrl
-
 # Function: getUrl()
 
 Get the specified env variable value as a URL.
@@ -18,9 +12,9 @@ Options for retrieving the value.
 
 ## Call Signature
 
-> **getUrl**(`key`): `undefined` \| `string`
-
-Defined in: [Env.ts:407](https://github.com/stonemjs/env/blob/23fb7680a09f87fe5357fe99ea6eb16187d6b1f8/src/Env.ts#L407)
+```ts
+function getUrl(key): undefined | string;
+```
 
 Get the specified env variable value as a URL.
 
@@ -48,9 +42,9 @@ Options for retrieving the value.
 
 ## Call Signature
 
-> **getUrl**(`key`, `options`): `string`
-
-Defined in: [Env.ts:416](https://github.com/stonemjs/env/blob/23fb7680a09f87fe5357fe99ea6eb16187d6b1f8/src/Env.ts#L416)
+```ts
+function getUrl(key, options): string;
+```
 
 Get the specified env variable value as a URL.
 

@@ -1,12 +1,4 @@
-[**HTTP Core Documentation**](../../../README.md)
-
-***
-
-[HTTP Core Documentation](../../../README.md) / [errors/InternalServerError](../README.md) / InternalServerError
-
 # Class: InternalServerError
-
-Defined in: [src/errors/InternalServerError.ts:6](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/errors/InternalServerError.ts#L6)
 
 InternalServer http error.
 
@@ -18,9 +10,9 @@ InternalServer http error.
 
 ### Constructor
 
-> **new InternalServerError**(`message`, `options`): `InternalServerError`
-
-Defined in: [src/errors/InternalServerError.ts:7](https://github.com/stonemjs/http-core/blob/0d369869add0f1630e9b5b2cd1421e57ee8d3865/src/errors/InternalServerError.ts#L7)
+```ts
+new InternalServerError(message, options): InternalServerError;
+```
 
 #### Parameters
 
@@ -38,4 +30,6 @@ Defined in: [src/errors/InternalServerError.ts:7](https://github.com/stonemjs/ht
 
 #### Overrides
 
-`RuntimeError.constructor`
+```ts
+RuntimeError.constructor
+```

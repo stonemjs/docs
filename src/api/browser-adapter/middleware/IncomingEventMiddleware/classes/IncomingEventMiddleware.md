@@ -1,12 +1,4 @@
-[**AWS Lambda Adapter Documentation v0.0.2**](../../../README.md)
-
-***
-
-[AWS Lambda Adapter Documentation](../../../modules.md) / [middleware/IncomingEventMiddleware](../README.md) / IncomingEventMiddleware
-
 # Class: IncomingEventMiddleware
-
-Defined in: [src/middleware/IncomingEventMiddleware.ts:13](https://github.com/stonemjs/browser-adapter/blob/2a6ec5410a97b6bc45328cca33b607b5a6b7ed84/src/middleware/IncomingEventMiddleware.ts#L13)
 
 Middleware for handling incoming events and transforming them into Stone.js events.
 
@@ -15,11 +7,11 @@ headers, cookies, and more, and forwards them to the next middleware in the pipe
 
 ## Constructors
 
-### new IncomingEventMiddleware()
+### Constructor
 
-> **new IncomingEventMiddleware**(`options`): [`IncomingEventMiddleware`](IncomingEventMiddleware.md)
-
-Defined in: [src/middleware/IncomingEventMiddleware.ts:24](https://github.com/stonemjs/browser-adapter/blob/2a6ec5410a97b6bc45328cca33b607b5a6b7ed84/src/middleware/IncomingEventMiddleware.ts#L24)
+```ts
+new IncomingEventMiddleware(options): IncomingEventMiddleware;
+```
 
 Create an IncomingEventMiddleware instance.
 
@@ -35,15 +27,15 @@ Options containing the blueprint for resolving configuration and dependencies.
 
 #### Returns
 
-[`IncomingEventMiddleware`](IncomingEventMiddleware.md)
+`IncomingEventMiddleware`
 
 ## Methods
 
 ### handle()
 
-> **handle**(`context`, `next`): `Promise`\<[`BrowserAdapterResponseBuilder`](../../../declarations/type-aliases/BrowserAdapterResponseBuilder.md)\>
-
-Defined in: [src/middleware/IncomingEventMiddleware.ts:36](https://github.com/stonemjs/browser-adapter/blob/2a6ec5410a97b6bc45328cca33b607b5a6b7ed84/src/middleware/IncomingEventMiddleware.ts#L36)
+```ts
+handle(context, next): Promise<BrowserAdapterResponseBuilder>;
+```
 
 Handles the incoming event, processes it, and invokes the next middleware in the pipeline.
 
@@ -57,7 +49,7 @@ The adapter context containing the raw event, execution context, and other data.
 
 ##### next
 
-`NextPipe`\<[`BrowserAdapterContext`](../../../declarations/type-aliases/BrowserAdapterContext.md), [`BrowserAdapterResponseBuilder`](../../../declarations/type-aliases/BrowserAdapterResponseBuilder.md)\>
+`NextMiddleware`\<[`BrowserAdapterContext`](../../../declarations/type-aliases/BrowserAdapterContext.md), [`BrowserAdapterResponseBuilder`](../../../declarations/type-aliases/BrowserAdapterResponseBuilder.md)\>
 
 The next middleware to be invoked in the pipeline.
 

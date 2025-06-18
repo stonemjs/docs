@@ -1,8 +1,4 @@
-**Config Documentation**
-
-***
-
-# Config Documentation
+# Config
 
 ## Modules
 

@@ -1,16 +1,8 @@
-[**AWS Lambda Adapter Documentation v0.0.2**](../../README.md)
-
-***
-
-[AWS Lambda Adapter Documentation](../../modules.md) / [AWSLambdaAdapter](../README.md) / AWSLambdaAdapter
-
-# Class: AWSLambdaAdapter
-
-Defined in: [src/AWSLambdaAdapter.ts:40](https://github.com/stonemjs/aws-lambda-adapter/blob/9de4b38bb7a5afd4d5599dae1399969698a2422d/src/AWSLambdaAdapter.ts#L40)
+# Class: AwsLambdaAdapter
 
 AWS Lambda Adapter for Stone.js.
 
-The `AWSLambdaAdapter` provides seamless integration between Stone.js applications
+The `AwsLambdaAdapter` provides seamless integration between Stone.js applications
 and the AWS Lambda environment. It processes incoming events from AWS Lambda,
 transforms them into `IncomingEvent` instances, and returns a `RawResponse`.
 
@@ -48,9 +40,9 @@ Context type specific to the adapter.
 ## Example
 
 ```typescript
-import { AWSLambdaAdapter } from '@stone-js/aws-lambda-adapter';
+import { AwsLambdaAdapter } from '@stone-js/aws-lambda-adapter';
 
-const adapter = AWSLambdaAdapter.create({...});
+const adapter = AwsLambdaAdapter.create({...});
 
 const handler = await adapter.run();
 
@@ -68,37 +60,47 @@ export { handler };
 
 ## Constructors
 
-### new AWSLambdaAdapter()
+### Constructor
 
-> `protected` **new AWSLambdaAdapter**(`options`): [`AWSLambdaAdapter`](AWSLambdaAdapter.md)
-
-Defined in: node\_modules/@stone-js/core/dist/index.d.ts:1876
+```ts
+protected new AwsLambdaAdapter(blueprint): AwsLambdaAdapter;
+```
 
 Create an Adapter.
 
 #### Parameters
 
-##### options
+##### blueprint
 
-`AdapterOptions`\<`IncomingEvent`, `OutgoingResponse`\>
+`IBlueprint`
 
-Adapter options.
+The blueprint to create the adapter.
 
 #### Returns
 
-[`AWSLambdaAdapter`](AWSLambdaAdapter.md)
+`AwsLambdaAdapter`
 
 #### Inherited from
 
-`Adapter< AwsLambdaEvent, RawResponse, AwsLambdaContext, IncomingEvent, IncomingEventOptions, OutgoingResponse, AwsLambdaAdapterContext >.constructor`
+```ts
+Adapter<
+AwsLambdaEvent,
+RawResponse,
+AwsLambdaContext,
+IncomingEvent,
+IncomingEventOptions,
+OutgoingResponse,
+AwsLambdaAdapterContext
+>.constructor
+```
 
 ## Methods
 
 ### eventListener()
 
-> `protected` **eventListener**(`rawEvent`, `executionContext`): `Promise`\<[`RawResponse`](../../declarations/type-aliases/RawResponse.md)\>
-
-Defined in: [src/AWSLambdaAdapter.ts:113](https://github.com/stonemjs/aws-lambda-adapter/blob/9de4b38bb7a5afd4d5599dae1399969698a2422d/src/AWSLambdaAdapter.ts#L113)
+```ts
+protected eventListener(rawEvent, executionContext): Promise<RawResponse>;
+```
 
 Processes an incoming AWS Lambda event.
 
@@ -127,11 +129,11 @@ A promise resolving to the processed `RawResponse`.
 
 ***
 
-### onInit()
+### onStart()
 
-> `protected` **onInit**(): `Promise`\<`void`\>
-
-Defined in: [src/AWSLambdaAdapter.ts:93](https://github.com/stonemjs/aws-lambda-adapter/blob/9de4b38bb7a5afd4d5599dae1399969698a2422d/src/AWSLambdaAdapter.ts#L93)
+```ts
+protected onStart(): Promise<void>;
+```
 
 Initializes the adapter and validates its execution context.
 
@@ -146,17 +148,13 @@ throws an error to prevent misuse.
 
 If executed outside an AWS Lambda context (e.g., browser).
 
-#### Overrides
-
-`Adapter.onInit`
-
 ***
 
 ### run()
 
-> **run**\<`ExecutionResultType`\>(): `Promise`\<`ExecutionResultType`\>
-
-Defined in: [src/AWSLambdaAdapter.ts:75](https://github.com/stonemjs/aws-lambda-adapter/blob/9de4b38bb7a5afd4d5599dae1399969698a2422d/src/AWSLambdaAdapter.ts#L75)
+```ts
+run<ExecutionResultType>(): Promise<ExecutionResultType>;
+```
 
 Executes the adapter and provides an AWS Lambda-compatible handler function.
 
@@ -166,7 +164,9 @@ and returns the appropriate response.
 
 #### Type Parameters
 
-• **ExecutionResultType** = [`AwsLambdaEventHandlerFunction`](../../declarations/type-aliases/AwsLambdaEventHandlerFunction.md)
+##### ExecutionResultType
+
+`ExecutionResultType` = [`AwsLambdaEventHandlerFunction`](../../declarations/type-aliases/AwsLambdaEventHandlerFunction.md)
 
 The type representing the AWS Lambda event handler function.
 
@@ -182,33 +182,37 @@ If used outside the AWS Lambda environment.
 
 #### Overrides
 
-`Adapter.run`
+```ts
+Adapter.run
+```
 
 ***
 
 ### create()
 
-> `static` **create**(`options`): [`AWSLambdaAdapter`](AWSLambdaAdapter.md)
+```ts
+static create(blueprint): AwsLambdaAdapter;
+```
 
-Defined in: [src/AWSLambdaAdapter.ts:60](https://github.com/stonemjs/aws-lambda-adapter/blob/9de4b38bb7a5afd4d5599dae1399969698a2422d/src/AWSLambdaAdapter.ts#L60)
-
-Creates an instance of the `AWSLambdaAdapter`.
-
-This factory method allows developers to instantiate the adapter with
-the necessary configuration options, ensuring it is correctly set up for
-AWS Lambda usage.
+Creates an instance of the `AwsLambdaAdapter`.
 
 #### Parameters
 
-##### options
+##### blueprint
 
-`AdapterOptions`\<`IncomingEvent`, `OutgoingResponse`\>
+`IBlueprint`
 
-The configuration options for the adapter, including
-                 handler resolver, error handling, and other settings.
+The application blueprint.
 
 #### Returns
 
-[`AWSLambdaAdapter`](AWSLambdaAdapter.md)
+`AwsLambdaAdapter`
 
-A fully initialized `AWSLambdaAdapter` instance.
+A new instance of `AwsLambdaAdapter`.
+
+#### Example
+
+```typescript
+const adapter = AwsLambdaAdapter.create(blueprint);
+await adapter.run();
+```

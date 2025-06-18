@@ -1,9 +1,3 @@
-[**Node CLI Adapter Documentation v0.0.0**](../../README.md)
-
-***
-
-[Node CLI Adapter Documentation](../../modules.md) / [declarations](../README.md) / NodeCliAdapterContext
-
 # Interface: NodeCliAdapterContext
 
 Represents the context for the Node Cli Adapter.
@@ -19,10 +13,14 @@ specific to generic Node Cli events.
 
 ### rawResponse
 
-> **rawResponse**: `number`
+```ts
+rawResponse: number;
+```
 
 The raw response associated with the current context.
 
-#### Defined in
+#### Overrides
 
-[src/declarations.ts:50](https://github.com/stonemjs/node-cli-adapter/blob/30743f7aaaae46db17826e810be4549d56406b6f/src/declarations.ts#L50)
+```ts
+AdapterContext.rawResponse
+```
