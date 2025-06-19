@@ -6,11 +6,14 @@ code {
   color: #ca473f;
 }
 
-// #markdown-content > p > a,
-// #markdown-content > p ~ hr,
-// #markdown-content > p > img {
-//   display: none;
-// }
+#markdown-content > h1 + p > *,
+#markdown-content > h1 + p + p + hr {
+  display: none;
+}
+
+.vp-features {
+  place-content: stretch left;
+}
 
 .vp-site-name {
   font-size: 1.5rem;
