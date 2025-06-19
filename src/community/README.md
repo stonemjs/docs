@@ -7,32 +7,22 @@ tagline: Connect, collaborate, and grow with the Stone.js community. Join discus
 
 features:
   - title: Discord
-    icon: comments
+    icon: fa-solid:comments
     details: Join our active Discord server to chat with other developers, ask questions, and share ideas.
-    link: https://discord.gg/your-invite-link
+    link: https://chat.stonejs.dev
 
   - title: GitHub Discussions
-    icon: github
+    icon: fa-brands:github
     details: Participate in feature discussions, report issues, and contribute to Stone.js on GitHub.
-    link: https://github.com/stone-js/stone/discussions
+    link: https://forum.stonejs.dev
 
   - title: Twitter/X
-    icon: twitter
+    icon: fa-brands:x-twitter
     details: Follow us on Twitter/X for the latest news, updates, and community highlights.
-    link: https://twitter.com/stonejs
-
-  - title: Reddit
-    icon: reddit
-    details: Join our subreddit to share experiences, ask questions, and connect with other users.
-    link: https://reddit.com/r/stonejs
+    link: https://x.stonejs.dev
 
   - title: Stack Overflow
-    icon: stack-overflow
+    icon: fa-brands:stack-overflow
     details: Ask technical questions and find answers from the broader developer community.
     link: https://stackoverflow.com/questions/tagged/stonejs
-
-  - title: Community Events
-    icon: calendar
-    details: Stay updated on upcoming meetups, webinars, and community calls.
-    link: ./events/
 ---

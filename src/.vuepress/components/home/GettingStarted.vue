@@ -27,7 +27,7 @@
           <li>
             <h3>1. Scaffold in seconds</h3>
             <p>
-              Run <code>npm create stone</code> and pick your flavor: mono-routed or multi-routed, backend or frontend, React or Vue(soon). No templates, just choices.
+              Run <code>npm create @stone-js</code> and pick your flavor: mono-routed or multi-routed, backend or frontend, React or Vue(soon). No templates, just choices.
             </p>
           </li>
           <li>

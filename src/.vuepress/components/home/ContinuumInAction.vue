@@ -75,6 +75,11 @@ const steps = [
     color: #ccc;
     margin: 0 1rem;
     font-weight: bold;
+    display: inline-block;
+
+    @media (max-width: hope-config.$tablet) {
+      transform: rotate(90deg);
+    }
   }
 }
 </style>
