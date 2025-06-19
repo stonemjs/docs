@@ -5,6 +5,13 @@ All notable changes to the "Stone.js documentation" extension will be documented
 ## Unreleased
 
 
+## [0.1.2](https://github.com/stone-foundation/stone-js-docs/compare/v0.1.1...v0.1.2) (2025-06-19)
+
+
+### Bug Fixes
+
+* replace icons by fa icons in the community page and fix typo ([#13](https://github.com/stone-foundation/stone-js-docs/issues/13)) ([ae74914](https://github.com/stone-foundation/stone-js-docs/commit/ae74914b4752cf2da104963144640a55083dc8ee))
+
 ## [0.1.1](https://github.com/stone-foundation/stone-js-docs/compare/v0.1.0...v0.1.1) (2025-06-18)
 
 
