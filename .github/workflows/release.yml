@@ -27,6 +27,8 @@ jobs:
           version: 10
       - name: Install dependencies
         run: pnpm install
+      - name: Generate documentation
+        run: pnpm run generate-docs
       - name: Build VuePress site
         run: pnpm run docs:build
       - name: Deploy to GitHub Pages
