@@ -12,42 +12,39 @@ Here’s a typical layout for a Stone.js project that balances backend, frontend
 
 This is where your app declares its identity to the world (and to the build system). Some files are always present, others show up only when you need them.
 
-| File/Folder              | Purpose                                                                 |
-|--------------------------|-------------------------------------------------------------------------|
-| `stone.config.mjs`       | Optional Stone.js build config using `defineConfig`.                    |
-| `vite.config.js`         | Optional Vite config for frontend builds.                               |
-| `rollup.config.mjs`      | Optional Rollup config for custom server builds.                        |
-| `vitest.config.js`       | Optional Vitest config for test runners.                                |
-| `tsconfig.json`          | TypeScript configuration, required if you're using TypeScript.         |
-| `.env`                   | Local environment variables, we love `.env` like devs love coffee.     |
-| `app/`                   | Your domain logic lives here.                                |
-| `public/`                | Static files (images, fonts, etc.) for frontend apps.                   |
-| `assets/`                | Processed static assets, bundled, optimized, the works.                |
-| `tests/`                 | Your automated test suites. Vitest-friendly.                            |
-| `dist/`                  | Output directory after build.                                           |
-| `dist/server.mjs`        | Your production server (when deploying backend/fullstack/SSR).              |
-| `dist/index.html`        | Your built frontend entrypoint (for SPA).                           |
-| `.stone/`                | Temporary dev artifacts and cache. You can ignore this one, we do.     |
+| File/Folder                                                   | Purpose                                                            |
+| ------------------------------------------------------------- | ------------------------------------------------------------------ |
+| `stone.config.mjs`                                            | Optional Stone.js build config using `defineConfig`.               |
+| `vite.config.js`                                              | Optional Vite config for frontend builds.                          |
+| `rollup.config.mjs`                                           | Optional Rollup config for custom server builds.                   |
+| `vitest.config.js`                                            | Optional Vitest config for test runners.                           |
+| `tsconfig.json`                                               | TypeScript configuration, required if you're using TypeScript.     |
+| `.env`                                                        | Local environment variables, we love `.env` like devs love coffee. |
+| `app/`                                                        | Your domain logic lives here.                                      |
+| `public/`                                                     | Static files (images, fonts, etc.) for frontend apps.              |
+| `assets/`                                                     | Processed static assets, bundled, optimized, the works.            |
+| `tests/`                                                      | Your automated test suites. Vitest-friendly.                       |
+| `dist/`                                                       | Output directory after build.                                      |
+| `dist/server.mjs`                                             | Your production server (when deploying backend/fullstack/SSR).     |
+| `dist/index.html`                                             | Your built frontend entrypoint (for SPA).                          |
+| <span style="text-decoration: line-through;">`.stone/`</span> | Temporary dev artifacts and cache. You can ignore this one, we do. |
 
 
 ## `stone.config.mjs` (Optional)
 
 This file lets you fully customize the build process of your Stone.js app, inputs, outputs, excluded modules, and more.
 
-```js
-// stone.config.mjs
+```js title="stone.config.mjs"
 import { defineConfig } from '@stone-js/cli'
 
 export default defineConfig({
-  type: 'typescript',
+  target: 'service',
+  language: 'typescript',
+  imperative: true,
   input: {
-    all: 'app/**/*.ts',
-    views: 'app/**/*.tsx',
+    all: 'app/**/*.ts'
   },
-  output: 'server.mjs',
-  browser: {
-    excludedModules: ['@stone-js/node-http-adapter'],
-  }
+  output: 'server.mjs'
 })
 ```
 
@@ -63,7 +60,7 @@ Stone.js doesn’t force a rigid structure. Instead, it gives you **freedom with
 👉 You must define **a single app entry point**, name it however you want (`Application.ts`, `MainApp.ts`, `MyUnicornApp.ts`), as long as it does one of the following:
 
 - **Declarative API**: Export a class decorated with `@StoneApp()`.
-- **Imperative API**: Export any value created using `defineBlueprintConfig()`.
+- **Imperative API**: Export your created app using `defineStoneApp()`.
 
 Even the folder name `app/` is just a suggestion, feel free to rename it to match your project’s domain or your team’s naming conventions. *You own the structure. You own the context.*
 
@@ -78,8 +75,7 @@ app/
 
 ### Declarative API Example
 
-```ts
-// app/Application.ts
+```ts title="app/Application.ts"
 import { StoneApp } from "@stone-js/core"
 
 @StoneApp()
@@ -90,12 +86,11 @@ export class Application {
 
 ### Imperative API Example
 
-```ts
-// app/Application.ts
-import { stoneBlueprint, defineBlueprintConfig } from "@stone-js/core"
+```ts title="app/Application.ts"
+import { defineStoneApp } from "@stone-js/core"
 
-export const AppBlueprint = defineBlueprintConfig(stoneBlueprint, {
-  // Define your app manually using functional composition
+export const Application = defineStoneApp(() => {
+  // Start with something cool here.
 })
 ```
 

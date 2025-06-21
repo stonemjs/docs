@@ -5,8 +5,9 @@ next: ../architecture/
 
 Stone.js apps are built for freedom, deployable anywhere JavaScript runs: Node.js, the browser, serverless, edge networks, and even that smart toaster with a JS engine (well, almost). Thanks to its Continuum Architecture, Stone.js doesn’t care about your runtime, because everything is context. And deployment? It's just the final form of your app's intention.
 
-> **Requirements:**  
-> You'll need Node.js `>= 20`. That’s where the magic starts.
+::: important **Requirements:**  
+You'll need Node.js `>=18.17.0`. That’s where the magic starts.
+:::
 
 ## Building for Production
 
@@ -72,8 +73,7 @@ npm install @stone-js/aws-lambda-http-adapter
 
 2. Add an Adapter to your context:
 
-```ts
-// app/Application.ts
+```ts title="app/Application.ts"
 import { StoneApp, IncomingEvent } from '@stone-js/core'
 import { AwsLambdaHttpAdapter } from '@stone-js/aws-lambda-http-adapter'
 
@@ -98,7 +98,7 @@ npm run build
 - Define environment variables if needed.
 - Use your usual deployment method (ZIP, AWS SAM, Serverless Framework, Terraform, etc.).
 
-Check the adapter’s documentation for advanced usage and configuration.
+Check the [adapter’s documentation](../../packages/aws-lambda-http-adapter/) for advanced usage and configuration.
 
 ## Node.js Server Deployment
 
@@ -112,8 +112,7 @@ npm install @stone-js/node-http-adapter
 
 2. Configure your context:
 
-```ts
-// app/Application.ts
+```ts title="app/Application.ts"
 import { StoneApp, IncomingEvent } from '@stone-js/core'
 import { NodeHttpAdapter } from '@stone-js/node-http-adapter'
 
@@ -179,8 +178,7 @@ npm install -g pm2
 
 2. Create an ecosystem file:
 
-```js
-// ecosystem.config.js
+```js title="ecosystem.config.js"
 module.exports = {
   apps: [{
     name: 'stone-app',
@@ -203,30 +201,66 @@ pm2 start ecosystem.config.js
 
 PM2 handles restarts, logs, and can scale your app across CPU cores.
 
-## Docker Deployment
+## Docker Deployment with Docker Compose
 
-Need to containerize your app? Stone.js builds down to a clean artifact, perfect for Dockerized environments.
+Stone.js builds into a clean, self-contained artifact, perfect for containerization. With Docker Compose, you can declare your services, ports, environment, and even extend later (database, CDN proxy, frontend, etc.), all in one place.
 
-Here’s a simple `Dockerfile`:
+1. Dockerfile
 
-```Dockerfile
+First, define a lightweight Dockerfile that builds and runs your app:
+
+```Dockerfile title="Dockerfile"
 FROM node:20
+
 WORKDIR /app
+
 COPY . .
+
 RUN npm install
 RUN npm run build
+
 EXPOSE 8080
 CMD ["node", "dist/server.mjs"]
 ```
 
-Build and run your container:
+2. Compose File
 
-```bash
-docker build -t stone-app .
-docker run -p 8080:8080 stone-app
+Then declare your app service in `docker-compose.yml`:
+
+```yaml title="docker-compose.yml"
+version: "3.9"
+
+services:
+  stone-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      NODE_ENV: production
+    restart: unless-stopped
 ```
 
-You now have a deployable, containerized Stone.js app, no `node_modules`, no junk, just your logic.
+3. Build and Run
+
+From your project root, run:
+
+```bash
+docker compose up --build
+```
+
+This will:
+
+* Build your app
+* Expose it on `http://localhost:8080`
+* Restart it automatically unless manually stopped
+
+You now have a fully Dockerized Stone.js application, easily extendable with additional services like databases, caching, or frontend CDNs.
+
+::: tip
+Need multi-service setup? Just add more services to `docker-compose.yml`. Everything stays isolated but connected.
+:::
 
 ## GitHub Actions (CI/CD)
 
@@ -234,8 +268,7 @@ To automate your build and deployment, you can use **GitHub Actions**. Here's a 
 
 ### Example: Build & Deploy Workflow
 
-```yaml
-# .github/workflows/deploy.yml
+```yaml title=".github/workflows/deploy.yml"
 name: Build and Deploy
 
 on:
@@ -276,13 +309,13 @@ jobs:
 
 Stone.js uses adapters to abstract the runtime environment, so you can build once and deploy anywhere. Here’s a quick overview of available adapters and where they shine:
 
-| Adapter                       | Use Case                      | Package                                 | Target Platform Examples                       |
-|-------------------------------|-------------------------------|------------------------------------------|------------------------------------------------|
-| Browser Adapter               | Client-side SPA               | `@stone-js/browser-adapter`              | Browser                                        |
-| Node.js HTTP Adapter          | Traditional HTTP server       | `@stone-js/node-http-adapter`            | Node.js, Express-style servers                 |
-| AWS Lambda Adapter            | Serverless all purpose        | `@stone-js/aws-lambda-adapter`           | AWS Lambda, Serverless Framework               |
-| AWS Lambda HTTP Adapter       | Serverless HTTP purpose       | `@stone-js/aws-lambda-http-adapter`      | AWS Lambda, Serverless Framework               |
-| Node.js CLI Adapter           | CLI based App                 | `@stone-js/node-cli-adapter`             | Node.js runtime                                |
+| Adapter                 | Use Case                | Package                                                                        | Target Platform Examples         |
+| ----------------------- | ----------------------- | ------------------------------------------------------------------------------ | -------------------------------- |
+| Browser Adapter         | Client-side SPA         | [`@stone-js/browser-adapter`](../../packages/browser-adapter/)                 | Browser                          |
+| Node.js HTTP Adapter    | Traditional HTTP server | [`@stone-js/node-http-adapter`](../../packages/node-http-adapter/)             | Node.js, Express-style servers   |
+| AWS Lambda Adapter      | Serverless all purpose  | [`@stone-js/aws-lambda-adapter`](../../packages/aws-lambda-adapter/)           | AWS Lambda, Serverless Framework |
+| AWS Lambda HTTP Adapter | Serverless HTTP purpose | [`@stone-js/aws-lambda-http-adapter`](../../packages/aws-lambda-http-adapter/) | AWS Lambda, Serverless Framework |
+| Node.js CLI Adapter     | CLI based App           | [`@stone-js/node-cli-adapter`](../../packages/node-cli-adapter/)               | Node.js runtime                  |
 
 ::: info
 Don’t see your platform here? Don’t worry, Stone.js was designed to be adaptable. Write your own adapter or let us know what you need!

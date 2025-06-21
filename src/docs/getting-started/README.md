@@ -247,7 +247,7 @@ npm init -y
 Install the Stone.js core, the Node.js HTTP adapter, and the CLI:
 
 ```bash
-npm i @stone-js/core @stone-js/node-http-adapter @stone-js/cli
+npm i @stone-js/core @stone-js/node-http-adapter
 ```
 
 #### Frontend (React SPA)
@@ -255,7 +255,7 @@ npm i @stone-js/core @stone-js/node-http-adapter @stone-js/cli
 If you're building a React single-page system:
 
 ```bash
-npm i react react-dom @stone-js/core @stone-js/use-react @stone-js/browser-adapter @stone-js/cli
+npm i react react-dom @stone-js/core @stone-js/use-react @stone-js/browser-adapter
 ```
 
 #### Dev Dependencies
@@ -263,7 +263,7 @@ npm i react react-dom @stone-js/core @stone-js/use-react @stone-js/browser-adapt
 Stone.js uses decorators (yes, the fancy JS feature), so you'll need Babel plugins:
 
 ```bash
-npm i -D @babel/plugin-proposal-decorators @babel/preset-env
+npm i -D @babel/plugin-proposal-decorators @babel/preset-env @stone-js/cli
 ```
 
 Using TypeScript? Of course you are, you’re classy.
@@ -306,8 +306,7 @@ The declarative API lets you define your app with decorators like `@StoneApp()` 
 
 #### Example: Backend App
 
-```ts
-// app/Application.ts
+```ts title="app/Application.ts"
 import { NodeHttp } from "@stone-js/node-http-adapter"
 import { IncomingEvent, IEventHandler, StoneApp } from "@stone-js/core"
 
@@ -322,23 +321,18 @@ export class Application implements IEventHandler<IncomingEvent> {
 
 #### Example: React App
 
-```tsx
-// app/Application.tsx
+```tsx title="app/Application.tsx"
 import { ReactNode } from "react"
 import { StoneApp } from "@stone-js/core"
 import { Browser } from "@stone-js/browser-adapter"
-import { UseReact, IPage, ReactIncomingEvent, RenderContext } from "@stone-js/use-react"
+import { UseReact, IPage, ReactIncomingEvent } from "@stone-js/use-react"
 
 @Browser()
 @UseReact()
 @StoneApp()
 export class Application implements IPage<ReactIncomingEvent> {
-  handle(event: ReactIncomingEvent): { message: string } {
-    return { message: "Hello world!" }
-  }
-
-  render({ data }: RenderContext<{ message: string }>): ReactNode {
-    return <h1>{data?.message}</h1>
+  render(): ReactNode {
+    return <h1>Hello world!</h1>
   }
 }
 ```
@@ -354,50 +348,33 @@ Prefer functional programming or need fine-grained control? Stone.js has your ba
 
 #### Example: Backend App
 
-```ts
-// app/Application.ts
-import {
-  defineBlueprintConfig, defineFactoryEventHandler, IncomingEvent
-} from "@stone-js/core"
+```ts title="app/Application.ts"
+import { defineStoneApp, IncomingEvent } from "@stone-js/core"
 import { nodeHttpAdapterBlueprint } from "@stone-js/node-http-adapter"
 
-const Application = () => (event: IncomingEvent) => ({ message: "Hello world!" })
+export const handler = () => (event: IncomingEvent) => ({ message: "Hello world!" })
 
-export const AppBlueprint = defineBlueprintConfig(nodeHttpAdapterBlueprint, {
-  stone: {
-    kernel: {
-      eventHandler: defineFactoryEventHandler(Application)
-    }
-  }
-})
+export const Application = defineStoneApp(
+  handler,
+  {},
+  [nodeHttpAdapterBlueprint]
+)
 ```
 
 #### Example: React App
 
-```tsx
-// app/Application.tsx
-import {
-  RenderContext,
-  useReactBlueprint,
-  UseReactBlueprint,
-  ReactIncomingEvent,
-  defineFactoryComponent,
-} from "@stone-js/use-react"
-import { ReactNode } from "react"
-import { defineBlueprintConfig } from "@stone-js/core"
+```tsx title="app/Application.tsx"
 import { browserAdapterBlueprint } from "@stone-js/browser-adapter"
+import { defineStoneReactApp, useReactBlueprint } from "@stone-js/use-react"
 
-export const Application = () => ({
-  handle: (event: ReactIncomingEvent) => ({ message: "Hello world!" }),
-  render: ({ data }: RenderContext<{ message: string }>): ReactNode => {
-    return <h1>{data?.message}</h1>
-  }
+export const handler = () => ({
+  render: () => <h1>Hello world!</h1>
 })
 
-export const AppBlueprint = defineBlueprintConfig<UseReactBlueprint>(
-  useReactBlueprint,
-  browserAdapterBlueprint,
-  ['stone.useReact.componentEventHandler', defineFactoryComponent(Application)]
+export const Application = defineStoneReactApp(
+  handler,
+  {},
+  [useReactBlueprint, browserAdapterBlueprint]
 )
 ```
 

@@ -30,7 +30,7 @@ export default defineUserConfig({
 
   lang: "en-US",
   title: "Stone.js",
-  description: "StoneJS official documentation",
+  description: "The first context-aware Framework",
 
   // Hope theme configuration
   theme,
@@ -54,7 +54,7 @@ export default defineUserConfig({
     '/': {
       lang: 'en-US',
       title: 'Stone.js',
-      description: 'StoneJS official documentation'
+      description: 'The first context-aware Framework'
     },
   },
 

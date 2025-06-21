@@ -2,7 +2,7 @@
 title: Continuum Architecture
 ---
 
-At the heart of Continuum Architecture lies a simple equation:
+At the heart of the Continuum Architecture lies a simple equation:
 
 > **Application = Domain × Context → Resolution**
 
@@ -21,10 +21,9 @@ It implements the Continuum Architecture by taking full responsibility for the *
 Your job? **Write your domain logic.**  
 Stone.js will handle how and where it runs.
 
-> Instead of adapting your code to your environment,  
-you let the environment express itself to your domain, through Stone.js.
-
-Stone.js is the context that applies itself to the domain, not the other way around.
+Instead of adapting your code to your environment, 
+you let the environment express itself to your domain, through Stone.js. 
+Because it is the context that applies itself to the domain, not the other way around.
 
 ```mermaid
 %%{init: {"theme": "base", "themeVariables": {

@@ -128,6 +128,10 @@ export default hopeTheme({
       indexName: ALGOLIA_INDEX_NAME,
     },
 
+    seo: {
+      fallBackImage: "/logo.png",
+    },
+
     // uncomment these if you want a pwa
     // pwa: {
     //   favicon: "/favicon.ico",

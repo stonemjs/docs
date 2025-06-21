@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://stone.js.org/sitemap.xml
+Sitemap: https://stonejs.dev/sitemap.xml
