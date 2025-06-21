@@ -2,6 +2,7 @@
 home: true
 heroText: false
 tagline: false
+image: '/logo.png'
 containerClass: stone-home-page
 ---
 

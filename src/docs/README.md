@@ -125,11 +125,11 @@ Go functional and dynamic when you need full control.
 import { defineStoneApp, IncomingEvent } from '@stone-js/core'
 import { nodeHttpAdapterBlueprint } from '@stone-js/node-http-adapter'
 
-// Define your app as a function
-export const Application = (event: IncomingEvent) => ({ message: 'Hello world!' })
+// Define your handler as a function
+export const handler = (event: IncomingEvent) => ({ message: 'Hello world!' })
 
-// Register your app with the Node HTTP adapter
-export const MyStoneApp = defineStoneApp(Application, {}, [nodeHttpAdapterBlueprint])
+// Create your app with the Node HTTP adapter
+export const Application = defineStoneApp(handler, {}, [nodeHttpAdapterBlueprint])
 ```
 
 Short on time? You only need one paradigm to build your app.
@@ -162,12 +162,14 @@ With its **event abstraction**, **adapter layer**, and **context-awareness** str
 
 It’s not just a tool you use today, it’s an architectural foundation you can grow on tomorrow.
 
+::: tip Beyond Tools
 **Stop choosing tools. Start designing systems.**  
 **Stop adapting your logic. Start owning your context.**
+:::
 
 ::: info Javascript vs TypeScript
 TypeScript is used throughout the documentation for clarity and type safety.  
-If you prefer JavaScript, just remove the types and keep the logic.
+If you prefer JavaScript, just remove the types in the examples, they will work just as well.
 :::
 
 Welcome to **Stone.js**, a place where dreams come true.

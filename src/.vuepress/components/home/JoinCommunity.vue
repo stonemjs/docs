@@ -28,10 +28,6 @@
   position: relative;
   background: #f9f9f9;
 
-  @media (max-width: hope-config.$tablet) {
-    padding: 3rem 2rem;
-  }
-
   .container {
     gap: 3rem;
     display: flex;
