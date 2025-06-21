@@ -5,6 +5,13 @@ All notable changes to the "Stone.js documentation" extension will be documented
 ## Unreleased
 
 
+## [0.1.3](https://github.com/stone-foundation/stone-js-docs/compare/v0.1.2...v0.1.3) (2025-06-21)
+
+
+### Miscellaneous Chores
+
+* change Copyright, Stone logo and favicon, improve the getting-started documentation ([#15](https://github.com/stone-foundation/stone-js-docs/issues/15)) ([86f8ce6](https://github.com/stone-foundation/stone-js-docs/commit/86f8ce6fc07348ab3536920dd64a0f027dc8d62e))
+
 ## [0.1.2](https://github.com/stone-foundation/stone-js-docs/compare/v0.1.1...v0.1.2) (2025-06-19)
 
 
