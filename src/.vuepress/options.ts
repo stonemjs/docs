@@ -1,4 +1,4 @@
 export const GOOGLE_TAG_ID = 'G-F368Y4JRZR'
-export const ALGOLIA_APP_ID = 'YOUR_APP_ID'
-export const ALGOLIA_API_KEY = 'YOUR_API_KEY'
-export const ALGOLIA_INDEX_NAME = 'YOUR_INDEX_NAME'
+export const ALGOLIA_APP_ID = 'B8ZTXIHIAP'
+export const ALGOLIA_INDEX_NAME = 'stonejs'
+export const ALGOLIA_API_KEY = '65a6a180473de963344f97d15302da4d'

@@ -2,21 +2,35 @@
 title: Middleware
 ---
 
-In Stone.js, middleware is how you **act on the internal context**.
+In Stone.js, **middleware** is how you participate in the evolution of the context. It is the mechanism that allows you to **intercept**, **transform**, or even **terminate** the flow of execution, across any dimension of the internal context.
 
-Unlike [Hooks](./lifecycle), which observe and react, middleware **participates directly** in the flow. It can **intercept, transform, short-circuit**, or fully redirect the system’s behavior as it unfolds across dimensions.
+Middleware is **active**. It lives inside the execution pipeline and can control how the system interprets an intention, how it applies domain logic, or how it responds to external inputs.
 
-Middleware is always **dimension-specific**, but its structure remains consistent. It gives you the power to shape both the **creation** and the **execution** of context, making it one of the most expressive tools in the framework.
+This makes middleware fundamentally different from [hooks](./lifecycle), which observe the lifecycle without affecting it. Hooks run outside the flow; middleware runs inside it.
 
-This page focuses on **Initialization middleware**, which operates at the kernel or route level, where intentions are fully formed and ready to meet the domain. It’s where most user-level logic lives, and where middleware becomes your primary tool to **control the interaction between context and domain logic**.
+Each middleware belongs to a specific **dimension** in the Continuum Architecture:
 
-::: tip
-The principles described here apply to **all middleware**, regardless of dimension.  
-Even if you’re working with Integration or Setup middleware, this page lays the foundation.  
-For dimension-specific details, refer to the [Blueprint](../blueprint) and [Adapter](../adapter) documentation.
+* [**Setup middleware**](./blueprint.md#use-setup-middleware-for-dynamic-logic) builds and mutates the blueprint before the application is ready
+* [**Integration middleware**](./adapter.md#adapter-middleware) transforms external inputs (raw requests) into intentions and intentions into effects (responses)
+* **Initialization middleware** controls how an intention is handled by the kernel and domain logic
+
+This page focuses on **Initialization middleware**, where fully-formed incomingEvents are processed. This is the dimension where most application logic lives, and where middleware becomes your primary tool to:
+
+* Apply validation or authorization
+* Modify the execution context
+* Transform or replace responses
+* Catch and handle errors
+* Wrap or override the event handler
+
+In this phase, middleware gives you full control over **how** the domain is applied to the context.
+
+::: info
+The principles in this page apply to all middleware, regardless of dimension.
+For dimension-specific behaviors, 
+see the [Blueprint](./blueprint.md#use-setup-middleware-for-dynamic-logic) and [Adapter](./adapter.md#adapter-middleware) documentation.
 :::
 
-Middleware is how you shape the continuum **from within**. Use it intentionally, and use it often.
+In the Continuum, middleware is the tool you use to **shape the context from within**. It gives you leverage over structure and flow, not just observation, but action.
 
 ## Using Middleware
 
@@ -27,7 +41,7 @@ Whether you're enriching a blueprint, transforming an adapter’s raw input, or 
 Stone.js supports three interchangeable middleware variants:
 
 - **Class-based**, required when using the Declarative API with decorators
-- **Function-based**, simple, flexible, ideal for functional or imperative registration
+- **Function-based**, simple, flexible, ideal for functional programming with imperative registration
 - **Factory-based**, dynamic and dependency-aware, used when function-based middleware needs to be parameterized or contextualized
 
 You can use any of these shapes in **any dimension**. The continuum doesn’t restrict you, it empowers you to choose what fits best.
@@ -132,7 +146,7 @@ export const MyMiddleware = async (
 }
 ```
 
-Function middleware offers full control with minimal boilerplate, and is preferred for most imperative scenarios.
+Function-based middleware offers full control with minimal boilerplate, and is preferred for most imperative scenarios.
 
 @tab Factory-based
 #### Factory-based Middleware
@@ -150,8 +164,7 @@ export const createUserResolverMiddleware = ({ userService }: { userService: Use
   const user = await userService.getUser(event.get('user-id'))
   event.setUserResolver(() => user)
 
-  const result = await next(event)
-  return result
+  return await next(event)
 }
 ```
 
@@ -204,12 +217,12 @@ This halts the pipeline and triggers error handling logic.
 
 #### 4. Act after the rest of the chain
 
-Capture and modify the result after downstream middleware or the handler.
+Capture and modify the response after downstream middleware or the handler.
 
 ```ts
-const result = await next(event)
-result.setHeader('X-Request-ID', event.getHeader('X-Request-ID'))
-return result
+const response = await next(event)
+response.setHeader('X-Request-ID', event.getHeader('X-Request-ID'))
+return response
 ```
 
 This lets you wrap, modify, or augment the final response before it leaves the system.
@@ -232,7 +245,7 @@ You can use:
 
 …in any dimension:
 - [Setup](./blueprint#dynamic-configuration)
-- Integration
+- [Integration](./adapter#adapter-middleware)
 - Initialization
 
 The only difference is the **context and return type**, which are defined by the dimension itself.
@@ -246,9 +259,9 @@ Once your middleware is defined, it needs to be **registered** so Stone.js can d
 There are two ways to register middleware:
 
 - **Declarative API**, via decorators on class-based middleware
-- **Imperative API**, via the blueprint, using namespace keys and metadata
+- **Imperative API**, via the blueprint utilities
 
-::: code-tabs#declarative-imperative
+::: tabs#declarative-imperative
 @tab:active Declarative
 ### Declarative API
 
@@ -269,14 +282,31 @@ You can also pass options to control its behavior (see below).
 
 ### Imperative API
 
-To register middleware imperatively, add them directly to the blueprint under the `stone.kernel.middleware` namespace.
+To register middleware imperatively, you can use the `defineMiddleware` blueprint utility function.
 
 ```ts
-import { defineBlueprintConfig } from '@stone-js/core'
+import { defineMiddleware } from '@stone-js/core'
 
-export const mainBlueprint = defineBlueprintConfig((blueprint) => {
-  blueprint.add('stone.kernel.middleware', [{ module: MyMiddleware }])
-})
+export const MyMiddlewareHandler = (context, next) => {
+  // Middleware logic here
+  return next(context)
+}
+
+export const MyMiddleware = defineMiddleware(MyMiddlewareHandler)
+```
+
+For factory-based middleware, you can pass a factory function that returns the actual middleware function 
+and use the `factory` option to indicate that it should be treated as a factory:
+
+```ts
+import { defineMiddleware } from '@stone-js/core'
+
+export const MyMiddlewareHandler = () => (context, next) => {
+  // Middleware logic here
+  return next(context)
+}
+
+export const MyMiddleware = defineMiddleware(MyMiddlewareHandler, { factory: true })
 ```
 
 This approach gives you full flexibility and supports **function-based**, **factory-based**, and **class-based** middleware, with shape metadata.
@@ -300,9 +330,7 @@ export class MyMiddleware {}
 @tab Imperative
 
 ```ts
-blueprint.set('stone.kernel.middleware', [
-  { module: MyMiddleware, priority: 10 }
-])
+export const MyMiddleware = defineMiddleware(MyMiddlewareHandler, { priority: 10 })
 ```
 :::
 
@@ -331,9 +359,10 @@ export class MyMiddleware {}
 @tab Imperative
 
 ```ts
-blueprint.set('stone.kernel.middleware', [
-  { module: MyMiddleware, priority: 10, alias: 'auth', global: true }
-])
+export const MyMiddleware = defineMiddleware(
+  MyMiddlewareHandler,
+  { priority: 10, alias: 'auth', global: true }
+)
 ```
 :::
 
@@ -422,7 +451,7 @@ Keep dimension-specific logic in its place:
 
 Middleware in Stone.js gives you the power to **actively shape the flow of your system**, from the moment an intention is created to the point a response is returned.
 
-In this document, we focused on **initialization middleware**, the most common type used to handle per-intention logic like authentication, validation, and context enrichment. But the same principles apply across all dimensions.
+In this document, we focused on **initialization middleware**, the most common type used to handle per-event logic like authentication, validation, and context enrichment. But the same principles apply across all dimensions.
 
 **Key takeaways:**
 - Middleware always receives a `context`, a `next()` function, and must return a value
@@ -431,8 +460,7 @@ In this document, we focused on **initialization middleware**, the most common t
 - Middleware can mutate, intercept, short-circuit, or wrap the execution, giving you full control
 - Always return a result and keep middleware **single-responsibility and focused**
 - Use `alias` and `global` for composability and reuse
+- When you need to **transform** the system, use middleware
+- When you only need to **observe**, use [Hooks](./lifecycle)
 
-When you need to **transform** the system, use middleware.  
-When you only need to **observe**, use [Hooks](./lifecycle).  
-The dimension defines the context. The shape is your choice.  
-That’s the continuum.
+The dimension defines the context. The shape is your choice. That’s the continuum.
