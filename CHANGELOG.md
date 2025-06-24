@@ -5,6 +5,13 @@ All notable changes to the "Stone.js documentation" extension will be documented
 ## Unreleased
 
 
+## [0.1.4](https://github.com/stone-foundation/stone-js-docs/compare/v0.1.3...v0.1.4) (2025-06-24)
+
+
+### Bug Fixes
+
+* fix typo in the documentation and add Algolia config keys ([#18](https://github.com/stone-foundation/stone-js-docs/issues/18)) ([c17005b](https://github.com/stone-foundation/stone-js-docs/commit/c17005b6fcfffedf144383aead81ce9849796798))
+
 ## [0.1.3](https://github.com/stone-foundation/stone-js-docs/compare/v0.1.2...v0.1.3) (2025-06-21)
 
 
