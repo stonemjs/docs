@@ -2,15 +2,28 @@
 title: Lifecycle
 ---
 
-In Stone.js, a **lifecycle hook** is a listener function that is executed at a specific point in the evolution of the internal context. Hooks provide a structured way to observe what happens inside the system without altering its behavior. They are deeply integrated into the Continuum Architecture, where every application act is scoped within a dynamic, dimension-driven context.
+In Stone.js, the **lifecycle** represents the sequence of internal events that occur **before, during, and after** the system applies a domain to a context. It allows you to plug into those moments, not to control them, but to observe and instrument them.
 
-Lifecycle hooks are dimension-scoped: each dimension in the context has its own set of hook points corresponding to its responsibilities. This makes hooks highly predictable and composable. They allow you to instrument and monitor the system at various phases, whether at boot time, per request, or during teardown.
+A **lifecycle hook** is a function registered to run at a specific point in this process. Hooks give you visibility into what the system is doing internally, whether it's preparing the ephemeral execution context, executing your business logic, handling errors, or finalizing a response.
 
-However, hooks are strictly **observational**. They are not meant to intercept, control, or mutate context data. If you need to transform or intervene in the lifecycle of an intention or response, you must use middleware instead.
+Lifecycle hooks are **dimension-scoped**, meaning that each dimension in the Continuum Architecture, such as **setup**, **integration**, or **initialization**, defines its own set of hook points, based on its responsibilities.
 
-This page focuses specifically on the **initialization hooks**, the hooks triggered during the lifecycle of each **intention** (e.g., request, event, CLI input). These hooks allow you to trace and instrument everything that happens from the moment a request is received to the moment the response is finalized and the ephemeral execution context is destroyed.
+Stone.js separates the lifecycle into two main categories:
 
-Low-level lifecycle hooks related to [**setup**](./blueprint#setup-hooks) and [**integration**](./adapter#integration-hooks) dimensions will be documented separately.
+* **Global lifecycle hooks**, which are triggered once during the **lifetime of the global context** (e.g., when the app starts or stops)
+* **Per-intent lifecycle hooks**, which are triggered for **each incoming event** (such as an HTTP request or CLI command) and scoped to its **ephemeral execution context**
+
+This distinction is fundamental to how the **Continuum Architecture** works:
+Each intention (incoming event) is handled within a short-lived, isolated context, and that context has a lifecycle of its own.
+
+::: info
+Hooks exist to observe these lifecycles, not to alter them. 
+If you need to intercept, mutate, or short-circuit the flow, you should use [middleware](./middleware.md) instead.
+:::
+
+This page focuses specifically on **per-intent hooks**, defined in the **Initialization Dimension**. These hooks allow you to observe the lifecycle of each individual intention, from the moment the ephemeral execution context is created, to when the final response is sent and the ephemeral execution context is destroyed.
+
+Hooks from the **Setup** and **Integration** dimensions, which operate at lower levels of the internal context, are documented separately in their respective pages.
 
 ## Initialization Hooks
 
@@ -77,14 +90,14 @@ Below is the full list of per-intent lifecycle hooks provided by the Initializat
 | `onPreparingResponse`          | Before preparing the internal response           | Normalize output, enrich response metadata                            |
 | `onResponsePrepared`           | After the internal response is finalized         | Validate structure, inject post-processing metrics                    |
 | `onEventHandled`               | After the domain logic is complete               | Log successful execution, audit events                                |
-| `onTerminate`                  | When the request lifecycle ends                  | Cleanup, release resources, flush async tasks                         |
+| `onTerminate`                  | Just before the execution context is destroyed   | Cleanup, release resources, flush async tasks                         |
 
 ## Hook Listener Registration
 
 In Stone.js, hook listeners can be registered in two ways:
 
 - **Declaratively**, using the `@Hook()` decorator on a method
-- **Imperatively**, using the `defineBlueprintConfig()` utility
+- **Imperatively**, using the `defineHookListener()` utility
 
 Both approaches allow you to attach logic to any hook point in the system. However, the way hook listeners are resolved and executed reflects the architecture's introspective and flexible nature.
 
@@ -124,20 +137,27 @@ This ensures that hooks remain introspectable, context-agnostic, and safe to exe
 
 ### Imperative Registration
 
-Hooks can also be registered manually in the blueprint definition. This approach is useful when you want full control over listener setup, for example, when registering hooks conditionally, injecting them dynamically, or composing from external libraries.
+Hooks can also be registered using the blueprint utilities. This approach is useful when you want full control over listener setup, for example, when registering hooks conditionally, injecting them dynamically, or composing from external libraries.
 
 ```ts
-import { defineBlueprintConfig } from '@stone-js/core'
+import { defineHookListeners } from '@stone-js/core'
 
-const logInit = () => console.log('Init triggered')
-const logTerminate = ({ event }) => {
+export const logInitListener = () => console.log('Init triggered')
+export const logTerminateListener = ({ event }) => {
   console.log(`Event ${event.fingerprint(true)} ended`)
 }
 
-export const mainBlueprint = defineBlueprintConfig((blueprint) => {
-  blueprint.add('stone.lifecycleHooks.onInit', [logInit])
-  blueprint.add('stone.lifecycleHooks.onTerminate', [logTerminate])
+export const appLifecycleHooks = defineHookListeners({
+  onInit: [logInitListener],
+  onTerminate: [logTerminateListener],
 })
+```
+
+You can also register hooks directly on the `blueprint` instance. 
+This approach is useful when you have access to the blueprint during application setup:
+
+```ts
+blueprint.add('stone.lifecycleHooks.onInit', [logInitListener])
 ```
 
 This method attaches the listener directly to the context lifecycle under the `stone.lifecycleHooks.<hookName>` namespace.
@@ -166,7 +186,7 @@ Hooks are passive. They are triggered automatically by the framework at well-def
 - Extend features in a modular way
 - React to success/failure states
 
-Hooks do not mutate the [`IncomingEvent`](../essentials/incoming-event), the [`OutgoingResponse`](../essentials/outgoing-response), or the execution pipeline. They are safe, side-effect-free tools for **observability and diagnostics**.
+Hooks do not mutate the [`IncomingEvent`](../essentials/incoming-event), the [`OutgoingResponse`](../essentials/outgoing-response), or the execution pipeline. They are safe, side-effect-free tools for **observability, diagnostics and feature extension**.
 
 ### Middleware: Participants
 
@@ -210,15 +230,14 @@ In this documentation, we focused specifically on the **Initialization Dimension
 Hooks are registered using:
 
 - `@Hook()` decorators for declarative class-based listeners
-- `defineBlueprintConfig` for flexible, imperative registration
+- `defineHookListener` for flexible, imperative registration
 
 And most importantly:
 
-> Use **hooks** when you want to observe what’s happening.  
-> Use **middleware** when you want to control what happens.
-
-If your code **returns**, **transforms**, or **decides**, it’s middleware.  
-If your code just **records**, **measures**, or **responds after the fact**, it’s a hook.
+- Use **hooks** when you want to observe what’s happening.  
+- Use **middleware** when you want to control what happens.
+- If your code **returns**, **transforms**, or **decides**, it’s middleware.  
+- If your code just **records**, **measures**, or **responds after the fact**, it’s a hook.
 
 To go deeper:
 - Explore [**Setup Hooks**](./blueprint#setup-hooks) to instrument blueprint construction

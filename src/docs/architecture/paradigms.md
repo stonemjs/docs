@@ -25,7 +25,7 @@ import { EventHandler, IncomingEvent } from '@stone-js/core'
 
 @EventHandler()
 export class WelcomeEventHandler {
-  @Get({ path: '/' })
+  @Get('/')
   welcome(event: IncomingEvent): { message: string } {
     const message = `Hello ${event.get<string>('name', 'World')}!`
     return { message }
@@ -45,16 +45,17 @@ You *explicitly define* how to wire up the app, step by step.
 Clarity and control. You compose your app like functions in math: input → transform → output.
 
 **Core idea**  
-Use **functions** like `defineBlueprintConfig`, `defineFactoryEventHandler`, etc., and assemble them into blueprints.
+Use **functions** like `defineRoute`, `defineRoutes`, etc., and assemble them into blueprints.
 
 ```ts
-import { defineBlueprintConfig, defineFactoryEventHandler } from '@stone-js/core'
+import { defineRoute } from '@stone-js/router'
 
-export const App = () => (event: IncomingEvent) => ({ message: "Hello world!" })
+export const welcomeHandler = (event: IncomingEvent): { message: string } => {
+  const message = `Hello ${event.get<string>('name', 'World')}!`
+  return { message }
+}
 
-export const mainBlueprint = defineBlueprintConfig((blueprint) => {
-  blueprint.set('stone.kernel.eventHandler', defineFactoryEventHandler(App))
-})
+export const WelcomeEventHandler = defineRoute(welcomeHandler, { path: '/' })
 ```
 
 Feels like assembling an engine from scratch, but it's clean, testable, and no magic.
@@ -95,5 +96,5 @@ So… which one should you pick?
 Stone.js gives you both power and flexibility, declarative for speed and elegance, imperative for control and composition.
 
 Use the paradigm that fits your brain *and* your context.  
-Stone.js doesn’t force your hand, it extends it. 🤝
+Stone.js doesn’t force your hand, it extends it. 🫱🏾‍🫲🏻
 

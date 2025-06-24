@@ -129,7 +129,7 @@ export default hopeTheme({
     },
 
     seo: {
-      fallBackImage: "/logo.png",
+      fallBackImage: "/logo_square.png",
     },
 
     // uncomment these if you want a pwa
