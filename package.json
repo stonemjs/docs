@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "bulma": "^1.0.4",
-    "lucide-vue-next": "^0.522.0"
+    "lucide-vue-next": "^0.525.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
@@ -29,7 +29,7 @@
     "@vuepress/plugin-docsearch": "2.0.0-rc.108",
     "@vuepress/plugin-prismjs": "2.0.0-rc.108",
     "husky": "^9.1.7",
-    "mermaid": "^11.7.0",
+    "mermaid": "^11.8.0",
     "prismjs": "^1.30.0",
     "sass-embedded": "^1.89.2",
     "vue": "^3.5.17",
